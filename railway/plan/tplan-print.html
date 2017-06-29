@@ -1,0 +1,215 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>打印填料压实质量检测报检单</title>
+    <style>
+        body{
+            background-color:#ddd;
+            font-family: "sans-serif";
+        }
+
+
+        .table th,td {
+            font-size:15px;
+            white-space: nowrap;
+            font-family: "sans-serif";
+            font-weight:normal;
+
+        }
+        .tplan-container{
+            margin:10px auto;
+            width:760px;
+            background-color:#fff;
+        }
+        .tplan-report{
+            width:670px;
+            padding-top:20px;
+            margin-left:45px;
+            height:24.5cm;
+        }
+       .table th{
+            font-weight:normal;
+           height:30px;
+           padding:3px;
+           width:90px;
+        }
+       h4, h5{
+            text-align:center;
+            font-weight:bold;
+        }
+        #printBtn{
+            position:absolute;
+            right:10%;
+            top:50%;
+        }
+        .testNum span{
+            display:block;
+            text-align:center;
+            padding-bottom:10px;
+        }
+        @media print{
+            #printBtn{display:none}
+        }
+
+    </style>
+</head>
+<body>
+<input type="button" value="打印" class="btn btn-success radius size-XL" id="printBtn" onclick="window.print();" />
+<div class="tplan-container">
+    <div class="tplan-report">
+        <div class="row cl">
+            <div class="col-sm-12">
+                <h4>新建武汉至十堰高速铁路填料压实质量检测报检单</h4>
+
+            </div>
+            <div class="col-sm-12 text-c">
+                <h5>检测编号：</h5>
+            </div>
+            <div class="col-sm-12">
+                <table class="table table-border table-bordered">
+                    <tr class="text-c">
+                        <th>工程名称</th>
+                        <td colspan="2"></td>
+                        <th>施工里程</th>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>施工部位</th>
+                        <td></td>
+                        <th>填土层数</th>
+                        <td></td>
+                        <th>填层标高(m)</th>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>填料名称</th>
+                        <td></td>
+                        <th width="2.8cm">填料最大粒径(mm)</th>
+                        <td></td>
+                        <th>填层厚度(cm)</th>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>颗粒密度<br>ρ sm(g/cm<sup>3</sup>)</th>
+                        <td></td>
+                        <th>最大干密度<br> ρ dmax(g/cm<sup>3</sup>) </th>
+                        <td></td>
+                        <th>最优含水率<br> ω dmax(%)</th>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="2">砂的最大干密度 ρ dmax(g/cm<sup>3</sup>)</th>
+                        <td></td>
+                        <th colspan="2">砂的最小干密度 ρ dmin(g/cm<sup>3</sup>)</th>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>压实方式</th>
+                        <td></td>
+                        <th>压实遍数</th>
+                        <td></td>
+                        <th>压实状态描述</th>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>施工日期</th>
+                        <td colspan="2"></td>
+                        <th>报检日期</th>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="6">报检参数及数量</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th>序号</th>
+                        <th colspan="2">报检参数</th>
+                        <th colspan="2">设计标准</th>
+                        <th>报检数量（点）</th>
+                    </tr>
+                    <tr class="text-c">
+                        <td>1</td>
+                        <td colspan="2">压实系数K</td>
+                        <td colspan="2">≥</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td>2</td>
+                        <td colspan="2">孔隙率n(%)</td>
+                        <td colspan="2">≤</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td>3</td>
+                        <td colspan="2">地基系数K30(MPa/m)</td>
+                        <td colspan="2">≤</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td>4</td>
+                        <td colspan="2">相对密度Dr</td>
+                        <td colspan="2">≤</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td>5</td>
+                        <td colspan="2">相对密度Dr</td>
+                        <td colspan="2">≤</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td>6</td>
+                        <td colspan="2">变形模量E<sub>v2</sub>(MPa)</td>
+                        <td colspan="2">≤</td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>施工单位</th>
+                        <td colspan="3"></td>
+                        <th>报检人</th>
+                        <td colspan="1"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>监理单位</th>
+                        <td colspan="3"></td>
+                        <th>监理</th>
+                        <td colspan="1"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th height="120px"  colspan="1"  >备注</th>
+                        <td height="120px" colspan="5" ></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

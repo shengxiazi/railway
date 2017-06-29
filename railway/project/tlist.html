@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <title>填料压实质量</title>
+    <style>
+
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        .table th,td {
+            white-space: nowrap;
+        }
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+
+</head>
+<body class="pos-r">
+<div id="Tproject" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>工程规划<span class="c-gray en">&gt;</span>填料压实质量<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c">
+            所属项目：
+            <span class="select-box inline">
+                <select name="xmId" id="xmId"  class="select">
+
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            工程编码：
+            <input type="text" name="projectCode" id="projectCode"  style="width:250px" class="input-text">
+            &nbsp;&nbsp;
+            <input type="text" name="projectName" id="projectName" placeholder="工程名称" style="width:250px" class="input-text">
+            <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="10" selected = "selected" >10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var pageSize=$("#page-size").val();
+
+    //选择数据
+    function select_item(){
+        var id= $('#sortable_table tbody').find('.selected').attr('data-id');
+        if(id==undefined || id== ''){
+            return false;
+        }
+        return id;
+    }
+
+    $(function(){
+        var  screenWidth = window.screen.width;
+        if(screenWidth<=1366){
+            height='96%';
+            width='80%';
+        }else{
+            height='90%';
+            width='60%';
+        }
+
+      
+        //初始化操作权限
+        $.ajax({
+            url:"/api/v1/TProject/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('Tproject',power,'operation');
+                    sessionStorage.t_xmlist =  JSON.stringify(reg.data.xmlist);
+                    var xmStr = "";
+                    $.each(reg.data.xmlist,function(key1,val1){
+                        xmStr += '<option value="'+val1.value+'">'+val1.name+'</option>'
+                    });
+                    $("#xmId").html(xmStr);
+
+                    //加载数据
+                    var pageIndex=1;
+                    var xmId=$("#xmId option:eq(0)").val();
+                    var  t_xmid = sessionStorage.t_xmid;
+                     var uri;
+                     if(xmId==undefined||xmId==""){
+                     	layer.alert('暂无所属项目！');
+                     	
+                     }else{
+	                     	 if(t_xmid==undefined){
+	                     	 uri='/api/v1/TProject/'+xmId+'/ByXMId/'+pageSize+'/'+pageIndex+'/ListByPage';
+	                     }else{
+	                     	$('#xmId').val(t_xmid);
+	                     	 uri='/api/v1/TProject/'+t_xmid+'/ByXMId/'+pageSize+'/'+pageIndex+'/ListByPage';            	
+	                     }
+	                    	         	
+                     }
+                    
+                    getPage(uri);
+                }
+            }
+        });
+
+        $('#xmId').bind('change',function(){
+          var  xmId=this.value;
+            var projectCode = ($('#projectCode').val()) ? '&projectCode='+$('#projectCode').val() : '';
+            var projectName = ($('#projectName').val()) ? '&projectName='+$('#projectName').val() : '';
+            var uri='/api/v1/TProject/'+xmId+'/ByXMId/'+pageSize+'/1/ListByPage'+projectCode+projectName;
+            getPage(uri);
+        });
+
+
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+            var xmId = $('#xmId').val();
+            var projectCode = ($('#projectCode').val()) ? '&projectCode='+$('#projectCode').val() : '';
+            var projectName = ($('#projectName').val()) ? '&projectName='+$('#projectName').val() : '';
+            var uri='/api/v1/TProject/'+xmId+'/ByXMId/'+pageSize+'/1/ListByPage'+projectCode+projectName;
+            getPage(uri);
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tbody tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tbody tr',function(){
+            var id = $(this).attr('data-id');
+            if(id==undefined || id==""){
+                layer.alert('请选择一条记录！');
+                return;
+            }
+            sessionStorage.projectId=id;
+            modal_open('查看详情','tproject-details.html',width,height);
+        });
+
+        //添加单项工程
+        $("#operation").on("click","#add", function() {
+            var xmId = $('#xmId').val();
+            sessionStorage.t_xmid = xmId;
+            modal_open('添加','tproject-add.html',width,height);
+        });
+
+        //编辑
+        $("#operation").on("click","#edit", function() {
+            var id = select_item();
+             var xmId = $('#xmId').val();
+            sessionStorage.t_xmid = xmId;
+            if(id){
+                sessionStorage.projectId=id;
+                modal_open('编辑','tproject-edit.html',width,height);
+            }else{
+                layer.alert('请选择一条数据！');
+            }
+        });
+
+        //查看
+        $("#operation").on("click","#view", function(){
+            var id = select_item();
+            if(id){
+                sessionStorage.projectId=id;
+                modal_open('查看详情','tproject-details.html',width,height);
+            }else{
+                layer.alert('请选择一条数据！');
+            }
+        });
+
+
+        //删除
+        $("#operation").on("click","#del", function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: '/api/v1/TProject/'+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $('#sortable_table').find('.selected').remove();
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+
+    function modal_open(title,url,w,h){
+        layer.open({
+            type: 2,
+            title:title,
+            shadeClose: false,
+            shade:0.6,
+            area: [w, h],
+            content:url
+        });
+    }
+
+    //搜索
+    function search(){
+        var xmId = $('#xmId').val();
+        var projectCode = $('#projectCode').val();
+        var projectName = ($('#projectName').val()) ? '&projectName='+$('#projectName').val() : '';
+        var uri='/api/v1/TProject/'+xmId+'/ByXMId/'+pageSize+'/1/ListByPage?projectCode='+projectCode+projectName;
+        getPage(uri);
+    }
+
+    //分页函数
+    function getPage(uri){
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="80">工程编码</th>';
+        tableInfo+='<th width="50">工程名称</th>';
+        tableInfo+='<th width="50">起讫里程(m)</th>';
+        tableInfo+='<th width="100">工程长度(m)</th>';
+        tableInfo+='<th width="50">压实系数<br>K数量</th>';
+        tableInfo+='<th width="50">地基系数<br>K30数量</th>';
+        tableInfo+='<th width="70">相对密度<br>Dr数量</th>';
+        tableInfo+='<th width="70">变形模量<br>Ev2数量</th>';
+        tableInfo+='<th width="70">动态变形模<br>量Evd数量</th>';
+        tableInfo+='<th width="70">孔隙率<br>n数量</th>';
+        tableInfo+='<th width="70">施工标</th>';
+        tableInfo+='<th width="70">检测标</th>';
+        tableInfo+='<th width="70">监理标</th>';
+        tableInfo+='<th width="70">图纸编号</th>';
+        tableInfo+='<th width="70">备注</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) *pageSize+1;
+
+                    //结束数
+                    var PageEnd =pageIndex*pageSize;
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    //拼接数据
+                    if (data.length!=0){
+                        $.each(data,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.projectId+'">';
+                            tableInfo+='<td>'+value.projectCode+'</td>';
+                            tableInfo+='<td>'+value.projectName+'</td>';
+                            tableInfo+='<td>'+value.qqlc+'</td>';
+                            tableInfo+='<td>'+value.length+'</td>';
+                            tableInfo+='<td>'+value.ys+'</td>';
+                            tableInfo+='<td>'+value.ks+'</td>';
+                            tableInfo+='<td>'+value.xm+'</td>';
+                            tableInfo+='<td>'+value.ev+'</td>';
+                            tableInfo+='<td>'+value.ed+'</td>';
+                            tableInfo+='<td>'+value.kx+'</td>';
+                            tableInfo+='<td>'+value.sgb+'</td>';
+                            tableInfo+='<td>'+value.jcb+'</td>';
+                            tableInfo+='<td>'+value.jlb+'</td>';
+                            tableInfo+='<td>'+value.drawNo+'</td>';
+                            tableInfo+='<td>'+value.remark+'</td>';
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if(pervPage==0){
+                            tablePage+='<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        }else{
+                            tablePage+='<a class="paginate_button previous disabled"  data-href="'+prevPageUri+'" id="Table_previous">上一页</a>';
+                        }
+                        if(nextPage==0){
+                            tablePage+='<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        }else{
+                            tablePage+='<a class="paginate_button next disabled"  data-href="'+nextPageUri+'"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

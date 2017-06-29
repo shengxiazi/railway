@@ -1,0 +1,452 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/ks-style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>灌砂法测定填料压实密度试验记录</title>
+    <style>
+
+        .content{
+            width:95%;
+            border-bottom:1px solid #9DA0A4;
+            position:absolute;bottom:10px;
+            line-height:1.5;
+            font-size:13px;
+        }
+        .oneTable th{width:70px; font-weight: bold ;height:30px;}
+        .oneTable td{position:relative;}
+        .table td{
+            padding:2px;
+            font-size:14px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <div id="tab-system" class="HuiTab" style="margin:0 10px">
+    <div class="tabBar cl"><span>数据详情</span><span>操作日志</span></div>
+    <div class="tabCon">
+    <div class="container" style="padding-bottom:30px">
+        <div class="row cl">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div>
+                    <h4 style="font-weight: bolder">灌砂法测定填料压实密度试验记录</h4>
+                    <div style="margin-left:80%">
+                        <div style="margin-bottom:8px;">
+                            <label style="font-size:14px">数据状态：</label>
+                            <div style="display:inline" id="flowFlag"></div>
+                        </div>
+                        <div>
+                            <label style="font-size:14px">数据有效性：</label>
+                            <div style="display:inline" id="IsValid"></div>
+                        </div>
+                    </div>
+                </div>
+                <table class="oneTable">
+                    <tr class="text-c">
+                        <th>工程名称：</th>
+                        <td colspan="5"><div class="content" id="ProjectName"></div></td>
+                    </tr>
+                    <tr>
+                        <th>委托单位：</th>
+                        <td colspan="3"><div class="content" id="sgXmComName"></div></td>
+                        <th>委托编号：</th>
+                        <td><div class="content" id="PlanCode"></div></td>
+                    </tr>
+                    <tr>
+                        <th>施工里程：</th>
+                        <td colspan="3"><div class="content" id="sgMileage"></div></td>
+                        <th>压实方式：</th>
+                        <td><div class="content" id="compactionMode"></div></td>
+                    </tr>
+                    <tr>
+                        <th>记录编号：</th>
+                        <td><div class="content" id="TestCode"></div></td>
+                        <th>填料名称：</th>
+                        <td><div class="content" id="FillingStyle"></div></td>
+                        <th>试验日期：</th>
+                        <td><div class="content" id="StartTime"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row cl mt-5">
+            <div class="col-sm-10 col-sm-offset-1">
+                <table  class="table table-bordered table-border" style="border-bottom:0">
+                    <tr class="text-c">
+                        <th rowspan="6" width="80px">仪器设备<br>及设备环境条件</th>
+                        <th height="30px">仪器设备名称</th>
+                        <th>型号</th>
+                        <th>管理编号</th>
+                        <th>市值范围</th>
+                        <th>分辨力</th>
+                        <th>温度℃</th>
+                        <th>相对湿度（%）</th>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="15px"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td rowspan="5" id="Temperature"></td>
+                        <td rowspan="5" id="Humidity"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="15px"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="15px"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="15px"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="15px"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>填料压实状态描述</th>
+                        <td id="compactionDescription"></td>
+                        <th>采用标准</th>
+                        <td colspan="5" id="TestStandard"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th height="30px" colspan="2">填层厚度h&nbsp;&nbsp;<span class="text" id="FillingThickness"></span>&nbsp;cm</th>
+                        <th  colspan="2">检测标高H &nbsp;&nbsp;<span class="text" id="TestHeight">  </span>&nbsp;m</th>
+                        <th  colspan="2">荷载板半径&nbsp;&nbsp;<span class="text" id="Bearing">  </span>&nbsp;mm</th>
+                        <th  colspan="2">含水率ω&nbsp;&nbsp;<span class="text" id="Wopt"></span>&nbsp;%</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-sm-10 col-sm-offset-1">
+                <table class="table table-bordered table-border" style="border-top:0">
+                    <tr class="text-c">
+                        <th>测点编号</th>
+                        <th>测点部位</th>
+                        <th>冲击顺序</th>
+                        <th>沉陷值S<sub>i</sub>(mm)</th>
+                        <th>平均沉陷值S（mm）</th>
+                        <th>动态变形模量<br>E<sub>vd</sub>=22.5/S(MPa)</th>
+                    </tr>
+                    <tr class="text-c">
+                        <td rowspan="3">1</td>
+                        <td rowspan="3" id="PointMileage"></td>
+                        <td height="10px">1</td>
+                        <td id="S1"></td>
+                        <td rowspan="3" id="SAverage"></td>
+                        <td rowspan="3" id="EvdReal"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="10px">2</td>
+                        <td id="S2"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td height="10px">3</td>
+                        <td id="S3"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <td colspan="6" style="height:20px"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="6">附注：<p></p></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row cl mt-15">
+            <div class="col-sm-5 col-sm-offset-1">
+                <span>试验：</span>
+                <div style="display:inline;width:60%" id="TestName"></div>
+            </div>
+            <div class="col-sm-5">
+                <span>复核：</span>
+                <div style="display:inline;width:60%" id="ReviewName"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="tabCon">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    </div>
+    <div data-options="region:'south'" id="power" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px">
+        <button class="btn btn-success radius size-S" type="button" id="edit" style="display:none"><i class="Hui-iconfont">&#xe632;</i>编辑</button>
+        <button class="btn btn-primary radius  size-S"  type="button" id="review" style="display:none"><i class="Hui-iconfont">&#xe6e1;</i>复核</button>
+        <button class="btn btn-secondary radius  size-S"  type="button" id="data-valid"><i class="Hui-iconfont">&#xe692;</i>数据有效性</button>
+    </div>
+</div>
+<!--数据有效，无效-->
+<article class="page-container" id="k30-valid" style="display:none">
+    <form class="form form-horizontal" id="form-k30-valid" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据操作：</label>
+            <div class="formControls col-xs-8 col-sm-8 skin-minimal">
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="invalid" value="0" >
+                    <label for="invalid">无效</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="valid" value="1" name="isValid" checked>
+                    <label for="no">有效</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="valid-message"  cols="" rows="" class="textarea" required></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<!--数据复核-->
+<article class="page-container" id="k30-review" style="display:none">
+    <form class="form form-horizontal" id="form-k30-review" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核操作：</label>
+            <div class="formControls col-xs-8 col-sm-8 skin-minimal">
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">复核驳回</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+    $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+    var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.BasicInfoId;
+    var edPower = JSON.parse(sessionStorage.edPower);
+    var review_satus;
+    var data_valid;
+    $(function(){
+        var  screenWidth = window.screen.width;
+        if(screenWidth<=1366){
+            height='96%';
+            width='92%';
+        }else{
+            height='88%';
+            width='75%';
+        }
+
+        $.ajax({
+            url: "/api/v1/EdData/" + projectId+'/'+id,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function (reg) {
+                if (reg.code == 0) {
+                    $.each(reg.data,function(n,v){
+                        if(v!=null){
+                            $('#'+n).text(v);
+
+                            if(n=='IsValid'){
+                                data_valid =v;
+                                if(v==1){
+                                    $('#IsValid').html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">有效</span>');
+                                }else if(v==0){
+                                    $('#IsValid').html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">无效</span>');
+                                }
+                            }
+                            if(n=='flowFlag'){
+                                review_satus =v;
+                                if(v==1){
+                                    $('#flowFlag').html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">待复核</span>');
+                                    if($.inArray("REVIEW",edPower)!=-1 && data_valid!=0){
+                                        $('#review').show();
+                                    }
+                                }else if(v==2){
+                                    $('#flowFlag').html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">复核驳回</span>');
+                                }else if(v==3){
+                                    $('#flowFlag').html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">复核通过</span>');
+                                }else if(v==9){
+                                    $('#data-valid').hide();
+                                    $('#flowFlag').html('<span class="label label-primary radius" style="font-size:14px;letter-spacing:2px">已出报告</span>');
+                                }
+                            }
+                        }
+                    });
+                }else {
+                    layer.msg(reg.message, {icon: 6, time: 2000});
+                }
+            },
+            error: function () {
+                layer.msg('服务器异常！', {icon: 6, time: 2000})
+            }
+        });
+        //编辑权限
+        if($.inArray("EDIT",edPower)!=-1){
+            $('#edit').show();
+        }
+
+        //编辑
+        $(document).on('click','#edit',function(){
+            parent.layer.open({
+                type: 2,
+                title:'编辑',
+                shade:0.4,
+                area: ['1074px',height],
+                content:'evd-edit.html'
+            });
+            layer_close();
+        });
+
+        //复核
+        $(document).on('click','#review',function(){
+            var index=layer.open({
+                type: 1,
+                title:'复核',
+                content: $('#k30-review'), //这里content是一个DOM
+                area:['500px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var flowFlag = $('input[name=flowFlag]:checked').val();
+                    $.ajax({
+                        url: '/api/v1/EdData/'+projectId+'/'+id+'/Review',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PATCH",
+                        data:{'flowFlag':flowFlag,'message':$("#message").val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                if(flowFlag==2){
+                                    $('#flowFlag').html('<span class="label label-danger radius">复核驳回</span>');
+                                }else if(flowFlag==3){
+                                    $('#flowFlag').html('<span class="label label-success radius">复核通过</span>');
+                                }
+                                $('#review').hide();
+                                layer.msg('操作成功!',{icon:1,time:2000},function(){
+                                    layer.close(index);
+                                });
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+
+                }
+            });
+        });
+
+
+        //数据有效性判定
+        $(document).on('click','#data-valid',function(){
+            var index=layer.open({
+                type: 1,
+                title:'数据有效性判定',
+                content: $('#k30-valid'), //这里content是一个DOM
+                area:['500px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var isValid = $('input[name=isValid]:checked').val();
+                    $.ajax({
+                        url: '/api/v1/EdData/'+projectId+'/'+id+'/IsValid',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PATCH",
+                        data:{'isValid':isValid,'message':$("#valid-message").val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                if(isValid==0){
+                                    $('#IsValid').html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">无效</span>');
+                                    $('#review').hide();
+                                }else if(isValid==1){
+                                    $('#IsValid').html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">有效</span>');
+                                    if($.inArray("REVIEW",edPower)&& review_satus==1){
+                                        $('#review').show();
+                                    }
+                                }
+                                layer.msg('操作成功!',{icon:1,time:2000},function(){
+                                    layer.close(index);
+                                });
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+
+                }
+            });
+        });
+
+
+        //操作日志
+        var url= '/api/v1/EdData/'+projectId+'/'+id+'/OperationLog';
+        opertionLog(url);
+    });
+
+</script>
+</body>
+</html>

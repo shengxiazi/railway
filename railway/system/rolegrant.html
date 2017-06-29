@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" href="../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>角色授权</title>
+    <style>
+        .sidebar{
+            width:375px;
+            height:100%;
+            position:fixed;
+            overflow-y:auto;
+            float:left;
+        }
+
+        h5{
+            position:relative;
+            background-color: #ddd;
+            padding:10px;
+            margin:0;
+            border-top-left-radius:8px;
+            border-top-right-radius:8px;
+        }
+        .left{
+            float:left;
+            width: 170px;
+            background-color:#f9f9f9;
+            height:100%;
+            text-align:center;
+            border-right:1px solid #ccc;
+
+        }
+        .left a{
+            text-decoration: none;
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        .left a:hover{
+            color:#00B83F;
+        }
+        .right{
+            float:left;
+           min-width:200px;
+            background-color:#f9f9f9;
+            height:100%;
+            text-align:center;
+            border-right:1px solid #ccc;
+        }
+        .content{
+            margin-left:370px;
+            border:1px solid #ccc;
+            height:100%;
+        }
+
+        .clearfloat:after{
+            display:block;
+            clear:both;
+            content:"";
+            visibility:hidden;
+            height:0
+        }
+        .active{
+            color:red;
+        }
+
+    </style>
+</head>
+<body>
+<div id="roleGrant" style="display:block">
+    <div class="wrap clearfloat">
+        <div class="sidebar clearfloat">
+            <div class="left">
+                <h5>角色</h5>
+                <ul id="roleList">
+
+                </ul>
+            </div>
+            <div class="right">
+                <h5>系统模块</h5>
+                <ul id="tree" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="content">
+            <form class="form form-horizontal" id="role-grant-form">
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+                        <input type="text" class="input-text" placeholder=""  id="roleName" name="roleName">
+                        <input type="hidden"  placeholder="" value=" " id="roleId" name="roleId">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>模块名称：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+                        <input type="text" class="input-text" placeholder=""  id="moduleName" name="moduleName">
+                        <input type="hidden"  placeholder="" value=" " id="moduleId" name="moduleId">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3">模块权限列表：</label>
+                    <div class="formControls col-xs-8 col-sm-9" id="operation-list">
+                    </div>
+                </div>
+                <div class="row cl mt-30">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-6 col-sm-offset-4">
+                        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                        <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </form>
+            <div class="mt-30" id="log" style="display:none">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+                    <tr class="text-c" style="background-color:#f9f9f9">
+                        <th colspan="5">操作日志</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th width="70">操作详情</th>
+                        <th width="200">操作内容</th>
+                        <th width="100">操作人</th>
+                        <th width="50">操作时间</th>
+                        <th width="50">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="logInfo">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var zTreeObj;
+    var treeNodes;
+    var authority;
+    var roleInfo;
+    var moduletags;
+    var roleId;
+    var mId;
+    setting = {
+        view: {
+            selectedMulti: false
+        },
+        data:{
+            key:{
+                name:"name"
+            },
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId:null
+            }
+        },
+        callback:{
+            beforeClick:function(treeId, treeNode) {
+                if(treeNode.isParent){
+                    return false;  //设置父节点不触发点击事件
+                }
+            },
+            onClick: zTreeOnClick,
+            beforeExpand:beforeExpand
+        }
+    };
+    $(function(){
+        //初始化操作
+        $.ajax({
+            url: "/api/v1/RoleGrant/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if (reg.code == 0) {
+                    opertion('roleGrant', reg.data.action, 'operation');
+                    treeNodes = reg.data.modules;
+                    authority =reg.data.authority;
+                    roleInfo = reg.data.roles;
+                    moduletags = reg.data.moduletags;
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+        });
+
+        //角色分组树
+        zTreeObj = $.fn.zTree.init($("#tree"), setting, treeNodes);
+        //初始化权限列表
+        var list='';
+        $.each(authority,function(n,val){
+            list+='<div class="check-box">';
+            list+='<input type="checkbox" id="'+val.tag+'" name="authorityTag" style="background-color:#000" value="'+val.tag+'" disabled>';
+            list+='<label for="checkbox-1">'+val.name+'</label>';
+            list+='</div>';
+        });
+        $('#operation-list').html(list);
+
+        //初始化角色信息
+        var roleStr="";
+
+        $.each(roleInfo,function(key,val){
+            roleStr+='<li><a href="javascript:;" data-id="'+val.id+'">'+val.name+'</a></li>';
+        });
+        $("#roleList").html(roleStr);
+
+        //选择角色
+        $('#roleList').on('click','a',function(){
+            roleId = $(this).attr('data-id');
+            var roleName=$(this).text();
+            $('#roleName').val(roleName);
+            $('#roleId').val(roleId);
+            $('#log').show();
+
+            role_auth(mId,roleId);
+
+            //操作日志
+            url= '/api/v1/RoleGrant/'+roleId+'/OperationLog';
+            opertionLog(url);
+        });
+
+        //选中角色类型效果
+        $('#roleList').on('click','li',function(){
+            $(this).children('a').addClass('active');
+            $(this).siblings().children('a').removeClass('active');
+        });
+
+    });
+
+    //点击节点函数
+    function zTreeOnClick(event, treeId, treeNode){
+
+        if(roleId==undefined ||roleId==''){
+            layer.msg('请先选择角色类型');
+            return false;
+        }
+        $('#moduleName').val(treeNode.name);
+        $('#moduleId').val(treeNode.id);
+        //模块id
+        mId = treeNode.id.toLowerCase();
+
+        //根据选择的模块id去查找该拥有的权限
+        var pList =new Array();
+        $.each(moduletags, function (n,val) {
+            if(mId==val.moduleId){
+                pList.push(this.authorityTag);
+            }
+        });
+        //设置模块拥有的权限可选
+        $("[name = authorityTag]:checkbox").each(function (){
+            $(this).removeAttr('checked');
+            if($.inArray(this.value,pList)!=-1){
+                $(this).removeAttr('disabled');
+            }else{
+                $(this).attr('disabled', 'disabled');
+            }
+        });
+        role_auth(mId,roleId)
+    }
+
+    function beforeExpand(treeId, treeNode) {
+        singlePath(treeNode);
+    }
+
+    function singlePath(currNode) {
+        var cLevel = currNode.level;
+        var cId = currNode.id;
+
+        //此对象可以保存起来，没有必要每次查找
+        var treeObj = $.fn.zTree.getZTreeObj("tree");
+        //展开的所有节点，这是从父节点开始查找（也可以全文查找）
+        var expandedNodes = treeObj.getNodesByParam("open", true, currNode.getParentNode());
+
+        for(var i = expandedNodes.length - 1; i >= 0; i--){
+            var node = expandedNodes[i];
+            var level = node.level;
+            var id = node.id;
+            if (cId != id && level == cLevel) {
+                treeObj.expandNode(node, false);
+            }
+        }
+    }
+
+    //表单验证
+    $("#role-grant-form").validate({
+        debug:true,
+        rules:{
+            roleName:{
+                required:true
+            },
+            moduleName:{
+                required:true
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            save_submit();
+        }
+    });
+
+    function role_auth(mId,roleId){
+        $.ajax({
+            url:'/api/v1/Role/'+roleId,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    $.each(reg.data.moduleAuthorityTag, function (n,val) {
+                        if(mId==val.moduleId){
+                            $("[name = authorityTag]:checkbox").each(function () {
+                                if($.inArray(this.value,val.authorityTag)!=-1){
+                                    $(this).prop('checked',true);
+                                }else{
+                                    $(this).prop('checked',false);
+                                }
+                            });
+                        }
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:1,time:2000});
+                }
+            },
+            error:function(){
+                //请求失败处理函数
+                layer.msg('请求异常！',{icon:5,time:2000});
+            }
+        });
+
+    }
+
+
+
+    function save_submit(){
+        //获取表单数据
+        var data = new Object();
+        data['moduleId']= $('#moduleId').val();
+        var result = new Array();
+        $("[name = authorityTag]:checkbox").each(function () {
+            if ($(this).is(":checked")) {
+                result.push($(this).attr("value"));
+            }
+        });
+        data['authorityTag'] = result.join(",");
+        $.ajax({
+            url:'/api/v1/RoleGrant/'+roleId,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "POST",
+            data:data,
+            success: function(reg) {
+                if(reg.code==0){
+                    layer.msg('操作成功!',{icon:1,time:2000});
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

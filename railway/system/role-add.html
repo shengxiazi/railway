@@ -1,0 +1,151 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>添加角色</title>
+   </head>
+<body>
+<article class="page-container" id="unit-add">
+    <form class="form form-horizontal" id="form-role-add" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色分类：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+            <span class="select-box" style="width:150px;">
+                <select class="select" name="roleGroupId" id="roleGroupId" size="1">
+
+                </select>
+            </span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>排序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="roleOrder" name="roleOrder">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="roleDescription"  id="roleDescription"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+   var groups = JSON.parse(localStorage.groups);
+    $(function(){
+        $("#form-role-add").validate({
+            debug:true,
+            rules:{
+                roleGroupId:{
+                    required:true
+                },
+                roleName:{
+                    required:true
+                },
+                roleDescription:{
+                    required:true
+                },
+
+                roleOrder:{
+                    required:true,
+                    digits:true
+                }
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+
+        var str="<option>--请选择--</option>";
+        //初始化角色分组
+        $.each(groups,function(key,val){
+            str += '<option value="'+val.value+'">'+val.name+'</option>'
+        });
+        $("#roleGroupId").html(str);
+    });
+
+
+    function save_submit(){
+
+        var data = new Object();
+
+        $("#form-role-add *[name]").each(function(item){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['roleDescription']=$('#roleDescription').val();
+
+        $.ajax({
+            url: "/api/v1/Role",    //请求的url地址
+            dataType: "json",
+            async: true,
+            data:data,
+            type: "POST",
+            success: function(reg) {
+                if(reg.code==0){
+                    layer.msg(reg.message,{icon:1,time:2000});
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>灌砂法测定填料压实密度试验记录</title>
+    <style>
+        body{
+            background-color:#ddd;
+        }
+        .table th{
+            font-weight:bold;
+        }
+
+        .table td{
+            font-family: "sans-serif";
+            font-weight:normal;
+        }
+        .table th, .table td {
+            padding: 2px;
+            word-break: break-all;
+        }
+
+        .input-none{
+            border:none;
+            width:100%;
+            text-align:center;
+            color:#8b211e;
+        }
+
+        h4{
+            text-align: center;
+            font-weight:bold;
+        }
+        .content{
+            width:95%;
+            border-bottom:1px solid #ddd;
+            position:absolute;bottom:3px;
+            line-height:1;
+        }
+        #oneTable th{width:60px;}
+        #oneTable td{position:relative}
+    </style>
+</head>
+<body>
+
+<div class="container" style="background-color:#fff;">
+    <div class="row cl">
+        <div class="col-sm-10 mb-10 col-sm-offset-1">
+            <table id="oneTable" >
+                <tr class="text-c">
+                    <th colspan="4" style="border-bottom:0; font-weight:bold"><h4 id="xmName">动态变形模量E<sub>vd</sub>试验记录</h4></th>
+                </tr>
+                <tr>
+                    <th>委托单位：</th>
+                    <td><div class="content"><input type="text" name="" class="input-none"/></div></td>
+                    <th>委托编号：</th>
+                    <td><div class="content"><input type="text" name="PlanCode" class="input-none"/></div></td>
+                </tr>
+                <tr>
+                    <th>工程名称：</th>
+                    <td><div class="content"><input type="text" name=""  class="input-none"/></div></td>
+                    <th>记录编号：</th>
+                    <td><div class="content"><input type="text" name="TestCode" class="input-none"/></div></td>
+                </tr>
+                <tr>
+                    <th>施工里程：</th>
+                    <td><div class="content"><input type="text" class="input-none"/></div></td>
+                    <th>压实方式：</th>
+                    <td><div class="content"><input type="text" class="input-none"/></div></td>
+                </tr>
+                <tr>
+                    <th>填料名称：</th>
+                    <td><div class="content"><input type="text" class="input-none"/></div></td>
+                    <th>试验日期：</th>
+                    <td><div class="content"><input type="text" class="input-none"/></div></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table id="secondTable" class="table table-border table-bordered">
+                <tr class="text-c" style="background-color:#f9f9f9">
+                    <th rowspan="6" width="60px">仪器设备<br>及设备环境条件</th>
+                    <th width="10%">仪器设备名称</th>
+                    <th width="15%">型号</th>
+                    <th width="20%">管理编号</th>
+                    <th width="15%">市值范围</th>
+                    <th width="15%">分辨力</th>
+                    <th width="10%">温度℃</th>
+                    <th>相对湿度（%）</th>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none" value="equipTypeName"/></td>
+                    <td><input type="text" class="input-none" name="equipSpec"/></td>
+                    <td><input type="text" class="input-none" name="equipNo"/></td>
+                    <td><input type="text" class="input-none" name="equipRange"/></td>
+                    <td><input type="text" class="input-none" name="equipResolution"/></td>
+                    <td rowspan="5"><input type="text" class="input-none" name="Temperature"/></td>
+                    <td rowspan="5"><input type="text" class="input-none" name="Humidity"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td >填料压实状态描述</td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td>采用标准</td>
+                    <td colspan="5"><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td colspan="2">填层厚度h<span><input type="text" class="input-none" style="width:50%"/>  cm</span></td>
+                    <td  colspan="2">检测标高H<span><input type="text" class="input-none" style="width:50%"/>  m</span></td>
+                    <td  colspan="2">荷载板半径<span>  <input type="text" class="input-none" style="width:20%"/> mm</span></td>
+                    <td  colspan="2">含水率ω<span>  <input type="text" class="input-none" style="width:20%"/>  %</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-border table-bordered" style="border-top:0;">
+                <tr class="text-c" style="background-color:#f9f9f9">
+                    <th>测点编号</th>
+                    <th>测点部位</th>
+                    <th>冲击顺序</th>
+                    <th>沉陷值S<sub>i</sub>(mm)</th>
+                    <th>平均沉陷值S（mm）</th>
+                    <th>动态变形模量<br>E<sub>vd</sub>=22.5/S(MPa)</th>
+                </tr>
+                <tr class="text-c">
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                    <td rowspan="3"><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td><input type="text" class="input-none"/></td>
+                    <td><input type="text" class="input-none"/></td>
+                </tr>
+                <tr class="text-c">
+                    <td colspan="6" style="height:260px"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">附注<input type="text" class="input-none"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row cl mt-5">
+        <div class="col-sm-5 col-sm-offset-1">
+            <span>试验：</span>
+            <div class="content" style="display:inline;width:60% "><input type="text" class="input-none"/></div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <span>复核：</span>
+            <div class="content" style="display:inline;width:60%"><input type="text" class="input-none"/></div>
+        </div>
+    </div>
+    <div class="row cl mt-30 mb-20">
+        <div class="col-xs-8 col-sm-6 col-xs-offset-4 col-sm-offset-5">
+
+            <button class="btn btn-primary radius" onclick="save_submit()" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+</body>
+</html>

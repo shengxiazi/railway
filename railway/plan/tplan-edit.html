@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/table.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+
+    <![endif]-->
+    <title>填料压实质量检测报检单</title>
+    <style>
+        .table th{width:120px; line-height:20px;}
+        .panel-body {
+            border: none;
+            background-color: #f8f8f8;
+        }
+    </style>
+
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <div class="container">
+            <div class="row cl">
+        <div class="col-sm-12">
+            <form class="form form-horizontal" id="form-tplan-edit">
+                <table class="table table-border table-bordered radius">
+                    <tr class="text-c">
+                        <td colspan="6"><h4>填料压实质量检测报检单</h4></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th class="text-c"><span class="c-red">*</span>委托编号</th>
+                        <td colspan="3"><input type="text" class="input-none" name="planCode"/></td>
+                        <th><span class="c-red">*</span>报检单类型</th>
+                        <td>
+                            <select class="select" style="height:100%;border:0;" name="testWay" id="testWay">
+                                <option value="1">初测</option>
+                                <option value="2">复测</option>
+                                <option value="3">加测</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="1"><span class="c-red">*</span>施工起始里程</th>
+                        <td colspan="1" width="180px"><input type="text" class="input-none" name="startMileage"/></td>
+                        <th  colspan="1"><span class="c-red">*</span>施工截止里程</th>
+                        <td><input type="text" class="input-none" name="endMileage"/></td>
+                        <th><span class="c-red">*</span>施工部位</th>
+                        <td><input type="text" name="position" class="input-none"/></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th><span class="c-red">*</span>当前填土层数</th>
+                        <td><input type="text" name="layer" class="input-none"/></td>
+                        <th><span class="c-red">*</span>总层数</th>
+                        <td><input type="text" name="totalLayer" class="input-none"/></td>
+                        <th><span class="c-red">*</span>填层标高(m)</th>
+                        <td><input type="text" name="testHeight" class="input-none"/></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th><span class="c-red">*</span>填料名称</th>
+                        <td colspan="1"><input type="text" name="fillingStyle" class="input-none"/></td>
+                        <th colspan="1"><span class="c-red">*</span>填料最大粒径(mm)</th>
+                        <td><input type="text" name="fillingDiameter" class="input-none"/></td>
+                        <th><span class="c-red">*</span>填层厚度(cm)</th>
+                        <td><input type="text" name="fillingThickness" class="input-none"/></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>颗粒密度ρsm(g/cm<sup>3</sup>)</th>
+                        <td colspan="1"><input type="text" name="particleDensity" class="input-none"/></td>
+                        <th colspan="1">最大干密度ρ dmax(g/cm<sup>3</sup>)</th>
+                        <td><input type="text" name="dryDensity" class="input-none"/></td>
+                        <th>最优含水率 ω dmax(%)</th>
+                        <td><input type="text" name="waterContent" class="input-none"/></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th><span class="c-red">*</span>压实方式</th>
+                        <td colspan="1"><input type="text" name="compactionMode" class="input-none"/></td>
+                        <th><span class="c-red">*</span>压实遍数</th>
+                        <td><input type="text" name="compactionNum" class="input-none"/></td>
+                        <th colspan="1"><span class="c-red">*</span>压实状态描述</th>
+                        <td><input type="text" name="compactionDescription" class="input-none"/></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>砂的最大干密度ρ dmax(g/cm<sup>3</sup>)</th>
+                        <td colspan="2"><input type="text" name="sMaxDryDensity" class="input-none"/></td>
+                        <th>砂的最小干密度ρ dmin(g/cm<sup>3</sup>)</th>
+                        <td colspan="2"><input type="text" name="sMinDryDensity" class="input-none"/></td>
+                    </tr>
+                    <tr >
+                        <th class="text-c"><span class="c-red">*</span>施工日期</th>
+                        <td colspan="2">
+                            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',onpicked:pickedFunc})" type="text" class="input-none Wdate" name="constructionDate">
+                        </td>
+                        <th class="text-c"><span class="c-red">*</span>报检日期</th>
+                        <td colspan="2">
+                            <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  type="text" class="input-none Wdate" name="createDate" id="createDate">
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="6">报检参数及数量</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th>序号</th>
+                        <th colspan="2">报检参数</th>
+                        <th colspan="2"><span class="c-red">*</span>设计标准</th>
+                        <th colspan="1"><span class="c-red">*</span>报检数量(点)</th>
+                    </tr>
+                    <tr class="text-c" id="addTestQuota">
+                        <td colspan="6">
+                            <label class="form-label col-xs-4 col-sm-2">备注：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <textarea name="planRemark"  id="planRemark"  cols="" rows="" class="textarea"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+        </div>
+    </div>
+    <div data-options="region:'south'" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+        <button class="btn btn-primary size-S radius" onClick="save_submit();"><i class="Hui-iconfont">&#xe632;</i> 保存退出</button>
+        <button onClick="layer_close();" class="btn btn-default size-S radius" value="add">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+
+    var testNum;
+    var projectId = sessionStorage.pro_id;
+    var xm_id = sessionStorage.type;
+    var id = sessionStorage.planId;
+    var data = new Object();
+    var submited = false;
+    $("#form-tplan-edit").validate({
+        debug:true,
+        rules: {
+            planCode: {
+                required: true
+            },
+            startMileage: {
+                required: true
+            },
+            endMileage: {
+                required: true
+            },
+            position: {
+                required: true
+            },
+            layer: {
+                required: true
+            },
+            totalLayer: {
+                required: true
+            },
+            testHeight: {
+                required: true
+            },
+            fillingStyle: {
+                required: true
+            },
+            fillingDiameter: {
+                required: true
+            },
+            compactionMode: {
+                required: true
+            },
+            compactionNum: {
+                required: true
+            },
+            compactionDescription: {
+                required: true
+            },
+            constructionDate: {
+                required: true
+            },
+            testNumber: {
+                required: true
+            },
+            sMaxDryDensity:{
+                rangelength:[0,10]
+            },
+            sMinDryDensity:{
+                rangelength:[0,10]
+            },
+            particleDensity:{
+                rangelength:[0,10]
+            },
+            dryDensity:{
+                rangelength:[0,10]
+            },
+            waterContent:{
+                rangelength:[0,10]
+            }
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+            save_submit();
+        }
+    });
+
+    //时间选择
+    function pickedFunc() {
+        var date = $dp.cal.getNewDateStr();
+       $dp.$('createDate').value= date ;
+    }
+
+    $(function(){
+        //获取数据
+        $.ajax({
+            url: '/api/v1/TPlan/'+projectId+'/'+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg){
+                testNum = reg.data.testQuota.length;
+                $.each(reg.data.testQuota,function(key,val){
+                    var str="";
+                    str+='<tr class="text-c">';
+                    str+='<th><input type="text" value="'+key+'" class="input-none" disabled/></th>';
+                    str+='<td colspan="2">';
+                    str+='<label class="form-label col-sm-8">'+val.testQuotaName+'</label>';
+                    str+='<div class="col-sm-4"><input type="hidden" name="testQuotaCode'+key+'" value="'+val.testQuotaCode+'"/><input type="hidden" name="testModeCode'+key+'" value="'+val.testModeCode+'"/></div>';
+                    str+='</td>';
+                    str+='<td colspan="2"><strong style="font-size:16px">≥</strong><input type="text" name="design'+key+'" class="input-none" style="width:50%" value="'+val.design+'" required/></td>';
+                    str+='<td colspan="1"><input type="text" name="testNumber'+key+'" class="input-none" value="'+val.testNumber+'" required/></td>';
+                    str+='</tr>';
+                    $('#addTestQuota').before(str);
+                });
+
+                $.each(reg.data,function(k,v){
+                    $('input[name="'+k+'"]').val(v);
+                    if(k=='planRemark'){
+                        $('#planRemark').val(v);
+                    }
+                    if(k=='testWay'){
+                        $('#testWay').val(v);
+                    }
+                });
+            }
+        });
+    });
+
+
+
+
+
+    function getData() {
+        $("#form-tplan-edit *[name]").each(function (item) {
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['testQuota'] = [];
+        for(var i=0;i<parseInt(testNum);i++){
+            var testQuotaCode = $('input[name="testQuotaCode'+i+'"]').val();
+            var testModeCode =  $('input[name="testModeCode'+i+'"]').val();
+            var design = $('input[name="design'+i+'"]').val();
+            var testNumber= $('input[name="testNumber'+i+'"]').val();
+
+            var item = {};
+            item.testQuotaCode = testQuotaCode;
+            item.testModeCode = testModeCode;
+            item.design = design;
+            item.testNumber = testNumber;
+            data['testQuota'].push(item);
+        }
+        return data;
+    }
+
+    function save_submit(){
+     if(checkSubmit()){
+         data =getData();
+         $.ajax({
+             url: '/api/v1/TPlan/'+projectId+'/'+id,    //请求的url地址
+             dataType: "json",
+             async: true,
+             data:data,
+             type: "PUT",
+             success: function(reg) {
+                 submited = false;
+                 if(reg.code==0){
+                     layer.msg(reg.message,{icon:1,time:2000},function(){
+                         parent.location.href="/plan/tplan.html";
+                     });
+
+                 }else{
+                     layer.msg(reg.message,{icon:6,time:2000});
+                 }
+             },
+             error: function () {
+                 layer.alert('保存失败！');
+                 submited = false;
+             }
+         });
+     }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

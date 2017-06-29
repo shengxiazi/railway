@@ -1,0 +1,452 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .input-none{height:25px}
+        .form .row{margin-top:8px;}
+        .panel-body {
+            border: none;
+            background-color: #f1f1f1;
+        }
+        .text{
+            font-size:15px;
+            font-weight: 600;
+        }
+        .table th{
+            font-size:14px;
+        }
+        .table td{
+            padding:4px;
+            height:25px;
+        }
+        .input-none{
+            border:none;
+            width:100%;
+            height:100%;
+            font-size:14px;
+            text-align:center;
+        }
+    </style>
+    <title>填料压实质量</title>
+   </head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-tproject-add">
+        <div  data-options="region:'center',split:true" style="width:100%">
+            <article class="page-container" >
+                <table class="table table-border table-bordered">
+                    <tr>
+                        <th><span class="c-red">*</span>所属项目：</th>
+                        <td colspan="3">
+                            <select  class="select" name="xmId" id="xmId" style="width:80%" >
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="4"><span class="text">编辑工程基本信息</span></th>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>工程名称:</th>
+                        <td colspan="3">
+                            <input type="text" class="input-none" value="" placeholder="" id="projectName" name="projectName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>工程地址:</th>
+                        <td colspan="3">
+                            <input type="text" class="input-none" value="" placeholder="" id="address" name="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="100px"><span class="c-red">*</span>里程标识：</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="" id="lcFlag" name="lcFlag">
+                        </td>
+                        <th width="100px">工程备用位：</th>
+                        <td>
+                            <input type="text" class="input-none" value="-" placeholder="" id="bywCode" name="bywCode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>起始里程(m):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="" id="lc" name="lc">
+                        </td>
+                        <th>截止里程(m):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="" id="endlc" name="endlc">
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="4"><span class="text">编辑参建单位信息</span></th>
+                    </tr>
+                    <tr>
+                        <th>建设标:</th>
+                        <td>
+                            <select class="select" name="jsb" id="jsb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th>施工标:</th>
+                        <td>
+                            <select class="select" name="sgb" id="sgb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>监督标:</th>
+                        <td>
+                            <select class="select"  name="jdb" id="jdb" size="1">
+                                <option>--请选择--</option>
+
+                            </select>
+                        </td>
+                        <th>监理标:</th>
+                        <td>
+                            <select class="select" name="jlb" id="jlb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>设计标:</th>
+                        <td>
+                            <select class="select" name="sjb" id="sjb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th>检测标:</th>
+                        <td>
+                            <select class="select" name="jcb" id="jcb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>咨询标:</th>
+                        <td>
+                            <select class="select" name="zxb" id="zxb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th>图纸编号:</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="" id="drawNo" name="drawNo">
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-border table-bordered" style="border-top:0" id="testData">
+                    <tr class="text-c">
+                        <th colspan="4">编辑检测数量</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th>检测项目</th>
+                        <th>检测数量（组）</th>
+                        <th>检测项目</th>
+                        <th>检测数量（组）</th>
+                    </tr>
+                </table>
+                <table class="table table-border table-bordered" style="border-top:0">
+                    <tr>
+                        <th width="60px" class="text-c">备注</th>
+                        <td colspan="3">
+                            <input type="text" class="input-none" value="" placeholder="" id="remark" name="remark">
+                        </td>
+                    </tr>
+
+                </table>
+            </article>
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    var id = sessionStorage.projectId;
+    var xmlist = JSON.parse(sessionStorage.t_xmlist);
+    $(function(){
+        $("#form-tproject-add").validate({
+            debug:true,
+            rules:{
+                xmId:{
+                    required:true
+                },
+                projectName:{
+                    required:true
+                },
+                address:{
+                    required:true
+                },
+                bywCode:{
+                    required:true
+                },
+                lcFlag:{
+                    required:true
+                },
+                lc:{
+                    required:true,
+                    range:[0,999999]
+                },
+                endlc:{
+                    required:true,
+                    range:[0,999999]
+                },
+                sgb:{
+                    required:true
+                },
+                jcb:{
+                    required:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+        var xmStr = "<option value=''>--请选择--</option>";
+        $.each(xmlist,function(key,val){
+            xmStr += '<option value="'+val.value+'">'+val.name+'</option>'
+        });
+        $("#xmId").html(xmStr);
+
+        //二级联动
+        $('#xmId').bind('change',function(){
+            var xmId = this.value;
+
+            proInfo(xmId);
+        });
+
+
+        //获取信息
+        $.ajax({
+            url: "/api/v1/TProject/"+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                   var xm_id = reg.data.xmId.toUpperCase();
+                    $('#xmId').val(xm_id);
+                    proInfo(xm_id);
+                   
+
+                    $.each(reg.data,function(k,v){
+                    	if(k!='xmId'){
+                    		 $('input[name='+k+']').val(v);
+                        	$('select[name='+k+']').val(v);
+                    	
+                    	}
+                
+                    });
+                    $('#remark').val(reg.data.remark);
+                    $('#bywCode').val(reg.data.bywCode);
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+    });
+
+    function proInfo(xmId){
+        $.ajax({
+            url:"/api/v1/XMProject/"+xmId+'/ByBdAndQuote?buildTypeCode=T',    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var str="";
+                    var qutaData = reg.data.testList;
+
+                    $.each(qutaData,function(key,val){
+                        if(key%2==0)
+                            str+='<tr class="text-c add">';
+                        switch(val.testModeCode){
+                            case "YS":
+                                str+='<th>压实系数K</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="YS" name="ys"></td>';
+                                break;
+                            case "KS":
+                                str+='<th>地基系数K30</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="KS" name="ks"></td>';
+                                break;
+                            case "XM":
+                                str+='<th>相对密度Dr</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="XM" name="xm"></td>';
+                                break;
+                            case "EV":
+                                str+='<th>变形模量Ev2</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="EV" name="ev"></td>';
+                                break;
+                            case "ED":
+                                str+='<th>动态变形模量Evd</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="ED" name="ed"></td>';
+                                break;
+                            case "KX":
+                                str+='<th>孔隙率n</th>';
+                                str+='<td><input type="text" class="input-text" value="" placeholder="" id="KX" name="kx"></td>';
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if(key%2==1)
+                            str+='</tr>';
+                    });
+
+                    if(qutaData.length%2==1){
+                        str+='<th>&nbsp;</th>';
+                        str+='<td>&nbsp;</td>';
+                        str+='</tr>';
+                    }
+                    $('#testData tr:gt(1)').remove();
+                    $('#testData').append(str);
+                    //检测标
+                    var jcbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JC'){
+                            jcbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#jcb').html(jcbStr);
+
+                    //设计标
+                    var sjbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='SJ'){
+                            sjbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#sjb').html(sjbStr);
+
+                    //监督标
+                    var jdbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JD'){
+                            jdbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#jdb').html(jdbStr);
+
+                    //施工标
+                    var sgbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='SG'){
+                            sgbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#sgb').html(sgbStr);
+
+                    //建设标
+                    var jsbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JS'){
+                            jsbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#jsb').html(jsbStr);
+
+                    //监理标
+                    var jlbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JL'){
+                            jlbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#jlb').html(jlbStr);
+
+                    //咨询标
+                    var zxbStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='ZX'){
+                            zxbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>'
+                        }
+                    });
+                    $('#zxb').html(zxbStr);
+
+                }
+            }
+        });
+
+    }
+
+    var submited = false;
+    function save_submit(){
+        if( checkSubmit()) {
+            $('#form-tproject-add :disabled').val(0);
+            var data = new Object();
+            $("#form-tproject-add *[name]").each(function (item) {
+                data[$(this).attr("name")] = $(this).val();
+                if($(this).attr("name")=='lc'){
+                    data['lc']=parseFloat($(this).val())*1000;
+                }
+                if($(this).attr("name")=='endlc'){
+                    data['endlc']=parseFloat($(this).val())*1000;
+                }
+            });
+
+            data["remark"] = $('#remark').val();
+            $.ajax({
+                url: "/api/v1/TProject/" + id,    //请求的url地址
+                dataType: "json",
+                async: true,
+                data: data,
+                type: "PUT",
+                success: function (reg) {
+                    submited = false;
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000},function(){
+                            parent.location.href="/project/tlist.html";
+                        });
+
+                    } else {
+                        layer.msg(reg.message, {icon: 6, time: 2000});
+                    }
+                },
+                error:function(e){
+                    submited = false;
+                    layer.msg('请求出错！',{icon:5,time:2000});
+                }
+            });
+        }
+
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

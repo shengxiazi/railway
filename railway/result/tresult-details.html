@@ -1,0 +1,906 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/table.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/ks-style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>填料压实质量试验报告详情</title>
+    <style>
+
+        .content {
+            width: 95%;
+            border-bottom: 1px solid #9c9c9c;
+            position: absolute;
+            bottom: 6px;
+        }
+        #oneTable th{width:70px;text-align:right;height:30px;font-weight:bolder;line-height:1.5;}
+        #oneTable td{position:relative}
+        .form .row{margin-top:0}
+        .table td{
+            font-size:14px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <div id="tab-system" class="HuiTab" style="margin: 0 10px">
+            <div class="tabBar cl"><span>单位详情</span><span>工作流信息</span><span>操作日志</span></div>
+            <div class="tabCon">
+                <form class="form form-horizontal" id="tresult-add">
+                    <div class="container" >
+                        <div class="row cl">
+                            <h4>测定填料压实质量试验报告</h4>
+                            <div style="margin-left:65%">
+                                <div style="margin-bottom:8px;">
+                                    <label style="font-size:14px">报检状态：</label>
+                                    <div style="display:inline" id="resultFlag"></div>
+                                </div>
+                                <div>
+                                    <label style="font-size:14px">报检编号：</label>
+                                    <div style="display:inline;font-size:16px" id="serialNo"></div>
+                                </div>
+                            </div>
+                            <table id="oneTable">
+                                <tr>
+                                    <th>工程名称：</th>
+                                    <td colspan="3"><div class="content" id="projectName"></div></td>
+                                </tr>
+                                <tr>
+                                    <th>施工单位：</th>
+                                    <td><div class="content" id="sgXmComName"></div></td>
+                                    <th>报告编号：</th>
+                                    <td><div class="content" id="resultCode"></div></td>
+                                </tr>
+                                <tr>
+                                    <th>施工里程：</th>
+                                    <td><div class="content" id="planMileage"></div></td>
+                                    <th>记录编号：</th>
+                                    <td><div class="content" id="testcode"></div></td>
+                                </tr>
+                                <tr>
+                                    <th>压实方式：</th>
+                                    <td><div class="content" id="compactionMode"></div></td>
+                                    <th><span class="c-red">*</span>报告日期：</th>
+                                    <td><div class="content" id="createTime"></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row cl" style="margin-top:10px">
+                            <div class="col-sm-12">
+                                <table id="secondTable" class="table table-border table-bordered">
+                                    <tr class="text-c">
+                                        <th colspan="3">填料名称</th>
+                                        <th colspan="3">填料最大粒径(mm)</th>
+                                        <th colspan="3">填层厚度(cm)</th>
+                                        <th colspan="3">填土层数</th>
+                                        <th colspan="3">填层标高(m)</th>
+                                    </tr>
+                                    <tr class="text-c">
+                                        <th colspan="3" id="fillingStyle"></th>
+                                        <th colspan="3" id="fillingDiameter"></th>
+                                        <th colspan="3" id="fillingThickness"></th>
+                                        <th colspan="3" id="layer"></th>
+                                        <th colspan="3" id="testHeight"></th>
+                                    </tr>
+                                    <tr class="text-c">
+                                        <th colspan="3">颗粒密度ρ<sub>sm</sub>(g/cm<sup>3</sup>)</th>
+                                        <th colspan="3">最大干密度ρ<sub>dmax</sub>(g/cm<sup>3</sup>)</th>
+                                        <th colspan="3">最优含水率ω<sub>opt</sub>(%)</th>
+                                        <th colspan="3">砂的最大干密度ρ<sub>dmax</sub>(g/cm<sup>3</sup>)</th>
+                                        <th colspan="3">砂的最小干密度ρ<sub>dmin</sub>(g/cm<sup>3</sup>)</th>
+                                    </tr>
+                                    <tr class="text-c">
+                                        <th colspan="3" id="particleDensity"></th>
+                                        <th colspan="3" id="dryDensity"></th>
+                                        <th colspan="3" id="maxWaterContent"></th>
+                                        <th colspan="3" id="sMaxDryDensity"></th>
+                                        <th colspan="3" id="sMinDryDensity"></th>
+                                    </tr>
+
+                                </table>
+                                <table class="table table-border table-bordered" style="border-top:0">
+                                    <tr class="text-c">
+                                        <th colspan="3">压实指标</th>
+                                        <th colspan="2">压实系数K</th>
+                                        <th colspan="2">孔隙率n（%）</th>
+                                        <th colspan="2">相对密度Dr</th>
+                                        <th colspan="2">动态变形模量Evd<br>（MPa）</th>
+                                        <th colspan="2">地基系数K30<br>（MPa/m）</th>
+                                        <th colspan="2">变形模量Ev2<br>（MPa）</th>
+                                    </tr>
+                                    <tr class="text-c">
+                                        <td colspan="3">记录编号</td>
+                                        <td colspan="2" id="ysTestCode"></td>
+                                        <td colspan="2" id="kxTestCode"></td>
+                                        <td colspan="2" id="xmTestCode"></td>
+                                        <td colspan="2" id="edTestCode"></td>
+                                        <td colspan="2" id="ksTestCode"></td>
+                                        <td colspan="2" id="evTestCode"></td>
+                                    </tr>
+                                    <tr class="text-c" id="testData">
+                                        <th width="30">测点编号</th>
+                                        <th width="180">测点位置</th>
+                                        <th>含水率(%)</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                        <th>规定值</th>
+                                        <th>实测值</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-border table-bordered" style="border-top:0">
+                                    <tr >
+                                        <td colspan="7" style=" vertical-align:middle" >
+                                            <span class="c-red">*</span>
+                                            <label style="width:23%">检测评定依据：</label>
+                                            <input name="testStandard" id="testStandard" type="text" class="input-none" style="height:40px;background-color:#f1f1f1" disabled/>
+                                        </td>
+                                        <td colspan="8">
+                                            <span class="c-red">*</span>
+                                            <label style="width:20%">检测结论:</label>
+                                            <input name="testResult" id="testResult" type="text" class="input-none" style="height:40px;background-color: #f1f1f1;" disabled/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row cl"  style="margin-top:30px">
+                            <div class="col-sm-2">
+                                <span>检测员1：</span>
+                                <div class="content" style="display:inline;width:60%" id="testName">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>检测员2：</span>
+                                <div class="content" style="display:inline;width:60%" id="testName2">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>复核：</span>
+                                <div class="content" style="display:inline;width:60%" id="reviewName"></div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span>批准：</span>
+                                <div class="content" style="display:inline;width:60%" id="verifyName"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <span>单位（章）：</span>
+                                <div class="content" style="display:inline;width:60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tabCon">
+                <article class="page-container">
+                    <table  class="table table-border table-bordered table-hover table-bg">
+                        <thead>
+                            <tr class="text-c">
+                                <th>操作事件名称</th>
+                                <th>备注</th>
+                                <th>当前状态操作人</th>
+                                <th>操作时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="workInfo">
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+            <div class="tabCon">
+                <div class="cl pd-5 bg-1 bk-gray mt-10">
+                    <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+                </div>
+                <div class="mt-10 mb-20">
+                    <table class="table table-border table-bordered table-hover table-bg table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">模块名称</th>
+                            <th width="200">操作内容</th>
+                            <th width="100">操作人</th>
+                            <th width="50">操作时间</th>
+                            <th width="70">操作详情</th>
+                        </tr>
+                        </thead>
+                        <tbody id="logInfo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south'" id="power" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+    </div>
+</div>
+<!--提交状态-->
+<div id="submit-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-sm-3"><span class="c-red">*</span>备注说明：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" style="height:80px" id="submit-message" name="message"></textarea>
+            </div>
+        </div>
+        <div class="row cl mt-20">
+            <label class="form-label col-sm-3"><span class="c-red">*</span>指定审核人：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+             <span class="select-box">
+                <select class="select" name="personId" id="verfiy-personId" size="1">
+
+                </select>
+            </span>
+            </div>
+        </div>
+    </form>
+</div>
+<!--审核状态-->
+<div id="verify-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl" id="one">
+            <label class="form-label col-sm-3"><span class="c-red">*</span>备注说明：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" style="height:80px" id="verify-message" name="message"></textarea>
+            </div>
+        </div>
+        <div class="row cl mt-20" id="two">
+            <label class="form-label col-sm-3"><span class="c-red">*</span><span id="personType">指定批准人：</span></label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+             <span class="select-box">
+                <select class="select" name="personId" id="approval-personId" size="1">
+
+                </select>
+            </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+    var projectId = sessionStorage.pro_id;
+    var resultId = sessionStorage.resultId;
+   var initPower =  JSON.parse( sessionStorage.initPower);
+    var submited = false;
+    var back_url  = '/result/tresult.html';
+    $(function(){
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        //获取实验人员列表
+        $.ajax({
+            url:'/api/v1/XMPerson/'+projectId+'/LiteListByProjId',
+            dataType:"json",
+            async:false,
+            type:'GET',
+            success:function(reg){
+                if(reg.code==0){
+                    var testStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data,function(k,v){
+                        testStr+='<option value="'+ v.value+'">'+ v.name+'</option>';
+                    });
+                    $('#testId').html(testStr);
+                    $('#testId2').html(testStr);
+                }else{
+                    layer.msg(reg.message, {icon: 6, time: 2000});
+                }
+            },
+            error:function(){
+                layer.msg('请求出错！');
+            }
+        });
+
+        //获取数据
+        $.ajax({
+            url: '/api/v1/TResult/'+projectId+'/'+resultId,
+            dataType:"json",
+            async:false,
+            type:'GET',
+            success:function(reg){
+                if(reg.code==0){
+                    dataModel(reg);
+                    $.each(reg.data,function(n,value){
+                        if(value!=null){
+                            $('#'+n).text(value);
+                            if(n=='testStandard'){
+                                $('#testStandard').val(value);
+                            }
+                            if(n=='testResult'){
+                                $('#testResult').val(value);
+                            }
+                            if(n=='resultFlag'){
+                                var resFlag = $('#resultFlag');
+                                switch(value){
+                                    case 12 :
+                                        resFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">草稿</span>');
+                                        break;
+                                    case 23:
+                                        resFlag.html('<span class="label label-primary radius" style="font-size:14px;letter-spacing:2px">编制完成</span>');
+                                        break;
+                                    case 31:
+                                        resFlag.html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">审核驳回</span>');
+                                        break;
+                                    case 34:
+                                        resFlag.html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">审核通过</span>');
+                                        break;
+                                    case 41:
+                                        resFlag.html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">批准驳回</span>');
+                                        break;
+                                    case 45:
+                                        resFlag.html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">批准通过</span>');
+                                        break;
+                                    case 55:
+                                        resFlag.html('<span class="label label-secondary radius" style="font-size:14px;letter-spacing:2px">报告发布</span>');
+                                        break;
+                                    case 91:
+                                        resFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">编制人作废</span>');
+                                        break;
+                                    case 93:
+                                        resFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">审核人作废</span>');
+                                        break;
+                                    case 94:
+                                        resFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">批准人作废</span>');
+                                        break;
+                                    case 99:
+                                        resFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">作废存档</span>');
+                                        break;
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    layer.msg(reg.message, {icon: 6, time: 2000});
+                }
+            },
+            error:function(){
+                layer.msg('请求出错！');
+            }
+        });
+
+        //获取当前用户操作权限
+        $.ajax({
+            url:'/api/v1/TResult/'+projectId+'/'+resultId+'/ActionEvent',
+            dataType:"json",
+            async:false,
+            type:'GET',
+            success:function(reg){
+                if(reg.code==0){
+                    var powerData = reg.data;
+                    getPower(powerData);
+
+                }else{
+                    layer.alert(reg.message);
+                }
+            },
+            error:function(){
+                layer.alert('指定操作权限接口异常！');
+            }
+        });
+
+     //编辑
+       $('#power').on('click','#edit',function(){
+           parent.layer.open({
+               type: 2,
+               title:'编辑',
+               shade:0.4,
+               area: ['996px', '700px'],
+               content:'tresult-edit.html'
+           });
+           layer_close();
+       });
+
+        //打印
+        $('#power').on('click','#print',function(){
+
+            var url ='/api/v1/TResult/'+projectId+'/'+resultId+'/PdfDoc?'+Math.random();
+            parent.layer.open({
+                type: 2,
+                title:'打印',
+                shade:0.4,
+                area: ['90%', '98%'],
+                content:url
+            });
+            layer_close();
+        });
+
+        //提交报告
+        $('#power').on('click','#submit',function() {
+            //获取拥有审核权限人员列表
+            $.ajax({
+                url:'/api/v1/TResult/'+projectId+'/'+resultId+'/VerifyPersonList',    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function(reg) {
+                    if(reg.code==0){
+                        var personStr = "<option value='1'>--请选择--</option>";
+                        $.each(reg.data,function(k,v){
+                            personStr+='<option value="'+ v.personId+'">'+ v.realName+'</option>';
+                        });
+                        $('#verfiy-personId').html(personStr);
+                    }else{
+                        layer.alert(reg.message);
+                    }
+                },
+                error:function(){
+                    layer.alert('数据接口异常！');
+                }
+            });
+
+            var url='/api/v1/TResult/'+projectId+'/'+resultId+'/Submit';
+            var index=layer.open({
+                type: 1,
+                'title':'提交信息',
+                content: $('#submit-modal'), //这里content是一个DOM
+                area:['540px','340px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var message = $('#submit-message').val();
+                    var personId = $('#verfiy-personId').val();
+                    $.ajax({
+                        url:url,    //请求的url地址
+                        dataType: "json",
+                        data:{'message':message,'personId':personId},
+                        async: true,
+                        type: "PATCH",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg(reg.message,{icon:1,time:2000},function(){
+                                    parent.location.href = back_url;
+                                });
+                            }else{
+                                layer.alert(reg.message);
+                            }
+                        },
+                        error:function(){
+                            layer.alert('提交失败！');
+                        }
+                    });
+
+                }
+            });
+        });
+
+        //审核通过
+        $('#power').on('click','#VerifyPass',function() {
+            //批准人列表
+            var uri = '/api/v1/TResult/'+projectId+'/'+resultId+'/ApprovalPersonList';
+            getVerify(this.value,uri);
+        });
+
+        //审核驳回
+        $('#power').on('click','#VerifyBack',function() {
+            var uri = "";
+            getVerify(this.value,uri);
+        });
+
+        //转交审核
+        $('#power').on('click','#VerifyGrant',function() {
+            //审核人列表
+            var uri = '/api/v1/TResult/'+projectId+'/'+resultId+'/VerifyPersonList';
+            getVerify(this.value,uri);
+        });
+
+        //批准通过
+        $('#power').on('click','#ApprovalPass',function() {
+            layer.confirm('确认要通过批准吗？',function(index){
+                $.ajax({
+                    url: '/api/v1/TResult/'+projectId+'/'+resultId+'/ApprovalPass',    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "PATCH",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg('已通过!',{icon:1,time:2000});
+                        }else{
+                            layer.alert(reg.message);
+                        }
+                    },
+                    error:function(){
+                        layer.alert('接口异常，操作失败！');
+                    }
+                });
+            });
+        });
+
+        //批准驳回
+        $('#power').on('click','#ApprovalBack',function(){
+            var uri ="";
+            getVerify(this.value,uri);
+        });
+
+        //转交批准
+        $('#power').on('click','#ApprovalGrant',function(){
+            //批准人列表
+            var uri = '/api/v1/TResult/'+projectId+'/'+resultId+'/ApprovalPersonList';
+            getVerify(this.value,uri);
+        });
+
+        //报告作废
+        $('#power').on('click','#Invalid',function(){
+            //批准人列表
+           var uri = "";
+            getVerify(this.value,uri);
+        });
+
+       //审核作废
+        $('#power').on('click','#InvalidVerify',function(){
+            //批准人列表
+            var uri = "";
+            getVerify(this.value,uri);
+        });
+
+        //批准作废
+        $('#power').on('click','#invalidapproval',function(){
+            //批准人列表
+            var uri = "";
+            getVerify(this.value,uri);
+        });
+
+
+        //删除
+        $("#power").on("click","#del", function(){
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: '/api/v1/TResult/'+projectId+'/'+resultId,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg('已删除!',{icon:1,time:2000},function(){
+                                parent.location.href = "/result/tresult.html";
+                            });
+                        }else{
+                            layer.msg(reg.message,{icon:5,time:2000});
+                        }
+                    }
+                });
+            });
+        });
+
+        //撤销作废
+        $('#power').on('click','#RevokeInvalid',function() {
+            var uri = "";
+            getVerify(this.value,uri);
+
+        });
+
+         //操作日志
+        var url= '/api/v1/TResult/'+projectId+'/'+resultId+'/OperationLog';
+        opertionLog(url);
+
+    });
+
+    function getPower(powerData){
+        if(powerData.length!=0){
+            var actionStr = "";
+            $.each(powerData,function(key,value){
+                if($.inArray(value.AuthorityTag,initPower)!=-1){
+                    switch(value.ActionEventCode)
+                    {
+                        case 'EDIT':
+                            actionStr+='<button class="btn btn-primary radius" type="button" id="edit"><i class="Hui-iconfont">&#xe632;</i>编辑</button>';
+                            break;
+                        case 'PRINT':
+                            actionStr+='<button class="btn btn-success radius" type="button" id="print"><i class="Hui-iconfont">&#xe652;</i>打印</button>';
+                            break;
+                        case 'DELETE':
+                            actionStr+='<button class="btn btn-danger radius" type="button" id="del"><i class="Hui-iconfont">&#xe6e2;</i>删除</button>';
+                            break;
+                        case 'SUBMIT':
+                            actionStr+='<button class="btn btn-success radius" type="button" id="submit"><i class="Hui-iconfont">&#xe632;</i>提交</button>';
+                            break;
+                        case 'VERIFYPASS':
+                            actionStr+=' <button class="btn btn-success radius size-S" type="button" id="VerifyPass" value="vp"><i class="Hui-iconfont">&#xe632;</i>审核通过</button>';
+                            break;
+                        case 'VERIFYBACK':
+                            actionStr+=' <button class="btn btn-danger radius size-S" type="button" id="VerifyBack" value="vb"><i class="Hui-iconfont">&#xe632;</i>审核驳回</button>';
+                            break;
+                        case 'VERIFYGRANT':
+                            actionStr+=' <button class="btn btn-warning radius size-S" type="button" id="VerifyGrant" value="vg"><i class="Hui-iconfont">&#xe632;</i>审核授权</button>';
+                            break;
+                        case 'APPROVALPASS':
+                            actionStr+=' <button class="btn btn-success radius size-S" type="button" id="ApprovalPass" value="ap"><i class="Hui-iconfont">&#xe632;</i>批准通过</button>';
+                            break;
+                        case 'APPROVALBACK':
+                            actionStr+=' <button class="btn btn-danger radius size-S" type="button" id="ApprovalBack" value="ab"><i class="Hui-iconfont">&#xe632;</i>批准驳回</button>';
+                            break;
+                        case 'APPROVALGRANT':
+                            actionStr+=' <button class="btn btn-warning radius size-S" type="button" id="ApprovalGrant" value="ag"><i class="Hui-iconfont">&#xe632;</i>批准授权</button>';
+                            break;
+                        case 'INVALID':
+                            actionStr+='<button class="btn btn-warning radius size-S" type="button" id="Invalid" value="i"><i class="Hui-iconfont">&#xe632;</i>作废</button>';
+                            break;
+                        case 'INVALIDAPPROVAL':
+                            actionStr+='<button class="btn btn-warning radius size-S" type="button" id="invalidapproval" value="ia"><i class="Hui-iconfont">&#xe632;</i>批准作废</button>';
+                            break;
+                        case 'INVALIDVERIFY':
+                            actionStr+='<button class="btn btn-warning radius size-S" type="button" id="InvalidVerify" value="iv"><i class="Hui-iconfont">&#xe632;</i>审核作废</button>';
+                            break;
+                        case 'INVALIDREVOKE':
+                            actionStr+='<button class="btn btn-success radius size-S" type="button" id="RevokeInvalid" value="ri"><i class="Hui-iconfont">&#xe632;</i>撤销作废</button>';
+                            break;
+                        default:
+                    }
+                }
+            });
+            $('#power').html(actionStr);
+        }
+    }
+
+    function getVerify(power,uri){
+        //获取权限人员列表
+        if(uri!=""){
+            $.ajax({
+                url:uri,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function(reg) {
+                    if(reg.code==0){
+                        var personStr = "<option value=''>--请选择--</option>";
+                        $.each(reg.data,function(k,v){
+                            personStr+='<option value="'+ v.personId+'">'+ v.realName+'</option>';
+                        });
+                        $('#approval-personId').html(personStr);
+                    }else{
+                        layer.alert(reg.message);
+                    }
+                },
+                error:function(){
+                    layer.alert('数据接口异常！');
+                }
+            });
+        }
+        var url;
+        var one;
+        switch(power)
+        {
+            case 'vp':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/VerifyPass';
+                $('#personType').text('指定批准人：');
+                $('#one').hide();
+                $('#two').show();
+                break;
+            case 'vb':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/VerifyBack';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            case 'vg':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/VerifyGrant';
+                $('#personType').text('指定审核人：');
+                $('#one').show();
+                $('#two').show();
+                break;
+            case 'ab':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/ApprovalBack';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            case 'ag':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/ApprovalGrant';
+                $('#personType').text('指定批准人：');
+                $('#one').show();
+                $('#two').show();
+                break;
+            case 'i':
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/Invalid';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            case 'ia'://批准人作废
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/InvalidApproval';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            case 'iv'://审核人作废
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/InvalidVerify';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            case 'ri'://撤销作废
+                url = '/api/v1/TResult/'+projectId+'/'+resultId+'/InvalidRevoke';
+                $('#one').show();
+                $('#two').hide();
+                break;
+            default:
+        }
+
+        var index=layer.open({
+            type: 1,
+            'title':'信息',
+            content: $('#verify-modal'), //这里content是一个DOM
+            area:['540px','340px'],
+            btn:['确定','取消'],
+            'yes':function(index,layero){
+                var message = $('#verify-message').val();
+                var personId = $('#approval-personId').val();
+                $.ajax({
+                    url:url,    //请求的url地址
+                    dataType: "json",
+                    data:{'message':message,'personId':personId},
+                    async: true,
+                    type: "PATCH",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg(reg.message,{icon:1,time:2000},function(){
+                                parent.location.href = back_url;
+                                layer.close(index);
+                            });
+                        }else{
+                            layer.alert(reg.message);
+                        }
+                    },
+                    error:function(){
+                        layer.alert('操作失败！');
+                    }
+
+                });
+            }
+        });
+    }
+
+    function dataModel(reg){
+        var len = reg.data.resultData.length;
+        var str='';
+        if(len==0){
+            str +='<tr class="text-c">';
+            str+='<td>1</td>';
+            str+='<td id="mileage"></td>';
+            str+='<td id="waterContent"></td>';
+            str+='<td id="ysDesign"></td>';
+            str+='<td id="ysReal"></td>';
+            str+='<td id="kxDesign"></td>';
+            str+='<td id="kxReal"></td>';
+            str+='<td id="xmDesign"></td>';
+            str+='<td id="xmReal"></td>';
+            str+='<td id="edDesign"></td>';
+            str+='<td id="edReal"></td>';
+            str+='<td id="ksDesign"></td>';
+            str+='<td id="ksReal"></td>';
+            str+='<td id="evDesign"></td>';
+            str+='<td id="evReal"></td>';
+            str+='</tr>';
+            $("#testData tr:gt(0)").remove();
+            $('#testData').after(str);
+        }else{
+            $.each(reg.data.resultData,function(n1,v1){
+                if(n1==0){
+                    str+='<tr class="text-c">';
+                    str+='<td>'+n1+'</td>';
+                    if(v1.mileage==null){
+                        str+='<td id="mileage"></td>';
+                    }else{
+                        str+='<td id="mileage">'+v1.mileage+'</td>';
+                    }
+                    if(v1.waterContent==null){
+                        str+='<td id="waterContent"></td>';
+                    }else{
+                        str+='<td id="waterContent">'+v1.waterContent+'</td>';
+                    }
+                    str+='<td rowspan="'+len+'" id="ysDesign"></td>';
+                    if(v1.ysReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.ysReal+'</td>';
+                    }
+                    str+=' <th rowspan="'+len+'" id="kxDesign" style="color:darkgreen"></th>';
+                    if(v1.kxReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.kxReal+'</td>';
+                    }
+                    str+='<td rowspan="'+len+'" id="xmDesign" style="color:darkgreen"></td>';
+                    if(v1.xmReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.xmReal+'</td>';
+                    }
+                    str+='<td rowspan="'+len+'" id="edDesign" style="color:darkgreen"></td>';
+                    if(v1.edReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.edReal+'</td>';
+                    }
+                    str+='<td rowspan="'+len+'" id="ksDesign" style="color:darkgreen"></td>';
+                    if(v1.ksReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.ksReal+'</td>';
+                    }
+                    str+='<td rowspan="'+len+'" id="evDesign" style="color:darkgreen"></td>';
+                    if(v1.evReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.evReal+'</td>';
+                    }
+                    str+='</tr>';
+                }else{
+                    str+='<tr class="text-c">';
+                    str+='<td>'+n1+'</td>';
+                    if(v1.mileage==null){
+                        str+='<td id="mileage"></td>';
+                    }else{
+                        str+='<td id="mileage">'+v1.mileage+'</td>';
+                    }
+                    if(v1.waterContent==null){
+                        str+='<td id="waterContent"></td>';
+                    }else{
+                        str+='<td id="waterContent">'+v1.waterContent+'</td>';
+                    }
+
+                    if(v1.ysReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.ysReal+'</td>';
+                    }
+                    if(v1.kxReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.kxReal+'</td>';
+                    }
+                    if(v1.xmReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.xmReal+'</td>';
+                    }
+                    if(v1.edReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.edReal+'</td>';
+                    }
+                    if(v1.ksReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.ksReal+'</td>';
+                    }
+                    if(v1.evReal==null){
+                        str+='<td></td>';
+                    }else{
+                        str+='<td>'+v1.evReal+'</td>';
+                    }
+                    str+='</tr>';
+                }
+
+            });
+            $("#testData tr:gt(0)").remove();
+            $('#testData').after(str);
+        }
+    }
+
+</script>
+</body>
+</html>

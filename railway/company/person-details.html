@@ -1,0 +1,230 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>查看详情</title>
+    <style>
+        #personTable td {
+            font-size:14px
+        }
+        .input-text{height:25px}
+        .form .row{margin-top:8px;}
+    </style>
+   </head>
+<body>
+<div id="tab-system" class="HuiTab" style="margin: 0 10px">
+    <div class="tabBar cl"><span>人员详情</span><span>操作日志</span></div>
+    <div class="tabCon">
+        <article class="page-container">
+            <table class="table table-border table-bordered" id="personTable">
+                <tr class="text-c">
+                    <th width="100px">登录账号:</th>
+                    <td id="accountName" width="150px"></td>
+                    <th width="100px">账号状态:</th>
+                    <td id="accountFlag" width="200px"></td>
+                    <td rowspan="3" colspan="2">
+                        <img id="headImg" width="120px" height="120px" src="">
+                    </td>
+                </tr>
+                <tr class="text-c">
+                    <th>真实姓名</th>
+                    <td id="realName"></td>
+                    <th>性别</th>
+                    <td id="sex"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>电话：</th>
+                    <td id="phone"></td>
+                    <th>手机号码：</th>
+                    <td id="mobile"></td>
+                </tr>
+                <tr class="text-c">
+                    <th >角色:</th>
+                    <td id="roleName"></td>
+                    <th>人员类别:</th>
+                    <td id="personType"></td>
+                    <th width="80px">邮箱：</th>
+                    <td id="email"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>单位类型：</th>
+                    <td id="comTypeName"></td>
+                    <th>工作单位：</th>
+                    <td id="comName"></td>
+                    <th>人员状态：</th>
+                    <td id="personFlag"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>人员签章</th>
+                    <td colspan="5" id="stamp">
+                        <img id="stampImg" height="50px" src=""/>
+                    </td>
+                </tr>
+                <tr class="text-c">
+                    <th>出生年月：</th>
+                    <td id="birthDay"></td>
+                    <th>身份证号：</th>
+                    <td id="cardNo"></td>
+                    <th>毕业年份：</th>
+                    <td id="eduEndDate"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>开始工作日期：</th>
+                    <td id="workDate"></td>
+                    <th>职称：</th>
+                    <td id="profTitle"></td>
+                    <th>职务：</th>
+                    <td id="position"></td>
+
+                </tr>
+                <tr class="text-c">
+                    <th>文化程度：</th>
+                    <td id="eduLevel"></td>
+                    <th>毕业学校：</th>
+                    <td id="eduSchool"></td>
+                    <th>专业：</th>
+                    <td id="eduProfessional"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>上岗证号：</th>
+                    <td id="workNo"></td>
+                    <th>从事工作：</th>
+                    <td id="workScope"></td>
+                    <th>备注说明：</th>
+                    <td id="remark"></td>
+                </tr>
+                <tr class="text-c">
+                    <th>创建人：</th>
+                    <td id="createName" colspan="2"></td>
+                    <th>创建时间：</th>
+                    <td id="createTime" colspan="2"></td>
+                </tr>
+            </table>
+
+        </article>
+    </div>
+    <div class="tabCon">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script type="text/javascript">
+    var id = sessionStorage.person_id;
+    $(function() {
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        $.ajax({
+            url:"/api/v1/Person/"+id,
+            dataType:"json",
+            async:true,
+            type:"GET",
+            success:function(reg){
+                $.each(reg.data.personBase,function(n,val){
+                        if(val!=null){
+                            $('#'+n).text(val);
+                        }
+                        if(n=='personFlag'){
+                            if(val==1){
+                                $('#personFlag').html('<span class="label label-success radius">正常</span>');
+                            }else if(val==0){
+                                $('#personFlag').html('<span class="label label-danger radius">禁止</span>');
+                            }else{
+                                $('#personFlag').html('<span class="label label-danger radius">未知</span>');
+                            }
+                        }
+                        if(n=='photo'){
+                            if(val==null){
+                                document.getElementById('headImg').src = "../static/h-ui.admin/images/noPic.png";
+                            }else{
+                                document.getElementById('headImg').src = "/api/v1/res/"+val+"?"+Math.random();
+                            }
+                        }
+                });
+                var personExt = reg.data.personExt;
+
+                $.each(personExt,function(n,val){
+                    if(val!=null) {
+                        $('#' + n).text(val);
+                    }
+                });
+                var stamp = reg.data.stamp;
+                if(stamp==null){
+                   $('#stamp').html('<strong class="c-red">暂无上传签章！</strong>');
+                }else{
+                    document.getElementById('stampImg').src = "/api/v1/res/"+stamp.hash+"?"+Math.random();
+                }
+                var accountInfo = reg.data.account;
+                if(accountInfo.accountName==null || accountInfo.accountName==''|| accountInfo.accountName==undefined){
+                    $('#accountInfo').hide();
+                }else{
+                   if(accountInfo.accountFlag==1){
+                       $('#accountFlag').html('<span class="label label-success radius">正常</span>');
+                   }else if(accountInfo.accountFlag==0){
+                       $('#accountFlag').html('<span class="label label-danger radius">禁止</span>');
+                   }else{
+                       $('#accountFlag').html('<span class="label label-default radius">未知状态</span>');
+                   }
+                    $('#accountName').text(accountInfo.accountName);
+                    $('#roleName').text(accountInfo.roleName);
+                    $('#accountInfo').show();
+                }
+            }
+        });
+
+        //操作日志
+        var url= '/api/v1/Person/'+id+'/OperationLog';
+        opertionLog(url);
+
+    });
+
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

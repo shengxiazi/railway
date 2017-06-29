@@ -1,0 +1,221 @@
+.ptabs {
+
+    padding:0;
+
+}
+
+.stabs{
+    border-bottom: 2px solid #222;
+    height: 42px;
+    margin-left: 10px;
+
+}
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 0px 10px 10px 10px;
+    background: none;
+}
+
+.ui-tabs .ui-tabs-nav {
+    /*margin:0px 0px 0px 0px;*/
+    padding: 0px;
+}
+
+.table .text-c th {
+    font-weight: bold;
+    background-color: #f9f9f9;
+    text-align: right;
+}
+/*.table .text-c td {*/
+/*text-align: left;*/
+/*}*/
+table.pielinfotable {
+    width: 100%;
+}
+body {
+    min-height: initial;
+    font-size: 14px;
+}
+
+
+.ui-layout-center {
+    /* position:absolute; */
+    /* left:10px; */
+    /* right:10px; */
+    /*border:1px solid #dedede;*/
+    margin:0;
+    padding:0;
+}
+
+.ui-layout-content {
+    /* position: absolute; */
+    /* left: 10px; */
+    /* right: 10px; */
+    /* top: 155px; */
+    margin: 5px 0px 5px 0px;
+
+    padding: 0px 10px;
+    /* border: none; */
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+}
+.more{
+    background-color: #F9F7AE;
+}
+.ui-layout-menu {
+    width:200px;
+    position:absolute;
+    left: 10px;
+    right:auto;
+    background-color:#eee;
+    border:none;
+}
+.table th, .table td {
+    line-height: 18px;
+}
+.ui-layout-image {
+    position:absolute;
+    left:202px;
+    right:5px;
+    margin-top:10px;
+    border:none;
+    /*background-color:#fff;*/
+}
+.ui-widget-content {
+    border:none;
+    /*background-color:#f3f3f3;*/
+    color: #222222;
+}
+em.pilenumber {
+    position:absolute;
+    right:5px;
+    top:26px;
+}
+
+
+
+ul.pileimagelist {
+    position:absolute;
+    list-style: none;
+    line-height: 105px;
+    height: auto;
+    margin:0;
+    padding:0;
+}
+div.pileliteimage {
+    width:200px;height:110px;left:0;right:0;
+}
+div.pileliteimageoverlay {
+    width:200px;
+    height:110px;
+    z-index:1002;
+    top:-110px;
+}
+span.pilechanelno {
+    position:absolute;
+    right:5px;
+    z-index:11;
+    top:-30px;
+    left:140px;
+    font-size:12px;
+    height:30px;
+    color:red;
+    padding:0;
+}
+
+.ui-tabs-vertical .ui-tabs-nav {
+    /*padding: 0 .1em 0 .2em;*/
+    float: left;
+    width: 120px;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    width: 100%;
+    border-bottom-width: 1px !important;
+    border-bottom-color: #77d5f7;
+    border-bottom-style: solid;
+    border-right-width: 0 !important;
+    margin: 0 -1px .2em 0;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li a {
+    display: block;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {
+    margin: 0 -1px 0.2em 0;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+    padding-bottom: 1px;
+    padding-right: .1em;
+    border-right-width: 1px;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+    padding: 0;
+    float: right;
+    /*width: auto; */
+    overflow: auto;
+    text-align: left;
+    margin: 0;
+}
+.ui-state-active,.ui-widget-header .ui-state-active {
+    border: 1px solid #000;
+    font-weight: normal;
+    color: #ffffff;
+    background-color: #000;
+}
+
+.tipsinfo {
+    color:red;font-size:25px;line-height:300%;text-align:center;
+}
+.ui-layout-image {
+    margin: 30px;
+    /*margin: 70px 30px 30px 30px;*/
+}
+th, td {
+
+    font-size:0.88rem;
+
+}
+.vertical-middle{
+    display: flex;
+    justify-content:center;
+}
+.vertical-middle ul { list-style-type: none; display:inline-block; margin-right:20px;}
+.vertical-middle li { display: inline-block;margin-left:18px}
+.vertical-middle input.labelauty + label { font: 14px "Microsoft Yahei";}
+.vertical-middle input.labelauty + label {
+    border: 1px solid #ddd;
+}
+
+.selected   .pileliteimage{
+    background-color: #FFD700;
+}
+h3 {
+    padding-top: 8px;
+    font-size: 1.17em;
+    font-weight: bold;
+}
+.ui-widget-content a {
+    color: #fff;
+}
+
+.smdiv li {
+    margin-bottom: 5px;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+ul  {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}

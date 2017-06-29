@@ -1,0 +1,215 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <style>
+
+    </style>
+    <title>添加参建人员</title>
+</head>
+<body>
+<article class="page-container" id="unit-add">
+    <form class="form form-horizontal" id="form-xmperson-add" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>项目角色：</label>
+            <div class="formControls col-xs-9 col-sm-9">
+               <span class="select-box" style="width:300px;">
+                    <select class="select" name="roleId" id="roleId" size="1">
+
+                    </select>
+                 </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>选择人员：</label>
+            <div class="formControls col-xs-9 col-sm-9">
+               <span class="select-box" style="width:300px;">
+                    <select class="select" name="personId" id="personId" size="1">
+
+                    </select>
+                 </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>项目部：</label>
+            <div class="formControls col-xs-9 col-sm-9">
+               <span class="select-box" style="width:300px;">
+                    <select class="select" name="xmComId" id="xmComId" size="1">
+
+                    </select>
+               </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2">标段:</label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <select id="bdList" name="bdList" multiple="multiple" size="6" style="width:250px">
+                </select>
+                <span class="c-red">（按下ctrl键多选）</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button class="btn btn-primary radius size-S" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存退出</button>
+                <button onClick="layer_close();" class="btn btn-default radius size-S" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</article>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    var xmId = sessionStorage.p_xmId;
+    var comTypeCode = sessionStorage.comTypeCode;
+     var comId = sessionStorage.comId;
+     var rolelist =  JSON.parse(sessionStorage.rolelist);
+    $(function(){
+        $("#form-xmperson-add").validate({
+            debug:true,
+            rules:{
+                roleId:{
+                    required:true
+                },
+                bdList:{
+                    required:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+        comtype(comTypeCode);
+        proInfo(xmId,comId);
+    });
+
+    function comtype(comcode){
+
+        var roleStr ='<option value=" ">--请选择--</option>';
+        $.each(rolelist,function(k1,val1){
+            if(comcode==val1.RoleGroupCode){
+                roleStr += '<option value="'+val1.roleId+'">'+val1.roleName+'</option>';
+            }
+            $('#roleId').html(roleStr);
+        });
+    }
+
+
+    function proInfo(xmId,comId){
+        //选择人员
+        $.ajax({
+            url:'/api/v1/Person/'+comId+'/ListByComId',    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    //项目部
+                    var personstr='<option value="">--请选择--</option>';
+                    $.each(reg.data,function(k,v){
+                        personstr+='<option value="'+v.value+'">'+v.name+'</option>';
+                    });
+                    $('#personId').html(personstr);
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+        //标段信息
+        $.ajax({
+            url:'/api/v1/XMCompany/'+comId+'/'+xmId+'/XMComInfoByComAndXM',    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    //项目部
+                    var xmComstr='<option value="">--请选择--</option>';
+                    $.each(reg.data,function(k,v){
+                        xmComstr+='<option value="'+v.value+'">'+v.name+'</option>';
+                    });
+                    $('#xmComId').html(xmComstr);
+
+                    $('#xmComId').bind('change',function(){
+                     var   index =  ($(this).get(0).selectedIndex)-1;
+                        var bdstr = "";
+                        $.each(reg.data[index].child,function(k1,v1){
+                            bdstr+='<option value="'+v1.value+'">'+v1.name+'</option>';
+                        });
+                        $('#bdList').html(bdstr);
+
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+    }
+
+    var submited = false;
+    function save_submit(){
+        if( checkSubmit()) {
+            var data = new Object();
+            data['comId'] = comId;
+            data['xmId'] = xmId;
+            data['xmComId'] = $("#xmComId").val();
+            data['personId'] = $("#personId").val();
+            data['roleId'] = $("#roleId").val();
+            data['bdList'] = $('#bdList').val();
+            $.ajax({
+                url: '/api/v1/XMPerson',    //请求的url地址
+                dataType: "json",
+                async: true,
+                data: data,
+                type: "POST",
+                success: function (reg) {
+                    submited = false;
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000}, function () {
+                            parent.location.href = "/project/personlist.html";
+                        });
+
+                    } else {
+                        layer.msg(reg.message, {icon: 6, time: 2000});
+                    }
+                },
+                error: function (reg) {
+                    layer.msg('保存数据失败！');
+                    submited = false;
+                }
+            });
+        }
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

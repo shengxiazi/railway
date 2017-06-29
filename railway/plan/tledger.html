@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>填料压实质量台账</title>
+    <style>
+
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+
+        .page-container .search-input{
+            width:100%;
+        }
+        .search-item label{font-size:12px;}
+
+        .search-item{
+            float:left;
+            height:31px;
+            margin-left:20px;
+
+        }
+        .search-item .input-text{
+            width:80%;
+            height:22px;
+        }
+        .table{font-size:12px;}
+
+        .table th,td {
+            white-space: nowrap;
+        }
+        .table th {
+            padding: 4px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="t-ledger" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>单项工程<span class="c-gray en">&gt;</span>检测报检批<span class="c-gray en">&gt;</span>填料压实质量报检批台账<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c">
+
+            <input type="text" name="planCode" id="planCode" style="width:300px" placeholder="请输入委托编号或检测编号"  class="input-text">
+            <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden;position:relative;">
+            <span class="l" id="operation">
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="5" selected = "selected" >5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+<!--数据复核-->
+<article class="page-container" id="k30-review" style="display:none">
+    <form class="form form-horizontal" id="form-k30-review" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>实验人员：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+            <span class="select-box" style="width:150px;">
+                <select class="select" name="testId" id="testId" size="1">
+
+                </select>
+            </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据是否有效：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="dataValid" type="radio" id="Valid" value="1" checked>
+                    <label for="isValid">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="noValid" value="0" name="dataValid">
+                    <label for="noValid">否</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js?v=3.0"></script>
+<script type="text/javascript">
+
+    var pageSize=$("#page-size").val();
+    var projectId = sessionStorage.pro_id;
+    $(function(){
+        var  screenWidth = window.screen.width;
+        if(screenWidth<=1366){
+            height='96%';
+            width='96%';
+        }else{
+            height='90%';
+            width='85%';
+        }
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/TPlanLedger/"+projectId+"/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('t-ledger',power,'operation');
+
+                    //初始化分页数据
+                    var pageIndex=1;
+                    var uri ='/api/v1/TPlanLedger/'+projectId+'/ListByPage?pageSize='+pageSize+'&pageIndex='+pageIndex;
+//                    var uri ='/api/v1/TPlanLedger/'+projectId+'/'+pageSize+'/'+pageIndex+'/ListByPage';
+                    getPage(uri);
+                }
+            },
+            error:function(){
+                layer.msg('哎呀，初始化页面时出错！',{icon:5,time:2000});
+            }
+        });
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+//            var serialNo = ($('#serialNo').val()) ? '&serialNo='+$('#serialNo').val() : '';
+//            var planCode = ($('#planCode').val()) ? '&planCode='+$('#planCode').val() : '';
+            //            var uri='/api/v1/TPlanLedger/'+projectId+'/'+pageSize+'/1/ListByPage?'+serialNo+planCode;
+            var planCode = $('#planCode').val();
+            var uri ='/api/v1/TPlanLedger/'+projectId+'/ListByPage?pageSize='+pageSize+'&pageIndex=1&planCode='+planCode;
+
+            getPage(uri);
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tr',function(){
+            var id = $(this).attr('data-id');
+            sessionStorage.BasicInfoId = id;
+            showModal('testk30-details.html');
+        });
+
+
+
+        //复核
+        $('#operation').on('click','#review',function(){
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            //获取实验人员列表
+            $.ajax({
+                url:'/api/v1/XMPerson/'+projectId+'/LiteListByProjId',
+                dataType:"json",
+                async:true,
+                type:'GET',
+                success:function(reg){
+                    if(reg.code==0){
+                        var testStr = "<option value=''>--请选择--</option>";
+                        $.each(reg.data,function(k,v){
+                            testStr+='<option value="'+ v.value+'">'+ v.name+'</option>';
+                        });
+                        $('#testId').html(testStr);
+                    }
+                }
+            });
+
+            var index=layer.open({
+                type: 1,
+                title:'复核',
+                content: $('#k30-review'), //这里content是一个DOM
+                area:['700px','450px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var isValid = $('input[name=dataValid]:checked').val();
+                    var flowFlag = $('input[name=flowFlag]:checked').val();
+                    if(validform().form()) {
+                        $.ajax({
+                            url: '/api/v1/KSData/'+projectId+'/'+id+'/Review',    //请求的url地址
+                            dataType: "json",
+                            async: true,
+                            type: "PATCH",
+                            data:{'testId':$('#testId').val(),'isValid': isValid,'flowFlag':flowFlag,'message':$("#message").val()},
+                            success: function(reg) {
+                                if(reg.code==0){
+                                    layer.msg('操作成功!',{icon:1,time:2000});
+                                }else{
+                                    layer.msg(reg.message,{icon:5,time:2000});
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    }
+                }
+            });
+        });
+
+        //查看详情
+        $("#operation").on("click","#view", function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            sessionStorage.BasicInfoId = id;
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            showModal('testk30-details.html');
+        });
+
+        $('#operation').on('click','#print',function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            var url ='/api/v1/KSData/'+projectId+'/'+id+'/PdfDoc';
+
+            layer_open('k30打印预览',url,'85%','98%');
+        });
+
+    });
+
+
+    //表单验证
+    function validform(){
+        return  $("#form-k30-review").validate({
+            debug:true,
+            rules:{
+                testId:{
+                    required:true
+                },
+                flowFlag:{
+                    required:true
+                },
+                message:{
+                    required:true
+                }
+            }
+        });
+    }
+
+
+
+    //查询
+    function search(){
+//        var serialNo = $("#serialNo").val();
+//        var planCode = $("#planCode").val();
+//        var mile = $("#mile").val();
+//        var uri ='/api/v1/TPlanLedger/'+projectId+'/'+pageSize+'/1/ListByPage?serialNo='+serialNo+'&planCode='+planCode+'&mile='+mile;
+        var planCode = $('#planCode').val();
+        var uri ='/api/v1/TPlanLedger/'+projectId+'/ListByPage?pageSize='+pageSize+'&pageIndex=1&planCode='+planCode;
+        getPage(uri);
+    }
+
+    //分页函数
+    function getPage(uri){
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+= '<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo += '<th   width="15" rowspan="2">序号</th>';
+        tableInfo += '<th   width="100" rowspan="2">检测日期</th>';
+        tableInfo += '<th  width="160" rowspan="2">检测编号</th>';
+        tableInfo += '<th width="160" rowspan="2">委托编号</th>';
+        tableInfo+='<th width="100" rowspan="2">检验批里程</th>';
+        tableInfo+='<th width="100" rowspan="2">检测延米(m)</th>';
+        tableInfo += '<th width="50" colspan="3">压实系数K</th>';
+        tableInfo += '<th width="50" colspan="3">地基系数K30</th>';
+        tableInfo += '<th width="70" colspan="3">动态变形模量Evd</th>';
+        tableInfo += '<th width="70" colspan="3">相对密度Dr</th>';
+        tableInfo += '<th width="70" colspan="3">变形模量Ev2</th>';
+        tableInfo += '<th width="70" colspan="3">孔隙率n</th>';
+        tableInfo += '<th width="70" rowspan="2">报告编号</th>';
+        tableInfo += '<th width="70" rowspan="2">报告日期</th>';
+        tableInfo += '</tr>';
+        tableInfo += '<tr class="text-c">';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '<th width="100">报检</th>';
+        tableInfo += '<th width="100">已检</th>';
+        tableInfo += '<th width="100">不合格</th>';
+        tableInfo += '</tr>';
+//        tableInfo+='<th width="25" rowspan="2" ><input type="checkbox" name="" value=""/></th>';
+//        tableInfo+='<th width="150" rowspan="2">检测编号</th>';
+//        tableInfo+='<th width="150" rowspan="2">委托编号</th>';
+//        tableInfo+='<th width="100" rowspan="2">检验批里程</th>';
+//        tableInfo+='<th width="100" rowspan="2">检测延米(m)</th>';
+//        tableInfo+='<th width="100" rowspan="2">检测日期</th>';
+//        tableInfo+='<th width="100" rowspan="2">报检单<br>（是/否）</th>';
+//        tableInfo+='<th width="100" rowspan="2">通知单发放<br>(是/否)</th>';
+//        tableInfo+='<th width="100" rowspan="2">通知单归档<br>(是/否)</th>';
+//        tableInfo+='<th width="100" colspan="6">检测数量</th>';
+//        tableInfo+='<th width="100" colspan="6">不合格数量</th>';
+//        tableInfo+='<th width="100" rowspan="2">所属标段</th>';
+//        tableInfo+='<th width="100" rowspan="2">备注</th>';
+//        tableInfo+='</tr>';
+//        tableInfo+='<tr class="text-c">';
+//        tableInfo+='<th>K</th>';
+//        tableInfo+='<th >n</th>';
+//        tableInfo+='<th>K30</th>';
+//        tableInfo+='<th>Evd</th>';
+//        tableInfo+='<th >Dr</th>';
+//        tableInfo+='<th >Ev2</th>';
+//        tableInfo+='<th>K</th>';
+//        tableInfo+='<th>n</th>';
+//        tableInfo+='<th>K30</th>';
+//        tableInfo+='<th>Evd</th>';
+//        tableInfo+='<th>Dr</th>';
+//        tableInfo+='<th>Ev2</th>';
+//        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) *pageSize+1;
+
+                    //结束数
+                    var PageEnd =pageIndex*pageSize;
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    if (data.length!=0) {
+                        $.each(data,function(n,value) {
+                            tableInfo+='<tr class="text-c" data-id="'+value.planId+'">';
+                            tableInfo += '<td >' + (n + 1) + '</td>'; //序号
+
+                            tableInfo+='<td>'+value.testDate+'</td>';//检测日期
+
+
+                            tableInfo+='<td>'+value.serialNo+'</td>';//检测编号
+                            tableInfo+='<td>'+value.planCode+'</td>';// 	委托编号
+                            tableInfo+='<td>'+value.mileage+'</td>';// 报检批里程
+                            tableInfo+='<td>'+value.mileageExt+'</td>';// 检测延米(m)
+                            tableInfo+='<td>'+value.ys+'</td>';// 压实系数K 报检
+                            tableInfo += '<td>' + value.ysed + '</td>';// 压实系数K' 已检
+                            tableInfo+='<td>'+value.ysuq+'</td>';// 压实系数K 不合格
+                            tableInfo+='<td>'+value.ks+'</td>';// 地基系数K30	 报检
+                            tableInfo += '<td>' + value.ksed + '</td>';// 地基系数K30	'已检
+                            tableInfo+='<td>'+value.ksuq+'</td>';// 地基系数K30	不合格
+                            tableInfo+='<td>'+value.ed+'</td>';// 动态变形模量Evd	 报检
+                            tableInfo += '<td>' + value.eded + '</td>';// 动态变形模量Evd	已检
+                            tableInfo+='<td>'+value.eduq+'</td>';// 动态变形模量Evd	不合格
+                            tableInfo+='<td>'+value.xm+'</td>';// 相对密度Dr		报检
+                            tableInfo += '<td>' + value.xmed + '</td>';// 相对密度Dr			已检
+                            tableInfo+='<td>'+value.xmuq+'</td>';// 相对密度Dr		不合格
+                            tableInfo+='<td>'+value.ev+'</td>';// 变形模量EV2		报检
+                            tableInfo += '<td>' + value.eved + '</td>';// 变形模量EV2		已检
+                            tableInfo+='<td>'+value.evuq+'</td>';// 变形模量EV2		不合格
+                             tableInfo+='<td>'+value.kx+'</td>';// 孔隙率n		报检
+                            tableInfo += '<td>' + value.kxed + '</td>';// 孔隙率n		已检
+                            tableInfo+='<td>'+value.kxuq+'</td>';// 孔隙率n		不合格
+
+                            tableInfo += '<td>' + value.reportCode + '</td>';// 报告编号
+                            tableInfo += '<td>' + value.reportDate + '</td>';// 报告日期
+
+
+
+
+
+//                            tableInfo+='<td><input type="checkbox"  class="checkchild" value="'+value.planId+'" name=""/></td>';
+//                            tableInfo+='<td>'+value.serialNo+'</td>';
+//                            tableInfo+='<td>'+value.planCode+'</td>';
+//                            tableInfo+='<td>'+value.mileage+'</td>';
+//                            tableInfo+='<td>'+value.extMileage+'</td>';
+//                            tableInfo+='<td>'+value.testDate+'</td>';
+//                            if(value.ifPlan==1){
+//                                tableInfo+='<td class="c-green">是</td>';
+//                            }else if(value.ifPlan==0){
+//                                tableInfo+='<td class="c-red">否</td>';
+//                            }
+//                            if(value.ifNotice==1){
+//                                tableInfo+='<td class="c-green">是</td>';
+//                            }else if(value.ifNotice==0){
+//                                tableInfo+='<td class="c-red">否</td>';
+//                            }
+//                            if(value.ifFile==1){
+//                                tableInfo+='<td class="c-green">是</td>';
+//                            }else if(value.ifFile==0){
+//                                tableInfo+='<td class="c-red">否</td>';
+//                            }
+//                            tableInfo+='<td>'+value.ysed+'</td>';
+//                            tableInfo+='<td>'+value.kxed+'</td>';
+//                            tableInfo+='<td>'+value.ksed+'</td>';
+//                            tableInfo+='<td>'+value.eded+'</td>';
+//                            tableInfo+='<td>'+value.xmed+'</td>';
+//                            tableInfo+='<td>'+value.eved+'</td>';
+//                            tableInfo+='<td>'+value.ysuq+'</td>';
+//                            tableInfo+='<td>'+value.kxuq+'</td>';
+//                            tableInfo+='<td>'+value.ksuq+'</td>';
+//                            tableInfo+='<td>'+value.eduq+'</td>';
+//                            tableInfo+='<td>'+value.xmuq+'</td>';
+//                            tableInfo+='<td>'+value.evuq+'</td>';
+//                            tableInfo+='<td>'+value.sgBdCode+'</td>';
+//                            tableInfo+='<td>'+value.remark+'</td>';
+
+                        });
+                        tableInfo += '</tbody></table>';
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if (pervPage == 0) {
+                            tablePage += '<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button previous disabled"  data-href="' + prevPageUri + '" id="Table_previous">上一页</a>';
+                        }
+                        if (nextPage == 0) {
+                            tablePage += '<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button next disabled"  data-href="' + nextPageUri + '"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

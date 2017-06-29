@@ -1,0 +1,672 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .input-text, .textarea {
+            border: none;
+        }
+        .table th{
+            font-size:14px;
+            width:117px;
+            background-color: #F8F8F8;
+        }
+        .select {
+            border: solid 0px #ddd;
+        }
+        .input-none{height:25px}
+        .form .row{margin-top:8px;}
+        .panel-body {
+            border: none;
+            background-color: #FFFFFF;
+        }
+        .text{
+            font-size:15px;
+            font-weight: 600;
+        }
+
+        .table td{
+            padding:4px;
+            height:25px;
+        }
+        .input-none{
+            border:none;
+            width:80%;
+            height:100%;
+            margin-left :10px;
+            /*text-align:center;*/
+            font-size:14px;
+        }
+        .table th{
+        	text-align: right;
+        }
+    </style>
+    <title>编辑地基处理桩</title>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-DProject-Edit">
+        <div  data-options="region:'center',split:true" style="width:100%">
+            <article class="page-container" >
+                <table class="table table-border table-bordered">
+                    <tr>
+                        <th><span class="c-red">*</span>所属项目：</th>
+                        <td colspan="5">
+                            <select  class="select" name="xmId" id="xmId" style="width:100%" >
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="6"><span class="text">编辑工程基本信息</span></th>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>工程名称:</th>
+                        <td colspan="5">
+                            <input type="text" class="input-none" value="" placeholder="请输入工程名称" id="projectName" name="projectName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>工程地址:</th>
+                        <td colspan="5">
+                            <input type="text" class="input-none" value="" placeholder="请输入工程地址" id="address" name="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>起始里程(m):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入起始里程" id="lc" name="lc">
+                        </td>
+                        <th><span class="c-red">*</span>截止里程(m):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入截止里程" id="endlc" name="endlc">
+                        </td>
+                        <th width="100px"><span class="c-red">*</span>工程备用位:</th>
+                        <td>
+                            <input type="text" class="input-none" value="-" placeholder="请输入工程备用位" id="bywCode" name="bywCode">
+                        </td>
+                    </tr>
+  
+                    <tr>
+                         <th width="100px"><span class="c-red">*</span>桩型:</th>
+                        <td>
+                            <select class="select" name="pileType" id="pileType" size="1">
+                                <option>--请选择--</option>
+                                <option>CFG桩</option>
+                                <option>水泥搅拌桩</option>
+                                <option>高压旋喷桩</option>
+                                <option>混凝土桩</option>
+                                <option>灰土挤密桩</option>
+                                <option>水泥挤密桩</option>
+                                <option>其它桩</option>
+                            </select>
+                        </td>
+                        <th width="100px"><span class="c-red">*</span>布置形式:</th>
+                        <td>
+                            <select class="select" name="bzxs" id="bzxs" size="1">
+                                <option>--请选择--</option>
+                                <option>三角形</option>
+                                <option>矩  形</option>
+                                <option>正方形</option>
+                                <option>梅花形</option> 
+                            </select>
+                        </td>
+                         <th><span class="c-red">*</span>总桩数:</th>
+                    <td>
+                        <input type="text" class="input-none" value="" placeholder="请输入总桩数" id="total" name="total">
+                    </td>
+                       
+                        
+                    </tr>
+
+                    <tr>
+                        <th width="100px"><span class="c-red">*</span>桩长(m):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入桩长(m)" id="pileLength" name="pileLength">
+                        </td>
+                        <th width="100px"><span class="c-red">*</span>桩径(mm):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入桩径(mm)" id="pileDiameter" name="pileDiameter">
+                        </td>
+                        <th width="100px"><span class="c-red">*</span>桩间距(mm):</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入桩间距(mm)" id="pileSpacing" name="pileSpacing">
+                        </td>
+                        
+                       
+                    </tr>
+                    <tr>
+                        <th width="100px"><span class="c-red">*</span>里程标识：</th>
+                        <td>
+                            <input type="text" class="input-none" value="" placeholder="请输入里程标识" id="lcFlag" name="lcFlag">
+                        </td>
+                        <th>图纸编号:</th>
+                        <td colspan="3">
+                            <input type="text" class="input-none" value="" placeholder="" id="drawNo" name="drawNo">
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th colspan="6"><span class="text">编辑参建单位信息</span></th>
+                    </tr>
+                    <tr>
+                        <th><span class="c-red">*</span>建设标:</th>
+                        <td>
+                            <select class="select" name="jsb" id="jsb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th><span class="c-red">*</span>施工标:</th>
+                        <td>
+                            <select class="select" name="sgb" id="sgb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th><span class="c-red">*</span>监理标:</th>
+                        <td>
+                            <select class="select" name="jlb" id="jlb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        
+                        
+                        
+                        
+                    </tr>
+                    <tr>
+                    	<th><span class="c-red">*</span>检测标:</th>
+                        <td>
+                            <select class="select" name="jcb" id="jcb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                    	<th>监督标:</th>
+                        <td>
+                            <select class="select"  name="jdb" id="jdb" size="1">
+                                <option>--请选择--</option>
+
+                            </select>
+                        </td>
+                        <th>设计标:</th>
+                        <td>
+                            <select class="select" name="sjb" id="sjb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                    	
+                        <th>咨询标:</th>
+                        <td>
+                            <select class="select" name="zxb" id="zxb" size="1">
+                                <option>--请选择--</option>
+                            </select>
+                        </td>
+                        <th> </th>
+                        <td>
+
+                        </td>
+                        <th> </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                     
+                </table>
+                <table class="table table-border table-bordered" style="border-top:0" id="testData">
+                    <tr class="text-c">
+                        <th colspan="6"><span class="text">编辑检测数量</span></th>
+                    </tr>
+                    <tr class="text-c">
+                        <th>检测项目</th>
+                        <th>检测数量（根）</th>
+                        <th>检测项目</th>
+                        <th>检测数量（根）</th>
+                        <th>检测项目</th>
+                        <th>检测数量（根）</th>
+                    </tr>
+
+                </table>
+
+                <table class="table table-border table-bordered" style="border-top:0">
+                    <tr>
+                        <th width="60px" class="text-c">备注</th>
+                        <td colspan="3">
+                            <input type="text" class="input-none" value="" placeholder="" id="remark" name="remark">
+                        </td>
+                    </tr>
+
+                </table>
+            </article>
+          
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    var id = sessionStorage.dlistprojectId;
+    var xmlist = JSON.parse(sessionStorage.d_xmlist);
+    $(function(){
+        $("#form-DProject-Edit").validate({
+            debug:true,
+            rules:{
+                xmId:{
+                    required:true
+                },
+                projectName:{
+                    required:true,
+                    rangelength:[0,100]
+                },
+                address:{
+                    required:true,
+                    rangelength:[0,50]
+                },
+                bywCode:{
+                    required:true,
+                    maxlength:1
+                },
+                lcFlag:{
+                    required:true,
+                    rangelength:[0,10]
+                },
+                lc:{
+                    required:true,
+                    range:[0,999999]
+                },
+                endlc:{
+                    required:true,
+                    range:[0,999999]
+                },
+                pileType:{
+                    required:true,
+                    rangelength:[0,20]
+                },
+                bzxs:{
+                    required:true,
+                    rangelength:[0,20]
+                },
+                pileLength:{
+                    required:true,
+                    number:true,
+                    rangelength:[0,20]
+                },
+                pileDiameter:{
+                    required:true,
+                    number:true,
+                    rangelength:[0,20]
+                },
+                pileSpacing:{
+                    required:true,
+                    number:true,
+                    rangelength:[0,20]
+                },
+                total:{
+                    required:true,
+                    digits:true
+                },
+                jsb:{
+                    required:true
+                },
+
+                sgb:{
+                    required:true
+                },
+
+                jlb:{
+                    required:true
+                },
+
+                jcb:{
+                    required:true
+                },
+                drawNo:{
+                    rangelength:[0,255]
+                },
+                remark:{
+                    rangelength:[0,255]
+                }
+            },
+            onkeyup:false,
+//            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+        var xmStr = "<option value=''>--请选择--</option>";
+        $.each(xmlist,function(key,val){
+            xmStr += '<option value="'+val.value+'">'+val.name+'</option>'
+        });
+        $("#xmId").html(xmStr);
+
+        //二级联动
+        $('#xmId').bind('change',function(){
+            var xmId = this.value;
+
+            proInfo(xmId);
+        });
+
+
+        //获取信息
+        $.ajax({
+            url: "/api/v1/DProject/"+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var xm_id = reg.data.xmId.toUpperCase();
+                    $('#xmId').val(xm_id);
+                    proInfo(xm_id);
+                     
+//                  $.each(reg.data,function(k,v){
+//                      $('input[name='+k+']').val(v);
+//                  });
+                    for (var Key in reg.data){
+                    	if(Key!='xmId'){
+                    		var value=reg.data[Key];
+	                        if(value==null|| value=="null"){
+	
+	                            value="";
+	                        } 
+							$('select[name='+Key+']').val(value);
+	                        $('input[name='+Key+']').val(value);
+                    	}
+                        
+                      
+                    } 
+
+
+                    $('#remark').val(reg.data.remark);
+                    $('#bywCode').val(reg.data.bywCode);
+                }else{
+                    layer.alert(reg.message);
+                }
+            },error:function(e){
+            	layer.alert('请求出错！'); 
+            }
+        });
+    });
+
+    function proInfo(xmId){
+        $.ajax({
+            url:"/api/v1/XMProject/"+xmId+'/ByBdAndQuote?buildTypeCode=D',    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var zxstr="";
+                    var str="";
+                    var qutaData = reg.data.testList;
+                    $.each(qutaData,function(key,val) {
+                            if (key % 3 == 0)
+                                str += '<tr class="text-c add">';
+                            switch (val.testModeCode) {
+                                case "DY":
+                                    str += '<th>低应变</th>';
+                                    str += '<td><input type="digits" class="input-none" value="" placeholder="请输入数量(根)" id="DY" name="dy" required></td>';
+                                    break;
+                                case "DZ":
+                                    str += '<th>单桩静载</th>';
+                                    str += '<td><input type="digits" class="input-none" value="" placeholder="请输入数量(根)" id="DZ" name="dz" required></td>';
+                                    break;
+                                case "FH":
+                                    str += '<th>复合地基</th>';
+                                    str += '<td><input type="digits" class="input-none" value="" placeholder="请输入数量(根)" id="FH" name="fh" required></td>';
+                                    break;
+
+                                case "ZX":
+                                    str += '<th>钻芯</th>';
+                                    str += '<td><input type="digits" class="input-none" value="" placeholder="请输入数量(根)" id="ZX" name="zx" required></td>';
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (key % 3== 2&&key>=3) {
+                                str += '</tr>';
+                            }
+                            if (val.testModeCode=="ZX"){
+
+                                zxstr += '<th>钻芯延米(m)</th>';
+                                zxstr += '<td ><input type="number" class="input-none" value="" placeholder="请输入钻芯延米(m)" id="zxExt" name="zxExt" required></td>';
+
+                             }
+
+
+                        });
+
+                    if(qutaData.length%3==2){
+                        if(zxstr!=""){
+                            str+=zxstr;
+                            str += '</tr>';
+                        }else { 
+                            str+='<th>&nbsp;</th>';
+                            str+='<td>&nbsp;</td>';
+                            str+='</tr>';
+                        }
+
+                    } 
+                    if(qutaData.length%3==1){
+                        if(zxstr!=""){
+                            str+=zxstr;
+                            str+='<th>&nbsp;</th>';
+                            str+='<td>&nbsp;</td>';
+                            str += '</tr>';
+                        }else { 
+                        	str+='<th>&nbsp;</th>';
+                            str+='<td>&nbsp;</td>';
+                            str+='<th>&nbsp;</th>';
+                            str+='<td>&nbsp;</td>';
+                            str+='</tr>';
+                        }
+
+                    }
+                    if(qutaData.length%3==0){
+                        if(zxstr!="") {
+                            str += '<tr class="text-c add">';
+                            str += zxstr;
+                            str += '<th>&nbsp;</th>';
+                            str += '<td>&nbsp;</td>';
+                            str += '<th>&nbsp;</th>';
+                            str += '<td>&nbsp;</td>';
+                            str += '</tr>';
+                        }
+                    }
+                    $('#testData tr:gt(1)').remove();
+                    $('#testData').append(str);
+                    var defaultStr = "<option value=''>--请选择--</option>";
+                    //检测标
+                    var jcbStr = "";
+                    var jcbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JC'){
+                            jcbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            jcbI++;
+                        }
+                    });
+                    if(jcbI>1){
+                        $('#jcb').html(defaultStr+jcbStr);
+                    }else {
+                        $('#jcb').html(jcbStr);
+                    }
+
+
+                    //设计标
+                    var sjbStr = "";
+                    var sjbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='SJ'){
+                            sjbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            sjbI++;
+                        }
+                    });
+                    if(sjbI>1){
+                        $('#sjb').html(defaultStr+sjbStr);
+                    }else {
+                        $('#sjb').html(sjbStr);
+                    }
+                    //监督标
+                    var jdbStr = "";
+                    var jdbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JD'){
+                            jdbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            jdbI++;
+                        }
+                    });
+                    if(jdbI>1){
+                        $('#jdb').html(defaultStr+jdbStr);
+                    }else {
+                        $('#jdb').html(jdbStr);
+                    }
+                    //施工标
+                    var sgbStr = "";
+                    var sgbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='SG'){
+                            sgbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            sgbI++;
+                        }
+                    });
+                    if(sgbI>1){
+                        $('#sgb').html(defaultStr+sgbStr);
+                    }else {
+                        $('#sgb').html(sgbStr);
+                    }
+
+                    //建设标
+                    var jsbStr = "";
+                    var jsbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JS'){
+                            jsbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            jsbI++;
+                        }
+                    });
+                    if(jsbI>1){
+                        $('#jsb').html(defaultStr+jsbStr);
+                    }else {
+                        $('#jsb').html(jsbStr);
+                    }
+
+                    //监理标
+                    var jlbStr = "";
+                    var jlbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='JL'){
+                            jlbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            jlbI++;
+                        }
+                    });
+                    if(jlbI>1){
+                        $('#jlb').html(defaultStr+jlbStr);
+                    }else {
+                        $('#jlb').html(jlbStr);
+                    }
+
+                    //咨询标
+                    var zxbStr = "";
+                    var zxbI=0;
+                    $.each(reg.data.bdList,function(k,v){
+                        if(v.bdTypeCode=='ZX'){
+                            zxbStr+='<option value="'+v.bdId+'">'+v.bdCode+'</option>';
+                            zxbI++;
+                        }
+                    });
+                    if(zxbI>1){
+                        $('#zxb').html(defaultStr+zxbStr);
+                    }else {
+                        $('#zxb').html(zxbStr);
+                    }
+
+                }
+            }
+        });
+
+    }
+
+
+
+
+    var submited = false;
+    function save_submit(){
+        if( checkSubmit()) {
+            $('#form-DProject-Edit :disabled').val(0);
+            var data = new Object();
+            $("#form-DProject-Edit *[name]").each(function (item) {
+                data[$(this).attr("name")] = $(this).val();
+                if($(this).attr("name")=='lc'){
+                    data['lc']=parseFloat($(this).val())*1000;
+                }
+                if($(this).attr("name")=='endlc'){
+                    data['endlc']=parseFloat($(this).val())*1000;
+                }
+            });
+            var bywCode=$("#bywCode").val();
+            if(!isbywCode(bywCode)){
+                layer.msg("工程备用位只能为单个字母或短横线-", {icon: 6, time: 3000});
+                return;
+            }
+            data["remark"] = $('#remark').val();
+            $.ajax({
+                url: "/api/v1/DProject/" + id,    //请求的url地址
+                dataType: "json",
+                async: true,
+                data: data,
+                type: "PUT",
+                success: function (reg) {
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000},function(){
+                            parent.location.href="/project/dlist.html";
+                        });
+
+                    } else {
+                        layer.alert(reg.message);
+                    }
+                },
+                error:function(e){
+                    debugger;
+                    submited = false;
+                    layer.alert('保存失败！');
+                }
+            });
+        }
+
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html><!--_meta 作为公共模版分离出去-->

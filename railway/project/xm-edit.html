@@ -1,0 +1,660 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/switch.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <style>
+        .input-none{
+            border:none;
+            width:100%;
+            height:100%;
+            text-align:center;
+            font-size:10px;
+        }
+        .table td {
+            padding: 0;
+            height:30px;
+        }
+        .textarea{
+            height:50px;
+            border:none;
+        }
+        .cb{background-color:#f2f2f2}
+
+        .panel-body {
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-xm-edit">
+        <div  data-options="region:'center',split:true" style="width:100%">
+            <div class="page-container">
+        <table class="table table-border table-bordered">
+            <tr class="text-c">
+                <th><span class="c-red">*</span>项目名称:</th>
+                <td colspan="3"><input type="text" name="xmName" class="input-none"/></td>
+            </tr>
+            <tr class="text-c">
+                <th><span class="c-red">*</span>项目简称:</th>
+                <td><input type="text" name="xmShortName" class="input-none"/></td>
+                <th><span class="c-red">*</span>项目编码:</th>
+                <td><input type="text" name="xmCode" class="input-none"/></td>
+            </tr>
+            <tr class="text-c">
+                <th>项目概况</th>
+                <td colspan="3">
+                    <textarea name="xmSurvey"  id="xmSurvey" class="textarea" ></textarea>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <th>项目备注</th>
+                <td colspan="3">
+                    <textarea name="xmRemark"  id="xmRemark" class="textarea" ></textarea>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-border table-bordered" style="border-top:0">
+            <tr class="text-c">
+                <th colspan="8">建筑分类检测指标</th>
+            </tr>
+            <tr class="text-c">
+                <th colspan="4">一、桥梁基桩</th>
+                <th colspan="4">二、地基处理桩</th>
+            </tr>
+            <tr class="text-c">
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="QCZLJZ"  data-param="Q,CZL,JZ,1"/></td>
+                <td><input type="text"  class="input-none" value="承载力检测"/></td>
+                <td><input type="text"  class="input-none" value="静载"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode1" value=2 id=1>
+                        <label for=1 class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode1" value=1 id=2 checked>
+                        <label for=2 class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="DCZLDZ"  data-param="D,CZL,DZ,2"/></td>
+                <td><input type="text" name="" class="input-none" value="承载力检测"/></td>
+                <td><input type="text" name="" class="input-none" value="单桩静载"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode2" value=2 id="3">
+                        <label for="3" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode2" value=1 id="4"  checked>
+                        <label for="4" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="QWZXDY" data-param="Q,WZX,DY,3"/></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="低应变"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode3" value=2 id="5">
+                        <label for="5" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode3" value=1 id="6"  checked>
+                        <label for="6" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                </div>
+                </td>
+                <td><input type="checkbox" value="DCZLFH" data-param="D,CZL,FH,4"/></td>
+                <td><input type="text" name="" class="input-none" value="承载力检测"/></td>
+                <td><input type="text" name="" class="input-none" value="复合地基静载"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode4" value=2 id="7">
+                        <label for="7" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode4" value=1 id="8"  checked>
+                        <label for="8" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="QWZXGY" data-param="Q,WZX,GY,5"/></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="高应变"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode5" value=2 id="9">
+                        <label for="9" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode5" value=1 id="10"  checked>
+                        <label for="10" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="DWZXDY" data-param="D,WZX,DY,6" /></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="低应变"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode6" value=2 id="11">
+                        <label for="11" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode6" value=1 id="12"  checked>
+                        <label for="12" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="QWZXSC" data-param="Q,WZX,SC,7"/></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="声测"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode7" value=2 id="13">
+                        <label for="13" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode7" value=1 id="14"  checked>
+                        <label for="14" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="DOTHZX" data-param="D,OTH,ZX,8"/></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="钻芯"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode8" value=2 id="15">
+                        <label for="15" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode8" value=1 id="16"  checked>
+                        <label for="16" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="QOTHZX" data-param="Q,OTH,ZX,9"/></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="钻芯"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode9" value=2 id="17">
+                        <label for="17" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode9" value=1 id="18" checked>
+                        <label for="18" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!--填料，隧道-->
+            <tr class="text-c">
+                <th colspan="4">三、填料压实质量</th>
+                <th colspan="4">四、隧道</th>
+            </tr>
+            <tr class="text-c">
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TKYS" data-param="T,K,YS,10"/></td>
+                <td><input type="text" name="" class="input-none" value="压实系数K"/></td>
+                <td><input type="text" name="" class="input-none" value="压实系数-灌砂法"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode10" value=2 id="19">
+                        <label for="19" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode10" value=1 id="20"  checked>
+                        <label for="20" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="SOTHMC" data-param="S,OTH,MC,11" /></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="锚杆长度及密实度"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode11" value=2 id="21">
+                        <label for="21" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode11" value=1 id="22"  checked>
+                        <label for="22" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TnKX" data-param="T,n,KX,12" /></td>
+                <td><input type="text" name="" class="input-none" value="孔隙率n"/></td>
+                <td><input type="text" name="" class="input-none" value="孔隙率-灌砂法"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode12" value=2 id="23">
+                        <label for="23" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode12" value=1 id="24"  checked>
+                        <label for="24" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="SOTHMB" data-param="S,OTH,MB,13"/></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="锚杆抗拔"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode13" value=2 id="25">
+                        <label for="25" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode13" value=1 id="26"  checked>
+                        <label for="26" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TDrXM"  data-param="T,Dr,XM,14" /></td>
+                <td><input type="text" name="" class="input-none" value="相对密度Dr"/></td>
+                <td><input type="text" name="" class="input-none" value="相对密度"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode14" value=2 id="27">
+                        <label for="27" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode14" value=1 id="28"  checked>
+                        <label for="28" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="SOTHZX" data-param="S,OTH,ZX,15" /></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="钻芯"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode15" value=2 id="29">
+                        <label for="29" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode15" value=1 id="30"  checked>
+                        <label for="30" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TK30KS" data-param="T,K30,KS,16"/></td>
+                <td><input type="text" name="" class="input-none" value="地基系数K30"/></td>
+                <td><input type="text" name="" class="input-none" value="地基系数"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode16" value=2 id="31">
+                        <label for="31" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode16" value=1 id="32"  checked>
+                        <label for="32" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="SOTHLD" data-param="S,OTH,LD,17" /></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="雷达"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode17" value=2 id="33">
+                        <label for="33" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode17" value=1 id="34"  checked>
+                        <label for="34" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TEvdED" data-param="T,Evd,ED,18"/></td>
+                <td><input type="text" name="" class="input-none" value="动态变形模量EvD"/></td>
+                <td><input type="text" name="" class="input-none" value="动态变形模量"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode18" value=2 id="35">
+                        <label for="35" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode18" value=1 id="36"  checked>
+                        <label for="36" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="SOTHHT" data-param="S,OTH,HT,19" /></td>
+                <td><input type="text" name="" class="input-none" value="其它检测"/></td>
+                <td><input type="text" name="" class="input-none" value="回弹"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode19" value=2 id="37">
+                        <label for="37" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode19" value=1 id="38"  checked>
+                        <label for="38" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="TEv2EV" data-param="T,Ev2,EV,20"/></td>
+                <td><input type="text" name="" class="input-none" value="变形模量Ev2"/></td>
+                <td><input type="text" name="" class="input-none" value="变形模量"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode20" value=2 id="39">
+                        <label for="39" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode20" value=1 id="40"  checked>
+                        <label for="40" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="text-c">
+                <th colspan="8">五、路基附属</th>
+            </tr>
+            <tr class="text-c">
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+                <th>选用</th>
+                <th>检测指标</th>
+                <th>实验方法</th>
+                <th>工作方式</th>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="FWZXSC" data-param="F,WZX,SC,21" /></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="抗滑桩声测"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode21" value=2 id="41">
+                        <label for="41" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode21" value=1 id="42"  checked>
+                        <label for="42" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="FOTHHT" data-param="F,OTH,HT,22" /></td>
+                <td><input type="text" name="" class="input-none" value="其他检测"/></td>
+                <td><input type="text" name="" class="input-none" value="挡土墙回弹"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode22" value=2 id="43">
+                        <label for="43" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode22" value=1 id="44"  checked>
+                        <label for="44" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="FWZXDY" data-param="F,WZX,DY,23" /></td>
+                <td><input type="text" name="" class="input-none" value="完整性检测"/></td>
+                <td><input type="text" name="" class="input-none" value="抗滑桩低应变"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode23" value=2 id="45">
+                        <label for="45" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode23" value=1 id="46"  checked>
+                        <label for="46" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="FOTHMC" data-param="F,OTH,MC,24"/></td>
+                <td><input type="text" name="" class="input-none" value="其他检测"/></td>
+                <td><input type="text" name="" class="input-none" value="锚杆长度及密实度"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode24" value=2 id="47">
+                        <label for="47" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode24" value=1 id="48"  checked>
+                        <label for="48" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="FOTHZX" data-param="F,OTH,ZX,25" /></td>
+                <td><input type="text" name="" class="input-none" value="其他检测"/></td>
+                <td><input type="text" name="" class="input-none" value="挡土墙钻芯"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode25" value=2 id="49">
+                        <label for="49" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode25" value=1 id="50"  checked>
+                        <label for="50" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td><input type="checkbox" value="FOTHMB" data-param="F,OTH,MB,26" /></td>
+                <td><input type="text" name="" class="input-none" value="其他检测"/></td>
+                <td><input type="text" name="" class="input-none" value="锚杆抗拔"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode26" value=2 id="51">
+                        <label for="51" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode26" value=1 id="52"  checked>
+                        <label for="52" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="text-c">
+                <td><input type="checkbox" value="FOTHLD" data-param="F,OTH,LD,27" /></td>
+                <td><input type="text" name="" class="input-none" value="其他检测"/></td>
+                <td><input type="text" name="" class="input-none" value="挡土墙雷达"/></td>
+                <td>
+                    <div class="switch" style="margin:0 auto">
+                        <input type="radio" class="switch-input" name="operationMode27" value=2 id="53">
+                        <label for="53" class="switch-label switch-label-off">手工</label>
+                        <input type="radio" class="switch-input" name="operationMode27" value=1 id="54"  checked>
+                        <label for="54" class="switch-label switch-label-on">联网</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            <button onClick="layer_close()" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+    var xm_id=sessionStorage.xm_id;
+    $(function(){
+        $.ajax({
+            url: "/api/v1/XMProject/"+xm_id,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var data = reg.data;
+                    $('input[name="xmName"]').val(data.xmName);
+                    $('input[name="xmCode"]').val(data.xmCode);
+                    $('input[name="xmShortName"]').val(data.xmShortName);
+                    $('input[name="projectXMShortName"]').val(data.projectXMShortName);
+                    $('#xmSurvey').val(data.xmSurvey);
+                    $('#xmRemark').val(data.xmRemark);
+                }
+            },
+            error:function(){
+                layer.msg('获取项目信息出错！', {icon: 5, time: 2000});
+            }
+        });
+
+        //选中指标
+        $.ajax({
+            url: '/api/v1/XMProject/'+xm_id+'/TestModel',    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    if(reg.data.length!=0){
+                        $.each(reg.data,function(key,v){
+                            var str = "";
+                            str+= v.buildTypeCode+ v.testQuotaCode+ v.testModeCode;
+                            $('input:checkbox').each(function(key1,v1){
+                                if(str==$(this).val()){
+                                    $(this).prop('checked',true);
+                                }
+                            });
+                        });
+                    }
+                }
+            },
+            error:function(){
+                layer.msg('获取指标信息出错！', {icon: 5, time: 2000});
+            }
+        });
+
+
+        $("#form-xm-edit").validate({
+            debug:true,
+            rules:{
+                xmCode:{
+                    required:true
+                },
+                xmShortName:{
+                    required:true
+                },
+                xmName:{
+                    required:true
+                }
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form) {
+                save_submit();
+            }
+        });
+
+    });
+
+    function getCheck(){
+        var data = [];
+        $('input:checkbox:checked').each(function(){
+            var item = {};
+            var checkStr = $(this).attr('data-param').split(',');
+            item.buildTypeCode = checkStr[0];
+            item.testQuotaCode =  checkStr[1];
+            item.testModeCode =  checkStr[2];
+            item.design ="";
+            item.operationMode= parseInt($('input[name="operationMode'+checkStr[3]+'"]:checked').val());
+            data.push(item);
+        });
+        return data;
+    }
+
+    var submited = false;
+    function save_submit(){
+        if( checkSubmit()) {
+            var xmdata = new Object();
+            xmdata['xmName'] = $('input[name="xmName"]').val();
+            xmdata['xmCode'] = $('input[name="xmCode"]').val();
+            xmdata['xmShortName']=  $('input[name="xmShortName"]').val();
+            xmdata['xmSurvey'] = $('#xmSurvey').val();
+            xmdata['xmRemark'] = $('#xmRemark').val();
+
+            //初始化操作权限
+            $.ajax({
+                url: '/api/v1/XMProject/' + xm_id,    //请求的url地址
+                dataType: "json",
+                async: false,
+                data: xmdata,
+                type: "PUT",
+                success: function (reg) {
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000});
+                    } else {
+                        layer.msg(reg.message, {icon: 5, time: 2000});
+                    }
+                },
+                error: function () {
+                    layer.msg('修改项目失败！', {icon: 5, time: 2000});
+                }
+            });
+
+            var qutadata = getCheck();
+            //提交检测指标
+            $.ajax({
+                url: '/api/v1/XMProject/' + xm_id + '/TestModels',    //请求的url地址
+                dataType: "json",
+                async: false,
+                data: {"": qutadata},
+                type: "PUT",
+                success: function (reg) {
+                    submited = false;
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 3000}, function (){
+                            parent.location.href = "/project/xmlist.html";
+                        });
+                    } else {
+                        layer.msg(reg.message, {icon: 6, time: 2000});
+                    }
+                },
+                error: function () {
+                    submited = false;
+                    layer.msg('提交检测指标信息失败！', {icon: 5, time: 2000});
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

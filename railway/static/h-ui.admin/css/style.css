@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* 你自己的样式 */
+#Hui-navbar{border-bottom:#080808 1px solid;-moz-box-shadow: 0 0 4px #333333;-webkit-box-shadow: 0 0 4px #333333;box-shadow: 0 0 4px #333333}
+.Hui-wraper{ padding:20px}
+.navbar-userbar{ padding-top: 8px}
+.Hui-article{ top:40px}
+.breadcrumb{ position:relative; z-index:98}
+
+@media (max-width:767px) {
+    #Hui-nav{display: block; top: 0; left: 65px; right: 65px; position:absolute;}
+    #Hui-nav > ul { width: 100%}
+    #Hui-nav > ul > li{ width: 20%;text-align:center;}
+    #Hui-nav > ul > li a{ text-align: center; padding: 0}
+}
+.panel-body {
+    border: none;
+}
+
+#del{
+    position:absolute;
+    top:5px;
+    right:20px;
+}
+
+.page-container .search-input{
+    width:100%;
+}
+.search-item{
+    float:left;
+    height:31px;
+    margin-left:10px;
+}
+.search-item label{font-size:12px;}
+
+.search-item .input-text{
+    width:45%;
+}
+
+.table th,td{
+    position:relative;
+}
+
+label.error {
+    position: absolute;
+    right:5px;
+    top: 1px;
+    color: rgb(239, 57, 43);
+    font-size: 12px;
+}
+
+.btn{
+    margin-left:10px;
+}
+
+#operation .btn{margin-left:4px;}
+
+#dataTables_info {
+    float: left;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+

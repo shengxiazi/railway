@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>系统日志</title>
+    <style>
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+
+    </style>
+</head>
+<body>
+<div style="display:block" id="appLog">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统日志 <span class="c-gray en">&gt;</span>系统运行日志<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="10" selected = "selected" >10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var pageSize=$("#page-size").val();
+    $(function() {
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/AppLog/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function (reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('appLog', power, 'operation');
+                    var pageIndex = 1;
+                    var uri = '/api/v1/AppLog/'+pageSize+'/'+pageIndex+'/ListByPage';
+                    getPage(uri);
+                }
+
+            },
+            error:function(reg){
+                layer.msg('服务器异常！',{icon:5,time:2000});
+            }
+        });
+
+
+        $('#page-size').bind('change', function () {
+            pageSize = this.value;
+            var pageIndex = 1;
+            var uri = '/api/v1/AppLog/'+pageSize+'/'+pageIndex+'/ListByPage';
+            getPage(uri);
+        });
+
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+    });
+
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="100px">分类</th>';
+        tableInfo+='<th>内容</th>';
+        tableInfo+='<th width="200px">发生时间</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+
+                    var total =reg.total;
+                    //上一页
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) * parseInt(pageSize)+1;
+
+                    //结束数
+
+                    var PageEnd =pageIndex* parseInt(pageSize);
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    //拼接数据
+                    if (data.length!=0){
+                        $.each(data,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.id+'">';
+                            tableInfo+='<td>'+value.type+'</td>';
+                            tableInfo+='<td>'+value.log+'</td>';
+                            tableInfo+='<td>'+value.time+'</td>';
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if(pervPage==0){
+                            tablePage+='<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        }else{
+                            tablePage+='<a class="paginate_button previous disabled"  data-href="'+prevPageUri+'" id="Table_previous">上一页</a>';
+                        }
+
+                        if(nextPage==0){
+                            tablePage+='<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        }else{
+                            tablePage+='<a class="paginate_button next disabled"  data-href="'+nextPageUri+'"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

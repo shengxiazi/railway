@@ -1,0 +1,718 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jqueryUI/jquery-ui-1.8.11.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/gyDetails.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>高应变数据详情</title>
+    <style>
+        .pile-bigcurve{
+            margin: 25px ;
+
+        }
+        th, td {
+
+            font-size: 0.88rem;
+
+        }
+
+    </style>
+
+</head>
+<body style="width: 100%;height:100% ">
+
+<div id="tabs" >
+    <ul class="stabs">
+        <li><a href="#tabs-1">高应变数据详情</a></li>
+        <li><a href="#tabs-2">测点位置</a></li>
+        <li><a href="#tabs-3">操作日志</a></li>
+    </ul>
+    <div id="tabs-1" class="ptabs">
+        <div class="ui-layout-center">
+            <table id="baseData" class="table pielinfotable  table-border table-bordered">
+                <tr class="text-c" >
+                    <th><span >检测编号：</span></th><td><span id="SerialNo"></span></td>
+                    <th><span >桩号：</span></th><td><span id="PileNo"></span></td>
+                    <th ><span>桩长(m)：</span></th><td><span id="PileLength"></span></td>
+                    <th><span>桩径(mm)：</span></th><td><span id="PileDiameter"></span></td>
+                    <th><span>砼强度：</span></th><td  ><span id="ConcreteStrength"></span></td>
+                    <td  id="moreTd" rowspan="3"  class="more"> <i class="Hui-iconfont">&#xe6d5;</i></td>
+                </tr>
+
+                <tr class="text-c">
+                    <th><span>采样长度：</span></th><td><span id="SampleLength"></span></td>
+                    <th><span>采样增益：</span></th><td><span id="SampleGain"></span></td>
+                    <th><span>采样间隔(us)：</span></th><td><span id="SampleInterval"></span></td>
+                    <th><span>滤波频率(Hz)：</span></th><td><span id="FilterFrequency"></span></td>
+                    <th><span>灵敏度系数(v/(cm/s))：</span></th><td><span id="SensorSensitive"></span></td>
+
+                </tr>
+
+                <tr class="text-c" >
+                    <th><span >数据有效性：</span></th><td><span id="isValid"></span></td>
+                    <th><span >检测结论：</span></th><td><span id="pileGrade"></span></td>
+                    <th><span >复核状态：</span></th><td><span id="flowFlag"></span></td>
+                    <th><span>实测值：</span></th><td><span id="realValueTd"></span></td>
+
+                    <th><span>结论说明：</span></th><td><span id="resultTd"></span></td>
+                </tr>
+                <tr class="text-c" id="moreTR" class="moretr"  style="display: none">
+
+                    <th><span>仪器编号：</span></th><td><span id="MachineId"></span></td>
+                    <th ><span>检测员：</span></th><td><span id="ShangGangZheng"></span></td>
+                    <th><span>设备厂家：</span></th><td><span id="CreaterName"></span></td>
+
+                    <th ><span>上传时间：</span></th><td ><span id="CreateTime"></span></td>
+                    <th><span>采样时间：</span></th><td ><span id="SampleTime"></span></td>
+                    <input type="hidden" id="BasicInfoId" value="0" />
+
+                </tr>
+                <tr class="text-c" id="moreTR2"  class="moretr"  style="display: none">
+                    <th><span>数据分析员：</span></th><td><span id="AnalysisName"></span></td>
+                    <th ><span>复核人：</span></th><td><span id="reviewName"></span></td>
+                    <th><span>复核意见：</span></th><td><span id="message"></span></td>
+                    <th><span>分析时间：</span></th><td ><span id="AnalysisTime"></span></td>
+                    <th><span>复核时间：</span></th><td ><span id="reviewTime"></span></td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+        <div class="ui-layout-content">
+
+            <div id='infotabs' class=' tabcontent hide'>
+                <ul class="sub">
+                    <li><a href="#pileCurve1">力行波曲线</a></li>
+                    <li><a href="#pileCurve2">原始曲线</a></li>
+
+                </ul>
+                <div id="pileCurve1" class="ui-tabs-panel pile-panel">
+                    <div id="pile-bigcurve-1" class="pile-bigcurve"></div>
+                </div>
+                <div id="pileCurve2" class="ui-tabs-panel pile-panel">
+                    <div id="pile-bigcurve-2" class="pile-bigcurve"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="ui-layout-center">
+            <div  id="commit"  style="height:40px; padding-top:8px; text-align:center ;background-color:#eee;" >
+
+            </div>
+        </div>
+    </div>
+    <div id="tabs-2" class="ptabs">
+        <div id="fenbuMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>
+    </div>
+    <div id="tabs-3" class="ptabs">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!--数据结论-->
+<article class="page-container" id="gy-Result" style="display:none">
+    <form class="form form-horizontal" id="form-gy-Result" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>试验结论：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="pg1"  value="5" name="pileGrade" checked>
+                    <label for="pg1">合格</label>
+                </div>
+                <div class="radio-box">
+                    <input name="pileGrade" id="pg2" type="radio" value="6" >
+                    <label for="pg2">不合格</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>实际荷载：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="请输入实际荷载" style="width: 100%" id="realValue"   name="realValue"  />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>结论说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="result"  id="result"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据复核-->
+<article class="page-container" id="data-review" style="display:none">
+    <form class="form form-horizontal" id="form-data-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-review"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据有效-->
+<article class="page-container" id="data-isValid" style="display:none">
+    <form class="form form-horizontal" id="form-data-isValid" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据有效性：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="isValid-set1" value="1" name="isValid" checked>
+                    <label for="isValid-set1">有效</label>
+                </div>
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="isValid-set2" value="0" >
+                    <label for="isValid-set2">无效</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-set"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="../static/js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="../static/js/RsCurve.min.js"></script>
+<script type="text/javascript" src="../lib/jcarousellite.js"></script>
+<script type="text/javascript"  src="../lib/jqueryUI/jquery-ui-1.8.11.custom.min.js" ></script>
+
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?ak=zlikWrFQ3iQ3qguure5BZxna&v=2.0&services=false"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/baiduMap.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/comResult.js"></script>
+<script type="text/javascript">
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+
+    var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.gybaseInfoId;
+    var left_offset = ($(window).width() - 600) / 2;//显示在浏览器窗口比较正的位置，看着比较舒服
+    var top_offset = ($(window).height() - 278) / 3;
+    var  flowFlag;
+    var commisValid;
+    var isShowAction;
+    var isEdit=false;
+    function  setIsValidValue(isValid){
+        var vhtml=getisValidStr(isValid,flowFlag,isEdit);
+        $("#isValid").html(vhtml);
+    }
+    function  setpileGradeValue(pileGrade){
+        var vhtml=getResultStr(pileGrade,flowFlag,isEdit);
+        $("#resultTD").html(vhtml);
+    }
+    var moreShow=false;
+
+    $(".more").click(function(){
+        if(moreShow){
+            moreShow=false;
+            $("#moreTR").hide();
+            $("#moreTR2").hide();
+            $("#moreTd").attr("rowspan",3);
+            $(".more").html('<i class="Hui-iconfont">&#xe6d5;</i>');
+        }else {
+            moreShow=true;
+            $("#moreTR").show();
+            $("#moreTR2").show();
+            $("#moreTd").attr("rowspan",5);
+            $(".more").html('<i class="Hui-iconfont">&#xe6d6;</i>');
+        }
+    });
+    function  setPileGrade(){
+        var index=layer.open({
+            type: 1,
+            title:'设置试验结论',
+            content: $('#gy-Result'), //这里content是一个DOM
+            area:['550px','350px'],
+            offset: [top_offset, left_offset],
+            btn:['确定','取消'],
+            'yes':function(index,layero){
+
+                var pileGrade = $('#gy-Result input[name=pileGrade]:checked').val();
+                if(validResultform().form()) {
+                    $("#ResultBtn").attr({"disabled": "disabled"});
+                    var data={'pileGrade':pileGrade,'realValue':$("#realValue").val(),'result':$("#result").val()};
+                    $.ajax({
+                        url: '/api/v1/GyData/' + projectId + '/' + id + '/Result', //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        data: data,
+                        type: "PUT",
+                        success: function (reg) {
+
+                            if (reg.code == 0) {
+                                layer.msg(reg.message, {
+                                    icon: 1, time: 2000,
+                                    offset: [top_offset, left_offset]
+
+                                });
+
+                                window.close();
+                                window.opener.location.reload();//刷新父窗口
+//                            window.opener.location.reload(true);
+//                            setpileGradeValue(pileGrade);
+//                        layer.alert(reg.message, {
+//                            icon:1,
+//                            time: 3000,
+//                            title:'成功信息',
+//                            offset:[top_offset, left_offset],
+//                            skin:'layer-ext-moon'
+//                        });
+
+                            } else {
+                                $("#ResultBtn").removeAttr("disabled");//将按钮可用
+                                layer.alert(reg.message, {
+                                    icon: 5,
+                                    time: 3000,
+                                    title: '错误信息',
+                                    offset: [top_offset, left_offset],
+                                    skin: 'layer-ext-moon'
+                                });
+                            }
+                        },
+                        error: function () {
+                            $("#ResultBtn").removeAttr("disabled");//将按钮可用
+//
+                            layer.alert('更新失败！', {
+                                icon: 2,
+                                time: 3000,
+                                title: '错误信息',
+                                offset: [top_offset, left_offset],
+                                skin: 'layer-ext-moon'
+                            });
+                        }
+                    });
+
+
+                    layer.close(index);
+                }
+            }
+        });
+    }
+
+    function setIsValid(){
+        var url= '/api/v1/GyData/'+projectId+'/'+id+'/IsValid';
+        comSetIsValid(url);
+
+        //设置数据有效性
+
+    }
+
+
+    //表单验证
+    function validResultform() {
+        return $("#form-gy-Result").validate({
+            debug: true,
+            rules: {
+                pileGrade: {
+                    required: true
+                },
+                realValue:{
+                    required: true,
+                    number:true
+                },
+                result: {
+                    required: true,
+                    rangelength:[0,255]
+                }
+            }
+        });
+    }
+
+
+    function getReviewInfo(){
+
+        $.ajax({
+            url: '/api/v1/GyData/'+projectId+'/'+id+'/ReviewInfo',
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function (d) {
+
+                if (d.code == 0) {
+
+
+                    $.each(d.data,function(n,value){
+                        $('span#'+n).html(value);
+                        if(n=='flowFlag'){
+                            flowFlag=value;
+                            var tableHtml=getflowFlagStr(flowFlag);
+                            $('span#'+n).html(tableHtml);
+                        }
+                        if(n=='pileGrade'){
+                            var ResultStr=getDyResultStr(value);
+                            $('span#pileGrade').html(ResultStr);
+                        }
+                        if(n=='realValue'){
+                            $("#realValue").val(value);
+                            $('span#realValueTd').html(value);
+                        }
+                        if(n=='result'){
+                            $("#result").val(value);
+                            $('span#resultTd').html(value);
+                        }
+
+                        if(n=='integrity'){
+                            $("#integrity").val(value);
+                            $("span#integrityTd").html(value);
+                        }
+
+                    });
+                    setIsValidValue(d.data.isValid);
+//                    setpileGradeValue(d.data.pileGrade)
+
+                }
+            }
+        });
+        getActionStr();
+
+    }
+    function  getActionStr(){
+        var operateActionStr='';
+
+        if(commisValid=='1'){
+            var resultpower=JSON.parse( sessionStorage.gyPower);
+            var actionStr='';
+            //数据状态，1待复核，2退回修订，3已复核
+            if(flowFlag==2){
+                actionStr=getResultPowerStr('gyResult',resultpower,'commit',false,false,true);
+            }else
+            if(flowFlag==9){
+                actionStr=getResultPowerStr('gyResult',resultpower,'commit',false,false,false);
+            }else
+            if(flowFlag==3){
+                actionStr=getResultPowerStr('gyResult',resultpower,'commit',false,false,true);
+            }else if(flowFlag==1){
+                actionStr=getResultPowerStr('gyResult',resultpower,'commit',true,false,true);
+            }else {
+                actionStr=getResultPowerStr('gyResult',resultpower,'commit',false,false,true);
+            }
+            operateActionStr+=actionStr;
+        }
+
+        $("#commit").html(operateActionStr);
+        var curH;
+        var width=$(window).width(),height=$(window).height()-60;
+        if(operateActionStr==""){
+            isShowAction=false;
+            $("#commit").hide();
+            curH=height-115;
+
+        }else {
+            $("#commit").show();
+            isShowAction=true;
+            curH=height-115-45;
+        }
+        $(".ui-layout-content").height(curH);
+        debugger;
+        $("#infotabs ul.ui-tabs-nav").height(curH-2);
+    }
+
+    //复核
+    $('#commit').on('click','#review',function(){
+        var url= '/api/v1/GyData/' + projectId + '/' + id + '/Review';
+        reviewLayer(url);
+    });
+
+
+    $('#commit').on('click','#ResultBtn',function(){
+
+        setPileGrade();
+
+    });
+    $(function(){
+        var pileinfodata;
+        var pileuishow=false;
+        var width = $(document).width(), height = $(document).height() - 80;
+        var tabshow=[false,false,false];
+        var pwidth = $(document).width() - 28;
+
+        $(".ptabs").height(height+20);
+        var resultpower=JSON.parse( sessionStorage.gyPower);
+        if ($.inArray("EDIT", resultpower) != -1) {
+            isEdit=true;
+        }
+
+
+        $(".ui-layout-content").height(height - 105);
+        var panelWidth = pwidth - 130;
+        var panelHeight = height - 100;
+        $("#tabs").tabs({
+            selected:0,
+            show:function(event,ui){
+                switch(ui.index){
+                    case 0:getPileInfo();break;
+                    case 1:getPileGps();break;
+                    case 2:getopertionLog();break;
+                }
+            }
+        });
+
+
+        if (!pileuishow) {
+            initPileInfoUI();
+            pileuishow = true;
+        }
+        getReviewInfo();
+        getPileInfo();
+
+        function getopertionLog() {
+            if(tabshow[2]){ return; }
+            tabshow[2]=true;
+            //操作日志
+
+            var url = '/api/v1/GyData/' + projectId + '/' + id + '/OperationLog';
+            opertionLog(url);
+        }
+
+
+        var ori = 0;
+        var mtop;
+        // 初始化单桩详细信息界面
+        function initPileInfoUI() {
+
+            $("#infotabs").show().tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            if(isShowAction){
+                $("#infotabs ul.ui-tabs-nav").height(height-107-35);
+            }else {
+                $("#infotabs ul.ui-tabs-nav").height(height-107);
+            }
+
+
+            $("#infotabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+//            $(".pile-panel").width(panelWidth).height(panelHeight);
+
+            var pcw = panelWidth - 75;
+            var pch = panelHeight - 95;
+
+            pch = pcw / pch > 1.6 ? pch : parseInt(pcw * 0.6);
+            $(".pile-bigcurve").width(pcw).height(pch);
+
+        }
+
+
+        var GyData;
+        var drawed = [false, false];
+        var curpiletab = 0;
+
+        function showPileInfo() {
+
+
+        }
+
+
+        // 获取单桩的信息
+        function getPileInfo() {
+            if(tabshow[0]){ return; }
+            tabshow[0]=true;
+            pileinfodata = null;
+            drawed = [false, false];
+            //获取信息
+            $.ajax({
+                url: '/api/v1/GyData/' + projectId + '/' + id,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (reg) {
+
+                    if (reg.code == 0) {
+
+                        var d = eval(reg.data); //由JSON字符串转换为JSON对象
+
+                        pileinfodata = d;
+//                        console.log(JSON.stringify(d));
+
+                        GyData = $RS.calcData(d);
+
+                        $.each(pileinfodata[0], function (n, v) {
+                            if (n == "PileVelocity") {
+                                v = v.toFixed(0);
+                            }
+                            if (n != "ChannelData" && n != "BasicInfoId") {
+                                $("#" + n).html(v);
+                            }
+                        });
+
+                        var interval = setInterval(function(){
+
+                                clearInterval(interval);
+                                showCurrentPilePanel();
+
+                        },200);
+
+                    }
+                    else {
+                        layer.alert(reg.message, {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+//                        layer.alert(reg.message);
+                        $(".ui-layout-content").html("暂无上传的数据").addClass("tipsinfo");
+
+                    }
+                },error:function(){
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+            });
+
+        }
+
+        // 显示单桩的详细信息
+        function showCurrentPilePanel() {
+            $("#infotabs").tabs({
+                selected: curpiletab,
+                heightStyle: "fill",
+                cache: true,
+                show: function (event, ui) {
+                    curpiletab = ui.index;
+                    switch (curpiletab) {
+                        case 0:
+                            drawed[0] = drawCurve("pile-bigcurve-1", 0);
+                            break;
+                        case 1:
+                            drawed[1] = drawCurve("pile-bigcurve-2", 1);
+
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            switch (curpiletab) {
+                case 0:
+                    drawed[0] = drawCurve("pile-bigcurve-1", 0);
+                    break;
+                case 1:
+                    drawed[1] = drawCurve("pile-bigcurve-2", 1);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        function drawCurve(id, index) {
+            if (index > 1 || drawed[index]) return true;
+            GyData.drawCurve(id, index);
+            return true;
+        }
+
+
+
+
+
+        // 工程桩分布图
+        function getPileGps() {
+            if(tabshow[1]){ return; }
+            tabshow[1]=true;
+debugger;
+
+            if (null == pileinfodata || pileinfodata.length == 0) {
+                $("#fenbuMap").html("暂无数据上传").addClass("tipsinfo");
+                return;
+            }
+            var v=pileinfodata[0];
+            if (v.GpsIsValid ) {
+
+
+                var content = "桩号：" + v.PileNo;
+                content += "<br>仪器编号：" + v.MachineId;
+                content += "<br>测试时间：" + v.SampleTime;
+                content += "<br>上传时间：" + v.CreateTime;
+                var title = "地理位置";
+                baiduMap( "fenbuMap",v.GpsLongitude,v.GpsLatitude, content, title);
+
+            }
+            else {
+                $("#fenbuMap").html("上传的数据中未包含有效的GPS位置信息").addClass("tipsinfo");
+            }
+
+
+        }
+
+
+    });
+
+</script>
+
+
+
+</body>
+</html>

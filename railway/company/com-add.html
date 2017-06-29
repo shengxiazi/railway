@@ -1,0 +1,220 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .input-text{height:25px}
+        .panel-body {
+            border: none;
+        }
+        .form-label {
+            display: block;
+            color: #000;
+        }
+    </style>
+    <title>添加单位</title>
+   </head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-unit-add" >
+        <div  data-options="region:'center',split:true" style="width:100%">
+            <article class="page-container" id="unit-add">
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2 "><span class="c-red">*</span>单位名称：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="text" class="input-text" value="" placeholder="" id="comName" name="comName">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2 "><span class="c-red">*</span>单位简称：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="text" class="input-text" value="" placeholder="" id="comShortName" name="comShortName">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2 ">单位地址：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" placeholder="" id="comAddress" name="comAddress">
+                    </div>
+                </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2 "><span class="c-red">*</span>单位类型：</label>
+                        <div class="formControls col-xs-3 col-sm-4">
+                        <span class="select-box">
+                            <select class="select" name="comTypeCode" id="comTypeCode" size="1">
+
+                            </select>
+                        </span>
+                        </div>
+                        <label class="form-label col-xs-2 col-sm-2 ">邮编：</label>
+                        <div class="formControls col-xs-3 col-sm-3">
+                            <input type="text" class="input-text" value="" placeholder="" id="zipCode" name="zipCode">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>负责人：</label>
+                        <div class="formControls col-xs-4 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="contactName" name="contactName">
+                        </div>
+                        <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>登录账号：</label>
+                        <div class="formControls col-xs-3 col-sm-3">
+                            <input type="text" class="input-text" value="" placeholder="" id="contactAccount" name="contactAccount">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2">负责人邮箱：</label>
+                        <div class="formControls col-xs-4 col-sm-4">
+                            <input type="text" class="input-text" placeholder="@" name="contactEmail" id="contactEmail">
+                        </div>
+                        <label class="form-label col-xs-2 col-sm-2">负责人手机：</label>
+                        <div class="formControls col-xs-3 col-sm-3">
+                            <input type="text" class="input-text" name="contactMobile" id="contactMobile">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2 ">负责人身份证：</label>
+                        <div class="formControls col-xs-9 col-sm-4">
+                            <input type="text" class="input-text" name="contactCard" id="contactCard">
+                        </div>
+                        <label class="form-label col-xs-2 col-sm-2">电话：</label>
+                        <div class="formControls col-xs-3 col-sm-3">
+                            <input type="text" class="input-text" value="" placeholder="" id="contactPhone" name="contactPhone">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2">备注：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea name="remark"  id="remark"  cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                        </div>
+                    </div>
+            </article>
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-primary radius size-S" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存退出</button>
+            <button onClick="layer_close();" class="btn btn-default radius size-S" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    var comType = JSON.parse(sessionStorage.comtypeGroup);
+    var submited = false;
+    $(function(){
+        $("#form-unit-add").validate({
+            debug:true,
+            rules:{
+                contactAccount:{
+                    required:true
+                },
+                comName:{
+                    required:true
+                },
+                comTypeCode:{
+                    required:true
+                },
+                comShortName:{
+                    required:true
+                },
+                contactName:{
+                    required:true
+                },
+                contactMobile:{
+                    isMobile:true
+                },
+                contactEmail:{
+                    email:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+        var str="<option value=''>--请选择--</option>";
+        //初始化单位类型
+        $.each(comType,function(key,val){
+            str += '<option value="'+val.code+'">'+val.name+'</option>'
+        });
+        $("#comTypeCode").html(str);
+
+    });
+
+    function save_submit(){
+        if( checkSubmit()){
+            var data = new Object();
+            data['contactAccount'] = $('#contactAccount').val();
+            data['comName'] = $("#comName").val();
+            data['comCode'] = $("#comCode").val();
+            data['comShortName'] = $("#comShortName").val();
+            data['comTypeCode'] = $("#comTypeCode").val();
+            data['comAddress'] = $("#comAddress").val();
+            data['zipCode'] = $("#zipCode").val();
+            data['contactEmail'] = $('#contactEmail').val();
+            data['contactPhone'] = $("#contactPhone").val();
+            data['contactName'] = $("#contactName").val();
+            data['contactCard'] = $("#contactCard").val();
+            data['contactMobile'] = $("#contactMobile").val();
+            data["remark"] = $('#remark').val();
+            $.ajax({
+                url: "/api/v1/Company",    //请求的url地址
+                dataType: "json",
+                async: true,
+                data: data,
+                type: "POST",
+                success: function (reg) {
+                    submited = false;
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000}, function () {
+                            parent.location.href = "/company/comlist.html";
+                        });
+
+                    } else {
+                        layer.alert(reg.message);
+                    }
+                },
+                error:function(){
+                    submited = false;
+                    layer.alert('保存失败！');
+                }
+            });
+        }
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

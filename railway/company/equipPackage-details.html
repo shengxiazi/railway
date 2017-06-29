@@ -1,0 +1,514 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jQueryTags/jquery.tagsinput.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .mt-20{margin:0 auto;}
+        .table th{
+            font-size:14px;
+            text-align:center;
+        }
+        .table td{
+            font-size:14px;
+        }
+        .tagsinput{
+            width:98% !important;
+        }
+        div.tagsinput span.tag {
+            border: 1px solid #a5d24a;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            display: block;
+            float: left;
+            padding: 5px;
+            text-decoration: none;
+            background: #cde69c;
+            color: #638421;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .tablist{
+            padding:10px;
+            background-color:#f1f1f1;
+            overflow: hidden;
+            min-height:80px;
+        }
+        .item{
+            list-style-type: none;
+            float:left;
+            margin-bottom:10px;
+        }
+        .tabBar{
+            border:none;
+        }
+        .panel-header{
+            padding:10px 15px 0px 15px;
+        }
+        .tabBar span{
+            border-top-left-radius:5px;
+            border-top-right-radius:5px;
+            margin-left:3px;
+        }
+
+    </style>
+    <title>成套设备信息详情</title>
+</head>
+
+<body>
+<div id="tab-system" class="HuiTab box-line" style="margin: 0 10px;">
+    <div class="panel panel-default">
+        <div class="panel-header">
+            <div class="tabBar cl"><span>成套设备信息</span>&nbsp;&nbsp;<span>操作日志</span></div>
+        </div>
+        <div class="panel-body" id="panel-height">
+            <div class="tabCon">
+                <article class="page-container">
+                    <div class="row cl">
+                        <div class="col-sm-12 col-xs-12"> <table class="table table-border table-bordered table-bg">
+                            <thead>
+                            <tr class="text-c">
+                                <th width="100px">设备类型:</th>
+                                <th id="packTypeId"></th>
+                                <th width="150px">设备编号:</th>
+                                <th id="packageNo"></th>
+                            </tr>
+                            <tr class="text-c">
+                                <th>成套设备状态:</th>
+                                <th id="packageFlag"></th>
+                                <th>备注说明:</th>
+                                <th id="remark"></th>
+                            </tr>
+                            </thead>
+                        </table></div>
+                    </div>
+                    <div class="row cl">
+                        <div class="col-sm-12  col-xs-12">
+                            <div id="packageAdd" style="display:none;">
+                                <form class="form form-horizontal" id="form-equipPackage-add" >
+                                    <article class="page-container mt-5" style="border:1px solid #ddd;background-color:#fbfbfb">
+                                        <div class="row cl">
+                                            <label class="form-label col-sm-2"><span class="c-red">*</span>配件类型：</label>
+                                            <div class="formControls col-xs-4 col-sm-4 skin-minimal">
+                                                <select class="select"  name="equipmentType" id="equipmentType" >
+                                                    <option>--请选择--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row cl">
+                                            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>设备配件：</label>
+                                            <div class="formControls col-xs-8 col-sm-7">
+                                                <div class="tablist">
+                                                    <ul id="equipList">
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row cl">
+                                            <label class="form-label col-xs-4 col-sm-2">配件列表:</label>
+                                            <div class="formControls col-xs-8 col-sm-8">
+                                                <input id="tags_1" type="text"  class="tags input-text" value="" name="equipIdList"/>
+                                            </div>
+                                        </div>
+                                        <div class="row cl">
+                                            <div class="formControls col-xs-8 col-sm-8 col-sm-offset-4">
+                                                <button class="btn btn-primary radius size-S" type="button" onclick="save_submit()"><i class="Hui-iconfont">&#xe632;</i> 保存退出</button>
+                                                <button onClick="addcancel();" class="btn btn-default size-S radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </form>
+                            </div>
+                            <table class="table table-border table-bordered table-bg" id="packageList" style="border-top:0">
+                                <thead>
+                                <tr class="text-c">
+                                    <th colspan="7">成套设配配件列表：</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" style="background-color:#f5fafe">
+                                        <a href="javascript:;" id="equipAdd" class="btn btn-secondary size-S radius"><i class="Hui-iconfont">&#xe600;</i>添加</a>
+                                        <a href="javascript:;" id="equipDel" class="btn btn-danger size-S radius"><i class="Hui-iconfont">&#xe6e2;</i>删除</a>
+                                    </td>
+                                </tr>
+                                <tr class="text-c">
+                                    <th><input type="checkbox" id="SelectAll" onclick="selectAll()"/></th>
+                                    <th>设备名称</th>
+                                    <th>设备编号</th>
+                                    <th>设备型号</th>
+                                    <th>设备规格参数</th>
+                                    <th>示值范围</th>
+                                    <th>分辨精度</th>
+                                </tr>
+                                </thead>
+                                <tbody id="equipList-table">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="tabCon">
+                <div class="cl pd-5 bg-1 bk-gray mt-10">
+                    <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+                </div>
+                <div class="mt-10">
+                    <table class="table table-border table-bordered table-hover table-bg table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">模块名称</th>
+                            <th width="200">操作内容</th>
+                            <th width="100">操作人</th>
+                            <th width="50">操作时间</th>
+                            <th width="70">操作详情</th>
+                        </tr>
+                        </thead>
+                        <tbody id="logInfo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/jQueryTags/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+     var packageId = sessionStorage.packageId;
+     var packageTypeId = sessionStorage.packageTypeId;
+     var equipPackageType = JSON.parse(sessionStorage.equipPackageType);
+     var addUserList = new Array();
+     var addNameList = new Array();
+    $(function(){
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        //获取数据
+        getdata();
+
+        //添加配件
+        $('#equipAdd').click(function(){
+            $('#packageAdd').show();
+            $('#packageList').hide();
+            //获取设备配件类型
+            if(equipPackageType.length!=0){
+                var str="<option>--请选择--</option>";
+                $.each(equipPackageType,function(n,v){
+                    if(v.packageTypeId==packageTypeId){
+                        str+='<option value="'+v.equipTypeId+'">'+ v.equipTypeName+'</option>'
+                    }
+                });
+                $('#equipmentType').html(str);
+            }
+
+            $('#equipmentType').bind('change',function(){
+                var  equiptype = this.value;
+                //获取配件Id
+                $.ajax({
+                    url:'/api/v1/TestEquip/'+equiptype+'/LiteListByEquipType',    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "GET",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            var equipStr = "";
+                            $.each(reg.data,function(key,val){
+                                equipStr +='<li class="item btn radius btn-secondary" data-id="'+val.value+'" data-name="'+val.name+'">'+val.name+'</li>';
+                            });
+                            $('#equipList').html(equipStr);
+                        }
+                    }
+                });
+            });
+
+            //tag标签
+            Array.prototype.remove=function(value){
+                var len = this.length;
+                for(var i=0,n=0;i<len;i++){//把除了要删除的元素赋值给新数组
+                    if(this[i]!=value){
+                        this[n++]=this[i];
+                    }
+                }
+                this.length = n;
+            };
+
+            $('#tags_1').tagsInput({
+                'height':'60px',
+                'width':'400px',
+                'placeholderColor':'red',
+                'interactive':false,   //设置为false禁止输入标签
+                onRemoveTag: function (tag) {
+                    var i = addNameList.indexOf(tag);
+                    var id = addUserList[i];
+                    removeUser(id, tag);
+                }
+            });
+
+            function addUser(id, name) {
+                if ($.inArray(id, addUserList) ==-1) {
+                    addUserList.push(id);
+                    addNameList.push(name);
+                    $('#tags_1').addTag(name);
+                }else{
+                    layer.alert('该设备已存在!');
+                }
+            }
+
+            function removeUser(id, name) {
+                if ($.inArray(id, addUserList) !=-1) {
+
+                    addUserList.remove(id);
+                    addNameList.remove(name);
+                }
+            }
+            $("#equipList").on("click",".item", function() {
+                var id= $(this).attr('data-id');
+                var name = $(this).attr('data-name');
+                addUser(id,name);
+            });
+
+
+            //layer_open('添加配件','packagePart-Add.html','800px','500px');
+        });
+
+        //删除配件
+        $('#equipDel').click(function(){
+            var equidIdList ='';
+            //获取选中的配件
+            $("input[name='subcheck']:checked").each(function(){
+                equidIdList+=this.value+',';
+            });
+            if(equidIdList=='' || equidIdList==null){
+                layer.alert('请选择删除项！');
+                return;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/EquipPackage/"+packageId+"/"+equidIdList,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg('已删除!',{icon:1,time:2000},function(){
+                                getdata();
+                            });
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+        });
+
+        //操作日志
+        var url= '/api/v1/TestEquip/'+packageId+'/OperationLog';
+        opertionLog(url);
+    });
+
+     //取消
+     function addcancel(){
+         $('#packageAdd').hide();
+         $('#packageList').show();
+     }
+
+
+     function validform(){
+         return   $("#form-equipPackage-add").validate({
+             debug:true,
+             rules: {
+                 equipIdList: {
+                     required: true
+                 }
+             }
+         });
+     }
+
+     function save_submit(){
+         if (validform().form()) {
+             var data = new Object();
+             if(addUserList.length!=0){
+                 console.log(addUserList);
+             }else{
+                 layer.alert('请选择配件！');
+                 return ;
+             }
+             data['equipIdList']=addUserList;
+             data['packageId'] = packageId;
+
+             console.log(data);
+
+             $.ajax({
+                 url: '/api/v1/EquipPackage/PackagePart',    //请求的url地址
+                 dataType: "json",
+                 async: true,
+                 data: data,
+                 type: "POST",
+                 success: function (reg) {
+                     submited = false;
+                     if (reg.code == 0) {
+                         layer.msg(reg.message, {icon: 1, time: 2000}, function () {
+                             $('#packageAdd').hide();
+                             $('#packageList').show();
+                             //清空表单
+                            $(':input').val('');
+                             $('#equipList').remove();
+                             getdata();
+                         });
+                     } else {
+                         layer.alert(reg.message);
+                     }
+                 },
+                 error: function () {
+                     layer.alert('保存失败！');
+                     submited = false;
+                 }
+             });
+         }
+     }
+
+     function getdata(){
+         $.ajax({
+             url: '/api/v1/EquipPackage/'+packageId,    //请求的url地址
+             dataType: "json",
+             async: true,
+             type: "GET",
+             success: function(reg) {
+                 if(reg.code==0){
+                     $.each(reg.data,function(key,value){
+                         if(key=='packageNo'){
+                             $('#packageNo').text(value);
+                         }
+                         if(key=='remark'){
+                             $('#remark').text(value);
+                         }
+                         if(key=='packageFlag'){
+                             if(value==0){
+                                 $('#packageFlag').html('<span class="label label-danger radius">锁定</span>');
+                             }else if(value==1){
+                                 $('#packageFlag').html('<span class="label label-success radius">正常</span>');
+                             }else{
+                                 $('#packageFlag').html('<span class="label label-default radius">未知</span>');
+                             }
+                         }
+
+                         if(key=='packageTypeId'){
+                             var typename;
+                             switch(value)
+                             {
+                                 case 1:
+                                     typename='静载试验设备';
+                                     break;
+                                 case 4:
+                                     typename='动测试验设备';
+                                     break;
+                                 case 9:
+                                     typename='声测试验设备';
+                                     break;
+                                 case 18:
+                                     typename='钻芯试验设备';
+                                     break;
+                                 case 20:
+                                     typename='钻孔试验设备';
+                                     break;
+                                 case 21:
+                                     typename='k30试验设备';
+                                     break;
+                                 case 23:
+                                     typename='Evd试验设备';
+                                     break;
+                                 default:
+                                     typename='未知';
+                             }
+                             $('#packTypeId').text(typename);
+                         }
+
+                         if(key=='equipList'){
+                             var listStr='';
+                             if(value.length!=0){
+                                 $.each(value,function(n,val){
+                                     listStr+='<tr class="text-c">';
+                                     listStr+='<td><input name="subcheck" type="checkbox" onclick="setSelectAll()" value="'+val.equipId+'"/></td>';
+                                     listStr+='<td>'+val.equipTypeName+'</td>';
+                                     listStr+='<td>'+val.equipNo+'</td>';
+                                     listStr+='<td>'+val.equipSpec+'</td>';
+                                     listStr+='<td>'+val.equipParam+'</td>';
+                                     listStr+='<td>'+val.equipRange+'</td>';
+                                     listStr+='<td>'+val.equipRange+'</td>';
+                                     listStr+='</tr>';
+                                 });
+                             }else {
+                                 listStr += '<tr class="text-c">';
+                                 listStr += '<td class="c-red" colspan="7">暂无配件!</td>';
+                                 listStr += '</tr>';
+                             }
+                             $('#equipList-table').html(listStr);
+                         }
+                     });
+
+                 }else{
+                     layer.msg(reg.message,{icon:6,time:2000});
+                 }
+             }
+         });
+     }
+
+     //复选框事件
+     function selectAll(){
+         if ($("#SelectAll").is(":checked")) {
+             $(":checkbox").prop("checked", true);
+         } else {
+             $(":checkbox").prop("checked", false);
+         }
+     }
+
+    //子复选框的事件
+    function setSelectAll(){
+        //当没有选中某个子复选框时，SelectAll取消选中
+        $('[name=subcheck]:checkbox').each(function(){
+            if(!$(this).is(':checked')){
+                $("#SelectAll").attr("checked", false);
+               return true;
+            }
+        });
+        var chsub = $("input[name='subcheck']:checkbox").length; //获取subcheck的个数
+        var checkedsub = $("input[name='subcheck']:checked").length; //获取选中的subcheck的个数
+        if (checkedsub == chsub) {
+            $("#SelectAll").prop("checked", true);
+        }
+    }
+
+     autodivheight('panel-height');
+     window.onresize=autodivheight('panel-height'); //浏览器窗口发生变化时同时变化DIV高度
+</script>
+</body>
+</html>

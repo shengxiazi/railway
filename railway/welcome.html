@@ -1,0 +1,494 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE-2.0beta1/PIE_IE678.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+	<![endif]-->
+<style>
+	.text-style{
+		color:#fff;
+	}
+	.one-color{
+		background-color:#5a98de;
+	}
+	.two-color{
+		background-color: #00CC99;
+	}
+	.three-color{
+		background-color:#F7B824;
+	}
+    table {
+        margin-left: 10px;
+        margin-top: 12px;
+        width:166px;
+        height:153px;
+        float:left;
+    }
+	table, table th {
+        text-align: center;
+    }
+    table th {
+        font-weight: bold;
+    }
+    table td, table th {
+        border: 1px solid #ddd;
+    }
+    table td {
+        background-color: #F2F2F2;
+    }
+    .fl {
+        float: left;
+    }
+    .fr {
+        float: right;
+    }
+    .myContainer {
+        width: 290px;
+        height: 153px;
+        float: right;
+        margin-top: 12px;
+        margin-right: 10px;
+    }
+	.panel-body {
+		padding-top:0;
+	}
+    .box {
+    }
+    .clearfix::before,
+    .clearfix::after {
+        content: "";
+        display: block;
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+        clear: both;
+    }
+    .clearfix {
+         zoom: 1;
+    }
+    .box .b1 {
+         float: left;
+        border-radius: 15px;
+         width: 480px;
+         height: 200px;
+         border: 1px solid #ddd;
+         box-shadow: 6px 6px 5px #888888;
+         margin-top: 10px;
+         /* margin-left: 100px; */
+    }
+    .box .two {
+        width: 600px;
+    }
+    .two table {
+        width: 570px;
+        overflow: hidden;
+        margin-left: 25px;
+    }
+    .two table td {
+        background-color: #fff;
+    }
+    .lef {
+        text-align:left !important;
+        width: 200px !important;
+        padding-left: 10px;
+        background: url('../static/mapImage/poi.jpg') no-repeat -2px 10px;
+    }
+    .two table td, .two table th {
+        border: none;
+        text-align:center;
+    }
+    .c1 {
+        margin-bottom: 30px;
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+   .c1 img {
+        height: 48px;
+        width: 50px;
+        margin-top: 5px;
+        margin-left: 5px;
+   }
+    .tx {
+        width: 72px;
+        border: 1px solid #ddd;
+        height: 46px;
+        text-align: center;
+        margin-top: 5px;
+    }
+    .tx p {
+        margin: 0;
+        padding: 0;
+    }
+    .tx p:nth-child(1) {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .tx p:nth-child(2) {
+        font-size: 12px !important;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<title>我的桌面</title>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-header"><p class="f-16 text-success">欢迎登录 <span class="f-12"></span>铁路建设工程质量检测信息化管理系统</p></div>
+		<div class="panel-body">
+                <div class="box clearfix">
+                    <div class="b1">
+                        <div class="tit" style="font-weight: 900;background-color:#73CBFD;border-radius: 15px;">
+                            <span style="margin-left: 15px; font-family: '微软雅黑';">最新数据</span>
+                        </div>
+                        <div class="con clearfix">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>事项</th>
+                                        <th>总计</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>待处理报检单</td>
+                                        <td style="color:red;">2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>待分析桩数</td>
+                                        <td>112</td>
+                                    </tr>
+                                    <tr>
+                                        <td>待复核桩数</td>
+                                        <td>22</td>
+                                    </tr>
+                                    <tr>
+                                        <td>待提交中间报告</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>设备校验到期</td>
+                                        <td>—</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="myContainer"></div>
+                        </div>
+                    </div>
+
+                    <div class="b1 two" style="margin-left: 45px;">
+                        <div class="tit clearfix" style="font-weight: bold;background-color:#73CBFD;border-radius: 15px;">
+                            <span style="margin-left: 15px; font-family: '微软雅黑';float:left;">最新动态</span>
+                            <a href="http://www.baidu.com/" style="float:right;margin-right: 12px;">更多 ></a>
+                        </div>
+                        <div class="con clearfix">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>具体位置</th>
+                                        <th>结果</th>
+                                        <th>状态</th>
+                                        <th>日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="lef">某项目/某标段/报检单BJ00213231</td>
+                                        <td>原始数据</td>
+                                        <td>上传</td>
+                                        <td>06-28</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lef">某项目/某标段/报检单BJ00213231</td>
+                                        <td>中间报告</td>
+                                        <td>派发</td>
+                                        <td>06-28</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lef">某项目/某标段/报检单BJ00213231</td>
+                                        <td>无异议</td>
+                                        <td>复核</td>
+                                        <td>06-28</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lef">某项目/某标段/报检单BJ00213231</td>
+                                        <td>已驳回</td>
+                                        <td>复核</td>
+                                        <td>06-28</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="lef">某项目/某标段/报检单BJ00213231</td>
+                                        <td>正式报告</td>
+                                        <td>上传</td>
+                                        <td>06-28</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="b1 three" style="margin-left: 45px;">
+                        <div class="tit" style="font-weight: 900;background-color:#73CBFD;border-radius: 15px;">
+                            <span style="margin-left: 15px; font-family: '微软雅黑';">业绩统计</span>
+                        </div>
+                        <div class="con clearfix">
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg1.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>接受报检单</p>
+                                    </div>
+                                </div>
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg2.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>上传数据</p>
+                                    </div>
+                                </div>
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg3.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>复核数据</p>
+                                    </div>
+                                </div>
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg4.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>已出正式报告</p>
+                                    </div>
+                                </div>
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg5.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>分析数据</p>
+                                    </div>
+                                </div>
+                                <div class="c1 fl clearfix">
+                                   <img src="../static/mapImage/bg6.jpg" alt="" class="fl">
+                                    <div class="fl tx">
+                                        <p>120</p>
+                                        <p>已出中间报告</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/dist/echarts.js"></script>
+<script>
+    //点击菜单栏显示侧边栏
+      $('#firstMenu li', window.parent.document).off('click');
+      $('#firstMenu li', window.parent.document).on('click', function (e) {
+          // 显示侧边栏
+          $('body', window.parent.document).removeClass('big-page');
+          $('.dislpayArrow a', window.parent.document).removeClass('open');
+      });
+      // 隐藏侧边栏
+      $('body', window.parent.document).addClass('big-page');
+      $('.dislpayArrow a', window.parent.document).addClass('open');
+
+	var planstr ="";
+    var planData = [];
+    var map =[];
+    $(function(){
+        $.ajax({
+            url: "/api/v1/todo/planlist",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function (reg) {
+                if(reg.code==0){
+                    //组装数据结构
+                    if(reg.data.length!=0){
+                        var data = reg.data;
+                        for(var i=0;i<reg.data.length;i++){
+                            var proData= {};
+                            var xmData = {};
+                            xmData.project = [];
+                            var n = data[i].xmId;
+                            xmData.xmId = data[i].xmId;
+                            xmData.xmShortName = data[i].xmShortName;
+                            proData.projectId = data[i].projectId;
+                            proData.projectName = data[i].projectName;
+                            proData.buildTypeCode = data[i].buildTypeCode;
+                            proData.sgb = data[i].sgb;
+                            proData.total = data[i].total;
+                            if(!map[n]){
+                                map[n] = data[i].total;
+                                xmData.project.push(proData); //可能有问题
+                                planData.push(xmData);
+                            }
+                            else{ //项目ID已存在
+                                for(var j = 0; j < planData.length; j++){
+                                    var aj = planData[j];
+                                    if(aj.xmId == n){
+                                        planData[j].project.push(proData);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        $.each(planData,function(n,val){
+                            if(n%3==0){
+                                planstr+='<div class="row cl mt-15">';
+                            }
+                            planstr+='<div class="col-sm-4">';
+                            planstr+='<table class="table table-border table-bordered">';
+                            if(n%3==0){
+                                planstr+='<tr class="text-c one-color">';
+                            }else if(n%3==1){
+                                planstr+='<tr class="text-c two-color">';
+                            }else{
+                                planstr+='<tr class="text-c three-color">';
+                            }
+                            planstr+='<td colspan="3"><span class="f-16 text-style">'+val.xmShortName+'待处理报检单</span></td>';
+                            planstr+='</tr>';
+                            planstr+='</tr><tr class="text-c">';
+                            planstr+='<th width="20%">施工标</th>';
+                            planstr+='<th width="65%">工程名称</th>';
+                            planstr+='<th width="15%">数量</th>';
+                            planstr+='</tr>';
+                            if(val.project.length!=0){
+                                $.each(val.project,function(key,value){
+                                    planstr+='<tr class="text-c" data-xmId="'+val.xmId+'" data-proId="'+value.projectId+'" data-bt="'+value.buildTypeCode+'" data-pname="'+value.projectName+'">';
+                                    planstr+='<td>'+value.sgb+'</td>';
+                                    planstr+='<td>'+value.projectName+'</td>';
+                                    planstr+='<td><span class="label label-danger">'+value.total+'</span></td>';
+                                    planstr+='</tr>';
+                                });
+                            }else{
+                                planstr+='<tr class="text-c">';
+                                planstr+='<td></td>';
+                                planstr+='<td></td>';
+                                planstr+='<td></td>';
+                                planstr+='</tr>';
+                            }
+                            planstr+='</table>';
+                            planstr+='</div>';
+                            if(n%3==2)
+                                planstr+='</div>';
+                        });
+                        $('.panel-body').html(planstr);
+                    }
+
+                }else{
+                    layer.alert(reg.message);
+				}
+            },
+			error:function(){
+				layer.alert('报检单接口异常！');
+			}
+        });
+        //单击表格行
+        $(document).on('click','.table tr',function(){
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var xmid = $(this).attr('data-xmId');
+            var p_id=  $(this).attr('data-proId');
+            var bt=  $(this).attr('data-bt');
+            var projectName =  $(this).attr('data-pname');
+           sessionStorage.type = xmid;
+           sessionStorage.pro_id = p_id ;
+            sessionStorage.buildtype = bt ;
+            sessionStorage.projectName = projectName;
+            showModal('project/details.html');
+        });
+    });
+
+
+    $.each($('.myContainer'), function (i,v) {
+        chart(v);
+    });
+    function chart(v) {
+        //初始化echarts实例
+        var myChart = echarts.init( v );
+        var option = {
+                title : {
+                    text: '检测状态统计图',
+                    // text: '某站点用户访问来源',
+                    // subtext: '纯属虚构',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                // legend: {
+                //     orient: 'vertical',
+                //     left: 'left',
+                //     data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                // },
+                series : [
+                    {
+                        name: '检测事项',
+                        // name: '访问来源',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:[
+                            {value:335, name:'待处理报检单'},
+                            {value:310, name:'待分析桩数'},
+                            {value:234, name:'待复核桩数'},
+                            {value:135, name:'待提交中间报告'},
+                            {value:1548, name:'设备校验到期'}
+                        ],
+                        itemStyle: {
+                            // normal:{
+                            //      label:{
+                            //      show:true,
+                            //      formatter: '{b} : {c} \n ({d}%)'
+                            //      },
+                            //      labelLine:{
+                            //      show:true
+                            //      }
+                            // },
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ],
+                color: ['#FFD728','#FB6B62','#61CF2E','#FB9701','#4DD0FC']
+        };
+        //显示图表
+        myChart.setOption(option);
+    }
+
+    //响应式
+    if (window.screen.width <= 1366) {
+        $('.three').css('marginLeft', '0px');
+        $('.two').css('marginLeft', '0px');
+    } else {
+        $('.three').css('marginLeft', '45px');
+        $('.two').css('marginLeft', '45px');
+    }
+</script>
+</body>
+</html>

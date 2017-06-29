@@ -1,0 +1,864 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jqueryUI/jquery-ui-1.8.11.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/dyDetails.css" />
+    <link rel="stylesheet" href="../lib/radio-pretty/css/jquery-labelauty.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>低应变数据详情</title>
+<style>
+.more{
+    background-color: #F9F7AE;
+}
+
+</style>
+</head>
+<body >
+<div id="tabs" >
+    <ul class="stabs">
+        <li><a href="#tabs-1">低应变数据详情</a></li>
+        <li><a href="#tabs-2">测点位置</a></li>
+        <li><a href="#tabs-3">操作日志</a></li>
+        <li><a href="#tabs-4">操作说明</a></li>
+    </ul>
+
+    <div id="tabs-1" class="ptabs">
+        <div class="ui-layout-center">
+            <table id="baseData" class="table pielinfotable  table-border table-bordered">
+                <tr class="text-c" >
+                    <th><span >检测编号：</span></th><td><span id="SerialNo"></span></td>
+                    <th><span >桩号：</span></th><td><span id="PileNo"></span></td>
+                    <th ><span>桩长(m)：</span></th><td><span id="PileLength"></span></td>
+                    <th><span>桩径(mm)：</span></th><td><span id="PileDiameter"></span></td>
+                    <th><span>砼强度：</span></th><td  ><span id="ConcreteStrength"></span></td>
+                    <td  id="moreTd" rowspan="3"  class="more"> <i class="Hui-iconfont">&#xe6d5;</i></td>
+
+                </tr>
+
+                <tr class="text-c">
+                    <th><span>采样长度：</span></th><td><span id="SampleLength"></span></td>
+                    <th><span>采样增益：</span></th><td><span id="SampleGain"></span></td>
+                    <th><span>采样间隔(us)：</span></th><td><span id="SampleInterval"></span></td>
+                    <th><span>滤波频率(Hz)：</span></th><td><span id="FilterFrequency"></span></td>
+                    <th><span>灵敏度系数(v/(cm/s))：</span></th><td><span id="SensorSensitive"></span></td>
+                    <!--<td class="more"> <i class="Hui-iconfont">&#xe6d5;</i></td>-->
+                </tr>
+                <tr class="text-c" >
+                    <th><span >数据有效性：</span></th><td><span id="isValid"></span></td>
+                    <th><span >检测结论：</span></th><td><span id="result"></span></td>
+                    <th><span >复核状态：</span></th><td><span id="flowFlag"></span></td>
+                    <th><span>数据分析员：</span></th><td><span id="AnalysisName"></span></td>
+                    <th ><span>复核人：</span></th><td><span id="reviewName"></span></td>
+
+                    <!--<td class="more"> <i class="Hui-iconfont">&#xe6d5;</i></td>-->
+                </tr>
+                <tr class="text-c" id="moreTR" class="moretr"  style="display: none">
+
+                    <th><span>仪器编号：</span></th><td><span id="MachineId"></span></td>
+                    <th ><span>检测员：</span></th><td><span id="ShangGangZheng"></span></td>
+                    <th><span>设备厂家：</span></th><td><span id="CreaterName"></span></td>
+
+                    <th ><span>上传时间：</span></th><td ><span id="CreateTime"></span></td>
+                    <th><span>采样时间：</span></th><td ><span id="SampleTime"></span></td>
+                    <input type="hidden" id="BasicInfoId" value="0" />
+
+                </tr>
+                <tr class="text-c" id="moreTR2"  class="moretr"  style="display: none">
+                    <th><span>完整性说明：</span></th><td colspan="2"><span id="integrityTd"></span></td>
+                    <th><span>复核意见：</span></th><td colspan="2"><span id="message"></span></td>
+                    <th><span>分析时间：</span></th><td ><span id="AnalysisTime"></span></td>
+                    <th><span>复核时间：</span></th><td ><span id="reviewTime"></span></td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+        <div class="ui-layout-content">
+            <div class="ui-layout-menu">
+                <ul class="pileimagelist"></ul>
+            </div>
+            <div id="pilechanelimage" class="ui-layout-image"></div>
+            <!--<div  id="commit" class="vertical-middle"  style="height:40px;margin-left: 5px; left: 207px; position: absolute;right: 10px;padding-top:8px; text-align:center ;background-color:#eee;" >-->
+
+            <!--</div>-->
+
+
+        </div>
+        <div class="ui-layout-center">
+            <div  id="commit" class="vertical-middle"  style="height:40px; padding-top:8px; text-align:center ;background-color:#eee;" >
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="tabs-2" class="ptabs">
+        <div id="fenbuMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>
+    </div>
+    <div id="tabs-3" class="ptabs">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="tabs-4" class="ptabs">
+        <div  class="smdiv" style ="   background-color: #FFFFFF;padding-left: 20px; padding-top: 10px;">
+            <!--<h2 align = center>操作说明</h2>-->
+            <h3>1、桩长锁定模式</h3>
+            <ul><li>输入有效桩长后，进入桩长锁定模式，图标底色变为绿色。 改变桩头、桩底位置时，桩长不变，变动的是波速</li></ul>
+            <h3>2、波速锁定模式</h3>
+            <ul><li>输入有效波速后，进入波速锁定模式，图标底色变为绿色。 改变桩头、桩底位置时，波速不变，变动的是桩长</li></ul>
+            <h3>3、低通滤波开关</h3>
+            <ul>
+                <li> 输入有效波速后，开启低通滤波，按输入频率值进行滤波，图标底色变为绿色。</li>
+                <li>输入 <b>0</b> 时，关闭低通滤波，图标底色为白色。</li>
+            </ul>
+            <h3>4、指数放大模式</h3>
+            <ul>
+                <li>点击按钮进入指数放大模式，图标底色变为绿色。</li>
+                <li>鼠标位置移动到桩头和桩底之间的位置，每次向上滚动鼠标滚轮，指数放大倍数增加0.1，每次向下滚动滚轮，指数放大倍数减少0.1。</li>
+                <li>按下鼠标左键或再次点击按钮，退出指数放大模式，图标底色为白色。</li>
+                <li>指数放大仅在鼠标位置位于桩头、桩底之间时有效，且仅处理鼠标位置之后的信号，注意在鼠标位置到桩底之间放大倍数按指数递增，桩底之后的信号均按固定放大倍数(桩底处的放大倍数)处理。</li>
+            </ul>
+            <h3>5、缺陷定义模式</h3>
+            <ul>
+                <li>点击按钮进入缺陷定义模式，图标底色变为绿色，再次点击退出缺陷定义模式，图标底色变为白色。</li>
+                <li>将鼠标移动到信号区域上，点击鼠标即可定义缺陷位置。</li>
+                <li>如果点击已定义的位置，将清除该缺陷定义。 如果点击位置靠近已有缺陷位置，则替换原有缺陷。</li>
+                <li>最多只能定义3个缺陷位置，如果已有3个缺陷位置，再次点击时将清除所有已定义的缺陷位置。</li>
+            </ul>
+            <h3>6、曲线反向</h3>
+            <h3>7、曲线伸展或压缩</h3>
+            <h3>8、清除所有处理，还原成原始信号</h3>
+            <h3>注：</h3>
+            <ul>
+                <li>桩长锁定模式和波速锁定模式互斥。</li>
+                <li >指数放大模式和缺陷定义模式互斥。</li>
+                <li>只有同时不在指数放大模式和缺陷定义模式时，才能改变桩头和桩底位置。</li>
+                <li>将鼠标移动到原桩头或桩底附近，鼠标形状将变为左右箭头样式，按住鼠标左键不放，左右移动鼠标，松开鼠标左键即可改变桩头或桩底的位置。</li>
+                <li>桩头位置不可变动到原桩底之后，桩底位置不可变动到原桩头之前，桩头、桩底之间至少将保留50个像素的间隔。</li>
+                <li>在指数放大过程中，如果放大倍数调得过大，以至于后面的波峰满幅，再继续增大放大倍数时，程序会自动调低前面信号的幅值。</li>
+                <li>在进行过指数放大之后，重新定义桩头、桩底、桩长或波速，有可能会引起信号形态的变化，这是因为桩底位置有 可能发生变化，指数放大的倍数变化规律和前次不同引起的。</li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<!--结论-->
+<article class="page-container" id="dy-Result" style="display:none">
+    <form class="form form-horizontal" id="form-dy-Result" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>分析结论：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+
+                <select name="pileGrade" id="pileGrade" size="1"   class="select">
+                    <option value="">--请选择--</option>
+                    <option value="1">Ⅰ类</option>
+                    <option value="2">Ⅱ类</option>
+                    <option value="3">Ⅲ类</option>
+                    <option value="4">Ⅳ类</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>完整性说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="integrity"  id="integrity"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<!--数据复核-->
+<article class="page-container" id="data-review" style="display:none">
+    <form class="form form-horizontal" id="form-data-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-review"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据有效-->
+<article class="page-container" id="data-isValid" style="display:none">
+    <form class="form form-horizontal" id="form-data-isValid" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据有效性：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="isValid-set1" value="1" name="isValid" checked>
+                    <label for="isValid-set1">有效</label>
+                </div>
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="isValid-set2" value="0" >
+                    <label for="isValid-set2">无效</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-set"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="../static/js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/js/RsCurve.min.js"></script>
+
+<script type="text/javascript" src="../lib/jcarousellite.js"></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zlikWrFQ3iQ3qguure5BZxna"></script>-->
+<!--<script type="text/javascript" src="../static/js/convertor.js"></script>-->
+<script type="text/javascript"  src="../lib/jqueryUI/jquery-ui-1.8.11.custom.min.js" ></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?ak=zlikWrFQ3iQ3qguure5BZxna&v=2.0&services=false"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/baiduMap.js"></script>
+<script src="../lib/radio-pretty/js/jquery-labelauty.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/comResult.js"></script>
+<script type="text/javascript">
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+
+    var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.dyBaseInfoId;
+    var curChannel;
+    var curchannelId;
+    var left_offset = ($(window).width() - 600) / 2;//显示在浏览器窗口比较正的位置，看着比较舒服
+    var top_offset = ($(window).height() - 278) / 3;
+    var width=$(window).width(),height=$(window).height()-60;
+    var submited = false;
+    var isShowAction=false;
+    var dyData;
+    var  flowFlag;
+    var isEdit=false;
+    var commisValid;
+    function  setIsValidValue(isValid){
+        commisValid=isValid;
+        var clickStr='';
+        if(flowFlag!=9&&isEdit){
+            clickStr='onclick="setIsValid();"';
+        }
+        var vhtml=isValid==1?'<span '+clickStr+'  class="label label-success radius">有效</span>':'<span  '+clickStr+' class="label label-danger radius">无效</span>';
+        $("#isValid").html(vhtml);
+
+    }
+    var moreShow=false;
+
+    $(".more").click(function(){
+        if(moreShow){
+            moreShow=false;
+            $("#moreTR").hide();
+            $("#moreTR2").hide();
+            $("#moreTd").attr("rowspan",3);
+    $(".more").html('<i class="Hui-iconfont">&#xe6d5;</i>');
+        }else {
+            moreShow=true;
+            $("#moreTR").show();
+            $("#moreTR2").show();
+            $("#moreTd").attr("rowspan",5);
+            $(".more").html('<i class="Hui-iconfont">&#xe6d6;</i>');
+        }
+//        resetcurPage();
+    });
+
+    function resetcurPage(){
+        var curH=height-114;
+        if(moreShow){
+            curH=curH-35;
+        }
+        if(isShowAction){
+            curH=curH-45;
+
+        }
+
+        $(".pile-panel").height(curH);
+        $(".ui-layout-content").height(curH);
+        $(".ui-layout-image").height(curH-60);
+        $(".ui-layout-menu").height(curH);
+    }
+
+    function setIsValid(){
+        var url='/api/v1/DyData/'+projectId+'/'+id+'/IsValid';
+        comSetIsValid(url);
+
+
+    }
+
+
+
+
+
+    function getReviewInfo(){
+        $.ajax({
+            url: '/api/v1/DyData/'+projectId+'/'+id+'/ReviewInfo',
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function (d) {
+
+                if (d.code == 0) {
+
+
+                    $.each(d.data,function(n,value){
+                        $('span#'+n).html(value);
+                        if(n=='flowFlag'){
+                            flowFlag=value;
+
+                            var flowflagStr=getflowFlagStr(flowFlag);
+
+                            $('span#'+n).html(flowflagStr);
+                        }
+                        if(n=='pileGrade'){
+                            var ResultStr=getDyResultStr(value);
+                            $('span#result').html(ResultStr);
+                            $("#pileGrade").val(value);
+                        }
+                        if(n=='integrity'){
+                            $("#integrity").val(value);
+                            $("span#integrityTd").html(value);
+                        }
+
+                    });
+                    setIsValidValue(d.data.isValid);
+
+                }
+            }
+        });
+        getActionStr();
+
+    }
+    function  getActionStr(){
+        var operateActionStr='';
+        if(commisValid=='1'){
+            var resultpower=JSON.parse( sessionStorage.dyPower);
+            if ($.inArray("EDIT", resultpower) != -1) {
+                dyData.isEditEnable = true;
+                operateActionStr+=' <ul class="showLineBox">' ;
+                operateActionStr+='<li><input type="radio" name="lineType" data-labelauty="原始信号" value="0" ></li>';
+                operateActionStr+='<li><input type="radio" name="lineType" data-labelauty="处理信号" value="1" checked></li>';
+                operateActionStr+= '</ul>'  ;
+            }else
+            {
+                dyData.isEditEnable = false;
+            }
+            var actionStr='';
+            //数据状态，1待复核，2退回修订，3已复核
+            if(flowFlag==2){
+                actionStr=getResultPowerStr('dyResult',resultpower,'commit',false,true,true);
+            }else
+            if(flowFlag==9){
+                actionStr=getResultPowerStr('dyResult',resultpower,'commit',false,false,false);
+            }else
+            if(flowFlag==3){
+                actionStr=getResultPowerStr('dyResult',resultpower,'commit',false,true,true);
+            }else if(flowFlag==1){
+                actionStr=getResultPowerStr('dyResult',resultpower,'commit',true,true,true);
+            }else {
+                actionStr=getResultPowerStr('dyResult',resultpower,'commit',false,true,true);
+            }
+            operateActionStr+=actionStr;
+        }else {
+            dyData.isEditEnable = false;
+        }
+
+        $("#commit").html(operateActionStr);
+        var curH;
+        if(operateActionStr==""){
+            isShowAction=false;
+            $("#commit").hide();
+            curH=height-114;
+
+        }else {
+            $("#commit").show();
+            isShowAction=true;
+            curH=height-124-35;
+        }
+        $(".pile-panel").height(curH);
+        $(".ui-layout-content").height(curH);
+        $(".ui-layout-image").height(curH-60);
+        $(".ui-layout-menu").height(curH);
+
+        //radio 美化插件
+        $('#commit :input').labelauty();
+
+    }
+
+    $(function(){
+        var pileinfodata;
+        var resultpower=JSON.parse( sessionStorage.dyPower);
+        if ($.inArray("EDIT", resultpower) != -1) {
+            isEdit=true;
+        }
+
+        var tabshow=[false,false,false];
+        $(".pile-panel").height(height-124);
+        $(".ui-layout-content").height(height-124);
+        $(".ui-layout-image").height(height-124-40);
+        $(".ui-layout-menu").height(height-124);
+
+        $(".ptabs").height(height);
+
+        $("#tabs").tabs({
+            selected:0,
+            show:function(event,ui){
+                switch(ui.index){
+                    case 0:getPileInfo();break;
+                    case 1:getPileGps();break;
+                    case 2:getopertionLog();break;
+                }
+            }
+        });
+
+        function getopertionLog() {
+            if(tabshow[2]){ return; }
+            tabshow[2]=true;
+            //操作日志
+            var url= '/api/v1/DyData/'+projectId+'/'+id+'/OperationLog';
+            opertionLog(url);
+        }
+
+        getPileInfo();
+
+
+
+
+        //表单验证
+        function validform() {
+            return $("#form-dy-Result").validate({
+                debug: true,
+                rules: {
+                    pileGrade: {
+                        required: true
+                    },
+                    integrity: {
+                        required: true,
+                        rangelength:[0,255]
+                    }
+                }
+            });
+        }
+
+        function  isCurReport()
+        {
+            var lineType='0';
+            if(isShowAction){
+                lineType = $('input[name="lineType"]:checked ').val();
+            }
+            if(lineType=='0') return false;
+            else  return true;
+        }
+
+        //复核
+        $('#commit').on('click','#review',function(){
+            var url='/api/v1/DyData/' + projectId + '/' + id + '/Review';
+            reviewLayer(url);
+        });
+
+
+
+
+
+
+
+        $('#commit').on('click','#saveBtn',function(){
+            if(isCurReport()){
+                layer.confirm('确认要提交当前试验的通道分析信息吗？', {
+                    icon:7,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                },function(index){
+
+                    var data={
+                        "channelId": curchannelId, //通道记录ID
+                        "headIndex":dyData.headIndex.toFixed(0), //桩顶位置索引
+                        "lowFilter": dyData.filter, //低通滤波频率
+                        "amp": dyData.amp,  //指数放大倍数
+                        "ampIndex": dyData.ampIndex, //指数放大起始位置索引
+                        "pileLength":dyData.real_pl, //结论桩长
+                        "velocity": dyData.real_pv.toFixed(0) //结论波速
+                    };
+                    for (var i = 0; i < dyData.defects.length; i++)  addJson('pileDefect'+(i+1),dyData.defects[i].toFixed(2),data);
+                    $.ajax({
+                        url: '/api/v1/DyData/'+projectId+'/'+id+'/Channel',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PUT",
+                        data:data,
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('操作成功!',{icon:1,time:2000,offset: [top_offset, left_offset]});
+                            }else{
+                                layer.alert(reg.message, {
+                                    icon:2,
+                                    title:'错误信息',
+                                    offset:[top_offset, left_offset],
+                                    skin:'layer-ext-moon'
+                                });
+                            }
+                        },error:function(){
+                            layer.alert('更新失败！', {
+                                icon:2,
+                                title:'错误信息',
+                                offset:[top_offset, left_offset],
+                                skin:'layer-ext-moon'
+                            });
+                        }
+                    });
+                });
+            }else {
+                layer.alert('请选择处理信号！', {
+                    icon:7,
+                    time: 3000,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+            }
+        });
+        function addJson(s,d,data){
+            debugger;
+            data[s]=d;
+            return data;
+        }
+        $('#commit').on('click','#ResultBtn',function(){
+            if(isCurReport()){
+                layer.confirm('确认要选定当前通道,提交结论？', {
+                    icon:7,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                },function(index){
+                    //设置
+                    var index=layer.open({
+                        type: 1,
+                        title:'提交结论',
+                        content: $('#dy-Result'), //这里content是一个DOM
+                        area:['550px','300px'],
+                        offset: [top_offset, left_offset],
+                        btn:['确定','取消'],
+                        'yes':function(index,layero){
+
+
+                            if(validform().form()) {
+                                var pileGrade = $('#pileGrade').val();
+                                var integrity = $('#integrity').val();
+                                var data={
+                                    "pileGrade": pileGrade,//分析结论，1-I类，2-II类， 3-III类， 4-IV类
+                                    "integrity": integrity,//完整性说明
+                                    "pileLength": dyData.real_pl,
+                                    "velocity": dyData.real_pv.toFixed(0),
+                                    "channelId":  curchannelId,
+                                    "headIndex": dyData.headIndex.toFixed(0),
+                                    "lowFilter": dyData.filter,
+                                    "amp": dyData.amp,
+                                    "ampIndex": dyData.ampIndex
+                                };
+                                for (var i = 0; i < dyData.defects.length; i++)  addJson('pileDefect'+(i+1),dyData.defects[i].toFixed(2),data);
+
+                                console.log(data);
+                                debugger;
+                                $.ajax({
+                                    url: '/api/v1/DyData/'+projectId+'/'+id+'/Result',    //请求的url地址
+                                    dataType: "json",
+                                    async: true,
+                                    type: "PUT",
+                                    data:data,
+                                    success: function(reg) {
+                                        if(reg.code==0){
+                                            layer.msg('操作成功!',{icon:1,time:2000,offset: [top_offset, left_offset]});
+                                            $(".isreport").html('');
+                                            var lih = $(".ui-layout-menu").height(), pidl = pileinfodata.length;
+                                            lih = lih / pidl;
+                                            lih = lih >= 110 ? 110 : lih;
+                                            var reportStr="<span class=\"pilechanelno isreport\" style=\"top:" + (curChannel * lih - 30) + "px; left:10px;\">结论通道</span>";
+                                            debugger;
+
+                                            $(" .selected").append(reportStr);//
+                                            window.close();
+                                            window.opener.location.reload();//刷新父窗口
+//                                    window.opener.location.reload(true);
+
+                                        }else{
+                                            layer.alert(reg.message, {
+                                                icon:2,
+                                                title:'错误信息',
+                                                offset:[top_offset, left_offset],
+                                                skin:'layer-ext-moon'
+                                            });
+                                        }
+                                    },error:function(){
+                                        layer.alert('更新失败！', {
+                                            icon:2,
+                                            title:'错误信息',
+                                            offset:[top_offset, left_offset],
+                                            skin:'layer-ext-moon'
+                                        });
+                                    }
+                                });
+                                layer.close(index);
+                            }
+                        }
+                    });
+                });
+            }else {
+                layer.alert('请选择处理信号！', {
+                    icon:7,
+                    time: 3000,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+            }
+
+
+
+
+
+        });
+        $('#commit').on('click','[name=lineType]:radio',function(){
+//            $('[name=lineType]:radio').click(function(){
+            var lineType = this.value;
+            showLine(lineType);
+
+        });
+
+        function  showLine(lineType){
+            if(lineType=='0'){
+                dyData.isShowSource = true;
+                dyData.isEditEnable = false;
+                dyData.drawCurve("pile-"+curChannel+"-bigcurve", curChannel);
+            }else
+            {
+                dyData.isShowSource = false;
+                dyData.isEditEnable = true;
+                dyData.drawCurve("pile-"+curChannel+"-bigcurve", curChannel);
+            }
+        }
+
+
+
+
+
+        function getPileInfo(){
+            if(tabshow[0]){ return; }
+            tabshow[0]=true;
+
+            //获取信息
+            $.ajax({
+                url: '/api/v1/DyData/'+projectId+'/'+id,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (reg) {
+                    $(".pileimagelist").children().remove();
+                    pileinfodata=null;
+                    $("#ChanelNo").html("");
+                    if (reg.code == 0) {
+
+                    var d=eval(reg.data); //由JSON字符串转换为JSON对象
+                        console.log(d);
+
+                        var json=JSON.stringify(d);
+//                        console.log(json);
+                        $.each(d,function(n,value){
+//                            $('#'+n).text(value);
+                            $('span#'+n).html(value);
+
+                        });
+                        pileinfodata= d;
+                        dyData = $RS.calcData(json);
+                        getReviewInfo();
+                        var lih = $(".ui-layout-menu").height(), pidl = pileinfodata.length;
+                        lih = lih / pidl;
+                        lih = lih >= 110 ? 110 : lih;
+                        var isReport=false;
+                        for (var i = 0; i < pidl; i++) {
+
+                            if (pileinfodata[i].IsReportChannel == 1) {
+                                isReport=true;
+                            }
+                        }
+
+                        for (var i = 0; i < pidl; i++) {
+                            var st = pileinfodata[i].SignalType == 2 ? "(力)" : "";
+
+                            var reportStr="";
+                            var selectStr='';
+
+                            if(pileinfodata[i].IsReportChannel==1){
+                                curChannel=i;
+                                curchannelId=pileinfodata[i].Id;
+                                reportStr="<span class=\"pilechanelno isreport\" style=\"top:" + (i * lih - 30) + "px; left:10px;\">结论通道</span>";
+                                selectStr='class="selected"';
+                            }
+                            if(i==0&&!isReport){
+                                selectStr='class="selected"';
+                                curChannel=0;
+                            }
+
+                            var pileimagelistStr="<li "+selectStr+"><div class=\"ui-widget-overlay pileliteimageoverlay\" style=\"   position:absolute; top:" + (i * lih) + "px;height:" + lih + "px;\"></div>"+reportStr+"<span class=\"pilechanelno\" style=\"top:" + (i * lih - 30) + "px;\">通道" + (i + 1) + st + "</span><div class=\"dcCurve pileliteimage\" id=\"pile-chanel-" + i + "\" style =\"top:" + (i * lih) + "px;height:" + lih + "px;\"></div></li>";
+                            $("ul.pileimagelist").append(pileimagelistStr);
+                            dyData.drawtHumbnail("pile-chanel-" + i, i);
+                        }
+                        $("ul.pileimagelist li").bind("click", function () {
+                            $("ul.pileimagelist li").removeClass('selected');//去掉所有选择标记
+                            $(this).addClass('selected');
+                            getIndexPileInfo($(this).index());
+                        });
+//                        dyData.isShowSource = true;
+
+
+
+                        getIndexPileInfo(curChannel);
+                    } else {
+//                        alert(reg.message);
+                        layer.alert(reg.message, {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+//                        layer.alert(reg.message);
+                        $(".ui-layout-content").html("暂无上传的数据").addClass("tipsinfo");
+                        return;
+                    }
+                },error:function(){
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+            });
+
+        }
+
+        function getIndexPileInfo(index){
+
+            if(index<0){return;}
+
+
+            if($("#ChanelNo").html()==(index+1).toString()){return;}
+            $(".pileliteimageoverlay").show();
+            $("ul.pileimagelist li:eq("+index+")").children(".pileliteimageoverlay").hide();
+            $("#ChanelNo").html((index+1));
+            $.each(pileinfodata[index],function(n,v){
+                if(n=="PileVelocity"){
+                    v=v.toFixed(0);
+                }
+                if(n!="ChannelData"&&n!="BasicInfoId"){
+                    $("#"+n).html(v);
+                }
+            });
+            $("#pilechanelimage").children().remove();
+            var pcw=$(".ui-layout-image").width()-10,pith=$("table.pielinfotable").height();
+            var pch=height-pith-60-25;
+            pch=pcw/pch>2.3?pch:parseInt(pcw*0.4);
+            $("#pilechanelimage").html("<div class=\"dcCurve \" id =\"pile-"+index+"-bigcurve\" style=\"width:"+(pcw)+"px;height:"+pch+"px;\"></div>")
+            //binddyData("pile-"+index+"-bigcurve",pileinfodata[index]);
+
+            var lineType='0';
+            if(isShowAction){
+                lineType = $('input[name="lineType"]:checked ').val();
+            }
+            curChannel=index;
+            curchannelId=pileinfodata[index].Id;
+            showLine(lineType);
+//            dyData.drawCurve("pile-"+index+"-bigcurve", index);
+        }
+
+
+        function getPileGps() {
+            if(tabshow[1]){ return; }
+            tabshow[1]=true;
+            if (null == pileinfodata || pileinfodata.length == 0) {
+                $("#fenbuMap").html("暂无数据上传").addClass("tipsinfo");
+                return;
+            }
+            var v = pileinfodata[0];
+            if (v.GpsIsValid) {
+                var content = "桩号：" + v.PileNo;
+                content += "<br>仪器编号：" + v.MachineId;
+                content += "<br>测试时间：" + v.SampleTime;
+                content += "<br>上传时间：" + v.CreateTime;
+                content += "<br>上传人：" + v.CreaterName;
+                var title = "地理位置";
+
+                baiduMap("fenbuMap", v.GpsLongitude, v.GpsLatitude, content, title);
+            }
+            else {
+                $("#fenbuMap").html("上传的数据中未包含有效的GPS位置信息").addClass("tipsinfo");
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

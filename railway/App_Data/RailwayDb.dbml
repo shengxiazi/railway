@@ -1,0 +1,2203 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RsRailwayTestingSystem" Class="RailwayDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.98;Initial Catalog=RsRailwayTestingSystem;User ID=test" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RsRailwayTestingSystemConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.rstb_sysUpFiles" Member="rstb_sysUpFiles">
+    <Type Name="rstb_sysUpFiles">
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="fileName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fileExt" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="fileSize" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="fileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fileFolder" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="isDel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ComDocument" Member="rstb_ComDocument">
+    <Type Name="rstb_ComDocument">
+      <Column Name="comDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comDocTypeCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="comDocName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comDocStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comDocEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_Company" Member="rstb_Company">
+    <Type Name="rstb_Company">
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="comShortName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="comAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comRegionCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="comRegionName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comZipCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="comRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="comFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="contactName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="contactCard" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="contactMobile" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="contactEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EquipDocument" Member="rstb_EquipDocument">
+    <Type Name="rstb_EquipDocument">
+      <Column Name="equipDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="equipId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="equipDocTypeCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="equipDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="equipDocName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipDocStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipDocEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_PersonDocument" Member="rstb_PersonDocument">
+    <Type Name="rstb_PersonDocument">
+      <Column Name="personDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="personDocTypeCode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="personDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="personDocName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_PersonJobResume" Member="rstb_PersonJobResume">
+    <Type Name="rstb_PersonJobResume">
+      <Column Name="itemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="workStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="workEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="workCompany" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="workProf" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="workPosition" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="workReward" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="workPunished" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_PersonQualify" Member="rstb_PersonQualify">
+    <Type Name="rstb_PersonQualify">
+      <Column Name="itemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="testModeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="testMode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="testWorkNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="testStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="testEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ProjectDocument" Member="rstb_ProjectDocument">
+    <Type Name="rstb_ProjectDocument">
+      <Column Name="projectDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectDocTypeCode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="projectDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectDocName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectDocDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="projectDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAccountLocal" Member="rstb_sysAccountLocal">
+    <Type Name="rstb_sysAccountLocal">
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="accountName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="accountPwd" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="accountSalt" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAccountLog" Member="rstb_sysAccountLog">
+    <Type Name="rstb_sysAccountLog">
+      <Column Name="itemId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="accountName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="operationContent" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="operationIp" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="operationTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAccountRole" Member="rstb_sysAccountRole">
+    <Type Name="rstb_sysAccountRole">
+      <Column Name="itemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAnnouncement" Member="rstb_sysAnnouncement">
+    <Type Name="rstb_sysAnnouncement">
+      <Column Name="announceId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="announceTitle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="announceContent" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="announceExpireTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAppLog" Member="rstb_sysAppLog">
+    <Type Name="rstb_sysAppLog">
+      <Column Name="logId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="logType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="logTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="logInfo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="logTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAppSetting" Member="rstb_sysAppSetting">
+    <Type Name="rstb_sysAppSetting">
+      <Column Name="configId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="configType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="configKey" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="configValue" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="configDescription" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="configOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAuthority" Member="rstb_sysAuthority">
+    <Type Name="rstb_sysAuthority">
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="authorityName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="authorityDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysDict" Member="rstb_sysDict">
+    <Type Name="rstb_sysDict">
+      <Column Name="dictId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="dictTypeId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dictCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dictName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dictOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysDictType" Member="rstb_sysDictType">
+    <Type Name="rstb_sysDictType">
+      <Column Name="dictTypeId" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="dictTypeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dictTypeOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysOperationLog" Member="rstb_sysOperationLog">
+    <Type Name="rstb_sysOperationLog">
+      <Column Name="logId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="moduleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="authorityName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="tableName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="primaryKey" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="oprationContent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysOperationLogDetails" Member="rstb_sysOperationLogDetails">
+    <Type Name="rstb_sysOperationLogDetails">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="logId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="fieldKey" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fieldName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="prevValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="afterValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysRegionCode" Member="rstb_sysRegionCode">
+    <Type Name="rstb_sysRegionCode">
+      <Column Name="regionCode" Type="System.String" DbType="Char(9) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="regionName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysSMS" Member="rstb_sysSMS">
+    <Type Name="rstb_sysSMS">
+      <Column Name="smsId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="smsTypeId" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="smsTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="smsContent" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="smsFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountDealTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMDoc" Member="rsview_XMDoc">
+    <Type Name="rsview_XMDoc">
+      <Column Name="XMDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="TestComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocTypeCode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_ComDoc" Member="rsview_ComDoc">
+    <Type Name="rsview_ComDoc">
+      <Column Name="comDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comDocTypeCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="comDocName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comDocStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comDocEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysRoleGroup" Member="rstb_sysRoleGroup">
+    <Type Name="rstb_sysRoleGroup">
+      <Column Name="RoleGroupId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleGroupCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysRole" Member="rstb_sysRole">
+    <Type Name="rstb_sysRole">
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="roleGroupId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roleDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="roleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysRole" Member="rsview_sysRole">
+    <Type Name="rsview_sysRole">
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleGroupId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roleDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="roleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysRoleModuleAuthority" Member="rsview_sysRoleModuleAuthority">
+    <Type Name="rsview_sysRoleModuleAuthority">
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysModuleType" Member="rstb_sysModuleType">
+    <Type Name="rstb_sysModuleType">
+      <Column Name="moduleTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="moduleTypeParentId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleTypeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleTypePath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="moduleTypeOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysModule" Member="rstb_sysModule">
+    <Type Name="rstb_sysModule">
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="moduleTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleUrl" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="moduleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isMenu" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isEnable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysModuleAuthority" Member="rstb_sysModuleAuthority">
+    <Type Name="rstb_sysModuleAuthority">
+      <Column Name="itemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysRoleAuthority" Member="rstb_sysRoleAuthority">
+    <Type Name="rstb_sysRoleAuthority">
+      <Column Name="itemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysRoleMenu" Member="rsview_sysRoleMenu">
+    <Type Name="rsview_sysRoleMenu">
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleTypeId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="moduleUrl" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysModuleAuthority" Member="rsview_sysModuleAuthority">
+    <Type Name="rsview_sysModuleAuthority">
+      <Column Name="moduleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="moduleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="authorityTag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMProjectDocument" Member="rstb_XMProjectDocument">
+    <Type Name="rstb_XMProjectDocument">
+      <Column Name="XMDocId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="TestComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocTypeCode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="XMDocRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysBuildTestQuotaMode" Member="rstb_sysBuildTestQuotaMode">
+    <Type Name="rstb_sysBuildTestQuotaMode">
+      <Column Name="itemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BuildTypeCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BuildTypeName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TestQuotaCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TestQuotaName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TestModeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TestModeName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysEquipTypeTestMode" Member="rstb_sysEquipTypeTestMode">
+    <Type Name="rstb_sysEquipTypeTestMode">
+      <Column Name="itemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="equipTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="testModeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="testModeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysAccountRole" Member="rsview_sysAccountRole">
+    <Type Name="rsview_sysAccountRole">
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleGroupId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ComDepartment" Member="rstb_ComDepartment">
+    <Type Name="rstb_ComDepartment">
+      <Column Name="departId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comDepartName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_sysAccount" Member="rstb_sysAccount">
+    <Type Name="rstb_sysAccount">
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="accountFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isLimit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysAccount" Member="rsview_sysAccount">
+    <Type Name="rsview_sysAccount">
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="accountFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isLimit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="accountName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="accountPwd" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="accountSalt" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_PersonCompany" Member="rsview_PersonCompany">
+    <Type Name="rsview_PersonCompany">
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="personType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="personFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="comShortName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="departId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="sex" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="qq" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cardNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="birthDay" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="eduLevel" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduSchool" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eduProfessional" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduEndYear" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="profTitle" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="workDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="workNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="workScope" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Api_Accounts" Member="rsdata_Api_Accounts">
+    <Type Name="rsdata_Api_Accounts">
+      <Column Name="AccountId" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountSecret" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountStatus" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Api_Apps" Member="rsdata_Api_Apps">
+    <Type Name="rsdata_Api_Apps">
+      <Column Name="AppId" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AppName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AppSecret" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AppStatus" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_Person" Member="rstb_Person">
+    <Type Name="rstb_Person">
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="departId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="sex" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="qq" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cardNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="birthDay" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="personType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduLevel" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduSchool" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eduProfessional" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduEndYear" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="profTitle" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="workDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="workNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="workScope" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="personFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMBuildTestQuotaMode" Member="rstb_XMBuildTestQuotaMode">
+    <Type Name="rstb_XMBuildTestQuotaMode">
+      <Column Name="itemId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="BuildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="BuildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestQuotaCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TestQuotaName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestModeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TestModeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="design" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="operationMode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_BDProject" Member="rstb_BDProject">
+    <Type Name="rstb_BDProject">
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="bdName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="gpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="longitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="latitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMProject" Member="rstb_XMProject">
+    <Type Name="rstb_XMProject">
+      <Column Name="projectXMId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="projectXMCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMSurvey" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="projectXMRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_PersonAccount" Member="rsview_PersonAccount">
+    <Type Name="rsview_PersonAccount">
+      <Column Name="accountFlag" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="accountName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="sex" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="qq" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cardNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="birthDay" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="personType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduLevel" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduSchool" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eduProfessional" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="eduEndYear" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="profTitle" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="workDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="workNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="workScope" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="personFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ProjectBD" Member="rstb_ProjectBD">
+    <Type Name="rstb_ProjectBD">
+      <Column Name="projectBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMComBD" Member="rstb_XMComBD">
+    <Type Name="rstb_XMComBD">
+      <Column Name="xmComBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_BDProject" Member="rsview_BDProject">
+    <Type Name="rsview_BDProject">
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="gpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bdName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="latitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMComBD" Member="rsview_XMComBD">
+    <Type Name="rsview_XMComBD">
+      <Column Name="xmComBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMCompany" Member="rsview_XMCompany">
+    <Type Name="rsview_XMCompany">
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comShortName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="comCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="xmComAddress" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="xmComFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="contactName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="contactMobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMCompany" Member="rstb_XMCompany">
+    <Type Name="rstb_XMCompany">
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="xmComAddress" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="xmComFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="contactName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="contactMobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMPersonBD" Member="rstb_XMPersonBD">
+    <Type Name="rstb_XMPersonBD">
+      <Column Name="xmPersonBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMPersonBD" Member="rsview_XMPersonBD">
+    <Type Name="rsview_XMPersonBD">
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="xmPersonBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_TProject" Member="rstb_TProject">
+    <Type Name="rstb_TProject">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ys" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="kx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ev" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="xm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_K3_DetailsData" Member="rsdata_K3_DetailsData">
+    <Type Name="rsdata_K3_DetailsData">
+      <Column Name="Id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SampleTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Grade" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SampleCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Press" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RealPres" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="S1" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="S2" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SAverage" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CreatTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="OilPress" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RecordId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMPerson" Member="rsview_XMPerson">
+    <Type Name="rsview_XMPerson">
+      <Column Name="xmPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="sex" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="personType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectXMCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_XMPerson" Member="rstb_XMPerson">
+    <Type Name="rstb_XMPerson">
+      <Column Name="xmPersonId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_ProjectBD" Member="rsview_ProjectBD">
+    <Type Name="rsview_ProjectBD">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectBdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_sysAccountPerson" Member="rsview_sysAccountPerson">
+    <Type Name="rsview_sysAccountPerson">
+      <Column Name="accountId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="accountFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isLimit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="accountName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="accountPwd" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="accountSalt" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2)" CanBeNull="true" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="comCode" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_TTestPlan" Member="rstb_TTestPlan">
+    <Type Name="rstb_TTestPlan">
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="layer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="totalLayer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="fillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="fillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="particleDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="dryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="waterContent" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMaxDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMinDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="compactionMode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="compactionNum" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="compactionDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Api_TestCom" Member="rsdata_Api_TestCom">
+    <Type Name="rsdata_Api_TestCom">
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comShortName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="AccountId" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountSecret" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AccountStatus" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="comFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_EquipmentCompany" Member="rsview_EquipmentCompany">
+    <Type Name="rsview_EquipmentCompany">
+      <Column Name="equipId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="equipNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="equipSpec" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipParam" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="equipFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipVerifyFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isVerifyOut" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isUploaded" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isAccepted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="equipRange" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipResolution" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipArchiveNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_Equipment" Member="rstb_Equipment">
+    <Type Name="rstb_Equipment">
+      <Column Name="equipId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="equipNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="equipSpec" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipParam" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipRange" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipResolution" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipArchiveNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="equipFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipVerifyFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isVerifyOut" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isUploaded" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isAccepted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="acceptedMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ResultTemplate" Member="rstb_ResultTemplate">
+    <Type Name="rstb_ResultTemplate">
+      <Column Name="templateId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="templateTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="templateTestCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="templateName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="templateDescription" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="templateFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ResultTemplateText" Member="rstb_ResultTemplateText">
+    <Type Name="rstb_ResultTemplateText">
+      <Column Name="templateTextId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="templateId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="templateTextTitle" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="templateText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="updateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_ProjectCom" Member="rsview_ProjectCom">
+    <Type Name="rsview_ProjectCom">
+      <Column Name="xmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="comTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_PersonStamp" Member="rsview_PersonStamp">
+    <Type Name="rsview_PersonStamp">
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="fileName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fileExt" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="fileSize" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="fileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fileFolder" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="flag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_PersonStamp" Member="rstb_PersonStamp">
+    <Type Name="rstb_PersonStamp">
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="flag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_KSPhotos" Member="rsview_KSPhotos">
+    <Type Name="rsview_KSPhotos">
+      <Column Name="fileId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="fileClass" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="fileClassName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="serialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="pileId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="pileNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="gpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="comCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_ScenePhotos" Member="rsview_ScenePhotos">
+    <Type Name="rsview_ScenePhotos">
+      <Column Name="hash" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="fileName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fileExt" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="fileSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fileData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isDel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ResultText" Member="rstb_ResultText">
+    <Type Name="rstb_ResultText">
+      <Column Name="resultTextId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="templateTextId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="sort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EvdResultData" Member="rstb_EvdResultData">
+    <Type Name="rstb_EvdResultData">
+      <Column Name="itemId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="basicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileage" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="edReal" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_KSResultData" Member="rstb_KSResultData">
+    <Type Name="rstb_KSResultData">
+      <Column Name="itemId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="basicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileage" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="ksReal" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_TResult" Member="rstb_TResult">
+    <Type Name="rstb_TResult">
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="compactionMode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="fillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="fillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="layer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="particleDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="dryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="waterContent" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMaxDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMinDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ysTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ysDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="kxTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="kxDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="xmTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="xmDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="edTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="edDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ksTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ksDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="evTestCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="evDesign" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_YSResultData" Member="rstb_YSResultData">
+    <Type Name="rstb_YSResultData">
+      <Column Name="itemId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="basicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileage" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="ysReal" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_YSData" Member="rstb_YSData">
+    <Type Name="rstb_YSData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="TestCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="KysDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KysReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Psr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Pdmax" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr3" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr4" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr5" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Msr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vp" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mpr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mp" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="P0" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="W" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Pd" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_K3_BasicInfo" Member="rsdata_K3_BasicInfo">
+    <Type Name="rsdata_K3_BasicInfo">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="TestType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Layers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="FillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="KdjDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KdjReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsTesting" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TotalLayers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="LastRecordId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_K3_ProjectBasicInfo" Member="rsdata_K3_ProjectBasicInfo">
+    <Type Name="rsdata_K3_ProjectBasicInfo">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="TestType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Layers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="FillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="KdjDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KdjReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsTesting" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="TotalLayers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="FillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_XMPersonBDProject" Member="rsview_XMPersonBDProject">
+    <Type Name="rsview_XMPersonBDProject">
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="personId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="realName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_ResultStamp" Member="rstb_ResultStamp">
+    <Type Name="rstb_ResultStamp">
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="testStamp" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createStamp" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="reviewStamp" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="verifyStamp" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="testStamp2" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_TestPlan" Member="rstb_TestPlan">
+    <Type Name="rstb_TestPlan">
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="planNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="endMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="constructionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="planFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="planRemark" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="sgComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="jlComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="verifyName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="verifyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="jcComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="acceptName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="acceptTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="serialNo" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_TTestPlan" Member="rsview_TTestPlan">
+    <Type Name="rsview_TTestPlan">
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="totalLayer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="endMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="planNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="constructionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="planFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="planRemark" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="layer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="fillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="fillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="particleDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="dryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="waterContent" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMaxDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="sMinDryDensity" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="compactionMode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="compactionNum" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="compactionDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sgComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jlComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jcComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="verifyName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="verifyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="acceptName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="acceptTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="serialNo" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_TProject" Member="rsview_TProject">
+    <Type Name="rsview_TProject">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bywCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bywName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLCFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectDrawNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectRemark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ys" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="kx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="xm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ev" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectEndLC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_TProjectLists" Member="rsview_TProjectLists">
+    <Type Name="rsview_TProjectLists">
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectLCFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectDrawNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectRemark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ys" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="kx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ev" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="xm" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bywCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bywName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="projectEndLC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_Project" Member="rstb_Project">
+    <Type Name="rstb_Project">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bywCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bywName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectLCFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectDrawNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectRemark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="projectEndLC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_QProject" Member="rstb_QProject">
+    <Type Name="rstb_QProject">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="total" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sc" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="gy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="jz" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="zx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="zxExt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_QProject" Member="rsview_QProject">
+    <Type Name="rsview_QProject">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bywCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bywName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectLCFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectLC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectDrawNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectRemark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="projectEndLC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sc" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="gy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="jz" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="zx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="zxExt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Sc_BasicInfo" Member="rsdata_Sc_BasicInfo">
+    <Type Name="rsdata_Sc_BasicInfo">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PileLength" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PileDiameter" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="ConcreteStrength" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TubeCount" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SectionCount" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Step" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Angle" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Sc_Section" Member="rsdata_Sc_Section">
+    <Type Name="rsdata_Sc_Section">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SectionName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestMode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TubeDistance" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Step" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ZeroTime" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SampleInterval" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SampleLength" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="NodesCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="DataVersion" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SectionData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Dc_BasicInfo" Member="rsdata_Dc_BasicInfo">
+    <Type Name="rsdata_Dc_BasicInfo">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PileLength" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="PileDiameter" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="PileVelocity" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ConcreteStrength" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="IsHighStrainTest" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="LengthUnderSensor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="HammerWeight" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="HammerDropHeight" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SectionArea" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="BottomArea" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Density" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SectionCircum" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Jc" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="DepthIn" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Vs" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Dc_Channel" Member="rsdata_Dc_Channel">
+    <Type Name="rsdata_Dc_Channel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SignalType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SampleInterval" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="SampleGain" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SampleLength" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SensorSensitive" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="FilterFrequency" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SampleTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelData" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Jy_BasicInfo" Member="rsdata_Jy_BasicInfo">
+    <Type Name="rsdata_Jy_BasicInfo">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestType" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxLoad" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SourceParam" Type="System.Xml.Linq.XElement" DbType="Xml NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="RecordCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="IsTesting" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentParam" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CurrentData" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="LastSampleTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="LastLoadDirect" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="LastGrade" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="LastSampleCount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LastTimeCount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LastLoading" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Jy_DetailsData" Member="rsdata_Jy_DetailsData">
+    <Type Name="rsdata_Jy_DetailsData">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SampleTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LoadDirect" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Grade" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SampleCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="TimeCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Loading" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RealLoading" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RealPress" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S1" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S2" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S3" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S4" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S5" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S6" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S7" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S8" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S9" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S10" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S11" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S12" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SAverage" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="U1" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U2" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U3" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U4" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U5" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U6" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U7" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U8" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U9" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U10" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U11" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="U12" Type="System.Single" DbType="Real" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_QProjectXMBD" Member="rsview_QProjectXMBD">
+    <Type Name="rsview_QProjectXMBD">
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bywCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bywName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLCFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="projectLC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectLength" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectDrawNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectRemark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="jz" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="gy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="zx" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sc" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bdCode" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="bdId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeCode" Type="System.String" DbType="Char(2) NOT NULL" CanBeNull="false" />
+      <Column Name="bdTypeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="projectXMShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="comXMName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="comXMShortName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectEndLC" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_TestPlanTestQuota" Member="rstb_TestPlanTestQuota">
+    <Type Name="rstb_TestPlanTestQuota">
+      <Column Name="planTestId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="testQuotaCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="testQuotaName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="design" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="testNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TestModeCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TestModeName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EvdFlowData" Member="rstb_EvdFlowData">
+    <Type Name="rstb_EvdFlowData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_JyFlowData" Member="rstb_JyFlowData">
+    <Type Name="rstb_JyFlowData">
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_KSFlowData" Member="rstb_KSFlowData">
+    <Type Name="rstb_KSFlowData">
+      <Column Name="basicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_DcFlowData" Member="rstb_DcFlowData">
+    <Type Name="rstb_DcFlowData">
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="czlResult" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="integrity" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="realPress" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_SbFlowData" Member="rstb_SbFlowData">
+    <Type Name="rstb_SbFlowData">
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_YSFlowData" Member="rstb_YSFlowData">
+    <Type Name="rstb_YSFlowData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_KSData" Member="rsview_KSData">
+    <Type Name="rsview_KSData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="TestType" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalLayers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Layers" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="FillingThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="FillingStyle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FillingDiameter" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="KdjDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KdjReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsTesting" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="LastRecordId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_YSData" Member="rsview_YSData">
+    <Type Name="rsview_YSData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="TestCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="KysDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KysReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Psr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Pdmax" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr3" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr4" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr5" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Msr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Vp" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mpr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mr" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Mp" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="P0" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="W" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Pd" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_QTestPlan" Member="rstb_QTestPlan">
+    <Type Name="rstb_QTestPlan">
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PierNo" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="pileLength" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="pileDiameter" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="pileTong" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_DcData" Member="rsview_DcData">
+    <Type Name="rsview_DcData">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PileLength" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="PileDiameter" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="PileVelocity" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="ConcreteStrength" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="IsHighStrainTest" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="planFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="sgComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jlComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jcComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PierNo" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="LengthUnderSensor" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="HammerWeight" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="HammerDropHeight" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SectionArea" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="BottomArea" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Density" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SectionCircum" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Jc" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="DepthIn" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Vs" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="czlResult" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="integrity" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="realPress" Type="System.Single" DbType="Real" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_ScData" Member="rsview_ScData">
+    <Type Name="rsview_ScData">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PileLength" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PileDiameter" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="ConcreteStrength" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TubeCount" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="SectionCount" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Step" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Angle" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="constructionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="planFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="sgComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jlComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jcComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PierNo" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_JyData" Member="rsview_JyData">
+    <Type Name="rsview_JyData">
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PileNo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestType" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxLoad" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SourceParam" Type="System.Xml.Linq.XElement" DbType="Xml NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="RecordCount" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="IsTesting" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentParam" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CurrentData" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="ShangGangZheng" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="LastSampleTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ComId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="BaseInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="constructionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="buildTypeCode" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="planFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="sgComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jlComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jcComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PierNo" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="testHeight" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="pileLength" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="pileDiameter" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="pileTong" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="result" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="resultText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="isValid" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_Result" Member="rstb_Result">
+    <Type Name="rstb_Result">
+      <Column Name="resultId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="resultCode" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="resultNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="xmId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="xmName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="projectId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="projectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="planId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="planCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="mileageFlag" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="startMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="endMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="testStandard" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="testResult" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="resultFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="sgXmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="sgXmComName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jcXmComId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="jcXmComName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="verifyId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="verifyName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="verifyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="serialNo" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsdata_Jy_TestingLogInfo" Member="rsdata_Jy_TestingLogInfo">
+    <Type Name="rsdata_Jy_TestingLogInfo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BasicInfoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EventInfo" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Remark" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_EvdData" Member="rsview_EvdData">
+    <Type Name="rsview_EvdData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="TestCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EvdDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EvdReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="S1" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="S2" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S3" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SAverage" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="flowFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="testId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="testName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="reviewName" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="reviewStamp" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="reviewTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="reviewMessage" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testId2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="testName2" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="testStamp2" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="TestStandard" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Bearing" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EvdData" Member="rstb_EvdData">
+    <Type Name="rstb_EvdData">
+      <Column Name="BasicInfoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(24) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="TestCode" Type="System.String" DbType="VarChar(48)" CanBeNull="true" />
+      <Column Name="PointMileageFlag" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PointMileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestWay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Temperature" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Humidity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EvdDesign" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EvdReal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="S1" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="S2" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="S3" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="SAverage" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Result" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsIsValid" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="GpsLongitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GpsLatitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComCode" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreaterName" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="MachineId" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Bearing" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EquipPackagePart" Member="rstb_EquipPackagePart">
+    <Type Name="rstb_EquipPackagePart">
+      <Column Name="partId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="packageId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="equipId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rstb_EquipPackage" Member="rstb_EquipPackage">
+    <Type Name="rstb_EquipPackage">
+      <Column Name="packageId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="packageTypeId" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="packageNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="packageFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="createName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="createTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rsview_EquipPackage" Member="rsview_EquipPackage">
+    <Type Name="rsview_EquipPackage">
+      <Column Name="packageId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="packageTypeId" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="packageNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="packageFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="comId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="equipTypeName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="equipNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="equipSpec" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipParam" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipRange" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipResolution" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipArchiveNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipRemark" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="equipFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyFlag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="equipVerifyStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="equipVerifyNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="equipVerifyFactName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isVerifyOut" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isUploaded" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="isAccepted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

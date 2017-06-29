@@ -1,0 +1,480 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>填料压实质量检测报检单</title>
+       <style>
+        .input-none{
+            border:none;
+            width:100%;
+            height:100%;
+            text-align:center;
+            font-size:14px;
+        }
+        input:disabled{
+            background-color: #fff;
+        }
+        .table th{width:120px;padding:3px;background-color:#f8f8f8}
+        .table td{height:30px;padding:0}
+           .panel-body{
+               background-color: #f8f8f8;
+               border:none;
+           }
+           h4{height:20px;margin:0;padding:0}
+    </style>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <div id="tab-system" class="HuiTab" style="margin:0 10px;">
+            <div class="tabBar cl"><span>单位详情</span><span>工作流信息</span><span>操作日志</span></div>
+            <div class="tabCon">
+                <div class="page-container">
+                    <div class="row cl">
+                        <div class="text-c">
+                            <h4 style="font-weight:bolder">测定填料压实质量报检单</h4>
+                            <div style="margin-left:55%">
+                                <div>
+                                    <label style="font-size:14px">报检状态：</label>
+                                    <div style="display:inline" id="planFlag"></div>
+                                </div>
+                                <div style="margin:6px 0 10px 0">
+                                    <label style="font-size:14px">报检编号：</label>
+                                    <div style="display:inline;font-size:16px" id="serialNo"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-border table-bordered radius">
+                            <tr class="text-c">
+                                <th class="text-c">委托编号</th>
+                                <td colspan="3"><input type="text" class="input-none" name="planCode" disabled/></td>
+                                <td>报检单类型</td>
+                                <td id="testWay"></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th colspan="1"><span class="c-red">*</span>施工起始里程</th>
+                                <td colspan="1"><input type="text" class="input-none" name="startMileage" disabled/></td>
+                                <th  colspan="1"><span class="c-red">*</span>施工截止里程</th>
+                                <td><input type="text" class="input-none" name="endMileage" disabled/></td>
+                                <th><span class="c-red">*</span>施工部位</th>
+                                <td><input type="text" name="position" class="input-none" disabled/></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th><span class="c-red">*</span>当前填土层数</th>
+                                <td><input type="text" name="layer" class="input-none" disabled/></td>
+                                <th><span class="c-red">*</span>总层数</th>
+                                <td><input type="text" name="totalLayer" class="input-none" disabled/></td>
+                                <th><span class="c-red">*</span>填层标高(m)</th>
+                                <td><input type="text" name="testHeight" class="input-none" disabled/></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th><span class="c-red">*</span>填料名称</th>
+                                <td colspan="1"><input type="text" name="fillingStyle" class="input-none" disabled/></td>
+                                <th colspan="1"><span class="c-red">*</span>填料最大粒径(mm)</th>
+                                <td><input type="text" name="fillingDiameter" class="input-none" disabled/></td>
+                                <th><span class="c-red">*</span>填层厚度(cm)</th>
+                                <td><input type="text" name="fillingThickness" class="input-none" disabled/></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th>颗粒密度<br>ρ sm(g/cm<sup>3</sup>)</th>
+                                <td colspan="1"><input type="text" name="particleDensity" class="input-none" disabled/></td>
+                                <th colspan="1">最大干密度<br>ρ dmax(g/cm<sup>3</sup>)</th>
+                                <td><input type="text" name="dryDensity" class="input-none" disabled/></td>
+                                <th>最优含水率<br> ω dmax(%)</th>
+                                <td><input type="text" name="waterContent" class="input-none" disabled/></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th><span class="c-red">*</span>压实方式</th>
+                                <td colspan="1"><input type="text" name="compactionMode" class="input-none" disabled/></td>
+                                <th><span class="c-red">*</span>压实遍数</th>
+                                <td><input type="text" name="compactionNum" class="input-none" disabled/></td>
+                                <th colspan="1"><span class="c-red">*</span>压实状态描述</th>
+                                <td><input type="text" name="compactionDescription" class="input-none" disabled/></td>
+                            </tr>
+                            <tr class="text-c">
+                                <th colspan="2">砂的最大干密度ρ dmax(g/cm<sup>3</sup>)</th>
+                                <td><input type="text" name="sMaxDryDensity" class="input-none" disabled/></td>
+                                <th colspan="2">砂的最小干密度ρ dmin(g/cm<sup>3</sup>)</th>
+                                <td><input type="text" name="sMinDryDensity" class="input-none" disabled/></td>
+                            </tr>
+                            </table>
+                            <table class="table table-border table-bordered radius table-striped" style="border-top:0">
+                            <tr class="text-c">
+                                <th colspan="5">报检参数及数量</th>
+                            </tr>
+                            <tr class="text-c">
+                                <th>序号</th>
+                                <th colspan="1">报检参数</th>
+                                <th colspan="1">检测流水编号</th>
+                                <th colspan="1" width="250px">设计标准</th>
+                                <th colspan="1"><span class="c-red">*</span>报检数量(点)</th>
+                            </tr>
+                            <tr class="text-c" id="addTestQuota">
+                                <td colspan="5">
+                                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>备注：</label>
+                                    <div class="formControls col-xs-8 col-sm-9">
+                                        <textarea name="planRemark"  id="planRemark"  class="textarea" style="background-color:#fbfbfb;height:60px" disabled></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                            <table class=" table table-border table-bordered" style="border-top:0;">
+                              <tr class="text-c" >
+                                  <th width="70px">报检人</th>
+                                  <td>
+                                      <input type="text" name="createName" class="input-none" disabled/>
+                                  </td>
+                                  <th width="80px">报检日期</th>
+                                  <td width="120px"><input type="text" name="createDate" class="input-none" disabled/></td>
+                              </tr>
+                              <tr >
+                                  <th class="text-c" >施工单位</th>
+                                  <td><input type="text" name="sgComName" class="input-none" disabled/></td>
+                                  <th class="text-c">施工日期</th>
+                                  <td >
+                                      <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" class="input-none Wdate" name="constructionDate" disabled>
+                                  </td>
+                              </tr>
+                               <tr >
+                                <th class="text-c" >监理单位</th>
+                                  <td colspan="3">
+                                      <input type="text" name="jlComName" class="input-none" disabled/>
+                                  </td>
+                              </tr>
+                              <tr >
+                                  <th class="text-c" >监理审核人</th>
+                                  <td>
+                                      <input type="text" name="verifyName" class="input-none" disabled/>
+                                  </td>
+                                  <th class="text-c" >监理审核日期</th>
+                                  <td>
+                                      <input  name="verifyTime" class="input-none" disabled/>
+                                  </td>
+                              </tr>
+                              <tr >
+                                  <th class="text-c" >检测单位</th>
+                                  <td colspan="3">
+                                      <input type="text" name="jcComName" class="input-none" disabled/>
+                                  </td>
+                             </tr>
+                             <tr>
+                                  <th class="text-c">检测受理人</th>
+                                  <td >
+                                      <input type="text" name="acceptName" class="input-none" disabled/>
+                                  </td>
+                                  <th class="text-c">检测受理日期</th>
+                                  <td colspan="1">
+                                      <input  type="text" name="acceptTime" class="input-none" disabled/>
+                                  </td>
+                              </tr>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabCon">
+                <article class="page-container">
+                    <table  class="table table-border table-bordered table-hover table-bg">
+                        <thead>
+                        <tr class="text-c">
+                            <th>操作事件名称</th>
+                            <th>备注</th>
+                            <th>当前状态操作人</th>
+                            <th>操作时间</th>
+                        </tr>
+                        </thead>
+                        <tbody id="workInfo">
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+            <div class="tabCon">
+                <div class="cl pd-5 bg-1 bk-gray mt-10">
+                    <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+                </div>
+                <div class="mt-10">
+                    <table class="table table-border table-bordered table-hover table-bg table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">模块名称</th>
+                            <th width="200">操作内容</th>
+                            <th width="100">操作人</th>
+                            <th width="50">操作时间</th>
+                            <th width="70">操作详情</th>
+                        </tr>
+                        </thead>
+                        <tbody id="logInfo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south'" id="power" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+    </div>
+</div>
+<div id="status-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-sm-3">原因：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" id="reason"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--数据受理通过-->
+<article class="page-container" id="AcceptPass-modal" style="display:none">
+    <form class="form form-horizontal" id="form-sc-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>实验人员(最多两名):</label>
+
+            <div class="formControls col-xs-8 col-sm-9" id="user-list">
+
+            </div>
+        </div>
+
+        <div class="row cl mar">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>依据标准:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+
+                <span class="select-box" >
+                    <select name="TestStandard" id="TestStandard" size="1"  class="select">
+
+					</select>
+                </span>
+            </div>
+        </div>
+
+    </form>
+</article>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/layoutHidden.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script type="text/javascript">
+
+    var id = sessionStorage.planId;
+    var projectId = sessionStorage.pro_id;
+    var initPower =  JSON.parse( sessionStorage.TPinitPower);
+    var reload_url = '/plan/tplan.html';
+    $(function(){
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+
+        //获取数据
+        $.ajax({
+            url: '/api/v1/TPlan/'+projectId+'/'+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg){
+                if(reg.code==0){
+                    testNum = reg.data.testQuota.length;
+                    $.each(reg.data.testQuota,function(key,val){
+                        var str="";
+                        str+='<tr class="text-c">';
+                        str+='<th><input type="text" value="'+(key+1)+'" class="input-none" disabled/></th>';
+                        str+='<td colspan="1">';
+                        str+='<label class="form-label col-sm-11">'+val.testQuotaName+'</label>';
+                        str+='<input type="hidden" name="testQuotaCode'+key+'" value="'+val.testQuotaCode+'" disabled/>';
+                        str+='</td>';
+                        str+='<td colspan="1"><input type="text" name="serialNo'+key+'" class="input-none" value="'+val.serialNo+'" disabled/></td>';
+                        str+='<td colspan="1"><input type="text" name="design'+key+'" class="input-none" value="'+val.design+'" disabled/></td>';
+                        str+='<td colspan="1"><input type="text" name="testNumber'+key+'" class="input-none" value="'+val.testNumber+'" disabled/></td>';
+                        str+='</tr>';
+                        $('#addTestQuota').before(str);
+                    });
+                    $.each(reg.data,function(k,v){
+                        if(v!=null){
+                            $('input[name="'+k+'"]').val(v);
+                            if(k=='planRemark'){
+                                $('#planRemark').val(v);
+                            }
+                            if(k=='verifyTime'){
+                                $('input[name="'+k+'"]').val(v.substring(0,10));
+                            }
+                            if(k=='planFlag'){
+                                var planFlag = $('#planFlag');
+                                switch(v){
+                                    case 11 :
+                                        planFlag.html('<span class="label label-secondary radius" style="font-size:14px;letter-spacing:2px">草稿</span>');
+                                        break;
+                                    case 14:
+                                        planFlag.html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">审核驳回</span>');
+                                        break;
+                                    case 16:
+                                        planFlag.html('<span class="label label-danger radius" style="font-size:14px;letter-spacing:2px">受理驳回</span>');
+                                        break;
+                                    case 23:
+                                        planFlag.html('<span class="label label-primary radius" style="font-size:14px;letter-spacing:2px">已提交</span>');
+                                        break;
+                                    case 45:
+                                        planFlag.html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">审核通过</span>');
+                                        break;
+                                    case 56:
+                                        planFlag.html('<span class="label label-success radius" style="font-size:14px;letter-spacing:2px">受理通过</span>');
+                                        break;
+                                    case 78:
+                                        planFlag.html('<span class="label label-primary radius" style="font-size:14px;letter-spacing:2px">发布报告</span>');
+                                        break;
+                                    case 99:
+                                        planFlag.html('<span class="label label-warning radius" style="font-size:14px;letter-spacing:2px">已作废</span>');
+                                        break;
+                                }
+
+                            }
+                            if(k=='serialNo'){
+                                $('#serialNo').text(v);
+                            }
+                            if(k=='acceptTime'){
+                                $('input[name="'+k+'"]').val(v.substring(0,10));
+                            }
+                            if(k=='testWay'){
+                                if(v==1){
+                                    $('#testWay').html('<span class="label label-danger radius">初测</span>');
+                                }else if(v==2){
+                                    $('#testWay').html('<span class="label label-warning radius">复测</span>');
+                                }else if(v==3){
+                                    $('#testWay').html('<span class="label label-success radius">加测</span>');
+                                }else{
+                                    $('#testWay').html('<span class="label label-default radius">未知</span>');
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    layer.alert(reg.message);
+                }
+            },
+            error:function(){
+                layer.alert('请求出错！');
+            }
+        });
+
+        //获取当前用户操作权限
+        var Actionurl='/api/v1/TPlan/'+projectId+'/'+id+'/ActionEvent';
+        getActionEvent(Actionurl);
+
+
+        //审核通过
+        $('#power').on('click','#VerifyPass',function() {
+            var uri = '/api/v1/TPlan/'+projectId+'/'+id+'/VerifyPass';
+            PassStatus(uri);
+        });
+
+        //审核驳回
+        $('#power').on('click','#VerifyBack',function() {
+            var uri = '/api/v1/TPlan/'+projectId+'/'+id+'/VerifyUnPass';
+            BackStatus(this.value,uri);
+        });
+
+        //受理通过
+        $('#power').on('click','#ACCEPTPASS',function() {
+            var uri = '/api/v1/TPlan/'+projectId+'/'+id+'/AcceptPass';
+            var QtestStandard=JSON.parse( sessionStorage.TtestStandard);
+            var StandardStr = '<option value="">--请选择--</option>';
+            $.each( QtestStandard,function(n,val){
+                StandardStr+='<option value="'+val.code+'">'+val.name+'</option>';
+            });
+            $('#TestStandard').html(StandardStr);
+            AcceptPassAction(uri);
+        });
+
+
+        //受理驳回
+        $('#power').on('click','#ACCEPTBACK',function() {
+            var uri = '/api/v1/TPlan/'+projectId+'/'+id+'/AcceptUnPass';
+
+            BackStatus(this.value,uri);
+        });
+
+        //打印
+        $('#power').on('click','#print',function(){
+            var url ='/api/v1/TPlan/'+projectId+'/'+id+'/PdfDoc?'+Math.random();
+            parent.layer.open({
+                type: 2,
+                title:'打印',
+                shade:0.4,
+                area: ['90%', '98%'],
+                content:url
+            });
+            layer_close();
+        });
+
+        //编辑
+        $('#power').on('click','#edit',function(){
+            parent.layer.open({
+                type: 2,
+                title:'编辑',
+                shade:0.4,
+                area: ['996px', '700px'],
+                content:'tplan-edit.html'
+            });
+            layer_close();
+        });
+
+        //删除
+        $("#power").on("click","#del", function(){
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: '/api/v1/TPlan/'+projectId+'/'+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg('已删除!',{icon:1,time:2000},function(){
+                                parent.location.href = reload_url;
+                            });
+                        }else{
+                            layer.msg(reg.message,{icon:5,time:2000});
+                        }
+                    },
+                    error:function(){
+                        layer.alert('删除出错!');
+                    }
+                });
+            });
+        });
+
+        //操作日志
+        var url= '/api/v1/TPlan/'+projectId+'/'+id+'/OperationLog';
+        opertionLog(url);
+
+        //工作流
+        var work_uri = '/api/v1/TPlan/'+projectId+'/'+id+'/WorkflowLog';
+        workInfo(work_uri)
+    });
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

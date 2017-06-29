@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>系统配置</title>
+    <style>
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+
+    </style>
+</head>
+<body>
+<div style="display:block" id="Announcement">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 系统管理 <span class="c-gray en">&gt;</span>系统配置<span class="c-gray en">&gt;</span>系统配置<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--编辑-->
+<div class="page-container" id="appSetting" style="display:none">
+    <form class="form form-horizontal" id="appSetting-form">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">配置类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="configType" name="configType" disabled >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">配置项：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="configKey" name="configKey" disabled>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">配置值：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="configValue" name="configValue" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">配置描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="configDescription" name="configDescription" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">排序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="configOrder" id="configOrder"  class="input-text"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var pageSize=$("#page-size").val();
+    var data;
+
+    $(function(){
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/AppSetting/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('Announcement',power,'operation');
+                    var pageIndex=1;
+                    var uri='/api/v1/AppSetting';
+                    getPage(uri);
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            },
+            error:function(){
+                layer.msg('服务器异常！',{icon:5,time:2000});
+            }
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+
+        //编辑
+        $("#operation").on("click","#edit", function() {
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            var indexNum = $('#sortable_table').find('.selected').attr('data-index');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+
+            $('#configType').val(data[indexNum].configType);
+            $('#configKey').val(data[indexNum].configKey);
+            $('#configValue').val(data[indexNum].configValue);
+            $('#configDescription').val(data[indexNum].configDescription);
+            $('#configOrder').val(data[indexNum].configOrder);
+
+            var index=layer.open({
+                type: 1,
+                title:'编辑',
+                content: $('#appSetting'), //这里content是一个DOM
+                area:['700px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    $.ajax({
+                        url: "/api/v1/AppSetting",    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PUT",
+                        data:{'configId':id,'configType': $('#configType').val(),'configKey': $('#configKey').val(),'configValue':$('#configValue').val(),'configDescription':$('#configDescription').val(),'configOrder':$('#configOrder').val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('操作成功!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+
+
+    });
+
+    //分页函数
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="80">配置类型</th>';
+        tableInfo+='<th width="80">配置项</th>';
+        tableInfo+='<th width="50">配置值</th>';
+        tableInfo+='<th width="100">配置描述</th>';
+        tableInfo+='<th width="130">排序</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                data = reg;
+                    //拼接数据
+                    if (reg.length!=0){
+                        $.each(reg,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-index="'+n+'" data-id="'+value.configId+'">';
+                            tableInfo+='<td>'+value.configType+'</td>';
+                            tableInfo+='<td>'+value.configKey+'</td>';
+                            tableInfo+='<td>'+value.configValue+'</td>';
+                            tableInfo+='<td>'+value.configDescription+'</td>';
+                            tableInfo+='<td>'+value.configOrder+'</td>';
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+                        $('#table-data').html(tableInfo);
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                    }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

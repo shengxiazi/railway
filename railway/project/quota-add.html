@@ -1,0 +1,197 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .input-text{width:80%}
+        .c-red{font-size:12px}
+    </style>
+    <link href="../lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+        <article class="page-container">
+            <form class="form form-horizontal" id="form-xm-ext" >
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">建筑类型编码：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select class="select" name="buildTypeCode" id="buildTypeCode" size="1">
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">检测指标编码：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select class="select" name="testQuotaCode" id="testQuotaCode" size="1">
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">实验方法编码：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select class="select" name="testModeCode" id="testModeCode" size="1">
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">指标设计值：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" placeholder="" name="design" id="design">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">实验工作方式：</label>
+                    <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                        <div class="radio-box">
+                            <input name="operationMode" type="radio" id="sex-1" value="1" checked>
+                            <label for="sex-1">联网</label>
+                        </div>
+                        <div class="radio-box">
+                            <input type="radio" id="sex-2" value="2" name="operationMode">
+                            <label for="sex-2">手工</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-2 col-sm-offset-2">
+                        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                        <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+    var buildtype = JSON.parse(sessionStorage.buildtype);
+    var testquota = JSON.parse(sessionStorage.testquota);
+    var testmode = JSON.parse(sessionStorage.testmode);
+    var quotamode = JSON.parse(sessionStorage.quotamode);
+    var xm_id =  localStorage.xm_id;
+    $(function(){
+        //表单验证
+        $("#form-xm-ext").validate({
+            debug:true,
+            rules:{
+                buildTypeCode:{
+                    required:true
+                },
+                testQuotaCode:{
+                    required:true
+                },
+                testModeCode:{
+                    required:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form) {
+                ext_submit();
+            }
+        });
+        var btypeStr="<option>--请选择--</option>";
+        //初始化建筑类型
+        $.each(buildtype,function(key,val){
+            btypeStr += '<option value="'+val.code+'">'+val.name+'</option>';
+        });
+        $("#buildTypeCode").html(btypeStr);
+
+        $('#buildTypeCode').bind('change',function(){
+            var buildCode = this.value;
+            var quota =[];
+            $.each(quotamode,function(key,val){
+                if(buildCode==val.BuildTypeCode){
+                    quota.push(val.TestQuotaCode);
+                }
+            });
+            var quotaStr ='<option>--请选择--</option>';
+            $.each(testquota,function(k1,v1){
+                if($.inArray(v1.code,quota)!=-1){
+                    quotaStr+='<option value="'+v1.code+'">'+v1.name+'</option>';
+                }
+            });
+            $('#testQuotaCode').html(quotaStr);
+        });
+
+        $('#testQuotaCode').bind('change',function(){
+            var quotaCode = this.value;
+            var mode=[];
+            $.each(quotamode,function(key,val){
+                if(quotaCode==val.TestQuotaCode){
+                    mode.push(val.TestModeCode);
+                }
+            });
+            var modeStr ='<option>--请选择--</option>';
+            $.each(testmode,function(k2,v2){
+                if($.inArray(v2.code,mode)!=-1){
+                    modeStr += '<option value="'+v2.code+'">'+v2.name+'</option>';
+                }
+            });
+            $('#testModeCode').html(modeStr);
+        });
+
+    });
+
+
+    function ext_submit(){
+        var data = new Object();
+        $("#form-xm-ext *[name]").each(function(item){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['operationMode']=$('input[name=operationMode]:checked').val();
+        //表单验证
+        $.ajax({
+            url: "/api/v1/XMProject/"+xm_id+"/TestModel",    //请求的url地址
+            dataType: "json",
+            async: true,
+            data:data,
+            type: "POST",
+            success: function(reg) {
+                if(reg.code==0){
+                    layer.msg(reg.message,{icon:1,time:2000},function(){
+                        parent.location.href = "/project/quota.html";
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

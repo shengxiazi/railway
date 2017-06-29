@@ -1,0 +1,87 @@
+.uploader-list-container .filelist li .success {
+    height: 41px;
+}
+.table tbody tr.success, .table tbody tr.success>td, .table tbody tr.success>th, .table tbody tr .success {
+    opacity: 0.6;
+    background-color:transparent!important;
+}
+.uploader-list {
+    width: 80px;
+    overflow: hidden;
+}
+.uploader-list-container {
+
+    margin-top: 0px;
+    border-width: 0px;
+}
+
+.uploader-list-container .filelist li {
+    width: 80px;
+    height: 41px;
+    margin: 0px;
+    background:none;
+}
+.uploader-list-container .filelist li img {
+    width: 30px;
+}
+.avi_diy_bg {
+    background-image:url(../images/fileImage/AVI.png);
+}
+.css_diy_bg {
+    background-image:url(../images/fileImage/CSS.png);
+}
+.csv_diy_bg {
+    background-image:url(../images/fileImage/CSV.png);
+}
+.doc_diy_bg {
+    background-image:url(../images/fileImage/DOC.png);
+}
+
+.eml_diy_bg {
+    background-image:url(../images/fileImage/EML.png);
+}
+.eps_diy_bg {
+    background-image:url(../images/fileImage/EPS.png);
+}
+.html_diy_bg {
+    background-image:url(../images/fileImage/HTML.png);
+}
+.jpg_diy_bg {
+    background-image:url(../images/fileImage/JPG.png);
+}
+.png_diy_bg {
+    background-image:url(../images/fileImage/PNG.png);
+}
+.mov_diy_bg {
+    background-image:url(../images/fileImage/MOV.png);
+}
+.mp3_diy_bg {
+    background-image:url(../images/fileImage/MP3.png);
+}
+.pdf_diy_bg {
+    background-image:url(../images/fileImage/PDF.png);
+}
+.ppt_diy_bg {
+    background-image:url(../images/fileImage/PPT.png);
+}
+.rar_diy_bg {
+    background-image:url(../images/fileImage/RAR.png);
+}
+.raw_diy_bg {
+    background-image:url(../images/fileImage/RAW.png);
+}
+
+.txt_diy_bg {
+    background-image:url(../images/fileImage/TXT.png);
+}
+
+.zip_diy_bg {
+    background-image:url(../images/fileImage/ZIP.png);
+}
+
+.xls_diy_bg {
+    background-image:url(../images/fileImage/XLS.png);
+}
+
+
+

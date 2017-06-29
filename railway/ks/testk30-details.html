@@ -1,0 +1,581 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/k3details.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>地基信息详情</title>
+    <style>
+        .layer-photos-demo img {
+            width: 160px;
+            height: 100px;
+        }
+        .rollpic .next {
+            margin-top: 50px;
+        }
+        .rollpic{
+            width:850px;
+            margin:0 auto;
+        }
+
+    </style>
+</head>
+<body>
+<div id="tab-system" class="HuiTab" style="margin:10px">
+    <div class="tabBar cl"><span>地基系数数据详情</span><span>操作日志</span></div>
+    <div class="tabCon">
+        <div class="mainpanel clearfloat mt-10">
+            <div class="k3table col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div id="k30data-table" style="overflow:auto; padding:10px;border:1px solid #ddd">
+                    <table id="baseData" class="table table-border table-bordered">
+                        <tr class="text-c" style="background-color:#f9f9f9">
+                            <th colspan="10">K30平板荷载试验记录</th>
+                        </tr>
+                        <tr class="text-c" style="background-color:#f9f9f9">
+                            <th>检测流水号</th>
+                            <th>测点里程</th>
+                            <th>测点方位</th>
+                            <th>检测方法</th>
+                            <th>检测部位</th>
+                            <th>检测标高(m)</th>
+                            <th>检测层数</th>
+                            <th>压板直径(mm)</th>
+                            <th>现场温度(℃)</th>
+
+                        </tr>
+                        <tr class="text-c">
+                            <td id="SerialNo" >44</td>
+                            <td id="PointMileage">44</td>
+                            <td id="Direction">4</td>
+                            <td id="TestType">4</td>
+                            <td id="Position">2</td>
+                            <td id="TestHeight">2</td>
+                            <td id="Layers">6</td>
+                            <td id="Bearing">4</td>
+                            <td id="Temperature"></td>
+                        </tr>
+                        <tr class="text-c" style="background-color:#f9f9f9">
+                            <th>检&nbsp;&nbsp;测&nbsp;&nbsp;员</th>
+                            <th>检测方式</th>
+                            <th>检测状态</th>
+                            <th>填料类型</th>
+                            <th>填层厚度(cm)</th>
+                            <th>填料最大粒径(mm)</th>
+                            <th>仪器编号</th>
+                            <th>仪器厂商</th>
+                            <th>相对湿度（%）</th>
+                        </tr>
+                        <tr class="text-c">
+                            <td id="ShangGangZheng">44</td>
+                            <td id="TestWay">4</td>
+                            <td id="IsTesting">4</td>
+                            <td id="FillingStyle">2</td>
+                            <td id="FillingThickness">2</td>
+                            <td id="FillingDiameter">1</td>
+                            <td id="MachineId">4</td>
+                            <td id="CreaterName">4</td>
+                            <td id="Humidity"></td>
+                        </tr>
+                        <tr class="text-c" style="background-color:#f9f9f9">
+                            <th>数据有效性</th>
+                            <th>数据状态</th>
+                            <th>GPS有效性</th>
+                            <th>检测时间</th>
+                            <th>设计K值(MPa/m)</th>
+                            <th>实测K值(MPa/m)</th>
+                            <th>1.25mm对应的荷载</th>
+                            <th colspan="2">检测结论</th>
+                        </tr>
+                        <tr class="text-c" style="height:50px;font-size:20px;">
+                            <td rowspan="2" id="IsValid"></td>
+                            <td rowspan="2" id="flowFlag"></td>
+                            <td  rowspan="2" id="GpsIsValid"></td>
+                            <td  rowspan="2" id="StartTime"></td>
+                            <td  rowspan="2" id="KdjDesign"></td>
+                            <td  rowspan="2" id="KdjReal"></td>
+                            <td  rowspan="2" id="load"></td>
+                            <td  rowspan="2" colspan="2" id="Result"></td>
+                        </tr>
+                    </table>
+                    <div class="part-bottom mt-10">
+                        <table class="table table-border table-bordered table-striped radius" id="detailData" style="min-height:100px; max-height:500px;">
+
+                        </table>
+                    </div>
+                </div>
+                <div style="background-color:#f1f1f1;padding:8px 0;text-align:center">
+                    <button class="btn btn-success radius size-S" type="button" id="edit"><i class="Hui-iconfont">&#xe632;</i>编辑</button>
+                    <button class="btn btn-primary radius  size-S"  type="button" id="review" style="display:none"><i class="Hui-iconfont">&#xe6e1;</i>复核</button>
+                    <button class="btn btn-secondary radius  size-S"  type="button" id="data-valid"><i class="Hui-iconfont">&#xe692;</i>数据有效性</button>
+                </div>
+            </div>
+            <div style="max-width:100%;height:500px" id="test11"  class=" k3picture col-xs-12 col-sm-12 col-md-12 col-lg-5 mt-30">
+            </div>
+        </div>
+        <div class="panel panel-default ml-10 mt-20">
+            <div class="panel-header">现场照片</div>
+            <div class="panel-body">
+                <div class="rollpic cl"> <a href="javascript:void(0)" style="margin-top: 50px;" class="prev"></a>
+                    <div class="rollpicshow layer-photos-demo">
+                        <ul id="layer-photos-demo">
+
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" class="next" style="margin-top: 50px;"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tabCon">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--数据有效，无效-->
+<article class="page-container" id="k30-valid" style="display:none">
+    <form class="form form-horizontal" id="form-k30-valid" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据操作：</label>
+            <div class="formControls col-xs-8 col-sm-8 skin-minimal">
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="invalid" value="0" >
+                    <label for="invalid">无效</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="valid" value="1" name="isValid" checked>
+                    <label for="no">有效</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="valid-message"  cols="" rows="" class="textarea" required></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据复核-->
+<article class="page-container" id="k30-review" style="display:none">
+    <form class="form form-horizontal" id="form-k30-review" >
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核操作：</label>
+            <div class="formControls col-xs-8 col-sm-8 skin-minimal">
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">复核驳回</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../static/js/excanvas.min.js"></script>
+<script type="text/javascript" src="../static/js/RsCurve.min.js"></script>
+<script type="text/javascript" src="../lib/jcarousellite.js"></script>
+<script>
+    var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.BasicInfoId;
+    console.log(sessionStorage.k30Power);
+    var k30Power =  JSON.parse(sessionStorage.k30Power);
+    var review_satus;
+    var data_valid;
+
+    $(function(){
+        //获取页面的高度
+        var docheight = document.body.scrollHeight;
+        if(docheight>900){
+            $('#k30data-table').css('max-height','900px');
+        }else{
+            $('#k30data-table').css('max-height','550px');
+        }
+
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        myrefresh();
+        //操作日志
+        var url= '/api/v1/KSData/'+projectId+'/'+id+'/OperationLog';
+        opertionLog(url);
+
+        //编辑
+        $(document).on('click','#edit',function(){
+          layer.open({
+                type: 2,
+                title:'编辑',
+                shade:0.8,
+                area: ['85%', '90%'],
+                content:'k30-edit.html'
+            });
+        });
+
+        //复核
+        $(document).on('click','#review',function(){
+            var index=layer.open({
+                type: 1,
+                title:'复核',
+                content: $('#k30-review'), //这里content是一个DOM
+                area:['500px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var flowFlag = $('input[name=flowFlag]:checked').val();
+                        $.ajax({
+                            url: '/api/v1/KSData/'+projectId+'/'+id+'/Review',    //请求的url地址
+                            dataType: "json",
+                            async: true,
+                            type: "PATCH",
+                            data:{'flowFlag':flowFlag,'message':$("#message").val()},
+                            success: function(reg) {
+                                if(reg.code==0){
+                                   if(flowFlag==2){
+                                        $('#flowFlag').html('<span class="label label-danger radius">复核驳回</span>');
+                                    }else if(flowFlag==3){
+                                        $('#flowFlag').html('<span class="label label-success radius">复核通过</span>');
+                                    }
+                                    $('#review').hide();
+                                    layer.msg('操作成功!',{icon:1,time:2000},function(){
+                                        layer.close(index);
+                                    });
+                                }else{
+                                    layer.msg(reg.message,{icon:5,time:2000});
+                                }
+                            }
+                        });
+
+                    }
+            });
+        });
+
+        //数据有效性判定
+        $(document).on('click','#data-valid',function(){
+            var index=layer.open({
+                type: 1,
+                title:'数据有效性判定',
+                content: $('#k30-valid'), //这里content是一个DOM
+                area:['500px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var isValid = $('input[name=isValid]:checked').val();
+                    $.ajax({
+                        url: '/api/v1/KSData/'+projectId+'/'+id+'/IsValid',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PATCH",
+                        data:{'isValid':isValid,'message':$("#valid-message").val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                if(isValid==0){
+                                    $('#IsValid').html('<span class="label label-danger radius">无效</span>');
+                                    $('#review').hide();
+                                }else if(isValid==1){
+                                    $('#IsValid').html('<span class="label label-success radius">有效</span>');
+                                    if($.inArray("REVIEW",k30Power)&& review_satus==1){
+                                        $('#review').show();
+                                    }
+                                }
+                                layer.msg('操作成功!',{icon:1,time:2000},function(){
+                                    layer.close(index);
+                                });
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        //获取现场照片
+        $.ajax({
+            url: "/api/v1/KSData/"+projectId+'/'+id+'/ScenePhotos',    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    if(reg.data.length!=0){
+                        var str='';
+                        $.each(reg.data,function(n,v){
+                            var altStr = "上传人："+ v.createName+"&nbsp;上传时间："+ v.createTime;
+                            var large_src ="/api/v1/KSData/"+id+"/"+v.hash+"/ScenePhoto?width=500&height=700"; //原图地址
+                            str+='<li><img width="170" height="143" title="" src="'+large_src+'" alt="'+altStr+'"></li>';
+                        });
+                        $('#layer-photos-demo').html(str);
+
+                        layer.photos({
+                            photos:'#layer-photos-demo'
+                            ,anim: 5,
+                            tab:function(pic,layero){
+                                console.log(pic);
+                            }
+                        });
+
+                        $(".rollpicshow").jCarouselLite({
+                            auto: 2000, /*自动播放间隔时间*/
+                            speed: 500, /*速度*/
+                            btnNext:".next",/*向前滚动*/
+                            btnPrev:".prev",/*向后滚动*/
+                            visible:3 /*显示数量*/
+                        });
+                    }else{
+                        $('.panel-body').html('<span class="c-red">暂无现场照片！</span>');
+                    }
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            },
+            error:function(reg){
+                layer.msg(reg.message,{icon:6,time:2000});
+            }
+        });
+
+    });
+
+    function myrefresh(){
+        $.ajax({
+            url: '/api/v1/KSData/'+projectId+'/'+id+'/BaseData',    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg){
+                if(reg.code==0){
+                    data=reg.data;
+                    $.each(data,function(n,value){
+                        $('#'+n).text(value);
+                        if(n=='PointMileage'){
+                            $('#'+n).text(data.PointMileageFlag+data.PointMileage);
+                        }
+                        if(n=='StartTime'){
+                            $('#'+n).text(value.substr(0,10));
+                        }
+                        if(n=='Layers'){
+                            $('#Layers').text(data.Layers+'/'+data.TotalLayers);
+                        }
+                        if(n=='KdjReal'){
+                            $('#load').text((value*0.00125).toFixed(2));
+                        }
+                        if(n=='Direction'){
+                            if(value=='L'){
+                                $('#'+n).text('左');
+                            }else if(value=='M'){
+                                $('#'+n).text('中');
+                            }else if(value=='R'){
+                                $('#'+n).text('右');
+                            }
+                        }
+                        if(n=='TestWay'){
+                            if(value=='0'){
+                                $('#'+n).text('未知');
+                            }else if(value=='1'){
+                                $('#'+n).text('初测');
+                            }else if(value=='2'){
+                                $('#'+n).text('复测');
+                            }else if(value=='3'){
+                                $('#'+n).text('加测');
+                            }
+                        if(n=='TestType'){
+                            if(value=='3'){
+                                $('#'+n).text('k30');
+                                $('#diameter').text('300');
+                            }else if(value=='4'){
+                                $('#'+n).text('k40');
+                                $('#diameter').text('400');
+                            }else if(value=='6'){
+                                $('#'+n).text('k60');
+                                $('#diameter').text('400');
+                            }else{
+                                $('#diameter').text('未知');
+                            }}
+                        }
+                        if(n=='Position'){
+                            if(value=='1'){
+                                $('#'+n).text('基床以下');
+                            }else if(value=='2'){
+                                $('#'+n).text('基床底层');
+                            }else if(value=='3'){
+                                $('#'+n).text('基床表层');
+                            }else if(value==4){
+                                $('#'+n).text('换填');
+                            }
+                        }
+
+                        if(n=='IsTesting'){
+                            if(value=='0'){
+                                $('#'+n).text('已结束');
+
+                            }else if(value=='1'){
+                                $('#'+n).text('测试中');
+                                setTimeout('myrefresh()',10000); //指定10秒刷新一次
+                            }
+                        }
+                        if(n=='GpsIsValid'){
+                            if(value=='0'){
+                                $('#'+n).html('<span style="color:red">无效</span>');
+                            }else if(value=='1'){
+                                $('#'+n).text('有效');
+                            }
+                        }
+                        if(n=='Result'){
+                            if(value=='0'){
+                                $('#'+n).html('<span style="color:red">未判定</span>');
+                            }else if(value=='1'){
+                                $('#'+n).html('<span style="color:green">合格</span>');
+                            }else if(value=='2'){
+                                $('#'+n).html('<span style="color:red">未判定</span>');
+                            }else if(value=='3'){
+                                $('#'+n).html('<span style="color:red">实验失败(未加到5级)</span>');
+                            }else if(value=='4'){
+                                $('#'+n).html('<span style="color:red">实验失败(不均匀沉降)</span>');
+                            }
+                        }
+                        if(n=='IsValid'){
+                            if(value==0){
+                                data_valid = value;
+                                $('#'+n).html('<span class="label label-danger radius">无效</span>');
+                                $('#review').hide();
+                            }else if(value==1){
+                                $('#'+n).html('<span class="label label-success radius">有效</span>');
+                            }else{
+                                $('#'+n).html('<span class="label label-default radius">未知</span>');
+                            }
+                        }
+
+                        if(n=='flowFlag'){
+                            if(value==0){
+                                review_satus = value;
+                                $('#'+n).html('<span class="label label-secondary radius">未判定</span>');
+                            }else if(value==1){
+                                $('#'+n).html('<span class="label label-warning radius">待复核</span>');
+                                    if($.inArray("REVIEW",k30Power)!=-1 && data_valid!=0){
+                                        $('#review').show();
+                                    }
+                            }else if(value==2){
+                                $('#'+n).html('<span class="label label-danger radius">复核驳回</span>');
+                            }else if(value==3){
+                                $('#'+n).html('<span class="label label-success radius">复核通过</span>');
+                            }else if(value==9){
+                                $('#data-valid').hide();
+                                $('#'+n).html('<span class="label label-primary radius">已出报告</span>');
+                            }
+                        }
+                        if(n=='CreaterName'){
+                            if($.inArray("EDIT",k30Power)!=-1 && value=='unknown'){
+                                //设置编辑权限
+                                $('#edit').show();
+                            }else{
+                                $('#edit').hide();
+                            }
+                        }
+
+                        if(n=='K3SummaryData'){
+                            var str='<tr  class="text-c">';
+                            str+='<th rowspan="2">测试<br>级别</th>';
+                            str+=' <th rowspan="2" colspan="1">采样<br>时间</th>';
+                            str+='<th rowspan="2" colspan="1">每级<br>采样</th>';
+                            str+='<th rowspan="2" colspan="1">理论荷载</br>强度(MPa)</th>';
+                            str+='<th rowspan="2" colspan="1">实际荷载</br>强度(MPa)</th>';
+                            str+='<th rowspan="2" colspan="1">实际油压<br/>(MPa)</th>';
+                            str+='<th colspan="3">下沉量(mm)</th>';
+                            str+='<th rowspan="2">数据接收时间</th>';
+                            str+='</tr>';
+                            str+='<tr  class="text-c">';
+                            str+='<th colspan="1">位移1</th>';
+                            str+='<th colspan="1">位移2</th>';
+                            str+='<th colspan="1">位移平均值</th>';
+                            str+='</tr>';
+                            var SummaryData = reg.data.K3SummaryData;
+                            if(SummaryData.length!=0){
+                                $.each(SummaryData,function(key,val){
+                                    str+='<tr class="text-c">';
+                                    str+='<td >'+val.Grade+'</td>';
+                                    str+='<td >'+val.SampleTime.substr(10,9)+'</td>';
+                                    str+='<td >'+val.SampleCount+'</td>';
+                                    str+='<td >'+val.Press.toFixed(3)+'</td>';
+                                    str+='<td >'+val.RealPress.toFixed(3)+'</td>';
+                                    str+='<td >'+val.OilPress.toFixed(3)+'</td>';
+                                    str+='<td>'+val.S1.toFixed(2)+'</td>';
+                                    str+='<td >'+val.S2.toFixed(2)+'</td>';
+                                    str+='<td >'+val.SAverage.toFixed(2)+'</td>';
+                                    str+='<td >'+val.CreateTime+'</td>';
+                                    str+='</tr>';
+                                });
+                            }else{
+                                str+='<tr>';
+                                str+='<td></td>';
+                                str+='<td></td>';
+                                str+='<td colspan="2"></td>';
+                                str+='<td colspan="2"></td>';
+                                str+='<td colspan="2"></td>';
+                                str+='<td colspan="2"></td>';
+                                str+='</tr>';
+
+                            }
+                            $("#detailData").html(str);
+                        }
+
+                    });
+                    //画图
+                    var k3Json= reg.data;
+                    var data4 = $RS.calcData(k3Json);
+                    data4.drawCurve("test11");
+
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+        });
+
+    }
+
+
+
+</script>
+</body>
+</html>

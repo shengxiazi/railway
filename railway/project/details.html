@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>检测业务详情页</title>
+    <meta name="keywords" content="H-ui.admin v2.4">
+    <meta name="description" content="H-ui.admin v2.4，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <style>
+        .Hui-article{ top:0}
+        .Hui-aside .menu_dropdown dd ul {
+            padding: 3px 0;
+        }
+        .header-log{
+            margin-left:10px;
+
+        }
+        .Hui-aside .menu_dropdown li.current a:before{
+            border: 12px solid transparent;
+            border-left: 12px solid #fff;
+            width: 0;
+            height: 0;
+            right:0;
+            top:4px;
+            position: absolute;
+            content: ' '
+        }
+        .navbar .logo{height: 44px;line-height: 44px;margin-right:150px;float: left;}
+    </style>
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar navbar-fixed-top">
+        <div class="header-log">
+            <a class="logo navbar-logo f-l mr-10 hidden-xs" href="index.html">
+                <label>标段：</label>
+                <span id="bd_bame" style="font-size:16px;padding-right:15px"></span>
+                <label>建筑类型：</label>
+                <span id="bulidType" style="font-size:16px;padding-right:15px"></span>
+                <label>工程：</label>
+                <span id="proName"></span>
+            </a>
+        </div>
+
+    </div>
+</header>
+<aside class="Hui-aside">
+    <input runat="server" id="divScrollValue" type="hidden" value=""/>
+    <div class="menu_dropdown bk_2" id="menuList">
+
+    </div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+<section class="Hui-article-box">
+    <div id="iframe_box" class="Hui-article">
+        <div class="show_iframe">
+            <div style="display:none" class="loading"></div>
+            <iframe id ="firstshowiframe" scrolling="yes" frameborder="0" src=""></iframe>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script>
+    var xm_id = sessionStorage.type;
+    var projectId = sessionStorage.pro_id;
+    var projectName  = sessionStorage.projectName;
+    var buildtype=sessionStorage.buildtype;
+    var bd_name = sessionStorage.bd_name;
+    var build_name;
+    $(document).ready(function(){
+        //填料
+        if(buildtype=='T'){
+            $("#firstshowiframe").attr('src',"/plan/tplan.html");
+           build_name='填料压实质量';
+
+        }
+        //基桩
+        if (buildtype=='Q') {
+            $("#firstshowiframe").attr('src',"/plan/qplan.html");
+            build_name = '桥梁基桩';
+
+        }
+        //地基
+        if (buildtype=='D') {
+            $("#firstshowiframe").attr('src',"/plan/dplan.html");
+            build_name = '地基处理桩';
+        }
+
+        $.ajax({
+            url: '/api/v1/Business/'+xm_id+'/'+projectId+'/Menu',    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var s_str='';
+                    menuData=reg.data;
+                    $.each( menuData,function(n1,val1){
+                        if(val1.child==undefined){
+                            s_str+='<dl>';
+                            s_str+='<dt></dt><li><a href="javascript:;" _href="'+val1.url+'" data-id="'+val1.code+'">'+val1.name+'</a></li></dt>';
+                            s_str+='</dl>';
+                        }else{
+                            s_str+='<dl>';
+                            s_str+='<dt>'+val1.name+'<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>';
+                            s_str+='<dd>';
+                            s_str+='<ul>';
+                            $.each(val1.child,function(n2,val2){
+                                s_str+='<li><a href="javascript:;" _href="'+val2.url+'" data-id="'+val2.code+'" href="javascript:void(0)">'+val2.name+'</a></li>';
+                            });
+                            s_str+='</ul>';
+                            s_str+='</dd>';
+                            s_str+='</dl>';
+                        }
+                    });
+                    $('#menuList').html(s_str);
+                    $.Huifold(".menu_dropdown dl dt",".menu_dropdown dl dd","fast",1,"click");
+                }else{
+                }
+            }
+        });
+        $('#bd_bame').text(bd_name);
+        $('#bulidType').text(build_name);
+        $('#proName').text(projectName);
+
+        //点击展示二级菜单
+        $('#firstMenu').on('click','a',function(){
+            $(this).parent().addClass('current').siblings().removeClass("current");
+            var f_type = $(this).attr('data-code');
+            /*左侧菜单*/
+            $.Huifold(".menu_dropdown dl dt",".menu_dropdown dl dd","fast",1,"click");
+        });
+
+        //点击二级菜单
+        $(".Hui-aside").on("click",".menu_dropdown a",function(){
+            var childUrl=$(this).attr('_href');
+            var tab_name= $(this).text();
+            $('#iframe_box iframe').attr('src',childUrl);
+            $('#min_title_list').find('li').html('<span>'+tab_name+'</span><em></em>');
+            var id = $(this).attr('data-id');
+            leftDropdown(".menu_dropdown  li",id);
+        });
+
+    });
+
+    /*菜单处于当前状态*/
+    function leftDropdown(obj,id){
+        $(obj).each(function(){
+            var current = $(this).find("a");
+            $(this).removeClass("current");
+            if(id == $(current[0]).attr("data-id")){
+                $(this).addClass("current");
+            }
+        });
+    }
+
+</script>
+
+
+
+</body>
+</html>

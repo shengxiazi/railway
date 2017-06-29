@@ -1,0 +1,658 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" href="../lib/radio-pretty/css/jquery-labelauty.css">
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>地基处理桩报检单</title>
+    <style>
+
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .page-container .search-input{
+
+            width:100%;
+        }
+        .search-item label{font-size:12px;}
+
+        .search-item{
+            float:left;
+            height:31px;
+            margin-left:10px;
+
+        }
+        .search-item .input-text{
+            width:60%;
+            height:22px;
+        }
+        .table{font-size:12px;}
+
+        .table th,td {
+            white-space: nowrap;
+        }
+        .vertical-middle{
+            display: flex;
+            justify-content:center;
+        }
+        ul { list-style-type: none; display:inline-block; margin-right:20px;}
+        li { display: inline-block;margin-left:18px}
+        input.labelauty + label { font: 14px "Microsoft Yahei";}
+    </style>
+</head>
+<body>
+<div id="plan" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>检测报检批<span class="c-gray en">&gt;</span>地基处理桩报检单<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c vertical-middle">
+            <ul class="dowebok">
+
+            </ul>
+            &nbsp;&nbsp;
+            <span style="margin-top: 5px;">检测编号：</span><input type="text" name="planCode" id="planCode"  style="width:250px" class="input-text">
+            <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden;position:relative;">
+            <span class="l" id="operation">
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="10" selected = "selected" >10</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+
+<!--审核-->
+<div id="pass-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>审核状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="verfiy" type="radio" id="pass" value="1" >
+                    <label for="pass">审核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="unpass" value="0" name="verfiy" checked>
+                    <label for="unpass">审核驳回</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-sm-3">原因：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" id="pass-reason"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<!--受理-->
+<div id="accept-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>受理状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="accept" type="radio" id="accept" value="1" >
+                    <label for="accept">受理通过</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="unaccept" value="0" name="accept" checked>
+                    <label for="unaccept">受理驳回</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-sm-3">原因：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" id="accept-reason"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="../lib/radio-pretty/js/jquery-labelauty.js"></script>
+<script type="text/javascript">
+
+    var pageSize=$("#page-size").val();
+    var xm_id = sessionStorage.type;
+    var projectId = sessionStorage.pro_id;
+    var height;
+    var width;
+
+    //选择数据
+    function select_item(){
+        var id= $('#sortable_table tbody').find('.selected').attr('data-id');
+        if(id==undefined || id== ''){
+            return false;
+        }
+        return id;
+    }
+
+    var comType=sessionStorage.comType;//用户类型 JL  JC SG  JS
+
+    $(function(){
+        var  screenWidth = window.screen.width;
+        if(screenWidth<=1366){
+            height='90%';
+            width='80%';
+        }else{
+            height='80%';
+            width='60%';
+        }
+        var flagStr = '';
+        switch (comType)
+        {
+            case 'JL':
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="全部" value=" "></li>';
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="待审核" value="23" checked></li>';
+                break;
+            case 'JC':
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="全部" value=" "></li>';
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="待受理" value="45" checked></li>';
+                break;
+            case 'SG':
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="全部" value=" "></li>';
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="审核驳回" value="14" checked></li>';
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="受理驳回" value="16"></li>';
+                break;
+            default:
+                flagStr+='<li><input type="radio" name="planFlag" data-labelauty="全部" value="" checked></li>';
+                break;
+        }
+        $('.dowebok').html(flagStr);
+        //radio 美化插件
+        $(':input').labelauty();
+
+        $('[name=planFlag]:radio').click(function(){
+            var planFlag = this.value;
+            var planCode = $("#planCode").val();
+            var uri ='/api/v1/DPlan/'+xm_id+'/'+projectId+'/'+pageSize+'/1/ListByPage?planCode='+planCode+'&planFlag='+planFlag;
+            getPage(uri);
+        });
+
+
+
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+
+            url: "/api/v1/DPlan/"+xm_id+"/"+projectId+"/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('plan',power,'operation');
+                    sessionStorage.dpalninitPower =  JSON.stringify(power);
+                    sessionStorage.Dtestquota =JSON.stringify(reg.data.testquota);
+                    sessionStorage.Dcomlist =JSON.stringify(reg.data.comlist);
+                    sessionStorage.DtestStandard=JSON.stringify(reg.data.testStandard);
+                    sessionStorage.DtestWay=JSON.stringify(reg.data.testWay);
+                    //初始化分页数据
+                    var pageIndex=1;
+//                    var planFlag = $('input[name="planFlag"]:checked ').val();
+                    var planFlag = $('[name=planFlag]:checked').val();
+                    var uri ='/api/v1/DPlan/'+xm_id+'/'+projectId+'/'+pageSize+'/'+pageIndex+'/ListByPage?planFlag='+planFlag;
+
+                    getPage(uri);
+                }
+
+            }
+
+        });
+
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+//            var planFlag = $('input[name="planFlag"]:checked ').val();
+            var planFlag = $('[name=planFlag]:checked').val();
+            var planCode = $("#planCode").val().trim();
+            var uri ='/api/v1/DPlan/'+xm_id+'/'+projectId+'/'+pageSize+'/1/ListByPage?planCode='+planCode+'&planFlag='+planFlag;
+            getPage(uri);
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tbody tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tbody tr',function(){
+            var id = $(this).attr('data-id');
+            sessionStorage.dplanId = id;
+            modal_open('查看地基处理桩报检单详情','DPlanDetails.html',width,height);
+        });
+
+        //添加
+        $('#operation').on('click','#add',function(){
+            layer.open({
+                type: 2,
+                title: '添加地基处理桩报检单',
+                shadeClose: false,
+                shade: 0.5,
+                area: [width, height],
+                content:'DPlanAdd.html'
+            });
+        });
+
+
+        //编辑
+        $('#operation').on('click','#edit',function(){
+
+            var id = select_item();
+            if(id){
+                sessionStorage.dplanId = id;
+                modal_open('编辑地基处理桩报检单','DPlanEdit.html',width,height);
+            }else{
+                layer.alert('请选择一条记录！');
+            }
+        });
+
+        //打印
+        $('#operation').on('click','#print',function(){
+
+            var id = select_item();
+            if(id){
+                var url ='/api/v1/DPlan/'+projectId+'/'+id+'/PdfDoc?'+Math.random();
+                modal_open('打印地基处理桩报检单',url,'90%','98%');
+            }else{
+                layer.alert('请选择一条记录！');
+            }
+        });
+
+        //受理
+        $('#operation').on('click','#accept',function(){
+            var id = select_item();
+            if(id){
+                var status =  $('#sortable_table tbody').find('.selected').attr('data-status');
+                if(status!=45){
+                    layer.msg('不可操作！');
+                    return;
+                }
+
+                var url;
+                var index=layer.open({
+                    type: 1,
+                    content: $('#accept-modal'), //这里content是一个DOM
+                    area:['540px','340px'],
+                    btn:['确定','取消'],
+                    'yes':function(index,layero){
+                        var reason=$('#accept-reason').val();
+                        //获取复核状态
+                        var flag =  $('input[name="accept"]:checked').val();
+                        if(flag==1){
+                            //通过
+                            url='/api/v1/DPlan/'+projectId+'/'+id+'/AcceptPass';
+                        }else{
+                            url='/api/v1/DPlan/'+projectId+'/'+id+'/AcceptUnPass';
+                        }
+                        $.ajax({
+                            url:url,    //请求的url地址
+                            dataType: "json",
+                            data:{'':reason},
+                            async: true,
+                            type: "PATCH",
+                            success: function(reg) {
+                                if(reg.code==0){
+                                    if(flag==1){
+                                        $('#sortable_table').find('.selected').attr('data-status',56);
+                                        $('#sortable_table').find('.selected').find('.td-status').html('<span class="label label-success radius">受理通过</span>');
+                                    }else{
+                                        $('#sortable_table').find('.selected').attr('data-status',16);
+                                        $('#sortable_table').find('.selected').find('.td-status').html('<span class="label label-danger radius">受理驳回</span>');
+                                    }
+                                    layer.msg(reg.message,{icon:1,time:2000});
+                                }else{
+                                    layer.msg(reg.message,{icon:5,time:2000});
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    }
+                });
+
+            }else{
+                layer.alert('请选择一条记录！');
+            }
+        });
+
+        //审核
+        $('#operation').on('click','#pass',function(){
+            var id= $('#sortable_table tbody').find('.selected').attr('data-id');
+            var status =  $('#sortable_table tbody').find('.selected').attr('data-status');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            if(status!=23){
+                layer.msg('不可操作！');
+                return;
+            }
+            var url;
+            var index=layer.open({
+                type: 1,
+                content: $('#pass-modal'), //这里content是一个DOM
+                area:['540px','340px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var reason=$('#pass-reason').val();
+                    //获取复核状态
+                    var flag =  $('input[name="verfiy"]:checked').val();
+                    if(flag==1){
+                        //通过
+                        url='/api/v1/DPlan/'+projectId+'/'+id+'/VerifyPass';
+                    }else if(flag==0){
+                        url='/api/v1/DPlan/'+projectId+'/'+id+'/VerifyUnPass';
+                    }
+                    $.ajax({
+                        url:url,    //请求的url地址
+                        dataType: "json",
+                        data:{'':reason},
+                        async: true,
+                        type: "PATCH",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                if(flag==1){
+                                    $('#sortable_table').find('.selected').attr('data-status',45);
+                                    $('#sortable_table').find('.selected').find('.td-status').html('<span class="label label-success radius">审核通过</span>');
+                                }else{
+                                    $('#sortable_table').find('.selected').attr('data-status',14);
+                                    $('#sortable_table').find('.selected').find('.td-status').html('<span class="label label-danger radius">审核驳回</span>');
+                                }
+                                layer.msg(reg.message,{icon:1,time:2000});
+                            }else{
+                                layer.alert(reg.message);
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+
+        });
+
+        //查看详情
+        $("#operation").on("click","#view", function(){
+            var id = select_item();
+            if(id){
+                sessionStorage.dplanId = id;
+                modal_open('查看详情','DPlanDetails.html',width,height);
+            }else{
+                layer.alert('请选择一条记录！');
+            }
+
+        });
+    });
+
+    //删除
+    $("#operation").on("click","#del", function(){
+        var id = select_item();
+        if(id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: '/api/v1/DPlan/'+projectId+'/'+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $('#sortable_table').find('.selected').remove();
+                            //页码不会变
+//                        var uri ='/api/v1/DPlan/'+xm_id+'/'+projectId+'/'+pageSize+'/1/ListByPage?planCode='+planCode;
+//                        getPage(uri);
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.alert(reg.message);
+                        }
+                    }
+                });
+            });
+        }else{
+            layer.alert('请选择一条记录！');
+        }
+    });
+
+
+
+    //查询
+    function search(){
+//        var planFlag = $('input[name="planFlag"]:checked ').val();
+        var planCode = $("#planCode").val().trim();
+        var planFlag = $('[name=planFlag]:checked').val();
+        var uri ='/api/v1/DPlan/'+xm_id+'/'+projectId+'/'+pageSize+'/1/ListByPage?planCode='+planCode+'&planFlag='+planFlag;
+
+        getPage(uri);
+    }
+
+    function modal_open(title,url,w,h){
+        layer.open({
+            type: 2,
+            title:title,
+            shadeClose: false,
+            shade:0.6,
+            area: [w, h],
+            content:url
+        });
+    }
+
+
+    //桥梁分页函数
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+= '<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="250" rowspan="2">委托编号</th>';
+        tableInfo+='<th width="250" rowspan="2">检测编号</th>';
+        tableInfo+='<th width="150" rowspan="2">施工里程</th>';
+        tableInfo+='<th width="100" rowspan="2">布置形式</th>';
+        tableInfo+='<th width="100" rowspan="2">试验方法</th>';
+        tableInfo+='<th width="100" rowspan="2">桩型</th>';
+        tableInfo+='<th width="100" rowspan="2">报检单状态</th>';
+        tableInfo+='<th width="300" rowspan="2">报检人</th>';
+        tableInfo+='<th width="300" rowspan="2">报检时间</th>';
+        tableInfo+='<tr/>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) *pageSize+1;
+
+                    //结束数
+                    var PageEnd =pageIndex*pageSize;
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    if (data.length!=0) {
+                        $.each(data,function(n,value) {
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.planId+'" data-status="'+value.planFlag+'">';
+                            tableInfo += '<td>'+value.planCode+'</td>';
+                            tableInfo += '<td>'+value.serialNo+'</td>';
+                            tableInfo += '<td>'+value.mileage+'</td>';
+
+                            tableInfo += '<td>'+value.pileLayout+'</td>';
+                            tableInfo += '<td>'+value.testModeName+'</td>';
+                            tableInfo += '<td>'+value.pileType+'</td>';
+                            if(value.planFlag==99){
+                                tableInfo+='<td class="td-status"><span class="label label-danger radius">作废</span></td>';
+                            }else if(value.planFlag==11){
+                                tableInfo+='<td class="td-status"><span class="label label-warning radius">草稿</span></td>';
+                            }
+                            else if(value.planFlag==23){
+                                if(comType=='JL'){
+                                    tableInfo+='<td class="td-status"><span class="label label-primary radius">待审核</span></td>';
+                                }else{
+                                    tableInfo+='<td class="td-status"><span class="label label-primary radius">已提交</span></td>';
+                                }
+                            }
+                            else if(value.planFlag==45){
+                                if(comType=='JC'){
+                                    tableInfo+='<td class="td-status"><span class="label label-warning radius">待受理</span></td>';
+                                }else{
+                                    tableInfo+='<td class="td-status"><span class="label label-warning radius">审核通过</span></td>';
+                                }
+                            }
+                            else if(value.planFlag==14){
+                                tableInfo+='<td class="td-status"><span class="label label-danger radius">审核驳回</span></td>';
+                            }
+                            else if(value.planFlag==56){
+                                tableInfo+='<td class="td-status"><span class="label label-success radius">受理通过</span></td>';
+                            }
+                            else if(value.planFlag==16){
+                                tableInfo+='<td class="td-status"><span class="label label-danger radius">受理驳回</span></td>';
+                            }else {
+                                tableInfo+='<td class="td-status"><span class="label label-default radius">其它</span></td>';
+                            }
+                            tableInfo += '<td>'+value.createName+'</td>';
+                            tableInfo += '<td>'+value.createTime+'</td>';
+                            tableInfo += '</tr>';
+                        });
+                        tableInfo += '</tbody></table>';
+                        //生成分页条
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if (pervPage == 0) {
+                            tablePage += '<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button previous disabled"  data-href="' + prevPageUri + '" id="Table_previous">上一页</a>';
+                        }
+
+                        if (nextPage == 0) {
+                            tablePage += '<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        } else {
+                            tablePage += '<a class="paginate_button next disabled"  data-href="' + nextPageUri + '"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+                    }else{
+                        var planFlag = $('[name=planFlag]:checked').val();
+                        if(planFlag==23 && comType=='JL'){
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无待审核记录！</strong></span></div>');
+
+                        }
+                        else if(planFlag==45 && comType=='JC'){
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无待受理记录！</strong></span></div>');
+                        }
+                        else if(planFlag==14){
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无审核驳回记录！</strong></span></div>');
+
+                        }
+                        else if(planFlag==56){
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无受理通过记录！</strong></span></div>');
+                        }
+                        else if(planFlag==16){
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无受理驳回记录！</strong></span></div>');
+                        }else {
+                            $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        }
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+//                    layer.msg('加载失败！!',{icon:5,time:2000});
+                    layer.alert('加载失败！!');
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

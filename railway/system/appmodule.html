@@ -1,0 +1,654 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" href="../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>模块管理</title>
+    <style>
+        *{margin:0;padding:0;}
+        .main{overflow:hidden;}
+        #operation .btn{margin-left:4px;}
+        .sidebar{
+            float:left;
+            background-color:#f6f5fa;
+            border:solid 1px #ddd;
+            border-radius:8px;
+            text-align:center;
+            margin:0 2px 0 2px;
+            height:100%;
+            position:fixed;
+            overflow-y:auto;
+            width:220px;
+        }
+        h5{
+            position:relative;
+            background-color: #ddd;
+            padding:10px;
+            margin:0;
+            border-top-left-radius:8px;
+            border-top-right-radius:8px;
+
+        }
+        .content{
+            margin-left:235px;
+            height:100%;
+            padding:0 5px 0 2px ;
+        }
+        .clearfloat:after{
+            display:block;
+            clear:both;
+            content:"";
+            visibility:hidden;
+            height:0
+        }
+
+        b{position:absolute;display: block; padding:2px; cursor:pointer;right:10px;top:7px;width:16px;height:16px; text-align:center; background-color: #00B83F; color:#fff}
+
+
+    </style>
+</head>
+<body style="display:block">
+<div class="main">
+    <div class="sidebar clearfloat">
+        <h5>系统模块<b id="first-m-add"><i class="Hui-iconfont">&#xe600;</i></b></h5>
+        <div class="left">
+            <ul id="tree" class="ztree" style="padding-left:10px"></ul>
+        </div>
+    </div>
+    <div class="content">
+            <div class="cl pd-5 bg-1 bk-gray mt-20" id="op-bar" style="display:none; position:relative; height:30px">
+            <span class="l" style="margin-left:80px" id="operation">
+
+            </span>
+            </div>
+            <input type="hidden" id="pageflag" value="" />
+            <input type="hidden" id="pageid" value="" />
+            <input type="hidden" id="pid" value="">
+            <form class="form form-horizontal" action=""  id="form-moltype" style="display:none">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块分类名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text"  name="moduleTypeName"/>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块分类排序：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text"  name="moduleTypeOrder" placeholder="请填数字" >
+                    </div>
+                </div>
+                <input type="hidden" name="moduleTypeParentId" value=""/>
+
+            </form>
+            <form class="form form-horizontal" action="" method=" " id="form-module" style="display:none">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" placeholder="" id="moduleName" name="moduleName">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块编码：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" placeholder="" name="moduleCode" id="moduleCode">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">模块入口Url：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" placeholder="" name="moduleUrl" id="moduleUrl">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">模块排序：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" placeholder="" name="moduleOrder" id="moduleOrder">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">是否显示到菜单：</label>
+                    <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                        <div class="radio-box">
+                            <input name="isMenu" type="radio" value="0" id="noMenu" >
+                            <label for="noMenu">不显示</label>
+                        </div>
+                        <div class="radio-box">
+                            <input type="radio" id="isMenu" value="1" name="isMenu" checked>
+                            <label for="isMenu">显示</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">状态：</label>
+                    <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                        <div class="radio-box">
+                            <input name="isEnable" type="radio" value="1" id="enable" >
+                            <label for="enable">启用</label>
+                        </div>
+                        <div class="radio-box">
+                            <input type="radio" id="disable" value="0" name="isEnable" checked>
+                            <label for="disable">禁用</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">模块说明：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea name=moduleDescription" id="moduleDescription" cols="" rows="" class="textarea"></textarea>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">模块权限列表：</label>
+                    <div class="formControls col-xs-8 col-sm-9" id="operation-list">
+
+                    </div>
+                </div>
+                <input type="hidden" name="moduleTypeId" value=""/>
+            </form>
+            <div class="row cl mt-15" >
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2" id="update" style="display:none" >
+                    <button class="btn btn-primary radius" id="Add" style="display:none" type="button"><i class="Hui-iconfont">&#xe632;</i>添加</button>
+                    <input type="hidden" id="m-flag" value=""/>
+                </div>
+            </div>
+            <div class="mt-30 moltypelog" style="display:none">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+                    <tr class="text-c" style="background-color:#f9f9f9">
+                        <th colspan="5">操作日志</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th width="70">操作详情</th>
+                        <th width="200">操作内容</th>
+                        <th width="100">操作人</th>
+                        <th width="50">操作时间</th>
+                        <th width="50">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="logInfo">
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+    <!--添加模块-->
+<div class="page-container" id="mt-add" style="display:none">
+        <form class="form form-horizontal" id="form-moduleType-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><sapn class="c-red">*</sapn>模块分类名称：</label>
+                <div class="formControls col-xs-8 col-sm-6">
+                    <input type="text" class="input-text"  name="mtName" id="mtName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><sapn class="c-red">*</sapn>模块分类排序：</label>
+                <div class="formControls col-xs-8 col-sm-6">
+                    <input type="text" class="input-text"  name="mtOrder" id="mtOrder" placeholder="请填数字" >
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+    var zTreeObj;
+    var treeNodes;
+           var setting = {
+                view: {
+                    selectedMulti: false //禁止同时选中多个
+                },
+                callback: {
+                    onClick:function(event,treeId,treeNode){
+                        var type = treeNode.isParent;
+                        //页面及按钮的显示隐藏
+                        $('#op-bar').css('display','block');
+                        $('#update').css('display','block');
+                        $('#Add').css('display','none');
+                        $('#Edit').css('display','block');
+                        $('#delete').show();
+
+                        $('#pageflag').val(type);
+                        $('#pageid').val(treeNode.id);
+                        if(type){
+                            $("#form-moltype").show().siblings('form').hide();
+                            $('.moltypelog').show();
+                            $('#molTypeAdd').show();
+                            $('#molAdd').show();
+                            $.ajax({
+                                url: "/api/v1/ModuleType/"+treeNode.id,    //请求的url地址
+                                dataType: "json",
+                                async: false,
+                                type: "GET",
+                                success: function(reg) {
+                                    if(reg.code==0){
+                                        var data = reg.data;
+                                        $('input[name=moduleTypeName]').val(data.moduleTypeName);
+                                        $('input[name=moduleTypeOrder]').val(data.moduleTypeOrder);
+                                        $('input[name=moduleTypeParentId]').val(data.moduleTypeParentId);
+                                    }else{
+                                        layer.msg(reg.message,{icon:1,time:2000});
+                                    }
+                                },
+                                error:function(){
+                                    //请求失败处理函数
+                                    layer.msg('请求异常！',{icon:5,time:2000});
+                                }
+                            });
+                            //操作日志
+                            url= '/api/v1/ModuleType/'+treeNode.id+'/OperationLog';
+                            opertionLog(url);
+
+                        }else{
+                            $("#form-module").show().siblings('form').hide();
+                            $('#molTypeAdd').hide();
+                            $('#molAdd').hide();
+                            $('.moltypelog').show();
+                            $.ajax({
+                                url: "/api/v1/Module/"+treeNode.id,    //请求的url地址
+                                dataType: "json",
+                                async: false,
+                                type: "GET",
+                                success: function(reg) {
+                                    if(reg.code==0){
+                                        var data = reg.data;
+                                        $('input[name=moduleName]').val(data.moduleName);
+                                        $('input[name=moduleCode]').val(data.moduleCode);
+                                        $('input[name=moduleUrl]').val(data.moduleUrl);
+                                        $('input[name=moduleOrder]').val(data.moduleOrder);
+                                        $('input[name=moduleTypeId]').val(data.moduleTypeId);
+                                        $('#moduleDescription').val(data.moduleDescription);
+                                        $("[name = authorityTag]:checkbox").each(function () {
+                                            if($.inArray(this.value,data.authorityTag)!=-1){
+                                                    $(this).prop('checked', true);
+                                                }else{
+                                                $(this).prop("checked",false);
+                                            }
+                                        });
+                                        if(data.isMenu==1){
+                                            $('#isMenu').prop("checked",true);
+                                        }else{
+                                            $('#noMenu').prop("checked",false);
+                                        }
+
+                                        if(data.isEnable==1){
+                                            $('#enable').prop("checked",true);
+                                        }else{
+                                            $('#disable').prop("checked",false);
+                                        }
+                                    }else{
+                                        layer.msg(reg.message,{icon:1,time:2000});
+                                    }
+                                },
+                                error:function(){
+                                    //请求失败处理函数
+                                    layer.msg('请求异常！',{icon:5,time:2000});
+                                }
+                            });
+                            url= '/api/v1/Module/'+treeNode.id+'/OperationLog';
+                            opertionLog(url);
+
+                        }
+                    }
+                },
+                data:{
+                    key:{
+                        name:"name"
+                    },
+                    simpleData: {
+                        enable: true,
+                        idKey: "id",
+                        pIdKey: "pId",
+                        rootPId:null
+                    }
+                }
+            };
+    $(document).ready(function(){
+        //初始化模块权限
+        $.ajax({
+            url: "/api/v1/Module/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var str= '';
+                    var list='';
+                    var power = reg.data.action;
+                    if($.inArray("BROWSE",power)!=-1){
+                        $('body').css('display','block');
+                    }
+                    if($.inArray("ADD",power)!=-1){
+                        html+='<a class="btn btn-primary radius" id="molTypeAdd" href="javascript:;"> <i class="Hui-iconfont">&#xe600;</i> 添加子分类</a>';
+                        html+='<a class="btn btn-primary radius" id="molAdd"  href="javascript:;"> <i class="Hui-iconfont">&#xe600;</i> 添加子模块</a>';
+                    }
+                    if($.inArray("DELETE",power)!=-1){
+                        html+='<a class="btn btn-danger radius" id="del" href="javascript:;"> <i class="Hui-iconfont">&#xe6e2;</i>删除</a>';
+                    }
+                    $('#operation').html(html);
+
+                    if($.inArray("EDIT",power)!=-1){
+                        str+='<button class="btn btn-primary radius" id="Edit" type="button"><i class="Hui-iconfont">&#xe632;</i>更新</button>';
+                    }
+                    $('#update').append(str);
+
+                    //初始化权限列表
+                    $.each( reg.data.authority,function(n,val){
+                        list+='<div class="check-box">';
+                        list+='<input type="checkbox" id="'+val.tag+'" name="authorityTag" value="'+val.tag+'">';
+                        list+='<label for="checkbox-1">'+val.name+'</label>';
+                        list+='</div>';
+                    });
+                    $('#operation-list').html(list);
+
+                    showTree();
+                }
+
+            }
+        });
+
+        //添加子分类
+        $("#operation").on("click","#molTypeAdd", function() {
+
+            $("#form-moltype").show().siblings('form').hide();
+            $('#delete').hide();
+            //重置表单
+            $(':input','#form-moltype')
+                    .not(':button, :submit, :reset, :hidden')
+                    .val('');
+            $('#Add').show();
+            $('#Edit').hide();
+            $('#delete').hide();
+            $('.moltypelog').hide();
+            $('#m-flag').val('mt');
+
+        });
+
+        //添加子模块
+        $("#operation").on("click","#molAdd", function() {
+            $("#form-module").show().siblings('form').hide();
+            //重置表单
+            $('#form-module :radio').removeAttr('checked');
+            $('#form-module :checkbox').removeAttr('checked');
+            $('input[name=moduleName]').val('');
+            $('input[name=moduleCode]').val('');
+            $('input[name=moduleUrl]').val('');
+            $('input[name=moduleOrder]').val('');
+            $('#moduleDescription').val('');
+
+            $('#Add').show();
+            $('#Edit').hide();
+            $('#delete').hide();
+            $('#moudleAdd').show();
+            $('.moltypelog').hide();
+            $('#m-flag').val('m');
+        });
+
+        //添加
+        $('#Add').click(function(){
+            var type = $('#m-flag').val();
+            var id=$('#pageid').val();
+            if(type=='m'){
+                //添加模块
+                addMoudle(id);
+            }
+            if(type=='mt'){
+                addMoudleType(id);
+            }
+        });
+
+        //更新模块或分类
+        $('#update').on('click','#Edit',function(){
+            var flag=$('#pageflag').val();
+            var id=$('#pageid').val();
+
+            if(flag=='true'){
+                var data = new Object();
+                $("#form-moltype *[name]").each(function(item){
+                    data[$(this).attr("name")] = $(this).val();
+                });
+                $.ajax({
+                    url: "/api/v1/ModuleType/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    data:data,
+                    type: "PUT",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:6,time:2000});
+                        }
+                    }
+                });
+
+            }else{
+                var data = new Object();
+                $("#form-module *[name]").each(function(item){
+                    data[$(this).attr("name")] = $(this).val();
+                });
+                data['isMenu']=$('input[name=isMenu]:checked').val();
+                data['isEnable']=$('input[name=isEnable]:checked').val();
+                data['moduleDescription']=$('#moduleDescription').val();
+                //操作权限的赋值
+                var result = new Array();
+                $("[name = authorityTag]:checkbox").each(function () {
+                    if ($(this).is(":checked")) {
+                        result.push($(this).attr("value"));
+                    }
+                });
+                data['authorityTag'] = result.join(",");
+
+                $.ajax({
+                    url: "/api/v1/Module/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    data:data,
+                    type: "PUT",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:6,time:2000});
+                        }
+                    }
+                });
+            }
+
+        });
+
+        //删除
+        $("#operation").on("click","#del", function(){
+            var flag=$('#pageflag').val();
+            var id=$('#pageid').val();
+
+            //删除模块分类
+            if(flag=='true'){
+                layer.confirm('确认要删除吗？',function(index){
+                    $.ajax({
+                        url: "/api/v1/ModuleType/"+id,    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "DELETE",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('已删除!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:1,time:2000});
+                            }
+                        }
+                    });
+                });
+            }else{
+                //删除模块
+                layer.confirm('确认要删除吗？',function(index){
+                    $.ajax({
+                        url: "/api/v1/Module/"+id,    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "DELETE",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('已删除!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:1,time:2000});
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+        //添加大分类
+        $('#first-m-add').click(function(){
+            var index=layer.open({
+                type: 1,
+                title:'添加模块',
+                content: $('#mt-add'), //这里content是一个DOM
+                area:['700px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+
+                    var data = new Object();
+                    data['moduleTypeName']=$('#mtName').val();
+                    data['moduleTypeOrder']=$('#mtOrder').val();
+                    data['moduleTypeParentId']="00000000-0000-0000-0000-000000000000";
+                    $.ajax({
+                        url: "/api/v1/ModuleType",    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        data:data,
+                        type: "POST",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg(reg.message,{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:6,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+
+        });
+
+    });
+
+
+
+    function addMoudle(id){
+        //添加模块
+        var data = new Object();
+        $("#form-module *[name]").each(function(item){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['moduleTypeId']=id;
+        data['isMenu']=$('input[name=isMenu]:checked').val();
+        data['isEnable']=$('input[name=isEnable]:checked').val();
+        data['moduleDescription']=$('#moduleDescription').val();
+        //操作权限的赋值
+        var result = new Array();
+        $("[name = authorityTag]:checkbox").each(function () {
+            if ($(this).is(":checked")) {
+                result.push($(this).attr("value"));
+            }
+        });
+        data['authorityTag'] = result.join(",");
+
+        $.ajax({
+            url: "/api/v1/Module",    //请求的url地址
+            dataType: "json",
+            async: true,
+            data:data,
+            type: "POST",
+            success: function(reg) {
+                if(reg.code==0){
+                    layer.msg(reg.message,{icon:1,time:2000});
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+
+    }
+
+
+    function addMoudleType(id){
+        //添加分类
+        var data = new Object();
+        $("#form-moltype *[name]").each(function(item){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['moduleTypeParentId']=id;
+        $.ajax({
+            url: "/api/v1/ModuleType",    //请求的url地址
+            dataType: "json",
+            async: true,
+            data:data,
+            type: "POST",
+            success: function(reg) {
+                if(reg.code==0){
+                    layer.msg(reg.message,{icon:1,time:2000});
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+    }
+
+function showTree(){
+    //获取数据
+    $.ajax({
+        url: "/api/v1/Module/ListByzTree",    //请求的url地址
+        dataType: "json",
+        async: false,
+        type: "GET",
+        success: function(reg) {
+            if(reg.code==0){
+                treeNodes = reg.data;
+            }else{
+                layer.msg(reg.message,{icon:1,time:2000});
+            }
+        },
+        error:function(){
+            //请求失败处理函数
+            layer.msg('加载异常！',{icon:5,time:2000});
+        }
+    });
+
+    zTreeObj = $.fn.zTree.init($("#tree"), setting, treeNodes);
+}
+
+
+
+
+</script>
+</body>
+</html>

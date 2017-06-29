@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>系统公告</title>
+    <style>
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+
+    </style>
+</head>
+<body>
+<div style="display:block" id="Announcement">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span>系统公告<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入标题"  id="search-item" name="">
+            <button type="submit" class="btn btn-success radius" id="search"  name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="10" selected = "selected" >10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+
+<!--编辑弹出框-->
+<div class="page-container" id="announce-edit" style="display:none">
+    <form class="form form-horizontal" id="form-announce-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>公告标题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="announceTitle" name="announceTitle" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>公告内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea class="textarea" name="announceContent" id="announceContent"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">下线时间：</label>
+            <div class="formControls col-xs-4 col-sm-6">
+                <input type="text"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="announceExpireTime" class="input-text Wdate" name="announceExpireTime" >
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--查看-->
+<div class="page-container" id="announce-show" style="display:none">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>公告标题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  id="Title" name="Title" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>公告内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea class="textarea" name="Content" id="Content"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">下线时间：</label>
+            <div class="formControls col-xs-4 col-sm-6">
+                <input type="text"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="ExpireTime" class="input-text Wdate" name="ExpireTime" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>发布人：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="createName" id="createName"  class="input-text"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><sapn class="c-red">*</sapn>发布时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="createTime" id="createTime"  class="input-text"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var pageSize=$("#page-size").val();
+    $(function(){
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/Announcement/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('Announcement',power,'operation');
+                    var pageIndex=1;
+                    var uri='/api/v1/Announcement/'+pageSize+'/'+pageIndex+'/ListByPage';
+                    getPage(uri);
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            },
+            error:function(){
+                layer.msg('服务器异常！',{icon:5,time:2000});
+            }
+        });
+
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+            var announceTitle=$('#search-item').val();
+            var pageIndex=1;
+            var uri='/api/v1/Announcement/'+pageSize+'/'+pageIndex+'/ListByPage?announceTitle='+announceTitle;
+            getPage(uri);
+        });
+
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tr',function(){
+            var id = $(this).attr('data-id');
+            show_deatails(id);
+        });
+
+        //搜索
+        $("#search").click(function(){
+             var announceTitle=$('#search-item').val();
+            if(announceTitle=='' &&announceTitle=='undefined'){
+              layer.msg('请输入搜索标题！',{icon:5,time:2000});
+                return;
+            }
+             var uri='/api/v1/Announcement/'+pageSize+'/1/ListByPage?announceTitle='+announceTitle;
+            getPage(uri);
+        });
+
+
+
+        $("#operation").on("click","#add", function() {
+            announce_add('添加公告','announce-add.html','800','400');
+        });
+
+        //编辑
+        $("#operation").on("click","#edit", function() {
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            //获取数据
+            $.ajax({
+                url: "/api/v1/Announcement/"+id,    //请求的url地址
+                dataType: "json",
+                async: true,
+                type: "GET",
+                success: function(reg) {
+                    if(reg.code==0){
+                      var data=reg.data;
+                        $('#announceTitle').val(data.announceTitle);
+                        $('#announceContent').val(data.announceContent);
+                        $('#announceExpireTime').val(data.announceExpireTime);
+                    }else{
+                        layer.msg(reg.message,{icon:1,time:2000});
+                    }
+                }
+            });
+
+            var index=layer.open({
+                type: 1,
+                title:'编辑公告',
+                content: $('#announce-edit'), //这里content是一个DOM
+                area:['700px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    $.ajax({
+                        url: "/api/v1/Announcement/"+id,    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PUT",
+                        data:{'announceId':id,'announceTitle': $('#announceTitle').val(),'announceContent': $('#announceContent').val(),'announceExpireTime':$('#announceExpireTime').val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('操作成功!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+       //查看
+        $("#operation").on("click","#view", function() {
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            show_deatails(id);
+        });
+
+
+        /*公告-删除*/
+        $("#operation").on("click","#del", function() {
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            if($(".checkchild:checked").length>1){
+                layer.alert('一次只能选择一条数据！');
+                return ;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/Announcement/"+id+"/Delete",    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $(".checkchild:checked").parents("tr").remove();
+                            layer.msg('已删除!',{icon:1,time:1000});
+                        }else{
+                            layer.msg(reg.message,{icon:5,time:2000});
+                        }
+                    }
+                });
+            });
+
+        });
+    });
+
+    //分页函数
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="80">标题</th>';
+        tableInfo+='<th width="80">公告内容</th>';
+        tableInfo+='<th width="50">发布人</th>';
+        tableInfo+='<th width="100">发布时间</th>';
+        tableInfo+='<th width="130">下线时间</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+
+                    var total =reg.total;
+                    //上一页
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) * parseInt(pageSize)+1;
+
+                    //结束数
+
+                    var PageEnd =pageIndex* parseInt(pageSize);
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    //拼接数据
+                    if (data.length!=0){
+                        $.each(data,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.announceId+'">';
+                            tableInfo+='<td>'+value.announceTitle+'</td>';
+                            tableInfo+='<td>'+value.announceContent+'</td>';
+                            tableInfo+='<td>'+value.createName+'</td>';
+                            tableInfo+='<td>'+value.createTime+'</td>';
+                            tableInfo+='<td>'+value.announceExpireTime+'</td>';
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if(pervPage==0){
+                            tablePage+='<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        }else{
+                            tablePage+='<a class="paginate_button previous disabled"  data-href="'+prevPageUri+'" id="Table_previous">上一页</a>';
+                        }
+
+                        if(nextPage==0){
+                            tablePage+='<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        }else{
+                            tablePage+='<a class="paginate_button next disabled"  data-href="'+nextPageUri+'"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+    /*公告-添加*/
+    function announce_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    function show_deatails(id){
+        //获取数据
+        $.ajax({
+            url: "/api/v1/Announcement/"+id,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var data=reg.data;
+                    $('#Title').val(data.announceTitle);
+                    $('#Content').val(data.announceContent);
+                    $('#ExpireTime').val(data.announceExpireTime);
+                    $('#createName').val(data.createName);
+                    $('#createTime').val(data.createTime);
+                    var index=layer.open({
+                        type: 1,
+                        content: $('#announce-show'), //这里content是一个DOM
+                        area: ['700px', '450px'],
+                        title:'公告详情'
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:1,time:2000});
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

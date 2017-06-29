@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>数据上传App</title>
+    <style>
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        .num-select{
+            position:absolute;
+            right:10px;
+            bottom:10px;
+        }
+        .selected{background-color:#008855;}
+
+
+    </style>
+</head>
+<body>
+<div id="apiClient" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>数据接口<span class="c-gray en">&gt;</span>数据上传APP<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20" style="position:relative">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="mt-20">
+            <div class="dataTables_wrapper" id="table-data">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看-->
+<div class="page-container" id="apiclient-show" style="display:none">
+    <div class="tabBar cl"><span>操作日志</span></div>
+    <div id="tab-system" class="HuiTab" style="margin:10px">
+            <div class="cl pd-5 bg-1 bk-gray mt-10">
+                <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+            </div>
+            <div class="mt-10">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="100">模块名称</th>
+                        <th width="200">操作内容</th>
+                        <th width="100">操作人</th>
+                        <th width="50">操作时间</th>
+                        <th width="70">操作详情</th>
+                    </tr>
+                    </thead>
+                    <tbody id="logInfo">
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+
+<!--添加-->
+<div class="page-container" id="apiclient-add" style="display:none">
+    <form class="form form-horizontal" id="form-apiClient-add">
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据接口AppId：</label>
+            <div class="formControls col-xs-4 col-sm-6">
+                <input type="text" class="input-text" placeholder=""  id="appCode" name="appCode">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>App单位名称：</label>
+            <div class="formControls col-xs-4 col-sm-6">
+                <input type="text" class="input-text" placeholder=""  id="appName" name="appName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">App密钥：</label>
+            <div class="formControls col-xs-4 col-sm-6">
+                <input type="text" class="input-text" placeholder=""  id="appSecret" name="appSecret">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--工作状态锁定弹框-->
+<div id="work_lock" style="display:none;width:320px ;height:170px;padding:15px;">
+    <label>锁定原因：</label>
+    <div class="formControls">
+        <textarea class="textarea" name="" id="lockReason"></textarea>
+    </div>
+</div>
+<div id="work_unlock" style="display:none ;width:320px ;height:170px;padding:15px;">
+    <label>解锁原因：</label>
+    <div class="formControls">
+        <textarea class="textarea" name="" id="unlockReason"></textarea>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var data;
+    var height= $('#iframe_box',window.parent.document).height()-40;
+    var width= $('#iframe_box',window.parent.document).width()-300;
+    $(function() {
+
+        //tab选项卡
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+
+        //初始化操作
+        $.ajax({
+            url: "/api/v1/ApiClient/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if (reg.code == 0) {
+                    opertion('apiClient', reg.data.action, 'operation');
+                    var url = '/api/v1/ApiClient';
+                    getPage(url);
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+        });
+
+
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tr',function(){
+            var id = $(this).attr('data-id');
+            apiclient_details(id);
+        });
+
+        $('#operation').on('click','#del',function(){
+
+            //获取被选中的id
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/Role/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $('#sortable_table').find('.selected').remove();
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+
+        });
+
+
+        //添加
+        $("#operation").on("click","#add", function() {
+
+            var index=layer.open({
+                type: 1,
+                title:'添加',
+                content: $('#apiclient-add'), //这里content是一个DOM
+                area:['700px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    $.ajax({
+                        url: '/api/v1/ApiClient',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "POST",
+                        data:{'appCode': $('#appCode').val(),'appName': $('#appName').val(),'appSecret':$('#appSecret').val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('操作成功!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+
+        //编辑
+        $("#operation").on("click","#edit", function() {
+
+            //获取被选中的id
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            var indexNum = $('#sortable_table').find('.selected').attr('data-index');
+
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+           $('#appCode').val(data[indexNum].appCode);
+            $('#appName').val(data[indexNum].appName);
+            $('#appName').val(data[indexNum].appName);
+
+            var index=layer.open({
+                type: 1,
+                title:'编辑',
+                content: $('#apiclient-add'), //这里content是一个DOM
+                area:['700px','350px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    $.ajax({
+                        url: '/api/v1/ApiClient',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PUT",
+                        data:{'appCode': $('#appCode').val(),'appName': $('#appName').val(),'appSecret':$('#appSecret').val()},
+                        success: function(reg) {
+                            if(reg.code==0){
+                                layer.msg('操作成功!',{icon:1,time:2000});
+                                location.replace(location.href);
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+        //锁定
+        $("#operation").on("click","#stop", function() {
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            var index=layer.open({
+                type: 1,
+                title:'锁定',
+                content: $('#work_lock'), //这里content是一个DOM
+                area:['350px','300px'],
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var lock_reason =$('#lockReason').val();
+                    $.ajax({
+                        url: "/api/v1/ApiClient/"+id+"/Lock",    //请求的url地址
+                        dataType: "json",
+                        data:{'':lock_reason},
+                        async: true,
+                        type: "PATCH",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                $('#sortable_table').find('.selected').find('.status').html('<span class="label label-danger radius">禁止</span>');
+                                layer.msg('已锁定!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:1,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+        //解锁
+        $("#operation").on("click","#start", function() {
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            var index=layer.open({
+                type: 1,
+                content: $('#work_unlock'), //这里content是一个DOM
+                area:['350px','300px'],
+                title:'解锁',
+                btn:['确定','取消'],
+                'yes':function(index,layero){
+                    var unlock_reason =$('#unlockReason').val();
+                    $.ajax({
+                        url: "/api/v1/ApiClient/"+id+"/Unlock",    //请求的url地址
+                        dataType: "json",
+                        data:{'':unlock_reason},
+                        async: true,
+                        type: "PATCH",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                $('#sortable_table').find('.selected').find('.status').html('<span class="label label-success radius">正常</span>');
+                                layer.msg('已解锁!',{icon:1,time:2000});
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            });
+        });
+
+        //删除
+        $("#operation").on("click","#del", function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/ApiClient/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $('#sortable_table').find('.selected').remove();
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+        //查看
+        $('#operation').on('click','#view',function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+        });
+    });
+    function apiclient_details(id){
+        //操作日志
+        var url= '/api/v1/ApiClient/'+id+'/OperationLog';
+        opertionLog(url);
+        var index=layer.open({
+            type: 1,
+            title:'查看',
+            content: $('#apiclient-show'), //这里content是一个DOM
+            area:[width+'px',height+'px'],
+            btn:['确定']
+        });
+    }
+
+
+    //分页函数
+    function getPage(uri){
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="100">AppID</th>';
+        tableInfo+='<th width="50">App单位名称</th>';
+        tableInfo+='<th width="100">App状态</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:uri,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    data = reg.data;
+
+                    if (data.length!=0){
+                        $.each(data,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-index="'+n+'" data-id="'+value.appCode+'">';
+                            tableInfo+='<td>'+value.appCode+'</td>';
+                            tableInfo+='<td>'+value.appName+'</td>';
+                            if(value.appStatus==1){
+                                tableInfo+='<td class="status"><span class="label label-success radius">正常</span></td>';
+                            }else{
+                                tableInfo+='<td class="status"><span class="label label-danger radius">禁止</span></td>';
+                            }
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+                        $('#table-data').html(tableInfo);
+
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+
+
+            }
+        });
+
+    }
+
+
+
+</script>
+</body>
+</html>

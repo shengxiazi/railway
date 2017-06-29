@@ -1,0 +1,547 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/ks-style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+
+    </style>
+    <title>添加k30</title>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="k30Add">
+        <div data-options="region:'center',split:true" style="width:100%">
+            <div class="page-container">
+                <div class="row cl">
+                    <div class="col-sm-7">
+                        <table class="table" id="firstable" style="border:1px solid #9c9c9c">
+                            <tr class="text-c">
+                                <td colspan="4" class="border-line">
+                                    <h4>委托信息及测点详情</h4>
+                                </td>
+                            </tr>
+                            <tr class="text-l">
+                                <th colspan="2"><span class="c-red">*</span>检测编号</th>
+                                <th><span class="c-red">*</span>检测方式</th>
+                                <th><span class="c-red">*</span>试验日期</th>
+                            </tr>
+                            <tr class="text-c">
+                                <td colspan="2"><input type="text" class="input-text text-c" name="serialNo" id="serialNo"/></td>
+                                <td>
+                                    <select name="TestWay" id="TestWay" style="width:100%;height:100%">
+                                        <option value="1">初测</option>
+                                        <option value="2">复测</option>
+                                        <option value="3">加测</option>
+                                    </select>
+                                </td>
+                                <td><input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text"  class="input-text text-c Wdate" name="StartTime" id="StartTime"/></td>
+                            </tr>
+                            <tr class="text-l">
+                                <th><span class="c-red">*</span>测点里程标识</th>
+                                <th><span class="c-red">*</span>测点里程（m）</th>
+                                <th width="20%"><span class="c-red">*</span>检测方位</th>
+                                <th><span class="c-red">*</span>检测方法</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text"  class="input-text text-c" name="PointMileageFlag" disabled/>
+                                </td>
+                                <td>
+                                    <input type="text" class="input-text text-c reset" name="PointMileage"/>
+                                </td>
+                                <td>
+                                    <input type="text" class="input-text text-c reset" name="Direction"/>
+                                </td>
+                                <td>
+                                    <select name="TestType" id="TestType" style="width:100%;height:100%">
+                                        <option value="3" selected>k30</option>
+                                        <option value="4">k40</option>
+                                        <option value="6">k60</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="text-l">
+                                <th>记录编号</th>
+                                <th colspan="3">采用标准</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="input-text text-c" name="testcode"/></td>
+                                <td colspan="3"><input type="text" class="input-text text-c" name="TestStandard" value="TB10102-2010"/></td>
+
+                            </tr>
+                            <tr class="text-c">
+                                <td colspan="4" class="border-line"><h4>仪器设备及环境条件</h4></td>
+                            </tr>
+                            <tr class="text-l">
+                                <th><span class="c-red">*</span>检测设备编号</th>
+                                <th>荷载板直径(mm)</th>
+                                <th><span class="c-red">*</span>温度</th>
+                                <th><span class="c-red">*</span>相对湿度（%）</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="input-text text-c" name="MachineId" id="MachineId"/></td>
+                                <td><input type="text" class="input-text text-c" name="Diameter" value="300"/></td>
+                                <td><input type="text" class="input-text text-c" name="Temperature"/></td>
+                                <td><input type="text" class="input-text text-c" name="Humidity"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="border-line"><h4>试验结果</h4></td>
+                            </tr>
+                            <tr class="text-l" style="padding-bottom:10px">
+                                <th>沉降1.25mm对应的荷载</th>
+                                <th><span class="c-red">*</span>k30设计值(MPa/m)</th>
+                                <th><span class="c-red">*</span>k30实测值(MPa/m)</th>
+                                <th><span class="c-red">*</span>检测结论</th>
+                            </tr>
+                            <tr class="text-c">
+                                <td><input type="text" class="input-text text-c reset" name="load" id="load" disabled/></td>
+                                <td><input type="text" class="input-text text-c" name="KdjDesign" disabled/></td>
+                                <td><input type="text" class="input-text text-c reset" name="KdjReal" disabled/></td>
+
+                                <td>
+                                    <select name="Result" id="Result" style="width:100%;height:100%" disabled>
+                                        <option value="1" selected>合格</option>
+                                        <option value="2">不合格</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table" id="secondtable" style="margin-top:10px; border:1px solid #9c9c9c;border-bottom:0" >
+                            <tr class="text-r">
+                                <th width="80px"  style="padding-top:20px">工程名称：</th>
+                                <td  style="padding-top:20px" colspan="5">
+                                    <input type="text" class="input-none text-l"  name="proName" value="" disabled/>
+                                </td>
+                            </tr>
+                            <tr class="text-r" >
+                                <th >委托单位：</th>
+                                <td colspan="3"><input type="text" class="input-none text-l"  name="company" value="" disabled/></td>
+                                <th><span class="c-red">*</span>检测标高(m)：</th>
+                                <td><input type="text" class="input-none text-l" name="TestHeight" id="TestHeight" disabled/></td>
+                            </tr>
+
+                            <tr class="text-r">
+                                <th>施工里程：</th>
+                                <td colspan="3"><input type="text" class="input-none text-l" name="mile" disabled value=""/></td>
+                                <input type="hidden" class="input-none text-l" name="mileageFlag" disabled/>
+                                <th>压实方式：</th>
+                                <td><input type="text" class="input-none text-l" name="compactionMode" disabled/></td>
+                            </tr>
+                            <tr class="text-r">
+                                <th><span class="c-red">*</span>检测部位：</th>
+                                <td>
+                                    <input type="text" class="input-none text-l" name="Position" disabled/>
+                                </td>
+                                <th><span class="c-red">*</span>当前层数：</th>
+                                <td><input type="text" class="input-none text-l" name="Layers" disabled/></td>
+                                <th><span class="c-red">*</span>总层数：</th>
+                                <td>
+                                    <input type="text" class="input-none text-l" name="TotalLayers" disabled/>
+                                </td>
+                            </tr>
+                            <tr class="text-r">
+                                <th style="padding-bottom:15px;width:80px;">填料名称：</th>
+                                <td style="padding-bottom:15px; width:150px;"><input type="text" class="input-none text-l" name="FillingStyle" disabled/></td>
+                                <th style="width:140px; padding-bottom:15px"><span class="c-red">*</span>填料最大粒径(mm)：</th>
+                                <td style="padding-bottom:15px;width:40px">
+                                    <input type="text" class="input-none text-l" name="FillingDiameter" disabled/>
+                                </td>
+                                <th style="padding-bottom:15px;width:100px;"><span class="c-red">*</span>填层厚度(cm)：</th>
+                                <td  style="padding-bottom:15px;width:100px">
+                                    <input type="text" class="input-none text-l" name="FillingThickness" disabled/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-border table-bordered ">
+                            <thead>
+                                <tr class="text-c">
+                                <th>仪器设备名称</th>
+                                <th>设备编号</th>
+                                <th>型号</th>
+                                <th>示值范围</th>
+                                <th>分辨力</th>
+                                </tr>
+                            </thead>
+                            <tbody id="equipList">
+                                <tr>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                    <td><input type="text" class="input-none" name="" disabled/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-5">
+                        <table id="thirdtable" class="table table-border table-bordered">
+                            <tr class="text-c" style="background-color:rgba(238,238,238,0.98)">
+                                <th>试验最高层级：</th>
+                                <th width="50%"><input type="text" class="input-text text-c" value="5" id="testNum" name="testNum"/></th>
+                            </tr>
+                        </table>
+                        <table class="table table-border table-bordered" id="fivthtable" style=" background-color:rgba(238,238,238,0.98);">
+                            <tbody id="testData">
+
+                            </tbody>
+                        </table>
+                        <div style="max-width:98%;height:400px" id="test11"  class=" k3picture col-xs-11 col-sm-11 col-md-11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-success radius size-S" id="calculate" type="button"><i class="Hui-iconfont">&#xe632;</i>拟合计算</button>
+            <button class="btn btn-primary radius  size-S" onclick="save_submit(1)" type="button" data-toggle="tooltip" title="点我之前，请确保先拟合计算数据了哟！"><i class="Hui-iconfont">&#xe632;</i> 保存退出</button>
+            <button onClick="save_submit(2);" class="btn btn-secondary radius size-S" type="button" data-toggle="tooltip" title="点我之前，请确保先拟合计算数据了哟！">&nbsp;&nbsp;保存新增&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/js/excanvas.min.js"></script>
+<script type="text/javascript" src="../static/js/RsCurve.min.js?1.9"></script>
+<script type="text/javascript">
+    var projectId = sessionStorage.pro_id;
+    $(function(){
+        $("[data-toggle='tooltip']").tooltip();
+        //试验日期默认为当前系统时间
+        $('#StartTime').val(getNowFormatDate());
+        //根据委托编号取值
+        $('#serialNo').bind('change',function(){
+            var serialNo = $.trim(this.value);
+            $('#serialNo').val(serialNo);
+            $.ajax({
+                url:'/api/v1/TPlan/'+serialNo+'/BySerialNo',
+                dataType :"json",
+                async:false,
+                type: "GET",
+                success:function(reg){
+                    var planData = reg.data;
+                    if(reg.code==0){
+                        debugger;
+                        $('input[name="PointMileageFlag"]').val(planData.mileageFlag);
+                        $('input[name="mile"]').val(planData.mileage);
+                        $('input[name="Position"]').val(planData.position);
+                        $('input[name="Layers"]').val(planData.layer);
+                        $('input[name="TotalLayers"]').val(planData.totalLayer);
+                        $('input[name="FillingStyle"]').val(planData.fillingStyle);
+                        $('input[name="FillingDiameter"]').val(planData.fillingDiameter);
+                        $('input[name="FillingThickness"]').val(planData.fillingThickness);
+                        $('input[name="compactionMode"]').val(planData.compactionMode);
+                        $('input[name="proName"]').val(sessionStorage.projectName);
+                        $('input[name="TestHeight"]').val(planData.testHeight);
+                        $('input[name="compactionDescription"]').val(planData.compactionDescription);
+                        $.each(planData.testQuota,function(n,v){
+                            if(v.testQuotaCode=='K30'){
+                                $('input[name="KdjDesign"]').val(v.design);
+                            }
+                        });
+                    }else{
+                        layer.msg(reg.message,{icon: 6, time: 2000});
+                    }
+                },
+                error:function(){
+                    layer.msg('委托编号不存在！');
+                }
+            });
+        });
+
+        //根据设备编号，获取设备信息
+        $('#MachineId').bind('change',function(){
+            var MachineId = $.trim(this.value);
+            $.ajax({
+                url:'/api/v1/EquipPackage/'+MachineId+'/ByPackageNo',
+                dataType :"json",
+                async:false,
+                type: "GET",
+                success:function(reg){
+                    if(reg.code==0){
+                        var equipData = reg.data.equipList ;
+                        var equipStr = "";
+                        if(equipData.length!=0){
+                            $.each(equipData,function(n,v){
+                                equipStr+='<tr class="text-c">';
+                                equipStr+='<td>'+v.equipTypeName+'</td>';
+                                equipStr+='<td>'+v.equipNo+'</td>';
+                                equipStr+='<td>'+v.equipSpec+'</td>';
+                                equipStr+='<td>'+v.equipRange+'</td>';
+                                equipStr+='<td>'+v.equipResolution+'</td>';
+                                equipStr+='<tr>';
+                            });
+                            $('#equipList').html(equipStr);
+                        }
+                    }
+                },
+                error:function(){
+                    layer.alert('设备编号错误,设备信息获取失败！');
+                }
+            });
+        });
+
+
+        $('#testNum').bind('change',function(){
+            var testNum =  this.value;
+            testLayer(testNum)
+        });
+        testLayer(5);
+
+        $('#calculate').click(function(){
+            if(validform().form()) {
+                var  data =getData();
+                console.log(data);
+                //画图
+                var data4 = $RS.calcData(data);
+                data['KdjReal']=parseFloat( data4.k);
+                $('input[name="KdjReal"]').val(data4.k);
+                $('#load').val((parseFloat( data4.k)*0.00125).toFixed(3));
+                data4.drawCurve("test11");
+            }else{
+                layer.alert('请先填写必填字段');
+            }
+        });
+
+    });
+
+    function getData(){
+        var data = new Object();
+        debugger;
+        var testNum = $('#testNum').val();
+        $("#k30Add *[name]").each(function(item){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        data['PointMileage']=parseFloat($('input[name="PointMileage"]').val());
+        data['KdjDesign']=parseFloat($('input[name="KdjDesign"]').val());
+
+        data['K3SummaryData'] = [];
+        for(var i=0;i<=parseInt(testNum);i++){
+            var s1 = $('input[name="S1'+i+'"]').val();
+            var S2 = $('input[name="S2'+i+'"]').val();
+            var OilPress= $('input[name="OilPress'+i+'"]').val();
+
+            var item = {};
+            item.Grade = parseInt($('input[name="Grade'+i+'"]').val());
+            item.RealPress = parseFloat($('input[name="Press'+i+'"]').val());
+            item.Press = parseFloat($('input[name="Press'+i+'"]').val());
+            item.OilPress = parseFloat(OilPress);
+            item.S1 = parseFloat(s1)/100;
+            item.S2 =parseFloat(S2)/100;
+            //平均值显示
+            $('input[name="SAv'+i+'"]').val(parseFloat((parseFloat(s1)+parseFloat(S2))/2).toFixed(2));
+            //平均值
+            var Sav =parseFloat($('input[name="SAv'+i+'"]').val());
+            //复位平均值
+            var Sav0 = parseFloat($('input[name="SAv0"]').val());
+
+             //荷载板下沉量
+                item.SAverage =parseFloat((Sav-Sav0)/100);
+                //显示
+            $('input[name="SAverage'+i+'"]').val(parseFloat(Sav-Sav0).toFixed(2));
+            data['K3SummaryData'].push(item);
+        }
+        return data;
+    }
+
+    function validform(){
+        return  $("#k30Add").validate({
+            debug:true,
+            rules:{
+                SerialNo:{
+                    required:true
+                },
+                MachineId:{
+                    required:true
+                },
+                TestWay:{
+                    required:true
+                },
+                PointMileageFlag:{
+                    required:true
+                },
+                PointMileage:{
+                    required:true,
+                    number:true
+
+                },
+                Direction:{
+                    required:true
+                },
+                Layers:{
+                    required:true
+                },
+                TotalLayers:{
+                    required:true
+                },
+                Position:{
+                    required:true
+                },
+                TestHeight:{
+                    required:true,
+                    number:true
+                },
+                FillingThickness:{
+                    required:true,
+                    number:true
+                },
+                FillingDiameter:{
+                    required:true,
+                    number:true
+                },
+                FillingStyle:{
+                    required:true
+                },
+                TestType:{
+                    required:true
+                },
+                StartTime:{
+                    required:true
+                },
+                KdjDesign:{
+                    required:true
+                },
+                KdjReal:{
+                    required:true
+                },
+                Result:{
+                    required:true
+                },
+
+                Humidity:{
+                    required:true,
+                    digits:true
+                },
+                Temperature:{
+                    required:true,
+                    digits:true
+                }
+            }
+        });
+    }
+
+    function testLayer(testNum){
+        var str='<tr  class="text-c">';
+        str+='<th rowspan="2">测试级别</th>';
+        str+='<th rowspan="2" colspan="1">荷载强度</br>(MPa)</th>';
+        str+='<th rowspan="2" colspan="1">实际油压<br/>(MPa)</th>';
+        str+='<th colspan="3">下沉量(0.01mm)</th>';
+        str+='<th rowspan="2">荷载板<br>下沉量<br>(0.01mm)</th>';
+        str+='</tr>';
+        str+='<tr  class="text-c">';
+        str+='<th colspan="1">位移1</th>';
+        str+='<th colspan="1">位移2</th>';
+        str+='<th colspan="1">平均值</th>';
+        str+='</tr>';
+        for(i=0;i<=parseInt(testNum);i++){
+            if(i==0){
+                str+='<tr class="text-c">';
+                str+='<td ><input type="text" class="input-none text-c" value="0" name="Grade'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c" value="0" name="Press'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red" value="0" name="OilPress'+i+'"/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red" value="0" name="S1'+i+'"/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red" value="0" name="S2'+i+'"/></td>';
+                str+='<td ><input type="text" class="input-none text-c" value="0" name="SAv'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c" value="0" name="SAverage'+i+'" disabled/></td>';
+                str+='</tr>';
+            }else{
+                str+='<tr class="text-c">';
+                str+='<td ><input type="text" class="input-none text-c" value="'+i+'" name="Grade'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c" value="'+i*0.04+'" name="Press'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red" value=""  name="OilPress'+i+'" required/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red reset" value="" name="S1'+i+'" required/></td>';
+                str+='<td ><input type="text" class="input-none text-c c-red reset" value="" name="S2'+i+'" required/></td>';
+                str+='<td ><input type="text" class="input-none text-c reset" value="" name="SAv'+i+'" disabled/></td>';
+                str+='<td ><input type="text" class="input-none text-c reset" value="" name="SAverage'+i+'" disabled/></td>';
+                str+='</tr>';
+            }
+        }
+        $('#testData').html(str);
+    }
+
+    function create_new(){
+        $('.reset').val("");
+        //$('#test11:eq(0)').remove();
+    }
+
+    function save_submit(value){
+        var flag = value;
+        //表单验证
+        if(validform().form()) {
+                var data = getData();
+                var data4 = $RS.calcData(data);
+                data['KdjReal'] = parseFloat(data4.k);
+                if(data['KdjReal']>=data['KdjDesign']){
+                    data['Result']=1;
+                    $('#Result').val(1);
+                }else{
+                    data['Result']=2;
+                    $('#Result').val(2);
+                }
+                $('input[name="KdjReal"]').val(data4.k);
+                $.ajax({
+                    url: "/api/v1/KSData/" + projectId,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    data: data,
+                    type: "POST",
+                    success: function (reg) {
+                        submited =false;
+                        if (reg.code == 0) {
+                            layer.msg(reg.message, {icon: 1, time: 2000},function(){
+                                if(flag==1){
+                                    parent.location.href="/ks/testdata.html";
+                                }
+                                else if(flag==2){
+                                    create_new();
+                                }
+                            });
+
+                        } else {
+                            layer.msg(reg.message, {icon: 6, time: 2000});
+                        }
+                    },
+                    error: function () {
+                        submited =false;
+                        layer.msg('服务器异常！', {icon: 6, time: 2000});
+                    }
+                });
+
+        }
+    }
+
+</script>
+</body>
+</html>

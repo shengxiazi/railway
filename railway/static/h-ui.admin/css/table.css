@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+.table th{height:28px; padding:2px;}
+.table td{height:30px; padding:0}
+.input-bodr {
+    border:none;
+    border-bottom:1px solid #ccc;
+    width:100%;
+    height:100%;
+}
+input{
+    color: darkred;
+}
+input:disabled{
+    background-color:#fff;
+    color:black;
+}
+.input-none{
+    border:none;
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-size:14px;
+}
+h4{
+    text-align:center;
+    font-weight:bold;
+}
+.page-container{
+    padding-top:5px;
+}
+
+.form-label{
+    font-size:12px;
+    margin-top:0;
+    padding:0;
+}
+.panel-body {
+    border: none;
+}
+.content{
+    width:95%;
+    border-bottom:1px solid #ddd;
+    font-size: 14px;
+    position:absolute;bottom:3px;
+    line-height:1;
+}
+
+
+.btn{
+    margin-left:10px;
+}

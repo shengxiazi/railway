@@ -1,0 +1,188 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        .mt-20{margin:0 auto;}
+        .table th{
+            font-size:14px;
+            text-align:center;
+        }
+        .table td{
+            font-size:14px;
+        }
+
+    </style>
+    <title>参建单位信息详情</title>
+</head>
+
+<body>
+<div id="tab-system" class="HuiTab" style="margin: 0 10px">
+    <div class="tabBar cl"><span>设备详情</span><span>操作日志</span></div>
+    <div class="tabCon">
+        <article class="page-container">
+            <div class="row cl">
+                <table class="table table-border table-bordered">
+                    <tr class="text-c">
+                        <th width="150px">所属单位名称:</th>
+                        <td colspan="3" id="comName"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>设备名称:</th>
+                        <td colspan="3" id="equipTypeName"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th >设备编号:</th>
+                        <td width="300px" id="equipNo"></td>
+                        <th width="150px">设备型号:</th>
+                        <td id="equipSpec"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>设备规格:</th>
+                        <td id="equipParam"></td>
+                        <th width="100px">示值范围:</th>
+                        <td id="equipRange"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>分辨力:</th>
+                        <td id="equipResolution"></td>
+                        <th>设备厂商:</th>
+                        <td id="equipFactName"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>检定证书编号:</th>
+                        <td id="equipVerifyNo"></td>
+                        <th>检定单位名称:</th>
+                        <td id="equipVerifyFactName"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>检定证书有效起始日期:</th>
+                        <td id="equipVerifyStartDate"></td>
+                        <th>检定证书有效截止日期:</th>
+                        <td id="equipVerifyEndDate"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>是否需要检定:</th>
+                        <td id="equipVerifyFlag"></td>
+                        <th>是否超出检定有效期:</th>
+                        <td id="isVerifyOut"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>设备状态:</th>
+                        <td colspan="3" id="equipFlag"></td>
+                    </tr>
+                    <tr class="text-c">
+                        <th>备注:</th>
+                        <td colspan="3" id="equipRemark"></td>
+                    </tr>
+                </table>
+            </div>
+        </article>
+    </div>
+    <div class="tabCon">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+    var equipId = sessionStorage.equipId;
+    $(function(){
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+        var com_id=sessionStorage.com_id;
+        //获取数据
+        $.ajax({
+            url: "/api/v1/TestEquip/"+equipId,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    $.each(reg.data,function(key,value){
+                        if(value!=null){
+                            $('#'+key).text(value);
+                        }
+                        if(key=='equipFlag'){
+                            if(value==0){
+                                $('#equipFlag').html('<span class="label label-danger radius">锁定</span>');
+                            }else if(value==1){
+                                $('#equipFlag').html('<span class="label label-success radius">正常</span>');
+                            }else{
+                                $('#equipFlag').html('<span class="label label-default radius">未知</span>');
+                            }
+                        }
+                        if(key=='equipVerifyFlag'){
+                            if(value==0){
+                                $('#equipVerifyFlag').html('<span class="label label-primary radius">无需检定</span>');
+                            }else if(value==1){
+                                $('#equipVerifyFlag').html('<span class="label label-success radius">需要检定</span>');
+                            }else{
+                                $('#equipVerifyFlag').html('<span class="label label-default radius">未知</span>');
+                            }
+                        }
+                        if(key=='isVerifyOut'){
+                            if(value==0){
+                                $('#isVerifyOut').html('<span class="label label-primary radius">无需检定</span>');
+                            }else if(value==1){
+                                $('#isVerifyOut').html('<span class="label label-success radius">正常</span>');
+                            }else if(value==2){
+                                $('#isVerifyOut').html('<span class="label label-danger radius">检定超期</span>');
+                            }else{
+                                $('#isVerifyOut').html('<span class="label label-default radius">未知</span>');
+                            }
+                        }
+
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+        //操作日志
+        var url= '/api/v1/TestEquip/'+equipId+'/OperationLog';
+        opertionLog(url);
+
+    });
+</script>
+</body>
+</html>

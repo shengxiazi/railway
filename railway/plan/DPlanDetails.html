@@ -1,0 +1,592 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>地基处理桩报检单详情</title>
+    <style>
+
+        .textarea {
+            /*border: none;*/
+        }
+        .input-text:hover, .textarea:hover {
+            border: solid 0px #fff;
+        }
+        .table th{
+            font-size:14px;
+            /*width:100px;*/
+            text-align: center;
+            background-color: #f8f8f8;
+        }
+        /*.table th{width:120px;padding:3px;font-size:14px;height:25px;}*/
+        .input-none{
+            border:none;
+            width:100%;
+            text-align:center;
+            color:#8b211e;
+        }
+
+        .table  td{
+            padding:3px;
+            height:25px;
+            font-size:14px;
+        }
+        .table .text-l10 td{
+            padding-left: 10px;
+        }
+
+        /*form {*/
+        /*margin-top :-10px;*/
+        /*}*/
+
+        .select {
+            border: solid 0px #ddd;
+        }
+        .page-container {
+            padding: 10px 30px;
+            background-color: #fff;
+        }
+        .panel-header, .panel-body {
+            border-color: #f7f7f7;
+        }
+        .panel-body{
+            background-color:#fff;
+        }
+    </style>
+</head>
+<body>
+<div id="main-layout"  class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <div id="tab-system" class="HuiTab" style="margin:0px 10px ">
+            <div class="tabBar cl"><span>数据详情</span><span>工作流信息</span><span>操作日志</span></div>
+            <div class="tabCon">
+                <article class="page-container" >
+                    <form class="form form-horizontal" id="form-dplan-add">
+                        <div style="text-align: center;font-weight: bold;font-size:18px;padding-top: 0px; margin-bottom: -3px; " id="xmName"></div>
+                        <div style="text-align: center;font-weight: bold;font-size:17px;padding-bottom:10px;"><span id="testModeName"></span>检测报检单</div>
+                        <div style="margin-top: -30px;text-align: right;margin-bottom:10px;font-size: 14px;" >报检单号：<span id="planCode"></span></div>
+                        <div style="margin-top: -60px;text-align: right;margin-bottom: 35px;font-size: 14px;" ><span id="planFlag"></span></div>
+                        <table class="table table-border table-bordered radius" >
+
+                            <tr >
+                                <th colspan="1">工程名称</th>
+                                <td colspan="5" class="text-c" id="projectName"></td>
+                                <th colspan="1">测验方式</th>
+                                <td colspan="1" width="120" class="text-c" id="testWay"></td>
+                            </tr>
+                            <tr>
+
+                                <th colspan="1">布置形式</th>
+                                <td colspan="1"  class="text-c" id="pileLayout"></td>
+                                <th  colspan="1">桩间距(mm)</th>
+                                <td id="pileSpacing"  class="text-c" colspan="1"></td>
+                                <th  colspan="1">桩型</th>
+                                <td id="pileType"  class="text-c" colspan="1"></td>
+                                <th colspan="1">施工里程(m)</th>
+                                <td colspan="1"  class="text-c" id="mileage"></td>
+                            </tr>
+                            <!--<tr>-->
+                               <!---->
+                                <!--<th colspan="1">备注</th>-->
+                                <!--<td colspan="3" class="text-c" id="planRemark"></td>-->
+                            <!--</tr>-->
+                            <tr class="text-l10">
+                                <th  >建设单位</th>
+                                <td colspan="7"  id="jsComName"  ></td>
+                            </tr>
+
+                            <tr  class="text-l10">
+                                <th >监理单位</th>
+                                <td colspan="7" id="jlComName"  ></td>
+                            </tr>
+                            <tr class="text-l10">
+                                <th  >设计单位</th>
+                                <td colspan="7"  id="sjComName"></td>
+                            </tr>
+                            <tr class="text-l10">
+                                <th >施工单位</th>
+                                <td  colspan="7" id="sgComName" ></td>
+                            </tr>
+                            <tr >
+                                <th >原始资料</th>
+                                <td colspan="3" class="text-c">地质概况：
+                                    <input type="hidden" name="geologyDoc" id="geologyDoc" />
+                                    <span id="geologySpan" class="c-red">暂无文档</span>
+                                    <input id="geologyBtn" style="display: none"  class="btn btn-success-outline size-MINI radius" type="button" onclick="viewFile('geologyDoc');"  value="查看">
+                                </td>
+                                <td colspan="2" class="text-c">工程概况：
+                                    <input type="hidden" name="projectDoc" id="projectDoc" />
+                                    <span id="projectSpan" class="c-red">暂无文档</span>
+                                    <input id="projectBtn" style="display: none" class="btn btn-success-outline size-MINI radius" type="button" onclick="viewFile('projectDoc');"  value="查看">
+                                </td>
+                                <td  colspan="2" class="text-c">桩 位 图：
+                                    <input type="hidden" name="pileDoc" id="pileDoc" />
+                                    <span id="pileSpan" class="c-red">暂无图片</span>
+                                    <input id="pileBtn" style="display: none" class="btn btn-success-outline size-MINI radius" type="button" onclick="viewFile('pileDoc');"  value="查看">
+                                </td>
+
+                            </tr>
+                        </table>
+                        <table class="table table-border table-bordered radius" id="dTable" style="border-top:0;">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class=" table table-border table-bordered" style="border-top:0;">
+                            <tr  >
+                                <th >施工单位负责人</th>
+                                <td  style="width:120px " class="text-c"  id="sgpName" ></td>
+                                <th>报检人</th>
+                                <td id="createName" class="text-c">
+                                </td>
+                                <th  >报检日期</th>
+                                <td style="width:120px " class="text-c" id="createDate">
+                                </td>
+                            </tr>
+
+                            <tr class="text-l10" >
+                                <th  >监 理 工 程 师</th>
+                                <td    id="verifyName" class="text-c" colspan="3">
+
+                                </td>
+                                <th  >审批日期</th>
+                                <td  class="text-c" id="verifyTime" colspan="1">
+                                </td>
+                            </tr>
+
+                            <tr class="text-l10">
+
+                                <th >检测中心接收人</th>
+                                <td id="acceptName" class="text-c"  colspan="3">
+
+                                </td>
+                                <th >受理日期</th>
+                                <td colspan="1" class="text-c" id="acceptTime">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </article>
+            </div>
+            <div class="tabCon">
+                <article class="page-container">
+                    <table  class="table table-border table-bordered table-hover table-bg">
+                        <thead>
+                        <tr class="text-c">
+                            <th>操作事件名称</th>
+                            <th>备注</th>
+                            <th>当前状态操作人</th>
+                            <th>操作时间</th>
+                        </tr>
+                        </thead>
+                        <tbody id="workInfo">
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+            <div class="tabCon">
+                <div class="cl pd-5 bg-1 bk-gray mt-10">
+                    <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+                </div>
+                <div class="mt-10">
+                    <table class="table table-border table-bordered table-hover table-bg table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">模块名称</th>
+                            <th width="200">操作内容</th>
+                            <th width="100">操作人</th>
+                            <th width="50">操作时间</th>
+                            <th width="70">操作详情</th>
+                        </tr>
+                        </thead>
+                        <tbody id="logInfo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south'" id="power" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+    </div>
+</div>
+
+
+
+<div id="status-modal" style="display:none ;width:480px ;height:200px;padding:15px;">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-sm-3"><span class="c-red">*</span>原因：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <textarea class="textarea" id="reason"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<!--数据受理通过-->
+<article class="page-container" id="AcceptPass-modal" style="display:none">
+    <form class="form form-horizontal" id="form-sc-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>实验人员(最多两名):</label>
+
+            <div class="formControls col-xs-8 col-sm-9" id="user-list">
+
+            </div>
+        </div>
+
+        <div class="row cl mar">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>依据标准:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+
+                <span class="select-box" >
+                    <select name="TestStandard" id="TestStandard" size="1"  class="select">
+                    </select>
+                </span>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/layoutHidden.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+<script type="text/javascript">
+
+    var id = sessionStorage.dplanId;
+    var projectId = sessionStorage.pro_id;
+    var initPower =  JSON.parse( sessionStorage.dpalninitPower);
+    var reload_url = '/plan/dplan.html';
+    var geologyDoc,projectDoc,pileDoc;
+    var planFlag;
+    $(function(){
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+
+        var DtestStandard=JSON.parse( sessionStorage.DtestStandard);
+        var StandardStr = '<option value="">--请选择--</option>';
+        $.each( DtestStandard,function(n,val){
+            StandardStr+='<option value="'+val.code+'">'+val.name+'</option>';
+        });
+        $('#TestStandard').html(StandardStr);
+
+        //获取数据
+        $.ajax({
+            url: '/api/v1/DPlan/'+projectId+'/'+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if (reg.code == 0) {
+                    console.log(reg.data);
+                    var testMode="";
+                    for (var Key in reg.data){
+                        var value=reg.data[Key];
+                        if(value==null|| value=="null"){
+
+                            value="";
+                        }
+                        if(Key=='verifyTime'||Key=='acceptTime'){
+                            value=value.replace(/ \d+(:\d+){2}/,'');
+                        }
+                        if(Key=='testModeCode'){
+                            testMode=value;
+                        }
+                        if(Key=='geologyDoc'){
+                            geologyDoc=value;
+                            if(value!=null&& value!=""){
+
+                                $("#geologyBtn").show();
+                                $("#" + 'geologySpan').hide();
+
+                            }else {
+                                $("#" + 'geologySpan').show();
+                                $("#geologyBtn").hide();
+
+                            }
+                        }
+                        if(Key=='projectDoc'){
+                            projectDoc=value;
+                            if(value!=null&& value!=""){
+
+                                $("#projectBtn").show();
+                                $("#" + 'projectSpan').hide();
+
+                            }else {
+                                $("#" + 'projectSpan').show();
+                                $("#projectBtn").hide();
+
+                            }
+                        }
+                        if(Key=='pileDoc'){
+                            pileDoc=value;
+                            if(value!=null&& value!=""){
+
+                                $("#pileBtn").show();
+                                $("#" + 'pileSpan').hide();
+
+                            }else {
+                                $("#" + 'pileSpan').show();
+                                $("#pileBtn").hide();
+
+                            }
+                        }
+
+                        $('#'+Key).text(value);
+                        if(Key=='testWay'){
+                            var testWay = JSON.parse(sessionStorage.DtestWay);
+                            var testWayStr = '-';
+                            $.each(testWay,function(key,val){
+                                if(val.code==value){
+                                    testWayStr=val.name;
+                                }
+                            });
+
+                            $('#testWay').text(testWayStr);
+                        }
+                        if(Key=='planFlag'){
+                            if(value==99){
+                                var html='<span class="label label-danger radius">作废</span>';
+                                $('#'+Key).html(html);
+
+                            }else if(value==11){
+                                var html='<span class="label label-warning radius">草稿</span>';
+                                $('#'+Key).html(html);
+
+                            }
+                            else if(value==23){
+                                var html='<span class="label label-primary radius">已提交</span>';
+                                $('#'+Key).html(html);
+                            }
+                            else if(value==45){
+                                var html='<span class="label label-success radius">审核通过</span>';
+                                $('#'+Key).html(html);
+                            }
+                            else if(value==14){
+                                var html='<span class="label label-danger radius">审核驳回</span>';
+                                $('#'+Key).html(html);
+                            }
+                            else if(value==56){
+                                var html='<span class="label label-success radius">受理通过</span>';
+                                $('#'+Key).html(html);
+                            }
+                            else if(value==16){
+                                var html='<span class="label label-danger radius">受理驳回</span>';
+                                $('#'+Key).html(html);
+                            }else {
+                                var html='<span class="label label-default radius">其它</span>';
+                                $('#'+Key).html(html);
+                            }
+                        }
+                    }
+                    var thstr = "";
+                    thstr+= '<tr class="text-c">';
+                    thstr+= '<th colspan="10">报 检 详 情</th>';
+                    thstr+= '</tr>';
+                    thstr+= '<tr class="text-c"  id="addTestQuota">';
+                    thstr+= '<th  width="25">序号</th>';
+                    thstr+= '<th width="100">桩号 </th>';
+                    thstr+= '<th  width="100">设计桩顶<br/>标高(m) </th>';
+                    thstr+= '<th width="100">设计桩底<br/>标高(m) </th>';
+
+                    thstr+= '<th width="80">设计桩长<br/>(m)</th>';
+                    thstr+= '<th  width="80">设计桩径<br/>(mm)</th>';
+
+                    thstr+= '<th  width="50">砼强度<br/>等级</th>';
+                    if(testMode=='DY'||testMode=='SC'||testMode=='ZX'||testMode==''){
+                        thstr+= '';
+                    }else
+                    {
+                        thstr+= '<th id="czlth"  width="80">承载力<br/>设计值(kN)</th>';
+                    }
+
+
+                    thstr+= '<th width="150">灌注日期</th> ';
+                    thstr+= '</tr>';
+                    $('#dTable thead').html(thstr);
+                    var str = "";
+                    $.each(reg.data.testPile, function (key, val) {
+
+                        str += '<tr class="text-c" data-id="'+val.ID+'">';
+                        str += '<td >'+(key+1)+'</td>';//
+                        str += '<td >'+val.pileNo+'</td>';//桩号
+                        str += '<td >'+val.pileTopHeight+'</td>';//设计桩顶标高(m)
+                        str += '<td >'+val.pileBottomHeight+'</td>';//设计桩底标高(m)
+
+                        str += '<td >'+val.pileLength+'</td>';//设计桩长(m)
+                        str += '<td >'+val.pileDiameter+'</td>';// 设计桩径(mm)
+
+                        str += '<td >'+val.pileTong+'</td>';// 砼强度等级
+                        if(testMode=='DY'||testMode=='SC'||testMode=='ZX'||testMode==''){
+                            str+= '';
+                        }else
+                        {
+                            str += '<td >'+val.pileLoad+'</td>';//承载力设计值(kN)
+                        }
+
+                        str += '<td >'+val.constructionDate+'</td>';//灌注日期
+
+                        str += '</tr>';
+
+                    });
+                    $('#dTable tbody').html(str);
+
+                }
+                else {
+
+                    layer.alert(reg.message);
+                }
+
+            },error:function(){
+                layer.alert('请求出错！');
+
+            }
+        });
+        //获取当前用户操作权限
+        var Actionurl='/api/v1/DPlan/'+projectId+'/'+id+'/ActionEvent';
+        getActionEvent(Actionurl);
+
+
+        //工作流
+        var workinfourl='/api/v1/DPlan/'+projectId+'/'+id+'/WorkflowLog';
+        workInfo(workinfourl);
+
+        //操作日志
+        var url= '/api/v1/DPlan/'+projectId+'/'+id+'/OperationLog';
+        opertionLog(url);
+    });
+
+    //编辑
+    $('#power').on('click','#edit',function(){
+        parent.layer.open({
+            type: 2,
+            title:'编辑地基处理桩报检单',
+            shade:0.4,
+            area: ['90%', '98%'],
+            content:'DPlanEdit.html'
+        });
+        sessionStorage.dplanId = id;
+        layer_close();
+    });
+
+    //打印
+    $('#power').on('click','#print',function(){
+
+        var url ='/api/v1/DPlan/'+projectId+'/'+id+'/PdfDoc?'+Math.random();
+        parent.layer.open({
+            type: 2,
+            title:'打印地基处理桩报检单',
+            shade:0.4,
+            area: ['90%', '98%'],
+            content:url
+        });
+        layer_close();
+    });
+
+
+
+    //删除
+    $("#operation").on("click","#del", function(){
+
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                url: '/api/v1/DPlan/'+projectId+'/'+id,    //请求的url地址
+                dataType: "json",
+                async: true,
+                type: "DELETE",
+                success: function(reg) {
+                    if(reg.code==0){
+                        layer.msg('已删除!',{icon:1,time:2000},function(){
+                            parent.location.href = "/plan/dplan.html";
+                        });
+                    }else{
+                        layer.alert(reg.message);
+                    }
+                }
+            });
+        });
+    });
+
+    //审核通过
+    $('#power').on('click','#VerifyPass',function() {
+        var uri ='/api/v1/DPlan/'+projectId+'/'+id+'/VerifyPass';
+        PassStatus(uri);
+    });
+
+    //审核驳回
+    $('#power').on('click','#VerifyBack',function() {
+        var uri = '/api/v1/DPlan/'+projectId+'/'+id+'/VerifyUnPass';
+        BackStatus(this.value,uri);
+    });
+
+    //受理通过
+    $('#power').on('click','#ACCEPTPASS',function() {
+        var uri ='/api/v1/DPlan/'+projectId+'/'+id+'/AcceptPass';
+        AcceptPassAction(uri);
+    });
+
+
+    //受理驳回
+    $('#power').on('click','#ACCEPTBACK',function() {
+        var uri ='/api/v1/DPlan/'+projectId+'/'+id+'/AcceptUnPass';
+        BackStatus(this.value,uri);
+    });
+
+
+
+
+    function  viewFile(id) {
+
+        var fileCode="";
+        if(id=="geologyDoc"){
+            fileCode=geologyDoc;
+        }
+        if(id=="projectDoc"){
+            fileCode=projectDoc;
+        }
+        if(id=="pileDoc"){
+            fileCode=pileDoc;
+        }
+
+        //用code取文档和图片 ajax处理 待完成
+        var url = '/api/v1/res/' + fileCode + '?' + Math.random();
+
+
+        layer_open('文件预览', url, '90%', '97%');
+
+    }
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" href="../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>系统角色</title>
+    <style>
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+        .cl{
+            position:relative;
+        }
+        .num-select{
+            position:absolute;
+            right:10px;
+            bottom:10px;
+        }
+        .selected{background-color:#008855;}
+
+
+    </style>
+</head>
+<body>
+<div id="role" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理<span class="c-gray en">&gt;</span>角色管理<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20" style="position:relative">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="mt-20">
+            <div class="dataTables_wrapper" id="table-data">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看-->
+<div class="page-container" id="role-show" style="display:none">
+    <div id="tab-system" class="HuiTab" style="margin:10px">
+        <div class="tabBar cl"><span>单位详情</span><span>操作日志</span></div>
+        <div class="tabCon">
+            <form class="form form-horizontal" id="form-role-add" >
+
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色分类：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" placeholder="" id="roleGroupName" name="roleGroupName">
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>排序：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="" placeholder="" id="roleOrder" name="roleOrder">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>角色描述：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea name="roleDescription"  id="roleDescription"  cols="" rows="" class="textarea"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tabCon">
+            <div class="cl pd-5 bg-1 bk-gray mt-10">
+                <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+            </div>
+            <div class="mt-10">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="100">模块名称</th>
+                        <th width="200">操作内容</th>
+                        <th width="100">操作人</th>
+                        <th width="50">操作时间</th>
+                        <th width="70">操作详情</th>
+                    </tr>
+                    </thead>
+                    <tbody id="logData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--用户授权-->
+<div class="page-container" id="role-grant" style="display:none">
+    <form class="form form-horizontal" id="role-grant-form">
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>模块名称：</label>
+            <div class="formControls col-xs-4 col-sm-4">
+                <input type="text" class="input-text" placeholder=""  id="moduleName">
+                <input type="hidden"  placeholder="" value=" " id="moduleId" name="moduleId">
+                <ul id="tree" class="ztree" style="display:none"></ul>
+            </div>
+            <button type="button" class="btn btn-success radius" id="selectModule">请选择</button>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>模块权限列表：</label>
+            <div class="formControls col-xs-8 col-sm-9" id="operation-list">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+    $(function() {
+
+        //tab选项卡
+        $.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+
+        //初始化操作
+        $.ajax({
+            url: "/api/v1/Role/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if (reg.code == 0) {
+                    opertion('role', reg.data.action, 'operation');
+                    groupstr = JSON.stringify(reg.data.groups);
+                    localStorage.groups = groupstr;
+                    localStorage.modules = JSON.stringify(reg.data.modules);
+                    localStorage.authority = JSON.stringify(reg.data.authority);
+                    localStorage.moduletags = JSON.stringify(reg.data.moduletags);
+                    var url = '/api/v1/Role';
+                    getPage(url);
+
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+            });
+
+
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tr',function(){
+
+          var id = $(this).attr('data-id');
+           show_details(id);
+        });
+        $('#operation').on('click','#del',function(){
+
+            //获取被选中的id
+           var id= $('#sortable_table').find('.selected').attr('data-id');
+          if(id==undefined || id== ''){
+              layer.alert('请选择一条记录！');
+              return false;
+          }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/Role/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $('#sortable_table').find('.selected').remove();
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+
+        });
+
+        //添加
+        $('#operation').on('click','#add',function(){
+
+            layer_show('添加角色','role-add.html','700','400')
+
+        });
+
+        //编辑
+        $('#operation').on('click','#edit',function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            localStorage.roleId = id;
+            layer_show('编辑角色','role-edit.html','700','400')
+
+        });
+
+        //查看
+        $('#operation').on('click','#view',function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            show_details(id);
+        });
+
+        //授权
+        $('#operation').on('click','#grant',function(){
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            localStorage.role_id = id;
+            layer_show('角色授权','role-grant.html','800','600');
+
+        });
+
+    });
+
+
+    //分页函数
+    function getPage(uri){
+        var tableInfo='';
+        tableInfo+='<table id="sortable_table" class="table table-border table-bordered table-hover table-bg">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="100">角色名称</th>';
+        tableInfo+='<th width="50">角色分组名称</th>';
+        tableInfo+='<th width="100">角色排序</th>';
+        tableInfo+='<th width="100">分组排序</th>';
+        tableInfo+='<th width="130">角色描述</th>';
+        tableInfo+='<th width="130">创建时间</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:uri,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var data = reg.data;
+
+                    if (data.length!=0){
+                        $.each(data,function(n,value){
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.roleId+'">';
+                            tableInfo+='<td>'+value.roleName+'</td>';
+                            tableInfo+='<td>'+value.RoleGroupName+'</td>';
+                            tableInfo+='<td>'+value.roleOrder+'</td>';
+                            tableInfo+='<td>'+value.RoleGroupOrder+'</td>';
+                            tableInfo+='<td>'+value.roleDescription+'</td>';
+                            tableInfo+='<td>'+value.createTime+'</td>';
+                            tableInfo+='</tr>';
+                        });
+                        tableInfo+='</tbody></table>';
+                        $('#table-data').html(tableInfo);
+
+
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+
+
+            }
+        });
+
+    }
+
+    function show_details(id){
+
+        //获取数据
+        $.ajax({
+            url: "/api/v1/Role/"+id,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var data=reg.data;
+                    $('#roleGroupName').val(data.roleGroupName);
+                    $('#roleName').val(data.roleName);
+                    $('#roleOrder').val(data.roleOrder);
+                    $('#roleDescription').val(data.roleDescription);
+                    var index=layer.open({
+                        type: 1,
+                        content: $('#role-show'), //这里content是一个DOM
+                        area: ['700px', '450px'],
+                        title:'角色详情'
+                    });
+
+                }else{
+                    layer.msg(reg.message,{icon:1,time:2000});
+                }
+            }
+        });
+
+        //操作日志
+        var loginfo  ="";
+        $.ajax({
+            url: '/api/v1/Role/'+id+'/OperationLog',    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var data = reg.data;
+                    var total =reg.total;
+                    $(".data-total").text(total);
+                    $.each(data,function(n,value){
+                        loginfo+="<tr class='text-c'>" ;
+                        loginfo+="<td >"+value.authorityName+"</td>";
+                        loginfo+="<td>"+value.oprationContent+"</td>";
+                        loginfo+="<td >"+value.createName+"</td>";
+                        loginfo+="<td >"+value.createTime+"</td>";
+                        if(value.authorityName=='编辑'){
+                            loginfo+="<td><a href=\"javascript:;\" data-logid ="+value.logId+" class=\"btn btn-success radius\"> <i class=\"Hui-iconfont\">&#xe616;</i> 查看</a></td>";
+                        }else{
+                            loginfo+="<td></td>";
+                        }
+                        loginfo+="</tr>";
+                    });
+                    $("#logData").html(loginfo);
+
+                }
+            }
+        });
+
+        $('#logData').on('click','a',function(){
+            var logId= $(this).attr("data-logid");
+            var url="/api/v1/OperationLog/"+logId+"/ListByLogId";
+            $.get(url,function(reg){
+                if(reg.code==0){
+                    var data = reg.data;
+                    var str = "<table class=\"table table-border table-bordered table-hover table-bg table-sort\">";
+                    str+="<thead>";
+                    str+="<tr class=\"text-c\">";
+                    str+=" <th width=\"100\">修改字段名称</th>";
+                    str+=" <th width=\"100\">修改前的值</th>";
+                    str+=" <th width=\"100\">修改后的值</th>";
+                    str+="</tr></thead>";
+                    str+=" <tbody id=\"log\">";
+                    $.each(data,function(n,value){
+                        str+="<tr class=\"text-c\">";
+                        str+="<td >"+value.fieldName+"</td>";
+                        str+="<td>"+value.prevValue+"</td>";
+                        str+="<td >"+value.afterValue+"</td>";
+                        str+="</tr>";
+                    });
+                    str+="</tbody>";
+                    str+="</table>";
+
+                    layer.open({
+                        type: 1,
+                        content:str  //注意，如果str是object，那么需要字符拼接。
+                    });
+                }
+            });
+
+        });
+
+    }
+
+
+
+</script>
+</body>
+</html>

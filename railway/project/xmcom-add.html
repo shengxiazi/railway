@@ -1,0 +1,267 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>添加参建单位</title>
+   </head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-xmcom-add" >
+    <div  data-options="region:'center',split:true" style="width:100%">
+            <article class="page-container">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属项目：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+               <span class="select-box" >
+                    <select class="select" name="xmId" id="xmId" size="1">
+
+                    </select>
+                 </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>单位类型：</label>
+            <div class="formControls col-xs-9 col-sm-9">
+               <span class="select-box">
+                    <select class="select" name="comTypeCode" id="comTypeCode" size="1">
+
+                    </select>
+                 </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>总公司名称：</label>
+            <div class="formControls col-xs-9 col-sm-9">
+              <span class="select-box">
+                    <select class="select" name="comId" id="comId" size="1">
+
+                    </select>
+                 </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>项目部全称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="xmComName" name="xmComName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>项目部简称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="xmComShortName" name="xmComShortName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2">项目部地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="xmComAddress" name="xmComAddress">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2">项目负责人：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="contactName" name="contactName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2">联系电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="contactMobile" name="contactMobile">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-2">参建标段</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <select id="bdList" name="bdList" multiple="multiple" size="6" style="width:250px">
+                </select>
+                <span class="c-red">（按下ctrl键多选）</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="remark"  id="remark"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+</article>
+
+    </div>
+    <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+        <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+    </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    var comType = JSON.parse(sessionStorage.xmcomtype);
+    var comlist = JSON.parse(sessionStorage.xmcomlist);
+    var xmlist = JSON.parse(sessionStorage.xmlist);
+    var xmId = sessionStorage.com_xmId ;
+    $(function(){
+        $("#form-xmcom-add").validate({
+            debug:true,
+            rules:{
+                comTypeCode:{
+                    required:true
+                },
+                comId:{
+                    required:true
+                },
+                xmComName:{
+                    required:true
+                },
+                xmComShortName:{
+                    required:true
+                },
+                bdList:{
+                    required:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                save_submit();
+            }
+        });
+
+        var comTypestr="<option>--请选择--</option>";
+        //初始化单位类型
+        $.each(comType,function(key,val){
+            comTypestr += '<option value="'+val.code+'">'+val.name+'</option>';
+        });
+        $("#comTypeCode").html(comTypestr);
+
+        //初始化项目
+        var xmStr = "";
+        $.each(xmlist,function(key,val){
+            xmStr += '<option value="'+val.value+'">'+val.name+'</option>'
+        });
+        $("#xmId").html(xmStr);
+
+        $('#xmId').val(xmId);
+
+    //单位类型改变时
+        $('#comTypeCode').bind('change',function(){
+            var comcode = this.value;
+            //获取项目id
+            xmId = $('#xmId').val();
+
+            var comStr ='<option>--请选择--</option>';
+            $.each(comlist,function(key,val){
+                if(comcode==val.comTypeCode){
+                    comStr += '<option value="'+val.comId+'">'+val.comName+'</option>';
+                }
+            });
+            $('#comId').html(comStr);
+
+            getBdCode(xmId,comcode);
+
+        });
+
+        //项目改变时
+        $('#xmId').bind('change',function(){
+            var comcode = $('#comTypeCode').val();
+            xmId = this.value;
+            getBdCode(xmId,comcode);
+        });
+
+
+    });
+
+    //获取项目标段
+    function getBdCode(xmId,comcode){
+        $.ajax({
+            url: '/api/v1/BDProject/'+xmId+'/LiteListByXMId?bdTypeCode='+comcode,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    //标段列表
+                    var bdStr = '';
+                    $.each(reg.data,function(k1,v1){
+                        if(comcode==v1.bdTypeCode){
+                            bdStr +='<option value="'+v1.bdId+'">'+v1.bdCode+'</option>';
+                        }
+                    });
+                    $('#bdList').html(bdStr);
+
+                }else{
+                    layer.msg(reg.message,{icon:6,time:2000});
+                }
+            }
+        });
+    }
+
+    var submited = false;
+    function save_submit(){
+        if( checkSubmit()) {
+            var data = new Object();
+            data['comTypeCode'] = $("#comTypeCode").val();
+            data['comId'] = $("#comId").val();
+            data['xmComName'] = $("#xmComName").val();
+            data['xmComShortName'] = $("#xmComShortName").val();
+            data['xmComAddress'] = $("#xmComAddress").val();
+            data['contactName'] = $("#contactName").val();
+            data['contactMobile'] = $("#contactMobile").val();
+            data['bdList'] = $('#bdList').val();
+            data["remark"] = $('#remark').val();
+            $.ajax({
+                url: "/api/v1/XMCompany/" + xmId,    //请求的url地址
+                dataType: "json",
+                async: true,
+                data: data,
+                type: "POST",
+                success: function (reg) {
+                    submited = false;
+                    if (reg.code == 0) {
+                        layer.msg(reg.message, {icon: 1, time: 2000},function(){
+                            parent.location.href = "/project/comlist.html";
+                        });
+
+                    } else {
+                        layer.msg(reg.message, {icon: 6, time: 2000});
+                    }
+                },
+                error:function(){
+                    layer.alert('保存失败！');
+                    submited = false;
+                }
+            });
+        }
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

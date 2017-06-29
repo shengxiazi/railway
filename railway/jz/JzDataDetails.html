@@ -1,0 +1,2033 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">-->
+    <link rel="stylesheet" type="text/css" href="../lib/jqueryUI/jquery-ui-1.8.11.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jqtree/jquery.treeview.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/gyDetails.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../lib/fixedHead/css/normalize.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../lib/fixedHead/css/demo.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../lib/fixedHead/css/component.css" />-->
+    <!--[if IE]>
+    <!--<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>-->
+    <![endif]-->
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>静载数据详情</title>
+    <style>
+        .jzbheader {
+            width: 100px;
+            height: 40px;
+            background-image: url(../static/h-ui.admin/images/jzb.jpg);
+            background-repeat: no-repeat;
+        }
+        .auto-content table {
+            /*margin-top: 5px;*/
+            width: auto;
+        }
+        .resultT{
+            width: 900px;
+        }
+        .table th,td {
+            white-space: nowrap;
+        }
+
+        #result-table tr{
+            background-color: #EEE;
+        }
+
+        #LoadTable .table th  {
+            padding: 0px;
+        }
+
+        .defineTd td{
+            width: 100px;
+
+        }
+        .pilecurve {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 60px;
+        }
+        th, td {
+
+            font-size: 0.88rem;
+
+        }
+
+        .result-content {
+            top: 165px;
+        }
+        .ui-layout-center {
+            border: none;
+        }
+        .input-text{
+            /*width: 70px;*/
+        }
+        .tredited td input{
+            /*background-color: #00b7ee;*/
+            border: 1px solid #ff3631;
+        }
+         #result-table td {
+            padding: 0px;
+        }
+        #result-table th {
+            padding: 5px;
+        }
+
+        .ui-layout-content table {
+            /*margin-top: 5px;*/
+            width: auto;
+        }
+        .input-text{
+            border: solid 1px #FFF;
+            text-align: center;
+        }
+        #baseData1   th{
+            text-align: right;
+        }
+        #baseData1 .tr-input th{
+            padding: 3px;
+        }
+        .tr-input td{
+            padding: 3px;
+        }
+        .resut-left{  height:100%;width: 50%;float:left ;background-color: #fff}
+        .resut-right{ width:50%;height: 100%; float:right ;background-color: #fff}
+        /*高亮行*/
+        .HightRow { background-color: #FFd462;  cursor: default; font-family: verdana;    padding:5px;}
+        .HightRow .td {background-color: #FFd462; border-right: 1px solid #E6E6E6;  border-bottom: 1px solid #E6E6E6;  padding :5px; }
+        tr.locktop{
+            position:relative;
+            /*top:120px;*/
+            /*top:expression((this.offsetParent.scrollTop>this.parentElement.parentElement.offsetTop?this.offsetParent.scrollTop-this.parentElement.parentElement.offsetTop-1:0)-1);*/
+        }
+    </style>
+
+</head>
+<body >
+<div id="tabs" >
+    <ul class="stabs">
+        <li><a href="#tabs-1">静载原始数据</a></li>
+        <li><a href="#tabs-2">分析数据</a></li>
+        <li><a href="#tabs-3">测点位置</a></li>
+        <li><a href="#tabs-4">操作日志</a></li>
+    </ul>
+
+    <div id="tabs-1" class="ptabs">
+        <div class="ui-layout-center">
+            <table id="baseData" class="table pielinfotable  table-border table-bordered">
+                <tr class="text-c" >
+                    <th><span>检测编号：</span></th><td><span id="SerialNo"></span></td>
+                    <th><span>桩号：</span></th><td><span id="PileNo"></span></td>
+                    <th><span>仪器编号：</span></th><td><span id="MachineId"></span></td>
+                    <th><span>上岗证号：</span></th><td><span id="ShangGangZheng"></span></td>
+                </tr>
+                <tr class="text-c">
+                    <th><span>测试方法：</span></th><td><span id="TestType"></span></td>
+                    <th><span>预估荷载：</span></th><td><span id="MaxLoad"></span> kN</td>
+                    <th><span>开始时间：</span></th><td><span id="StartTime"></span></td>
+                    <th><span>设备厂家：</span></th><td><span id="CreaterName"></span></td>
+
+                </tr>
+                <tr class="text-c">
+                    <!--<th><span>最大位移：</span></th><td><span id="MaxS"></span> mm</td>-->
+                    <th><span>数据有效性：</span></th><td><span  id="IsValid"></span></td>
+                    <th><span>记录数：</span></th><td><span id="RecordCount"></span></td>
+                    <th><span>上传时间：</span></th><td ><span id="CreateTime"></span></td>
+                    <th><span>GPS定位：</span></th><td ><span id="IsGps"></span>
+                    <input type="hidden" id="BasicInfoId" value="0" /> </td>
+
+                </tr>
+            </table>
+
+        </div>
+        <div class="ui-layout-content  auto-content  basedata-content" style="overflow:hidden;">
+            <div id='infotabs' class='tabcontent hide'>
+                <ul>
+                    <li><a href="#GatherTable">汇总表</a></li>
+                    <li><a href="#pilecurvebox">数据曲线</a></li>
+                    <li><a href="#SourceTable">原始表</a></li>
+                    <li><a href="#LoadTable">加载表</a></li>
+                    <li><a href="#UnloadTable">卸载表</a></li>
+                    <li><a href="#ChangeTable">修改表</a></li>
+                    <li><a href="#CsrzTree">测试日志</a></li>
+                    <li><a href="#yscsTree">原始参数</a></li>
+                    <li><a href="#">可疑报告</a></li>
+                    <!--<li><a href="#pilekeyi">可疑报告</a></li>-->
+                    <!--<li><a href="#pilemaps">GPS定位</a></li>-->
+                    <!--<li><a href="#pilepics">现场照片</a></li>-->
+
+                </ul>
+                <!--<div id='pilemaps' class='ui-tabs-panel'>-->
+                <!--<div id="baiduMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>-->
+                <!--<div id="maptips" class='tipsinfo txtleft hide'>正在加载信息中……</div>-->
+                <!--</div>-->
+                <!--<div id='pilepics' class='ui-tabs-panel'>-->
+                <!--<div id="imglistbox" class="" style="overflow: auto;"></div>-->
+                <!--<div id="pictips" class='tipsinfo txtleft hide'>正在加载信息中……</div>-->
+                <!--</div>-->
+                <div id='GatherTable' class='ui-tabs-panel defineTd '>
+                    <!--<table  align="center"  class="table table-border table-bordered   radius" id="GatherTableT">-->
+                        <!--<thead>-->
+
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+                <div id='LoadTable' class='ui-tabs-panel defineTd'>
+                    <!--<table  align="center"  class="table table-border table-bordered   radius" id="LoadTableT">-->
+                        <!--<thead>-->
+
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+                <div id='UnloadTable' class='ui-tabs-panel defineTd'>
+                    <!--<table  align="center"  class="table table-border table-bordered   radius" id="UnloadTableT">-->
+                        <!--<thead>-->
+
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+                <div id='ChangeTable' class='ui-tabs-panel defineTd'>
+                    <!--<table  align="center"  class="table table-border table-bordered   radius" id="ChangeTableT">-->
+                        <!--<thead>-->
+
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+                <div id='SourceTable' class='ui-tabs-panel'>
+                    <!--<table  align="center"  class="table table-border table-bordered   radius" id="SourceTableT">-->
+                        <!--<thead>-->
+
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+                <div id='yscsTree' class='ui-tabs-panel '>
+
+                </div>
+                <div id='CsrzTree' class='ui-tabs-panel '>
+
+                </div>
+                <div id='pilekeyi' class='ui-tabs-panel'>
+                    <div id="kyGrid" class="hide"></div>
+                    <div id="kytips" class='tipsinfo txtleft hide'>正在加载信息中……</div>
+                </div>
+                <div id="pilecurvebox" class="ui-tab-panel">
+                    <div id="pilecurve" style="width:1470px;">
+                        <div id="qs" class="pilecurve"></div>
+                        <div id="slgt" class="pilecurve"></div>
+                        <div id="slgq" class="pilecurve"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tabs-2" class="ptabs">
+        <div  id="rsBaseTable" class="ui-layout-center">
+            <form id="baseData-form">
+                <table id="baseData1" class="table pielinfotable  table-border table-bordered " align="center" >
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+            </form>
+
+
+        </div>
+        <div class="ui-layout-content result-content" id="resultContent" style="overflow:hidden;">
+
+        <div class="resut-left" >
+            <div id="left-all" style="border-right: 1px solid #ddd;">
+
+                <div id="left-main"  style="width:100%;background-color: #fff">
+
+
+                    <!--<article class="page-container" >-->
+                        <!--<form class="form form-horizontal" id="form-jz">-->
+
+                            <div id="result-table-div" style="overflow-x:auto;overflow-y:auto;">
+
+                            </div>
+                        <!--</form>-->
+                    <!--</article>-->
+                    <div  id="resultpower"   style="height:40px; padding-top:5px; text-align:center ;background-color:#eee;" >
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="resut-right">
+            <div id="pictabs" >
+                <ul class="stabs">
+                    <li><a href="#pictabs-1">s-lgt曲线</a></li>
+                    <li><a href="#pictabs-2">Q-s曲线</a></li>
+                    <li><a href="#pictabs-3">汇总表</a></li>
+
+                </ul>
+
+                <div id="pictabs-1" class="pictabs" style="background-color: #fff">
+                    <img id="slgtImge" src="">
+                </div>
+                <div id="pictabs-2" class="pictabs"  style="background-color: #fff">
+                    <img id="qsImge" src="">
+                </div>
+                <div id="pictabs-3" class="pictabs defineTd "  style="background-color: #fff">
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="tabs-3" class="ptabs">
+        <div id="fenbuMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>
+    </div>
+    <div id="tabs-4" class="ptabs">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r" style="text-align: center">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table align="center" class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="200">操作时间</th>
+                    <th width="100">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--数据复核-->
+<article class="page-container" id="data-review" style="display:none">
+    <form class="form form-horizontal" id="form-data-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据有效-->
+<article class="page-container" id="data-isValid" style="display:none">
+    <form class="form form-horizontal" id="form-data-isValid" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据有效性：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="isValid-set1" value="1" name="isValid" checked>
+                    <label for="isValid-set1">有效</label>
+                </div>
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="isValid-set2" value="0" >
+                    <label for="isValid-set2">无效</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-set"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+
+<!--<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>-->
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/comResult.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="../static/js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="../static/js/RsCurve.min.js"></script>
+<script type="text/javascript" src="../lib/jcarousellite.js"></script>
+
+<script type="text/javascript"  src="../lib/jqueryUI/jquery-ui-1.8.11.custom.min.js" ></script>
+<script type="text/javascript" src="../lib/jqtree/jquery.treeview.pack.js?ver=1.4"></script>
+
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zlikWrFQ3iQ3qguure5BZxna"></script>-->
+<!--<script type="text/javascript" src="../static/js/convertor.js"></script>-->
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?ak=zlikWrFQ3iQ3qguure5BZxna&v=2.0"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/baiduMap.js"></script>
+<script type="text/javascript">
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+   var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.jzbaseInfoId;
+    var left_offset = ($(document).width() - 600) / 2;//显示在浏览器窗口比较正的位置，看着比较舒服
+    var top_offset = ($(document).height() - 278) / 3;
+    var submited = false;
+    var MaxLoad;
+    var numArr;
+    var trNum=0;
+    var flowFlag='';
+    var isEdit=false;
+    var commisValid;
+//    var pileGrade; ///试验结论，5-合格，6-不合格
+
+    //显示实测荷载列
+    function showHzT(){
+        $("#HzDiffT").hide();
+        $("#HzT").show();
+        $(".hzdiff").hide();
+        $(".hz").show();
+    }
+    //显示荷载偏差列
+    function showHzDiffT (){
+        $("#HzDiffT").show();
+        $("#HzT").hide();
+        $(".hzdiff").show();
+        $(".hz").hide();
+    }
+
+    function  setIsValidValue(isValid){
+        getisValidStr(isValid,flowFlag,isEdit);
+        $("#isValid").html(vhtml);
+    }
+
+    function setIsValid(){
+        var url= '/api/v1/JzData/'+projectId+'/'+id+'/IsValid';
+        //设置数据有效性
+        comSetIsValid(url);
+    }
+
+
+
+
+
+    function onlyNum(){
+        if (event.keyCode!=46 && event.keyCode!=45 && (event.keyCode<48 || event.keyCode>57)) event.returnValue=false;
+    }
+    //给每行添加修改标记
+    function  addTrChange(obj){
+
+        var s= Number(obj.value);
+        if (isNaN(obj.value))
+        {
+             s=0;
+        }
+        s= s.toFixed(2);
+        $(obj).val(s);
+
+        $(obj).parent().parent().addClass('tredited');
+        trNum=0;
+        var S1 = $(obj).parent().parent().find('td input[name=S1]').val();
+        var S2 = $(obj).parent().parent().find('td input[name=S2]').val();
+        var S3 = $(obj).parent().parent().find('td input[name=S3]').val();
+        var S4 = $(obj).parent().parent().find('td input[name=S4]').val();
+        var S5 = $(obj).parent().parent().find('td input[name=S5]').val();
+        var S6 = $(obj).parent().parent().find('td input[name=S6]').val();
+        var S7 = $(obj).parent().parent().find('td input[name=S7]').val();
+        var S8 = $(obj).parent().parent().find('td input[name=S8]').val();
+        var S9 = $(obj).parent().parent().find('td input[name=S9]').val();
+        var S10 = $(obj).parent().parent().find('td input[name=S10]').val();
+        var S11 = $(obj).parent().parent().find('td input[name=S11]').val();
+        var S12 = $(obj).parent().parent().find('td input[name=S12]').val();
+
+        var SAverage = (tdENum(S1) + tdENum(S2) + tdENum(S3) + tdENum(S4) + tdENum(S5) + tdENum(S6) + tdENum(S7) + tdENum(S8) + tdENum(S9) + tdENum(S10) + tdENum(S11) + tdENum(S12)) / trNum;
+        $(obj).parent().parent().find('td[name=SAverageEdit]').text(SAverage.toFixed(2));
+    }
+
+
+    function  changeResult(obj){
+        var html='';
+
+        if(MaxLoad!=undefined){
+            var realLoad= obj.value;
+            if(Number(realLoad)>=Number(MaxLoad)){
+                html='<span class="label label-success radius">合格</span>';
+                $("#pileGrade").val(5);
+            }else {
+                html='<span class="label label-danger radius">不合格</span>';
+                $("#pileGrade").val(6);
+            }
+        }
+//
+
+
+
+        $('#resultTd').html(html);
+    }
+
+
+    $(function(){
+        var pileGrade="",result="",realValue="",AnalysisName="",AnalysisTime="",reviewName='',reviewTime='',reviewMessage='';
+
+//        var resultpower=sessionStorage.jzPower;
+
+        var pileData=null;
+        var pileuishow=false;
+
+        var width=$(document).width(),height=$(document).height()-57;
+        var tabshow=[false,false,false,false];
+        var pictabshow=[false,false,false];
+        var ResultData=null;
+        $(".result-content").height(height-115);
+//        $(".basedata-content").height(height-130);
+//        $(".basedata-content").height(height-151);
+        var resutleftW=$(".result-content").width()-514;
+//        $(".resut-left").width(resutleftW);
+        var pwidth=$(document).width()-138;
+        $(".ptabs").height(height);
+        $(".pictabs").height(height-90-57);
+        $(".resut-left").height($(".result-content").height());
+
+//        $("#left-main").height($(".resut-left").height()-40);
+        $("#result-table-div").height($(".resut-left").height()-40);
+        var resultpower=JSON.parse( sessionStorage.jzPower);
+        if ($.inArray("EDIT", resultpower) != -1) {
+            isEdit=true;
+        }
+
+        //取消所有修改的行
+        $('#resultpower').on('click','#cancelBtn',function(){
+            var objArr = $("#result-table tbody tr.tredited");
+            if(objArr.length>0) {
+                $("#result-table tbody tr").removeClass('tredited');//去掉所有编辑标记
+                getResultData();//刷新编辑列表
+            }else {
+                layer.alert('暂无修改的数据！', {
+                    icon:7,
+                    time: 3000,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+            }
+        });
+
+        //表单验证
+        function validform() {
+            return $("#baseData-form").validate({
+                debug: true,
+                rules: {
+                    realLoad: {
+                        required: true,
+                        number:true,
+                        range:[ 1,3.40282346638529E+38]
+                    },
+                    jcresultMark: {
+                        required: true,
+                        rangelength:[0,255]
+                    }
+                }
+            });
+        }
+
+
+
+
+        //更新检测结论
+        $('#resultpower').on('click','#ResultBtn',function() {
+            var realValue = $("#realLoad").val();
+            var result = $("#jcresultMark").val();
+            var pileGrade = $('#pileGrade').val();
+            var data = {
+                pileGrade: pileGrade,
+                realValue: realValue,
+                result: result
+            }
+            if (validform().form()) {
+                $("#ResultBtn").attr({"disabled": "disabled"});
+                $.ajax({
+                    url: '/api/v1/JzData/' + projectId + '/' + id + '/Result', //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    data: data,
+                    type: "PUT",
+                    success: function (reg) {
+
+                        if (reg.code == 0) {
+                            layer.msg(reg.message, {
+                                icon: 1, time: 2000,
+                                offset: [top_offset, left_offset]
+
+                            });
+
+                            window.close();
+                            window.opener.location.reload();//刷新父窗口
+//                            window.opener.location.reload(true);
+//                            getresultData1();
+//                            showBaseTable();
+//                        layer.alert(reg.message, {
+//                            icon:1,
+//                            time: 3000,
+//                            title:'成功信息',
+//                            offset:[top_offset, left_offset],
+//                            skin:'layer-ext-moon'
+//                        });
+
+                        } else {
+                            $("#ResultBtn").removeAttr("disabled");//将按钮可用
+                            layer.alert(reg.message, {
+                                icon: 5,
+                                time: 3000,
+                                title: '错误信息',
+                                offset: [top_offset, left_offset],
+                                skin: 'layer-ext-moon'
+                            });
+                        }
+                    },
+                    error: function () {
+                        $("#ResultBtn").removeAttr("disabled");//将按钮可用
+//
+                        layer.alert('保存失败！', {
+                            icon: 2,
+                            time: 3000,
+                            title: '错误信息',
+                            offset: [top_offset, left_offset],
+                            skin: 'layer-ext-moon'
+                        });
+                    }
+                });
+            }
+
+
+        });
+
+
+
+        function addJson(s,d,data){
+            if(d!=='null'){
+                data[s]=d;
+            }
+            return data;
+        }
+        $('#resultpower').on('click','#saveBtn',function(){
+
+            var objArr = $("#result-table tbody tr.tredited");
+            $("#saveBtn").attr({"disabled": "disabled"});
+            var successNum = 0;
+            var errorNum = 0;
+            if (checkSubmit()) {
+                if(objArr.length>0){
+                    for (var i = 0; i < objArr.length; i++) {
+                        var curentTr = objArr.eq(i);
+                        var Id = curentTr.attr('data-id');
+//                    trNum = 0;
+                        var S1 = curentTr.find('td input[name=S1]').val();
+                        var S2 = curentTr.find('td input[name=S2]').val();
+                        var S3 = curentTr.find('td input[name=S3]').val();
+                        var S4 = curentTr.find('td input[name=S4]').val();
+                        var S5 = curentTr.find('td input[name=S5]').val();
+                        var S6 = curentTr.find('td input[name=S6]').val();
+                        var S7 = curentTr.find('td input[name=S7]').val();
+                        var S8 = curentTr.find('td input[name=S8]').val();
+                        var S9 = curentTr.find('td input[name=S9]').val();
+                        var S10 = curentTr.find('td input[name=S10]').val();
+                        var S11 = curentTr.find('td input[name=S11]').val();
+                        var S12 = curentTr.find('td input[name=S12]').val();
+                        var SAverage =curentTr.find('td[name=SAverageEdit]').text();
+//                    var SAverage = (tdENum(S1) + tdENum(S2) + tdENum(S3) + tdENum(S4) + tdENum(S5) + tdENum(S6) + tdENum(S7) + tdENum(S8) + tdENum(S9) + tdENum(S10) + tdENum(S11) + tdENum(S12)) / trNum;
+                        var data = {};
+                        addJson('Id',Id,data);
+                        addJson('S1',S1,data);
+                        addJson('S2',S2,data);
+                        addJson('S3',S3,data);
+                        addJson('S4',S4,data);
+                        addJson('S5',S5,data);
+                        addJson('S6',S6,data);
+                        addJson('S7',S7,data);
+                        addJson('S8',S8,data);
+                        addJson('S9',S9,data);
+                        addJson('S10',S10,data);
+                        addJson('S11',S11,data);
+                        addJson('S12',S12,data);
+                        addJson('SAverage',SAverage,data);
+
+
+                        //保存修改
+                        $.ajax({
+                            url: '/api/v1/JzData/' + projectId + '/' + id + '/ResultGatherTable', //请求的url地址
+                            dataType: "json",
+                            async : false,
+                            data: data,
+                            type: "PUT",
+                            success: function (reg) {
+
+                                if (reg.code == 0) {
+                                    successNum++;
+                                    curentTr.removeClass('tredited');
+
+                                } else {
+                                    errorNum++;
+                                }
+                            },
+                            error: function () {
+                                errorNum++;
+                            }
+                        });
+
+                    }
+                    var allnum=errorNum+successNum;
+                    if (errorNum > 0) {
+                        layer.alert('保存'+errorNum+'/'+allnum+'失败！', {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                    } else {
+                        layer.alert('保存'+successNum+'/'+allnum+'成功！', {
+                            icon:1,
+                            time: 3000,
+                            title:'成功信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                        getresultData1();
+                        showBaseTable();
+                    }
+                    getqsData();//刷新q-s图
+                    getslgtData();//刷新s-lgt图
+                    gethzbData();
+                }else {
+                    layer.alert('暂无修改的数据！', {
+                        icon:7,
+                        time: 3000,
+                        title:'警告信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+                submited = false;
+                $("#saveBtn").removeAttr("disabled");//将按钮可用
+
+            }
+        });
+
+        //复核
+        $('#resultpower').on('click','#review',function(){
+
+            var url='/api/v1/JzData/'+projectId+'/'+id+'/Review';
+            reviewLayer(url);
+        });
+
+
+
+
+
+
+        $("#tabs").tabs({
+            selected:0,
+            show:function(event,ui){
+                switch(ui.index){
+                    case 0:getPile();break;
+                    case 1:getResultLiteSTable();break;
+                    case 2:getPileGps();break;
+                    case 3:getopertionLog();break;
+                }
+            }
+        });
+        $("#pictabs").tabs({
+//            selected:0,
+            show:function(event,ui){
+                switch(ui.index){
+                    case 0:getslgtpic();break;
+                    case 1:getqspic();break;
+                    case 2:gethzb();break;
+                }
+            }
+        });
+
+        //显示汇总表
+        function  gethzb(){
+            if(pictabshow[2]){ return; }
+            pictabshow[2]=true;
+            gethzbData();
+        }
+        //获取分析数据的汇总表数据
+        function gethzbData(){
+            $.ajax({
+                url: '/api/v1/JzData/'+projectId+'/'+id+'/ResultGatherTable',    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+                    getGatherTableInfo(d.data,'pictabs-3');
+                },error:function(){
+                    $("#pictabs-3").html("暂无汇总表").addClass("tipsinfo");
+                    return;
+                }
+            });
+        }
+        //显示q-s曲线
+        function getqspic(){
+            if(pictabshow[1]){ return; }
+            pictabshow[1]=true;
+            getqsData();
+
+        }
+
+        //获取q-s曲线数据
+        function  getqsData(){
+            var w =parseInt(width*0.5)-30;
+            var h =$("#pictabs-1").height()-30;
+            var url='/api/v1/JzData/'+projectId+'/'+id+'/ResultQsImage?imageWidth='+w+'&imageHeight='+h+'&t='+Math.random();
+            $("#qsImge").attr('src',url);
+
+//            $.ajax({
+//                url: url,    //请求的url地址
+//                dataType: "json",
+//                async: false,
+//                type: "GET",
+//                success: function (d) {
+//                    $("#pictabs-1").html("<img src=\"data:image/png;base64,"+d+"\"/>") ;
+////                    if (d.code == 0) {
+////                        $("#pictabs-1").html("<img src=\"data:image/png;base64,"+d.data+"\"/>") ;
+////                    } else {
+////                        $("#pictabs-1").html("暂无Q-s图片").addClass("tipsinfo");
+////                        return;
+////                    }
+//                },error:function(){
+//                    $("#pictabs-1").html("暂无Q-s图片").addClass("tipsinfo");
+//                    return;
+//                }
+//            });
+
+
+        }
+        //显示slgt曲线
+        function getslgtpic(){
+            if(pictabshow[0]){ return; }
+            pictabshow[0]=true;
+            getslgtData();
+
+        }
+        //获取slgt曲线数据
+        function  getslgtData(){
+            var w =parseInt(width*0.5)-30;
+            var h =$("#pictabs-1").height()-30;
+            var url='/api/v1/JzData/'+projectId+'/'+id+'/ResultSlgtImage?imageWidth='+w+'&imageHeight='+h+'&t='+Math.random();
+            $("#slgtImge").attr('src',url);
+        }
+
+
+        //获取操作日志
+        function getopertionLog() {
+            if(tabshow[3]){ return; }
+            tabshow[3]=true;
+            //操作日志
+            var url= '/api/v1/JzData/'+projectId+'/'+id+'/OperationLog';
+            opertionLog(url);
+
+        }
+        function  getNotNull(s){
+            if(s==null){
+                s='';
+            }
+            return s;
+        }
+        function  getNotzero(s){
+            if(s==0){
+                s='';
+            }
+            return s;
+        }
+
+        //获取指定的试验的结论
+        function getresultData1(){
+            $.ajax({
+                url: '/api/v1/JzData/'+projectId+'/'+id+'/Result',    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+                    if (d.code == 0) {
+                        pileGrade= d.data.pileGrade;
+                        result=getNotNull(d.data.result);
+                        realValue=getNotzero(d.data.realValue);
+
+                        flowFlag= d.data.flowFlag;
+                        AnalysisName=getNotNull(d.data.AnalysisName);
+                        AnalysisTime=getNotNull(d.data.AnalysisTime);
+                        reviewName=getNotNull(d.data.reviewName);
+                        reviewTime=getNotNull(d.data.reviewTime);
+                        reviewMessage=getNotNull(d.data.reviewMessage);
+
+                    }
+                }
+            });
+            var resultpower=JSON.parse( sessionStorage.jzPower);
+            var isresult=true;
+
+             //数据状态，1待复核，2退回修订，3已复核
+            if(flowFlag==2){
+                getResultPower('jzResult',resultpower,'resultpower',false,true,true);
+            }else
+            if(flowFlag==9){
+                getResultPower('jzResult',resultpower,'resultpower',false,false,false);
+            }else
+            if(flowFlag==3){
+                getResultPower('jzResult',resultpower,'resultpower',false,true,true);
+            }else if(flowFlag==1){
+                getResultPower('jzResult',resultpower,'resultpower',true,true,true);
+//                //复核
+//                $('#resultpower').on('click','#review',function(){
+//                    reviewLayer();
+//                });
+            }else {
+                getResultPower('jzResult',resultpower,'resultpower',false,true,true);
+            }
+
+
+        }
+
+
+
+        var ori=0; var mtop;
+        // 初始化单桩详细信息界面
+        function initPileInfoUI() {
+
+
+            $("#infotabs").show().tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $("#infotabs ul.ui-tabs-nav").height(height - 115);
+
+
+        }
+        function getResultData(){
+            //获取指定试验的分析原始表
+            var url='/api/v1/JzData/'+projectId+'/'+id+'/ResultLiteSourceTable';
+            $.ajax({
+                url:url,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+                    if (d.code == 0) {
+                        ResultData=d.data;
+                        resultTable(d.data);
+                    } else {
+                        layer.alert(d.message, {
+                            icon:5,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                        $("#result-table-div").html("暂无分析原始数据").addClass("tipsinfo");
+                        return;
+                    }
+                },
+                error:function(d){
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                    $("#result-table-div").html("暂无分析原始数据").addClass("tipsinfo");
+                    return;
+                }
+            });
+        }
+
+        //分析数据
+        function  getResultLiteSTable(){
+            debugger;
+            if(commisValid=='1'){
+
+                if(tabshow[1]){ return; }
+                $("#rsBaseTable").show();
+                $("#resultContent").show();
+                tabshow[1]=true;
+                getResultData();
+                showBaseTable();
+            }else {
+                tabshow[1]=false;
+                layer.alert('无效数据无法进行数据分析', {
+                    icon:7,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+                $("#rsBaseTable").hide();
+                $("#resultContent").hide();
+            }
+
+        }
+
+
+
+        function  showBaseTable(){
+            var d=pileData;
+
+            //flowFlag 数据状态，1待复核，2退回修订，3已复核
+             //reviewName 复核人
+             //reviewTime 复核时间
+             //reviewMessage 复核意见
+
+            var tableHtml='';
+            tableHtml+='<tr class="text-c" >';
+            tableHtml+='<th><span>检测编号：</span></th><td colspan="3"><span>'+ d.SerialNo+'</span></td>';
+            tableHtml+='<th><span>桩号：</span></th><td><span >'+ d.PileNo+'</span></td>';
+            tableHtml+='<th><span>测试方法：</span></th><td><span >'+ d.TestType+'</span></td>';
+            tableHtml+='<th><span>开始时间：</span></th><td><span >'+ d.StartTime+'</span></td>';
+            tableHtml+='</tr>';
+            tableHtml+='<tr class="text-c" >';
+            tableHtml+='<th><span>复核状态：</span></th>';
+
+            var flowflagStr=getflowFlagStr(flowFlag);
+            tableHtml+='<td class="status">'+flowflagStr+'</td>';
+            tableHtml+='<th><span>复核人：</span></th><td><span >'+ reviewName+'</span></td>';
+            tableHtml+='<th><span>复核时间：</span></th><td><span >'+ reviewTime+'</span></td>';
+            tableHtml+='<th><span>复核意见：</span></th><td><span >'+reviewMessage+'</span></td>';
+            tableHtml+='<th><span>数据分析员：</span></th><td><span >'+ AnalysisName+'</span></td>';
+            tableHtml+='</tr>';
+            tableHtml+='<tr class="text-c tr-input">';
+            tableHtml+='<input type="hidden" name="pileGrade" id="pileGrade"  value="'+pileGrade+'" />';
+            tableHtml+='<th><span>检测结论：</span></th><td id="resultTd">';
+            var resuilstr=getResultStr(pileGrade);
+
+            tableHtml+=resuilstr;
+            tableHtml+='</td>';
+            MaxLoad= d.MaxLoad;
+            tableHtml+='<th><span>预估荷载：</span></th><td><span >'+ d.MaxLoad+'</span> kN</td>';
+            tableHtml+='<th><span>实测荷载：</span></th><td>';
+            tableHtml+='<input type="text" class="input-text" placeholder="请输入实际荷载" style="width: 100%" id="realLoad" value="'+realValue+'"  name="realLoad" onchange="changeResult(this)" />' ;
+
+            tableHtml+= '</td>';
+
+            tableHtml+='<th><span>结论说明：</span></th><td> <input type="text" class="input-text" placeholder="请输入结论说明" value="'+result+'" style="width: 100%" id="jcresultMark" name="jcresultMark" /></td>';
+            tableHtml+='<th><span>分析时间：</span></th><td><span >'+AnalysisTime+'</span></td>';
+            tableHtml+='</tr>';
+
+            $("#baseData1 tbody").html(tableHtml);
+        }
+
+
+        function  isHaveValue(s){
+            var ret=false;
+            for(var i=0;i<numArr.length;i++){
+                if(s==numArr[i]){
+                    ret= true;
+                    break;
+                }
+            }
+            return ret;
+        }
+
+        function  buildSTd(S){
+            var isHiddenStr='style="display:none;"';
+
+            if(isHaveValue(S)){
+                isHiddenStr="";
+            }
+            var name='S'+getNum(S)+'<br/>(mm)';
+            return '<th width="60px"  '+isHiddenStr+'>'+name+'</th>'
+        }
+
+        function  isTDNull(s){
+            var isHiddenStr='';
+            if(s==null){
+                isHiddenStr='style="display:none;"';
+            }else {
+                isHiddenStr='';
+            }
+            return isHiddenStr;
+        }
+        function  isTDNull_V(s){
+
+            if(s!=null){
+                s= s.toFixed(2);
+            }
+            return s;
+        }
+
+
+        function  resultTable(data){
+            $("#result-table-div").html("");
+            if (data.length <= 0) {
+                $("#result-table-div").html("暂无分析原始数据").addClass("tipsinfo");
+//                $("#result-table-div").html("<span class='tipsinfo'>暂无分析原始表数据</span>");  //
+                return;
+            }
+
+
+            var htm = " <table align=\"center\"  class=\"table table-border table-bordered   radius\"  id=\"result-table\" >"  +"<thead> <tr class=\"text-c\"> ";
+
+            htm+='<thead>';
+            htm+='<tr class="text-c">';
+            htm+='<th  width="60px">荷载<br/>(kn)</th>';
+//            htm+='<th>级别</th>';
+            htm+='<th  width="40px">采样<br/>次数</th>';
+            htm+='<th  width="50px">累计用时<br/>(min)</th>';
+            for(var i=1;i<13;i++){
+                htm+=buildSTd('S'+i);
+            }
+
+            htm+='<th  width="60px">平均位移<br/>(mm)</th>';
+            htm+='<tr/>';
+            htm+='</thead>';
+            htm+='<tbody>';
+
+
+            if (data.length!=0) {
+                var  Count = 0;//单级记录数
+                var  CurLoading = "";
+                $.each(data,function(n,value) {
+                    //拼接数据
+                    if (CurLoading != value.Loading) {
+                        if (n > 0) htm = htm.replace("#{0}", Count);
+                        CurLoading = value.Loading;
+                        Count = 0;
+                    }
+
+                    htm += '<tr class="text-c" data-id="' + value.Id + '" onclick=\"selectTr(this)\">';
+                    if (Count == 0) htm += "<td rowspan=\"#{0}\">" + value.Loading + "</td>";
+//                    htm += '<td>'+value.Grade+'</td>';
+                    htm += '<td>'+value.SampleCount+'</td>';
+                    htm += '<td>'+value.TimeCount+'</td>';
+                    var isHiddenStr='style="display:none;"';
+
+                    isHiddenStr=isTDNull(value.S1);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S1-'+(n+1)+'" name="S1" value="'+isTDNull_V(value.S1)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S2);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S2-'+(n+1)+'" name="S2" value="'+isTDNull_V(value.S2)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S3);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S3-'+(n+1)+'" name="S3" value="'+isTDNull_V(value.S3)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S4);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S4-'+(n+1)+'" name="S4" value="'+isTDNull_V(value.S4)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S5);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S5-'+(n+1)+'" name="S5" value="'+isTDNull_V(value.S5)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S6);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S6-'+(n+1)+'" name="S6" value="'+isTDNull_V(value.S6)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S7);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S7-'+(n+1)+'" name="S7" value="'+isTDNull_V(value.S7)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S8);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S8-'+(n+1)+'" name="S8" value="'+isTDNull_V(value.S8)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S9);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S9-'+(n+1)+'" name="S9" value="'+isTDNull_V(value.S9)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S10);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S10-'+(n+1)+'" name="S10" value="'+isTDNull_V(value.S10)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S11);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S11-'+(n+1)+'" name="S11" value="'+isTDNull_V(value.S11)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+                    isHiddenStr=isTDNull(value.S12);
+                    htm += '<td '+isHiddenStr+'><input type="text" class="input-text" id="S12-'+(n+1)+'" name="S12" value="'+isTDNull_V(value.S12)+'" onKeyPress="onlyNum();" onchange="addTrChange(this)" /></td>';
+
+                    htm += '<td name="SAverageEdit">'+isTDNull_V(value.SAverage)+'</td>';
+                    htm += '</tr>';
+                    Count++;
+                });
+                htm = htm.replace("#{0}", Count);
+            }
+
+            htm += "<script type=\"text/javascript\">";
+            htm += "$(document).ready(function(){";
+            htm += "$(\"#result-table-div" + " tbody tr\").mouseover(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="$(\"#result-table-div" + " tbody tr\").mouseout(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="});<\/script>";
+            $("#result-table-div").html(htm);
+
+        }
+
+
+
+        // 获取桩的基本信息
+        function getPile() {
+            if(tabshow[0]){return;}
+            getresultData1();
+            pileData=null;
+            $.ajax({
+                url: '/api/v1/JzData/'+projectId+'/'+id,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+                    if (d.code == 0) {
+                        if (!pileuishow) {
+                            initPileInfoUI();
+                            pileuishow = true;
+                        }
+                        pileData=d.data;
+                        MaxLoad= d.data.MaxLoad;
+
+                        getPileInfo();
+                        getyscsTreeInfo();
+                        getcsrzTreeInfo();
+                    } else {
+                        layer.alert(d.message, {
+                            icon:5,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                        $(".ui-layout-content").html("暂无上传的数据").addClass("tipsinfo");
+                        return;
+                    }
+                }
+            });
+            tabshow[0]=true;
+        }
+
+
+        var keyishow=false;
+        var curpiletab=0;
+
+        // 获取桩的详细信息
+        function getPileInfo(){
+            var d=pileData;
+            $.each(d,function(n,v){
+                switch(n){
+                    case "BasicInfoId":$("#BasicInfoId").val(v);break;
+                    case "GpsLongitude":break;
+                    case "GpsLatitude":break;
+                    case "IsValid":
+                        commisValid=v;
+                        var clickStr='';
+                        if(flowFlag!=9&&isEdit){
+                            clickStr='onclick="setIsValid();"';
+                        }
+                        var vhtml=v==1?'<span '+clickStr+'  class="label label-success radius">有效</span>':'<span  '+clickStr+' class="label label-danger radius">无效</span>';
+                        $("#IsValid").html(vhtml);
+                        break;
+                    case "GpsIsValid":
+                        v=v==1?"有效定位":"无效定位";
+                        $("#IsGps").html(v);
+                        break;
+                    default:$("#"+n).html(v);break;
+                }
+            });
+
+
+            keyishow=false;
+            var interval = setInterval(function(){
+
+                clearInterval(interval);
+                PileImageAndTable(d.BasicInfoId,d.TestType);
+
+            },200);
+        }
+
+        //判断obj是否为json对象
+        function isJson(obj){
+            var isjson =  Object.prototype.toString.call(obj).toLowerCase() == "[object object]" ;
+            return isjson;
+        }
+        function JSONLength(obj) {
+            var size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+        function isString(str){
+            return (typeof str=='string')&&str.constructor==String;
+        }
+        function  loadcsrzChildTree(data,e){
+            var s="";
+
+                if (isJson(data)) {
+                    $.each(data, function (n, v) {
+
+                        if( !isString(v)&&JSONLength(v)>=1){
+                            s += "<li class=\"open leafopen\"><span class=\"folder\">"+n+"</span>";
+                            s += "<ul>";
+                            s +=loadcsrzChildTree(v,n);
+
+                            s += "</ul></li>";
+                        }else{
+                            s += "<li><span class=\"file\">"+n+":" + v+ "</span></li>";
+
+                        }
+
+                    } );
+
+                }else{
+                    s += "<li><span class=\"file\">"+e+":" + data+ "</span></li>";
+                }
+
+
+            return s;
+        }
+
+
+        function  getcsrzTreeInfo() {
+            $("#CsrzTree").html("");
+            $.ajax({
+                url: "/api/v1/JzData/"+projectId+"/"+id+"/TestingLogs",    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+                    if (d.code == 0) {
+//                        console.log(d.data);
+                        if(d.data.length>0){
+                            var html = "<ul id=\"csrz\" class=\"treeview filetree\">";
+
+                            for(var i=0;i<d.data.length;i++){
+                                html += "<li id=\"" + d.data[i].Id + "\" class=\"closed\"><span class=\"folder\">" + d.data[i].EventInfo + "</span><ul>";
+                                html += "<li><span class=\"file\">时间：" + d.data[i].EventTime + "</span></li>";
+
+
+                                html += "<li class=\"open leafopen\"><span class=\"folder\"> 描述 </span>";
+                                html += "<ul>";
+
+                                html+=loadcsrzChildTree(d.data[i].Remark,"描述");
+                                html += "</ul></li>";
+
+
+                                html += "</ul></li>";
+                            }
+
+
+                            html += "</ul>";
+                            html+="<script type=\"text/javascript\">";
+                            html+="$(document).ready(function(){";
+                            html+="     $(\"#csrz\").treeview({animated:\"fast\"});";
+                            html+="});<\/script>";
+
+                            $("#CsrzTree").html(html);
+                        }else {
+                            $("#CsrzTree").html("<span class='tipsinfo'>暂无测试日志!</span>");
+                            return;
+                        }
+
+
+
+                    } else {
+                        $("#CsrzTree").html("<span class='tipsinfo'>暂无测试日志!</span>");
+                        return;
+                    }
+                }
+            });
+
+
+
+
+        }
+
+        function  getyscsTreeInfo() {
+
+            $("#yscsTree").html("");
+            var SourceParam = pileData.SourceParam;
+            var xmldoc = createXml(SourceParam);
+//            console.log(xmldoc);
+            var html = "";
+//            console.log(xmldoc.childNodes.length);
+            var nodes = xmldoc.childNodes;
+            html = "<ul id=\"yscs\" class=\"treeview filetree\">";
+            if (xmldoc.childNodes.length == 1) {
+                html += "<li ><span class=\"folder\">" + nodes.item(0).nodeName + "</span><ul>";
+                html += loadChildTree(nodes.item(0).childNodes);
+            }
+            if (xmldoc.childNodes.length > 1) {
+                html += "<li ><span class=\"folder\">" + nodes.item(1).nodeName + "</span><ul>";
+                html += loadChildTree(nodes.item(1).childNodes);
+            }
+            html += "</ul></li>";
+            html += "</ul>";
+            html += "<script type=\"text/javascript\">";
+            html += "$(document).ready(function(){";
+            html += "     $(\"#yscs\").treeview({animated:\"fast\",collapsed: true});";
+            html += "});<\/script>";
+
+
+            $("#yscsTree").html(html);
+
+        }
+        function  loadChildTree(nodes){
+            var s="";
+            for (var  i = 0; i < nodes.length ; i++)
+            {
+                if (nodes.item(i).hasChildNodes())
+                {
+                    if (nodes.item(i).childNodes.length > 1)
+                    {
+                        s+="<li><span class=\"folder\">" + nodes.item(i).nodeName + "</span>";
+                        s+="<ul>";
+                        s+=loadChildTree(nodes.item(i).childNodes);
+                        s+="</ul></li>";
+                    }
+                    else
+                    {
+                        if (nodes.item(i).childNodes.item(0).nodeValue != null)
+                        {
+
+                            s+="<li><span class=\"file\"><span class=\"treetitle \">" + nodes.item(i).nodeName;
+                            s+="：</span> <span class=\"treecontent\">" + nodes.item(i).childNodes.item(0).nodeValue;
+                            s+="</span></span></li>";
+
+                        }
+                        else
+                        {
+                            s+="<li><span class=\"folder\">" + nodes.item(i).nodeName + "</span>";
+                            s+="<ul>";
+                            s+=loadChildTree(nodes.item(i).childNodes);
+                            s+="</ul></li>";
+                        }
+                    }
+                }
+                else
+                {
+                    s+="<li><span class=\"file\"><span class=\"treetitle \">" + nodes.item(i).nodeName;
+                    s+="：</span> <span class=\"treecontent\">" + nodes.item(i).nodeValue;
+                    s+="</span></span></li>";
+                }
+            }
+            return s;
+        }
+
+
+        function createXml(str){
+            if(document.all){//IE浏览器
+                var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                xmlDoc.async = false;
+                xmlDoc.loadXML(str);
+                return xmlDoc;
+            }
+            else{//非IE浏览器
+                return new DOMParser().parseFromString(str, "text/xml");
+            }
+        }
+        function getNum(text){
+            var value = text.replace(/[^0-9]/ig,"");
+            return value;
+        }
+
+        // 通用数据表格
+
+        function  CommonGetTable(data,ID,remark){
+
+            $("#"+ID).html('');
+            if (data.length <= 0) {
+                $("#"+ID).html("<span class='tipsinfo'>"+remark+"</span>");
+                return;
+            }
+
+            var htm = " <table align=\"center\"  class=\"table table-border table-bordered   radius\"  id='"+ID+"T' >";
+
+            htm+='<thead>';
+            htm+= " <tr class=\"text-c locktop\"> ";
+
+            var numArrStr="";
+            $.each(data[0], function (n, v) {
+                if (n!="原始ID" ) {
+                    if( n!='荷载级别'){
+
+                        if (n.indexOf("位移通道") >= 0) {
+                            var i=getNum(n);
+                            numArrStr+="S"+i+",";
+                        }
+                        if(n=='实测荷载'){
+//
+                            htm += " <th id='HzDiffT'><span onclick=\"showHzT();\" class=\"label label-success radius\">荷载偏差<br/>(kN)</span></th> ";
+                            htm += " <th id='HzT' style='display: none;'><span onclick=\"showHzDiffT();\" class=\"label label-success radius\">实测荷载<br/>(kN)</span></th> ";
+                        }else if (n.indexOf("荷载") >= 0) {
+                            htm += " <th> " + n + "<br/>(kN)</th> ";
+                        } else if (n.indexOf("位移通道") >= 0) {
+                            htm += " <th> " + n + "<br/>(mm)</th> ";
+                        } else if (n == "实测油压") {
+                            htm += " <th> " + n + "<br/>(MPa)</th> ";
+                        }
+                        else if (n == "实际间隔") {
+                            htm += " <th> " + n + "<br/>(min)</th> ";
+                        } else if (n == "平均位移") {
+                            htm += " <th> " + n + "<br/>(mm)</th> ";
+                        }
+                        else if(n=="上传时间") {
+                            htm += " <th id='DelaytimeT'><span onclick=\"showUploadtimeT();\" class=\"label label-success radius\">上传<br/>延迟时间</span></th> ";
+                            htm += " <th id='UploadtimeT' style='display: none;'><span onclick=\"showDelaytimeT();\" class=\"label label-success radius\">上传时间</span></th> ";
+                        }
+                        else {
+                            htm += " <th> " + n + "</th> ";
+                        }
+                    }
+
+                };
+
+            });
+            if(numArrStr!=""){
+//                numArrStr=numArrStr.substring(0,numArrStr.length-1);
+                numArrStr= numArrStr.substring(0, numArrStr.lastIndexOf(','));
+            }
+            numArr=numArrStr.split(',');
+            htm += "</tr>";
+            htm+='</thead><tbody>';
+            var  SampleCount = 0;//单级记录数
+            var  CurGrade = "";
+            for (var i = 0; i < data.length; i++) {
+                var  cls = i % 2 == 0 ? "" : "double-row";
+                htm += "<tr class=\"text-c "+cls+" \" onclick=\"selectTr(this)\">";
+                if (CurGrade != data[i].理论荷载)
+                {
+                    if (i > 0) htm = htm.replace("#{0}", SampleCount);
+                    CurGrade = data[i].理论荷载;
+                    SampleCount = 0;
+                }
+                $.each(data[i], function (n, v) {
+                    if (n!="原始ID" ) {
+                        if( n!='荷载级别'){
+                            if (n == "理论荷载") {
+                                if (SampleCount == 0) htm += "<td rowspan=\"#{0}\">" + v + "</td>";
+                            } else {
+                                if (v == null || v == "null") v = "-";
+
+                                if (n == "实测荷载" || n == "实测油压" || n == "平均位移") v = v.toFixed(2);
+                                if (n == "实测荷载") {
+                                    var hzdiffStr=getHzDiffStr(data[i].实测荷载,data[i].理论荷载);
+                                    htm += hzdiffStr;
+                                    htm += "<td class='hz' style='display:none'>" + v + "</td>";
+                                }else  if (n == "记录时间") {
+                                    htm += "<td style='width: 150px'>" + v + "</td>";
+                                }
+                                else if ( n == "上传时间") {
+                                    var diffStr=getDateDiffStr(data[i].上传时间,data[i].记录时间);
+                                    htm += diffStr;
+                                    htm += "<td class='uploadtime' style='width: 150px;display:none'>" + v + "</td>";
+
+                                } else {
+
+                                    htm += "<td>" + v + "</td>";
+                                }
+                            }
+                        }
+
+                    }
+                });
+
+                htm += "</tr>";
+                SampleCount++;
+            }
+            htm = htm.replace("#{0}", SampleCount);
+
+            htm+='</tbody></table>';
+
+            htm += "<script type=\"text/javascript\">";
+            htm += "$(document).ready(function(){";
+            htm += "$(\"#" + ID + " tbody tr\").mouseover(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="$(\"#" + ID + " tbody tr\").mouseout(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="});<\/script>";
+
+            $("#"+ID ).html(htm);
+
+        }
+
+        // 数据汇总表表格
+        function getGatherTableInfo(data,id) {
+            $("#"+id ).html('');
+            if (data.length <= 0) {
+                $("#"+id).html("<span class='tipsinfo'>暂无汇总表记录!</span>");
+                return;
+            }
+            var count=0;
+            $.each(data[0], function (n, v) {
+                count++;
+            });
+            var htm = " <table align=\"center\"  class=\"table table-border table-bordered   radius\"  id='"+id+"T' >";
+
+            htm +='<thead>';
+            htm += " <tr class=\"text-c locktop\"> <th rowspan=\"2\" >序号</th> <th rowspan=\"2\" >荷载<br>(kN)</th> <th colspan=\"2\" >历时(min) </th><th colspan=\"2\"'>沉降(mm)</th> ";
+            if(count==8) htm +="<th colspan=\"2\">上拔(mm)</th>";
+
+            htm +=" </tr><tr class=\"text-c\"> <th>本级</th><th>累计</th> <th>本级</th><th>累计</th>";
+            if(count==8) htm +="<th>本级</th><th>累计</th>";
+
+            htm +=" </tr>" ;
+            htm +='</thead><tbody>';
+
+            for (var i = 0; i < data.length; i++) {
+                var  cls = i % 2 == 0 ? "" : "double-row";
+                htm += "<tr class=\"text-c "+cls+" \" onclick=\"selectTr(this)\">";
+
+                htm += "<td >" + data[i].序号 + "</td><td >" + data[i].荷载 + "</td><td>" + data[i].本级历时 + "</td>";
+                htm += "<td>" + data[i].累计历时 + "</td><td>" + data[i].本级沉降.toFixed(2) + "</td><td>" + data[i].累计沉降.toFixed(2) + "</td>";
+                if (count == 8)
+                {
+                    htm += "<td>" + data[i].本级上拔.toFixed(2) + "</td><td>" + data[i].累计上拔.toFixed(2) + "</td>";
+                }
+                htm+="</tr>";
+            }
+            htm+='</tbody></table>';
+            htm += "<script type=\"text/javascript\">";
+            htm += "$(document).ready(function(){";
+            htm += "$(\"#"+id+" tbody tr\").mouseover(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="$(\"#"+id+" tbody tr\").mouseout(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="});<\/script>";
+            $("#"+id ).html(htm)
+        }
+
+
+        // 数据加载表   卸载表 表格
+        function getLoadTableInfo(data,ID,remark) {
+            $("#"+ID).html('');
+            if (data.length <= 0) {
+                $("#"+ID).html("<span class='tipsinfo'>"+remark+"</span>");
+                return;
+
+            }
+            var htm = " <table align=\"center\"  class=\"table table-border table-bordered   radius\"  id='"+ID+"T' >";
+
+            htm +='<thead>';
+            htm += " <tr class=\"text-c locktop\"> <th class=\"jzbheader\"></th>";
+
+            $.each(data[0], function (n, v) {
+
+                if (n !='时间') {
+                    htm += " <th> " + n + " </th> ";
+                }
+
+            });
+
+            htm += "</tr>";
+            htm +='</thead><tbody>';
+            for (var i = 0; i < data.length; i++) {
+                var  cls = i % 2 == 0 ? "" : "double-row";
+                htm += "<tr class=\"text-c "+cls+" \" onclick=\"selectTr(this)\">";
+
+                htm += "<th>" + data[i].时间 + "</th>";
+                $.each(data[i], function (n, v) {
+                    if (n != "时间") {
+                        if(v==null||v=="null") {v="-";}
+                        else {  v=v.toFixed(2);  }
+                        htm += "<td>" + v + "</td>";
+                    }
+                });
+
+                htm += "</tr>";
+            }
+            htm+='</tbody></table>';
+            htm += "<script type=\"text/javascript\">";
+            htm += "$(document).ready(function(){";
+            htm += "$(\"#" + ID + " tbody tr\").mouseover(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="$(\"#" + ID + " tbody tr\").mouseout(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="});<\/script>";
+            $("#"+ID ).html(htm);
+
+        }
+
+
+
+
+        // 显示单桩的详细数据及图表
+        function PileImageAndTable(pileid, tn) {
+            var panelWidth = pwidth - 30;
+            var panelHeight = height - 126;
+            $("#infotabs").tabs("destroy");
+
+            var iw= parseInt((panelWidth-110)/3) ;
+            var ih=panelHeight-180;
+//            $("#pilecurve").width(iw*3+20);
+            $("#pilecurve").width(panelWidth);
+            var url = ""; //缺失url
+            url='/api/v1/JzData/'+projectId+'/'+id+'/ImageAndTable?imageWidth='+iw+'&imageHeight='+ih;
+
+            $.ajax({
+                url: url,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+                    if (d.code == 0) {
+                        var GatherTable= d.data.GatherTable; //汇总表
+                        var LoadTable= d.data.LoadTable; //[] 加载表
+                        var UnloadTable= d.data.UnloadTable; //[] 卸载表
+                        var ChangeTable= d.data.ChangeTable; //[] 修改记录表
+                        var SourceTable= d.data.SourceTable; //[] 原始记录表
+                        var QsImage= d.data.QsImage; //Q-s曲线，png格式
+                        var SlgtImage= d.data.SlgtImage;// s-lgt曲线，png格式
+                        var SlgQImage= d.data.SlgQImage;//s-lgQ曲线，png格式 base64
+                        getGatherTableInfo(GatherTable,'GatherTable');
+                        getLoadTableInfo(LoadTable,"LoadTable","暂无加载表记录!");
+                        getLoadTableInfo(UnloadTable,"UnloadTable","暂无卸载表记录!");
+                        CommonGetTable(ChangeTable,"ChangeTable","暂无修改表记录!");
+                        CommonGetTable(SourceTable,"SourceTable","暂无原始记录表记录!");
+                        $("#qs").html("<img src=\"data:image/png;base64,"+QsImage+"\"/>");
+                        $("#slgt").html("<img src=\"data:image/png;base64,"+SlgtImage+"\"/>");
+                        $("#slgq").html("<img src=\"data:image/png;base64,"+SlgQImage+"\"/>");
+
+
+
+                    } else {
+                        layer.alert(d.message, {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                        $(".ui-layout-content").html("暂无上传的数据").addClass("tipsinfo");
+                        return;
+                    }
+                } ,error:function(){
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+            });
+
+            var up=tn.indexOf("拔") < 0 ? 0 : 1;
+            if(up==0){
+                up=(tn.indexOf("自平衡") < 0) ? 0 : 2;
+            }
+
+
+
+            $("#infotabs").tabs({
+                selected: curpiletab,
+                heightStyle: "fill",
+                spinner: "加载中...",
+                //collapsible: true,
+                cache: false,
+                show: function (event, ui) {
+                    curpiletab = ui.index;
+                    var args = String(ui.tab).split("#");
+                    var panelid = args[1];
+                    $("#" + panelid).width(panelWidth).height(panelHeight);
+                    switch (curpiletab) {
+//                            case 9: //地图
+//                                JyPileAndImageGPS(imgData); break;
+//                            case 10: //照片
+//                                PileImageListShow(imgData); break;
+                        case 8: //可疑报告
+                            getPileStatus(); break;
+                        default:break;
+                    }
+                }
+            });
+            $( "#infotabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+        }
+
+        // 获取指定单桩的曲线
+        function PileCurveShow(pileid,up, pw, ph){
+            var iw= parseInt((pw-20)/3) ;
+            ph=ph-20;
+            $("#pilecurve").width(iw*3+20);
+
+            var cb=["qs","slgt","slgq"],bgi;
+            for(var i=0;i<cb.length;i++){
+
+                bgi = "/api/v1/JzData/"+projectId+"/"+id+"/"+cb[i]+"?imageWidth="+iw+"&imageHeight="+ph;
+
+                $("#"+cb[i]).width(iw).height(ph).css("background-image","url('"+bgi+"')");
+            }
+        }
+
+
+        // 工程桩分布图
+        function getPileGps() {
+            if(tabshow[2]){ return; }
+            tabshow[2]=true;
+            var ps = new Array();
+            if (null == pileData || pileData.length == 0) {
+                $("#fenbuMap").html("暂无数据上传").addClass("tipsinfo");
+                return;
+            }
+            var v=pileData;
+            if (v.GpsIsValid ) {
+
+                var content = "设备编号：" + v.MachineId + "<br>开始时间：" + v.StartTime+ "<br>已测点数：" + v.RecordCount;
+                var title = "桩号："+v.PileNo;
+
+                baiduMap( "fenbuMap",v.GpsLongitude,v.GpsLatitude, content, title);
+            }
+            else {
+                $("#fenbuMap").html("上传的数据中未包含有效的GPS位置信息").addClass("tipsinfo");
+            }
+
+
+        }
+
+
+
+
+        // 列表模式显示单桩的现场照片
+        function PileImageListShow(d) {
+            if(pilepicshow) return;
+
+            if (d == null || d.length == 0) {
+                return;
+            }
+            var imgurl = "", u = "";  //缺url
+            var li = "<li image=\"#{0}\">";
+            li+="<div title=\"无效定位\" class=\"ui-widget-overlay mdDiv\" style=\"display:#{7};\"></div>";
+            li+="<div class=\"imgurl\"><img width=\"200\" height=\"150\" onload=\"resizeImage(this,200,150)\" src=\"#{1}\"/></div>";
+            li+="<div class=\"imgtext\">上传人:#{2}<br>上传时间:#{3}<br>拍照位置:#{4}<br>拍照时间:#{5}<br>照片描述:#{6}</div>";
+            li+="</li>";
+            var ul = "<ul id=\"lightGallery\">";
+            $.each(d, function (i, v) {
+                u = imgurl.replace("#{0}", v.FileType).replace("#{1}", v.FilePath.replace(/\//g, "|"));
+                ul += li.replace("#{0}", u).replace("#{1}", u + "&size=s").replace("#{2}", v.CreateName).replace("#{3}", v.CreateTime).replace("#{4}", v.GpsIsValid
+                != 0 ? (v.GpsLongitude + ", " + v.GpsLatitude) : "<em>无效定位</em>").replace("#{5}", v.GpsIsValid != 0 ? v.FileTime : "").replace("#{6}",
+                        v.FileDescription).replace("#{7}", v.GpsIsValid != 0 ? "none" : "block");
+            });
+            ul += "</ul>";
+            $("#pictips").hide();
+            $("#imglistbox").html(ul).show();
+
+            $("#imglistbox ul>li").bind("click", function () {
+                var a = $(this).attr("image");
+                var b = $(this).children("div.imgtext").html();
+                ori=0;
+                $("#bigpic").attr("src", a).css("margin-top",5).css("margin-left",5).rotate(ori);
+                $(".imgDialogText").html(b);
+                $("#imgDialog").dialog("open");
+                var imgArray = [];
+                if (pilegps != null) {
+                    pilegps.show = false;
+                    imgArray.push(pilegps);
+                }
+                var i = $(this).index();
+                if (d[i].GpsIsValid == 1) {
+                    var content = d[i].FileDescription + "<br>拍照时间：" + (d[i].GpsIsValid != 0 ? d[i].FileTime : d[i].CreateTime);
+                    var imgps = { "lng": d[i].GpsLongitude, "lat": d[i].GpsLatitude, "title": "照片信息", "content": content, "show": false, "icon": "pink",
+                        "mapaddr": false };
+                    imgArray.push(imgps);
+                }
+                if (imgArray.length > 0) {
+                    bdMap("imgMap", imgArray, {});
+                }
+                else {
+                    $("#imgMap").html("<div class='tipsinfo'>上传的数据和现场照片中<br>未包含有效的GPS位置信息</div>");
+                }
+            });
+            pilepicshow=true;
+        }
+
+        // 获取桩的状态信息
+        function getPileStatus() {
+            if(keyishow)return;
+            $(".kybox").hide();
+            keyishow=true;
+
+            $("#kytips").html("正在加载信息中……").show();
+            $("#kyGrid").hide();
+            var pid=pileData.BasicInfoId;
+            $.ajax({
+                //url: 'JyPileStatus',    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+                    if (d.code != 0) {
+                        $("#kytips").html(d.msg);
+                        return;
+                    }
+                    var tt = pileData.TestType;
+                    var b = (tt.indexOf("快速") >= 0 || tt.indexOf("水平") >= 0) ? false : true;
+                    var u = d.data[0].IsUnLoad == 1 ? true : false;
+                    var sCount = 0;
+                    $.each(d.data[0], function (n, v) {
+                        switch (n) {
+                            case "RealMaxLoad":
+                                var maxload = pileData.MaxLoad;
+                                if (v < parseFloat(maxload) - 1) {
+                                    getStatusInfo("5", "未加载到设置的最大加载值，实际加载：" + v + "kN", "MaxLoad", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            case "MaxS":
+                                if (v > 40 || v < 2) {
+                                    getStatusInfo('', "最大位移大于40mm或者小于2mm，实测位移：" + v + "mm", "MaxS", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            //case "ImageCount": $("#ImageCount").html(v); break;
+                            case "JxHour":
+                                if (b && v == 1) {
+                                    getStatusInfo('', "加载转卸载间隔2小时及以上", "JxHour", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsFiveS":
+                                if (v == 1) {
+                                    getStatusInfo("5", "5倍位移", "IsFiveS", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsModifyParam":
+                                if (v == 1) {
+                                    getStatusInfo("C", "参数修改", "IsModifyParam", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsOutTime":
+                                if (v == 1) {
+                                    getStatusInfo("T", "采样间隔时间异常", "IsOutTime", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsSync":
+                                if (v == 1) {
+                                    getStatusInfo("", "数据延迟传输", "IsSync", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsUnLoad":
+                                if (b && v == 0) {
+                                    getStatusInfo("", "未卸载", "IsUnLoad", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsUnLoadZero":
+                                if (b && u && v == 0) {
+                                    getStatusInfo("", "未卸载到零点", "IsUnLoadZero", pid, false);
+                                    sCount++;
+                                }
+                                break;
+                            //case "IsNegativeS":
+                            //    if (v == 1) {
+                            //        getStatusInfo("N","位移出现负值","IsNegativeS", pid, true);
+                            //        sCount++;
+                            //    }
+                            //    break;
+                            case "IsModifyData":
+                                if (v == 1) {
+                                    getStatusInfo("D", "数据修改", "IsModifyData", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsForceData":
+                                if (v == 1) {
+                                    getStatusInfo("R", "人工采样", "IsForceData", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            case "IsForceGrade":
+                                if (v == 1) {
+                                    getStatusInfo("G", "人工加级", "IsForceGrade", pid, true);
+                                    sCount++;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    if (sCount == 0) {
+                        $("#kytips").html("当前数据没有检测到符合条件的可疑状态");
+                        return;
+                    }
+                    $("#kytips").hide();
+                    $("#kyGrid").show();
+                    $(".kybtn").bind("click", function () {
+                        kytoggle(this);
+                    });
+                }
+            });
+        }
+
+        // 获取桩的状态的详细信息
+        function getStatusInfo(m, t, n, pileid, showinfo) {
+            var htm="<div id='ky"+n+"' class='kybox'><span class='ky "+n+"'></span>";
+            htm+="<div class='kytitle'>"+t+"</div>";
+            if(showinfo)htm+="<span class='kybtn' title='关闭'>-</span><div class='kyinfo'></div>"; //▲
+            htm+="</div>";
+            $("div#kyGrid").append(htm);
+            if(showinfo){
+                $.ajax({
+                    //url: '',    //请求的url地址
+                    dataType: "json",
+                    async: false,
+                    type: "GET",
+                    success: function (d) {
+                        if (d.code != 0) {
+                            if (null == d.treeid && null == d.num) {
+                                var txt = "<ol>";
+                                $.each(d.data, function (i, v) {
+                                    txt += "<li>" + v.msg + "</li>";
+                                });
+                                txt += "</ol>";
+                                $("#ky" + n + " div.kyinfo").html(txt);
+                                $("#ky" + n + " div.kytitle").html(t + " - 记录数：" + d.data.length);
+                            }
+                            else {
+                                $("#ky" + n + " div.kyinfo").html(d.msg);
+                                $("#ky" + n + " div.kytitle").html(t + " - 记录数：" + d.num);
+                                $("#" + d.treeid).treeview({});
+                            }
+                        }
+                        else {
+                            $("#ky" + n + " div.kyinfo").html(d.msg);
+                        }
+                    }
+                });
+            }
+        }
+
+        // 显示/关闭桩的状态的详细信息
+        function kytoggle(e){
+            $(e).next().toggle();
+            var v=$(e).html();
+            var t=v=="-"?"打开":"关闭"; //▲
+            v=v=="-"?"+":"-"; //▲▼▲
+            $(e).attr("title",t).html(v);
+        }
+
+
+
+    });
+
+</script>
+<!--<script src="../lib/fixedHead/js/jquery.ba-throttle-debounce.min.js"></script>-->
+<!--<script src="../lib/fixedHead/js/jquery.stickyheader.js"></script>-->
+</body>
+</html>

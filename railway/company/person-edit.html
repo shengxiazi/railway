@@ -1,0 +1,885 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/webuploader/0.1.5/webuploader.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        #dndArea {
+            min-height: 100px;
+            padding-top: 0;
+        }
+        .panel-body {
+            border: none;
+        }
+        .textarea {
+            height: 60px;
+        }
+        .input-text{height:30px}
+        .form .row{margin-top:8px;}
+    </style>
+    <title>编辑用户</title>
+   </head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-person-edit">
+    <div  data-options="region:'center',split:true" style="width:100%">
+        <article class="page-container">
+            <div class="row cl">
+                <div class="col-sm-7">
+                    <div class="row cl">
+                        <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>真实姓名：</label>
+                        <div class="formControls col-xs-8 col-sm-8">
+                            <input type="text" class="input-text" value="" placeholder="" id="realName" name="realName">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-3 col-sm-3">性别：</label>
+                        <div class="formControls col-xs-8 col-sm-8 skin-minimal">
+                            <div class="radio-box">
+                                <input name="sex" type="radio" id="sex-1" value="男" checked>
+                                <label for="sex-1">男</label>
+                            </div>
+                            <div class="radio-box">
+                                <input type="radio" id="sex-2" value="女" name="sex">
+                                <label for="sex-2">女</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-3 col-sm-3">电话：</label>
+                        <div class="formControls col-xs-8 col-sm-8">
+                            <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-3 col-sm-3">手机号码：</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+                            <input type="text" class="input-text" name="mobile" id="mobile">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-1">
+                    <div id="uploader1" class="uploader-list-container" style="margin:0 auto; border:none">
+                        <div class="queueList" style="width:110px;height:110px; border:1px solid #ddd;margin-top:5px;background-color: #f1f1f1">
+                            <div id="filePicker-1" style="width:96px;height:30px;position:absolute;bottom:50%;margin-left:7px" class="webuploader-container">
+                                <div class="webuploader-pick">点击换头像 </div>
+                                <div style=" width: 96px; height: 27px; overflow: hidden; bottom: auto; right: auto;">
+                                    <label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);">
+                                    </label>
+                                </div>
+                            </div>
+                            <ul id="filelist1" class="filelist">
+                                <li>
+                                    <p class="imgWrap">
+                                        <img id="headImg" src=""/>
+                                    </p>
+                                    <p class="progress"><span></span></p>
+                                    <div class="file-panel" id="init-status1" style="height:0;">
+                                        <span class="cancel">删除</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>单位类型：</label>
+                <div class="formControls col-xs-3 col-sm-4">
+                    <span class="select-box">
+                        <select class="select" name="comTypeCode" id="comTypeCode" size="1">
+                        </select>
+                    </span>
+                </div>
+                <label class="form-label col-xs-2 col-sm-2">人员类别：</label>
+                <div class="formControls col-xs-3 col-sm-3">
+                <span class="select-box">
+                    <select class="select" name="personType" id="personType" size="1">
+                    </select>
+                </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-2 col-sm-2">工作单位：</label>
+                <div class="formControls col-xs-3 col-sm-4">
+                 <span class="select-box">
+                    <select class="select" name="comId" id="comId" size="1">
+
+                    </select>
+                 </span>
+                </div>
+                <label class="form-label col-xs-2 col-sm-2">从事工作项目：</label>
+                <div class="formControls col-xs-3 col-sm-3">
+                    <input type="text" class="input-text" value="" placeholder="" id="personWorkScope" name="personWorkScope">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-2 col-sm-2">电子邮件：</label>
+                <div class="formControls col-xs-3 col-sm-4">
+                    <input type="text" class="input-text" name="email" id="email">
+                </div>
+                <label class="form-label col-xs-2 col-sm-2">上岗证号码：</label>
+                <div class="formControls col-xs-3 col-sm-3">
+                    <input type="text" class="input-text" name="personWorkNo" id="personWorkNo">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-2 col-sm-2">设置登录账号：</label>
+                <div class="formControls col-xs-3 col-sm-4 skin-minimal">
+                    <div class="radio-box">
+                        <input name="account" type="radio" id="isaccount" value="1" checked>
+                        <label for="isaccount">是</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" id="noaccount" value="0" name="account">
+                        <label for="noaccount">否</label>
+                    </div>
+                </div>
+                <label class="form-label col-xs-2 col-sm-2">出生年月：</label>
+                <div class="formControls col-xs-3 col-sm-3">
+                    <input  type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="input-text Wdate" placeholder="" name="personBirthDay" id="personBirthDay"/>
+                </div>
+            </div>
+            <div id="accountInfo">
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>登录账号：</label>
+                    <div class="formControls col-xs-3 col-sm-4">
+                        <input type="text" class="input-text" value="" placeholder="" id="accountName" name="accountName" disabled>
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">角色：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                    <span class="select-box">
+                         <select class="select" name="roleId" id="roleId" size="1" disabled>
+
+                         </select>
+                    </span>
+                    </div>
+                </div>
+            </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">身份证号码：</label>
+                    <div class="formControls col-xs-3 col-sm-4">
+                        <input type="text" class="input-text" placeholder="" name="cardNo" id="cardNo">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">毕业年份：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input  style="width:50%" type="text" id="personEduEndDate" name="personEduEndDate" class="input-text">年<span class="c-red">（如 2016）</span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">开始工作日期：</label>
+                    <div class="formControls col-xs-3 col-sm-4">
+                        <input  style="width:50%"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" class="input-text Wdate"  placeholder="" name="personWorkDate" id="personWorkDate">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">文化程度：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input type="text" class="input-text" placeholder="" name="personEduLevel" id="personEduLevel">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">毕业学校：</label>
+                    <div class="formControls col-xs-3 col-sm-4">
+                        <input type="text" class="input-text" placeholder="" name="personEduSchool" id="personEduSchool">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">专业：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input type="text" class="input-text" placeholder="" name="personEduProfessional" id="personEduProfessional">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2">职称：</label>
+                    <div class="formControls col-xs-3 col-sm-4">
+                        <input type="text" class="input-text" placeholder="" name="personProfTitle" id="personProfTitle">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">职务：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input type="text" class="input-text" placeholder="" name="personPosition" id="personPosition">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>图章上传：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <div id="uploader2" class="uploader-list-container" style="margin:0 auto">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder element-invisible">
+                                    <div id="filePicker-2" class="webuploader-container"><div class="webuploader-pick">点击选择图片</div>
+                                        <div id="rt_rt_1bh4hpurs1511gfp3tc1p4vbld1" style="position: absolute; top: 20px; left: 0; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;">
+                                            <input type="file" name="file" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul id="filelist2" class="filelist">
+                                    <li>
+                                        <p class="imgWrap">
+                                            <img id ="stampImg" src=""/>
+                                        </p>
+                                        <p class="progress"><span></span></p>
+                                        <div class="file-panel" id="init-status2" style="height:0;">
+                                            <span class="cancel">删除</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cl">
+                <label class="form-label col-xs-2 col-sm-2">备注：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea name="personRemark"  id="personRemark"  cols="" rows="" class="textarea"></textarea>
+                </div>
+            </div>
+    </article>
+    </div>
+    <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+        <button class="btn btn-primary radius size-S" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+        <button onClick="layer_close();" class="btn btn-default radius size-S" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+    </div>
+   </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+    var comType = JSON.parse(sessionStorage.Pcomtype);
+    var comlist = JSON.parse(sessionStorage.comlist);
+    var persontype = JSON.parse(sessionStorage.persontype);
+    var roles = JSON.parse(sessionStorage.roles);
+    var id = sessionStorage.person_id;
+    var submited = false;
+
+    (function( $ ){
+        $(function() {
+            /*******************获取基础信息*************************/
+
+            var comTypestr="<option>--请选择--</option>";
+            //初始化单位类型
+            $.each(comType,function(key,val){
+                comTypestr += '<option value="'+val.code+'">'+val.name+'</option>';
+            });
+            $("#comTypeCode").html(comTypestr);
+
+
+            $('#comType').bind('change',function(){
+                var comcode = this.value;
+                comtype(comcode);
+
+            });
+
+            //人员类别
+            var personStr="<option>--请选择--</option>";
+            $.each(persontype,function(key,val){
+                personStr += '<option value="'+val.code+'">'+val.name+'</option>';
+            });
+            $("#personType").html(personStr);
+
+            //显示隐藏登录账号
+            $('input[name=account]').click(function(){
+                var bool = $('input[name=account]:checked').val();
+                if(bool==1){
+                    $('#accountInfo').show();
+                }else if(bool==0){
+                    $('#accountInfo').hide();
+                }
+            });
+
+            //获取人员信息
+            $.ajax({
+                url: "/api/v1/Person/"+id,    //请求的url地址
+                dataType: "json",
+                async: true,
+                type: "GET",
+                success: function(reg) {
+                    if(reg.code==0){
+                        $.each(reg.data.personBase,function(n,val){
+                            $('#'+n).val(val);
+                            if(n=='workNo'){
+                                $('#personWorkNo').val(val);
+                            }
+                            if(n=='workScope'){
+                                $('#personWorkScope').val(val);
+                            }
+                            if(n=='personType'){
+                                $("#personType option:contains('"+val+"')").attr('selected', true);
+                            }
+                            if(n=='sex'){
+                                if(val=='男'){
+                                    $('#sex-1').attr("checked","checked");
+                                }else{
+                                    $('#sex-2').attr("checked","checked");
+                                }
+                            }
+                            if(n=='remark'){
+                                $('#personRemark').val(val);
+                            }
+                            if(n=='comTypeCode'){
+                                comtype(val);
+                            }
+                            //显示头像
+                            if(n=='photo'){
+                                if(val==null){
+                                    $queue1.find('li').remove();
+                                }else{
+                                    document.getElementById('headImg').src = "/api/v1/res/"+val+"?"+Math.random();
+                                }
+                            }
+
+                        });
+                        var stamp = reg.data.stamp;
+                         if(stamp==null){
+                             $placeHolder.removeClass( 'element-invisible');
+                             $queue2.hide();
+                         }else{
+                             document.getElementById('stampImg').src = "/api/v1/res/"+stamp.hash+"?"+Math.random();
+                         }
+                        var personExt = reg.data.personExt;
+                        $('input[name=cardNo]').val(personExt.cardNo);
+                        $('input[name=personBirthDay]').val(personExt.birthDay);
+                        $('input[name=personEduEndDate]').val(personExt.eduEndDate);
+                        $('input[name=personEduLevel]').val(personExt.eduLevel);
+                        $('input[name=personEduSchool]').val(personExt.eduSchool);
+                        $('input[name=personPosition]').val(personExt.position);
+                        $('input[name=personEduProfessional]').val(personExt.eduProfessional);
+                        $('input[name=personProfTitle]').val(personExt.profTitle);
+                        $('input[name=personWorkDate]').val(personExt.workDate);
+
+                        var accountInfo = reg.data.account;
+                        if(accountInfo.accountName==null || accountInfo.accountName==''|| accountInfo.accountName==undefined){
+                            $('#accountInfo').hide();
+                        }else{
+                            $('#accountName').val(accountInfo.accountName);
+                            $('#roleId').val(accountInfo.roleId);
+                            $('#accountInfo').show();
+                        }
+
+                    }else{
+                        layer.msg(reg.message,{icon:6,time:2000});
+                    }
+                }
+            });
+
+            /******************头像上传*********************/
+
+            var $wrap = $('#uploader1'),
+                $wrap1 = $('#uploader2'),
+                // 图片容器
+                $uploadBtn =$('#uploadBtn'),
+                $queue1 = $('#filelist1'),
+                $queue2 = $('#filelist2'),
+                $placeHolder = $wrap1.find( '.placeholder'),
+
+                // 添加的文件数量
+                fileCount = 0,
+                // 添加的文件总大小
+                fileSize = 0,
+
+                // 优化retina, 在retina下这个值是2
+                ratio = window.devicePixelRatio || 1,
+
+                // 缩略图大小
+                thumbnailWidth = 110 * ratio,
+                thumbnailHeight = 110 * ratio,
+                // 可能有pedding, ready, uploading, confirm, done.
+                state = 'pedding',
+
+                // 判断浏览器是否支持图片的base64
+                isSupportBase64 = ( function() {
+                    var data = new Image();
+                    var support = true;
+                    data.onload = data.onerror = function() {
+                        if( this.width != 1 || this.height != 1 ) {
+                            support = false;
+                        }
+                    };
+                    data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                    return support;
+                } )(),
+
+                // 检测是否已经安装flash，检测flash的版本
+                flashVersion = ( function() {
+                    var version;
+
+                    try {
+                        version = navigator.plugins[ 'Shockwave Flash' ];
+                        version = version.description;
+                    } catch ( ex ) {
+                        try {
+                            version = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+                                .GetVariable('$version');
+                        } catch ( ex2 ) {
+                            version = '0.0';
+                        }
+                    }
+                    version = version.match( /\d+/g );
+                    return parseFloat( version[ 0 ] + '.' + version[ 1 ], 10 );
+                })(),
+
+                supportTransition = (function(){
+                    var s = document.createElement('p').style,
+                        r = 'transition' in s ||
+                            'WebkitTransition' in s ||
+                            'MozTransition' in s ||
+                            'msTransition' in s ||
+                            'OTransition' in s;
+                    s = null;
+                    return r;
+                })(),
+
+                // WebUploader实例
+                uploader, uploader1;
+            if (!WebUploader.Uploader.support('flash') && WebUploader.browser.ie ) {
+                // flash 安装了但是版本过低。
+                if (flashVersion) {
+                    (function(container) {
+                        window['expressinstallcallback'] = function( state ) {
+                            switch(state) {
+                                case 'Download.Cancelled':
+                                    alert('您取消了更新！');
+                                    break;
+
+                                case 'Download.Failed':
+                                    alert('安装失败');
+                                    break;
+
+                                default:
+                                    alert('安装已成功，请刷新！');
+                                    break;
+                            }
+                            delete window['expressinstallcallback'];
+                        };
+
+                        var swf = 'expressInstall.swf';
+                        // insert flash object
+                        var html = '<object type="application/' +
+                            'x-shockwave-flash" data="' +  swf + '" ';
+
+                        if (WebUploader.browser.ie) {
+                            html += 'classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ';
+                        }
+
+                        html += 'width="100%" height="100%" style="outline:0">'  +
+                            '<param name="movie" value="' + swf + '" />' +
+                            '<param name="wmode" value="transparent" />' +
+                            '<param name="allowscriptaccess" value="always" />' +
+                            '</object>';
+
+                        container.html(html);
+
+                    })($wrap);
+
+                    // 压根就没有安转。
+                } else {
+                    $wrap.html('<a href="http://www.adobe.com/go/getflashplayer" target="_blank" border ="0"><img alt="get flash player" src="http://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" /></a>');
+                }
+                return;
+            } else if (!WebUploader.Uploader.support()) {
+                alert( 'Web Uploader 不支持您的浏览器！');
+                return;
+            }
+            /*********************删除头像*******************************/
+            $('#filelist1 li').mouseenter(function(){
+                $('#init-status1').stop().animate({height: 30});
+            });
+
+            $('#filelist1 li').on( 'mouseleave', function(){ //鼠标离开时
+                $('#init-status1').stop().animate({height: 0});
+            });
+
+            $('#init-status1').on( 'click', 'span', function(){ //按钮点击事件
+                var index = $(this).index();
+                switch ( index ) {
+                    case 0:
+                        $queue1.find('li').remove();
+                        return;
+                }
+            });
+/*****************************删除签章***********************************/
+            $('#filelist2 li').mouseenter(function(){
+                $('#init-status2').stop().animate({height: 30});
+            });
+
+            $('#filelist2 li').on( 'mouseleave', function(){ //鼠标离开时
+                $('#init-status2').stop().animate({height: 0});
+            });
+
+            $('#init-status2').on( 'click', 'span', function(){ //按钮点击事件
+                var index = $(this).index();
+                switch ( index ) {
+                    case 0:
+                        $placeHolder.removeClass( 'element-invisible');
+                        $queue2.hide();
+                        return;
+                }
+            });
+
+            // 实例化编辑头像
+            uploader = WebUploader.create({
+                pick: {
+                    id: '#filePicker-1',
+                    label: '点击选择头像 '
+                },
+                formData: {
+                    uid: 123
+                },
+                swf: '../lib/webuploader/0.1.5/Uploader.swf',
+                chunked: false,
+                chunkSize: 512 * 1024,
+                server: '/api/v1/Person/UploadPhoto',
+                // runtimeOrder: 'flash',
+
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                },
+
+                // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+                disableGlobalDnd: true,
+                fileNumLimit: 3, //限制只能上传一张
+                fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+                fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+            });
+
+            // 实例化图章上传
+            uploader1 = WebUploader.create({
+                pick: {
+                    id: '#filePicker-2',
+                    label: '点击上传图章 '
+                },
+                formData: {
+                    uid: 123
+                },
+                swf: '../lib/webuploader/0.1.5/Uploader.swf',
+                chunked: false,
+                chunkSize: 512 * 1024,
+                server: '/api/v1/Person/UploadStamp',
+                // runtimeOrder: 'flash',
+
+                accept: {
+                    title: 'Images',
+                    extensions: 'png',
+                    mimeTypes: 'image/*'
+                },
+
+                // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+                disableGlobalDnd: true,
+                fileNumLimit: 100, //限制只能上传一张
+                fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+                fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+            });
+
+
+            uploader.on('ready', function() {
+                window.uploader = uploader;
+            });
+            uploader1.on('ready', function() {
+                window.uploader = uploader1;
+            });
+
+            // 当有文件添加进来时执行，负责view的创建
+            function addFile( file,list,uploader){
+                var $li = $( '<li id="' + file.id + '">' +
+                        '<p class="title">' + file.name + '</p>' +
+                        '<p class="imgWrap"></p>'+
+                        '<p class="progress"><span></span></p>' +
+                        '</li>'),
+
+                    $btns = $('<div class="file-panel">' +
+                        '<span class="cancel">删除</span>' +
+                        '<span class="rotateRight">向右旋转</span>' +
+                        '<span class="rotateLeft">向左旋转</span></div>').appendTo( $li ),
+                    $prgress = $li.find('p.progress span'),
+                    $wrap = $li.find( 'p.imgWrap'),
+
+                    showError = function( code ) {
+                        switch( code ) {
+                            case 'exceed_size':
+                                text = '文件大小超出';
+                                break;
+
+                            case 'interrupt':
+                                text = '上传暂停';
+                                break;
+                            default:
+                                text = '上传失败，请重试';
+                                break;
+                        }
+                    };
+
+                if ( file.getStatus() === 'invalid' ) {
+                    showError( file.statusText );
+                } else {
+                    // 生成预览效果
+                    $wrap.text( '预览中' );
+                    uploader.makeThumb( file, function( error, src ) {
+                        var img;
+                        if ( error ) {
+                            $wrap.text( '不能预览' );
+                            return;
+                        }
+                        if( isSupportBase64 ) {
+                            img = $('<img src="'+src+'">');
+                            $wrap.empty().append( img );
+                        }
+                    }, thumbnailWidth, thumbnailHeight );
+                    file.rotation = 0;
+                }
+
+                file.on('statuschange', function( cur, prev ) {
+                    if ( prev === 'progress' ) {
+                        $prgress.hide().width(0);
+                    } else if ( prev === 'queued' ) {
+                        $li.off( 'mouseenter mouseleave' );
+                        $btns.remove();
+                    }
+                    // 成功
+                    if ( cur === 'error' || cur === 'invalid' ) {
+                        console.log( file.statusText );
+                        showError( file.statusText );
+
+                    } else if ( cur === 'interrupt' ) {
+                        showError( 'interrupt' );
+                    } else if ( cur === 'queued' ) {
+
+                    } else if ( cur === 'progress' ) {
+                        $prgress.css('display', 'block');
+                    } else if ( cur === 'complete' ) {
+                        $li.append( '<span class="success"></span>' );
+                    }
+                    $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
+                });
+
+                $li.on( 'mouseenter', function() {//鼠标经过按钮时
+                    $btns.stop().animate({height: 30});
+                });
+
+                $li.on( 'mouseleave', function() { //鼠标离开时
+                    $btns.stop().animate({height: 0});
+                });
+
+                $btns.on( 'click', 'span', function() { //按钮点击事件
+                    var index = $(this).index(),
+                        deg;
+                    switch ( index ) {
+                        case 0:
+                            uploader.removeFile( file );
+                            return;
+
+                        case 1:
+                            file.rotation += 90;
+                            break;
+
+                        case 2:
+                            file.rotation -= 90;
+                            break;
+                    }
+
+                    if ( supportTransition ) {
+                        deg = 'rotate(' + file.rotation + 'deg)';
+                        $wrap.css({
+                            '-webkit-transform': deg,
+                            '-mos-transform': deg,
+                            '-o-transform': deg,
+                            'transform': deg
+                        });
+                    } else {
+                        $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
+                    }
+                });
+                list.html($li);
+            }
+
+
+            // 删除文件
+            function removeFile( file,uploader) {
+                var $li = $('#'+file.id);
+                $li.off().find('.file-panel').off().end().remove();
+                uploader.refresh();
+            }
+
+            //当文件加入对列中时
+            uploader.onFileQueued = function( file ) {
+                addFile( file,$queue1,uploader);
+            };
+
+            //当文件加入对列中时
+            uploader1.onFileQueued = function( file ) {
+                $placeHolder.addClass( 'element-invisible' );
+                $queue2.show();
+                addFile( file,$queue2,uploader1);
+            };
+
+            //将文件从队列中删除
+            uploader.onFileDequeued = function( file ) {
+                removeFile( file,uploader);
+            };
+            uploader1.onFileDequeued = function( file ) {
+                $placeHolder.removeClass( 'element-invisible');
+                $('#filelist2').hide();
+                removeFile( file,uploader1);
+            };
+
+            //文件上传出错
+            uploader.onError = function( code ) {
+
+                if(code=='Q_TYPE_DENIED'){
+                    layer.alert('图片类型错误！');
+                }
+            };
+            //文件上传出错
+            uploader1.onError = function( code ) {
+                if(code=='Q_TYPE_DENIED'){
+                    layer.alert('请选择png格式的图片！');
+                }
+            };
+
+            function save_submit(){
+                var data = new Object();
+                $("#form-person-edit *[name]").each(function (item) {
+                    data[$(this).attr("name")] = $(this).val();
+                });
+                data['personType'] = $('#personType').find("option:selected").text();
+                data['sex'] = $('input[name=sex]:checked').val();
+                //表单验证
+                if( checkSubmit()) {
+                    $.ajax({
+                        url: "/api/v1/Person/" + id,    //请求的url地址
+                        dataType: "json",
+                        async: false,
+                        data: data,
+                        type: "PUT",
+                        success: function (reg) {
+                            submited = false;
+                            if (reg.code == 0) {
+                            }
+                            else {
+                                layer.alert(reg.message);
+                            }
+                        },
+                        error:function(){
+                            layer.alert('保存失败！');
+                            submited = false;
+                        }
+                    });
+                    var extdata = new Object();
+                    extdata['personBirthDay'] = $('input[name="personBirthDay"]').val();
+                    extdata['cardNo'] = $('input[name="cardNo"]').val();
+                    extdata['personEduEndDate'] = $('input[name="personEduEndDate"]').val();
+                    extdata['personWorkDate'] = $('input[name="personWorkDate"]').val();
+                    extdata['personEduLevel'] = $('input[name="personEduLevel"]').val();
+                    extdata['personEduSchool'] = $('input[name="personEduSchool"]').val();
+                    extdata['personEduProfessional'] = $('input[name="personEduProfessional"]').val();
+                    extdata['personProfTitle'] = $('input[name="personProfTitle"]').val();
+                    extdata['personPosition'] = $('input[name="personPosition"]').val();
+
+
+                    $.ajax({
+                        url: "/api/v1/Person/" + id + "/PersonExt",    //请求的url地址
+                        dataType: "json",
+                        async: false,
+                        data: data,
+                        type: "PUT",
+                        success: function (reg) {
+                            submited = false;
+                            if (reg.code == 0) {
+                                uploader.options.formData.PersonId =id ;
+                                uploader1.options.formData.PersonId =id ;
+                                uploader1.upload();
+                                uploader.upload();
+                                layer.msg(reg.message, {icon: 1, time: 3000}, function () {
+                                    parent.location.href = "/company/personlist.html";
+                                });
+
+                            } else {
+                                layer.alert(reg.message);
+                            }
+                        },
+                        error:function(){
+                            layer.alert('保存失败！');
+                            submited = false;
+                        }
+                    });
+                }
+            }
+
+            $("#form-person-edit").validate({
+                debug: true,
+                rules: {
+                    realName: {
+                        required: true
+                    },
+                    comId: {
+                        required: true
+                    },
+                    roleId:{
+                        required: true
+                    },
+                    email:{
+                        email:true
+                    }
+
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    save_submit();
+                }
+            });
+        });
+    })( jQuery );
+
+
+    function comtype(comcode){
+
+        var comStr ='<option>--请选择--</option>';
+        $.each(comlist,function(key,val){
+            if(comcode==val.comTypeCode){
+                comStr += '<option value="'+val.comId+'">'+val.comName+'</option>';
+            }
+        });
+        $('#comId').html(comStr);
+
+        var roleStr ='<option value=" ">--请选择--</option>';
+        $.each(roles,function(k1,val1){
+            if(comcode==val1.RoleGroupCode){
+                roleStr += '<option value="'+val1.roleId+'">'+val1.roleName+'</option>';
+            }
+            $('#roleId').html(roleStr);
+        });
+    }
+
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

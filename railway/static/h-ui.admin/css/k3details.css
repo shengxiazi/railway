@@ -1,0 +1,151 @@
+ul li{
+    margin:0;
+    padding:0;
+}
+.panel-body{
+    margin:0;
+    padding:0;
+}
+.clearfloat:after{
+    display:block;
+    clear:both;
+    content:"";
+    visibility:hidden;
+    height:0
+}
+.clearfloat{zoom:1}
+
+.main{
+    position:relative;
+    text-align:center;
+    height:auto;
+}
+
+.left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 120px;
+    background:#f6f5fa;
+    padding-top:2px;
+}
+
+.right{
+    height:auto;
+    margin-left: 130px;
+    margin-top:5px;
+    background: #fff;
+    position:relative;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+
+.mileageBar{
+    padding:2px;
+    width:115px;
+    border-right: 1px solid #ddd;
+}
+
+.titlebar{
+    border:1px solid #ddd;
+    border-radius: 2px;
+    display:block;
+    width:100%;
+    background-color:#f6f5fa;
+
+}
+
+.mileage-list li a{
+    display:block;
+    margin-top:1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:4px;
+    text-decoration: none;
+
+}
+.mileage-list .item span{
+    position:relative;
+    display:block;
+    padding:6px;
+    text-align:left;
+    background-color:#0f9ae0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:4px;
+    border-bottom:1px solid #f6f5fa;
+    color:#f6f5fa;
+}
+
+.mileage-list span b{
+    position:absolute;
+    display: block; cursor:pointer;right:5px;top:0;text-align:center; color:#fff;
+    font-size:18px;
+    font-weight: bold;
+}
+
+
+.second-list{
+    display:none;
+    background-color:#fff;
+}
+ li a:hover{
+    background-color: #3b9e3b;
+    color:#fff;
+
+}
+ li a.active{
+    background-color: #3b9e3b;
+    color:#fff;
+}
+
+.table th, .table td {
+    padding: 3px;
+    line-height: 30px;
+}
+
+/******************右边主显示区***********************/
+.layerBar{
+    position: absolute;
+    top: 0;
+    left:0;
+    bottom: 0;
+    width: 80px;
+    background:#f6f5fa;
+    padding:2px 0 0 4px;
+    border-radius: 5px;
+    border-right:1px solid #ddd;
+}
+
+.mainpanel{
+    margin-left:5px;
+}
+
+
+.layerlist span{
+    padding:5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:4px;
+    background-color: #77d5f7;
+    margin-top:1px;
+    text-align:left;
+    display:block;
+    color:#fff;
+
+}
+
+
+.layerlist .directList{
+    display:none;
+    background-color: #fff;
+}
+
+.layerlist .directList li a{
+    display:block;
+    margin-top:1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:4px;
+    text-decoration: none;
+
+
+}

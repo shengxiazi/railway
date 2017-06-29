@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>低应变数据</title>
+    <style>
+        .table{font-size:12px;}
+
+        .table th,td {
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="dyList" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>检测数据<span class="c-gray en">&gt;</span><span id="titleName"></span>低应变数据<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+
+        <div id="searchDiv"  class="text-c">
+            设备编号：<input type="text" name="machineId" id="machineId"  style="width:120px" class="input-text">
+            &nbsp;&nbsp;
+            <!--墩（台）号：-->
+            <!--<input type="text" name="pierNo" id="pierNo"  style="width:120px" class="input-text">-->
+            <!--&nbsp;&nbsp;-->
+            <!--桩号：-->
+            <!--<input type="text" name="pileNo" id="pileNo"  style="width:120px" class="input-text">-->
+            <!--&nbsp;&nbsp;-->
+            检测结论：
+            <span class="select-box inline">
+                <select name="result" id="result" size="1"   class="select">
+                    <option value="">--请选择--</option>
+                    <option value="0">未判定</option>
+                    <option value="1">Ⅰ类</option>
+                    <option value="2">Ⅱ类</option>
+                    <option value="3">Ⅲ类</option>
+                    <option value="4">Ⅳ类</option>
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            数据有效性：
+            <span class="select-box inline">
+                <select name="isValid" id="isValid" size="1"  class="select">
+
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            数据复核状态：
+            <span class="select-box inline">
+                <select name="flowFlag" id="flowFlag" size="1"   class="select">
+                    <option value="">全部</option>
+                    <option value="1">待复核</option>
+                    <option value="2">退回修订</option>
+                    <option value="3">已复核</option>
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden;position:relative;">
+            <span class="l" id="operation">
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+                <table id="sortable_table" class="table table-border table-bordered table-hover table-bg">
+               <thead>
+               <tr class="text-c">
+                 <th width="25"><input type="checkbox" name="allsel" value=""/></th>
+                 <th width="25" >序号</th>
+                   <th id="QViewT"  style="display: none;" width="150" >墩(台)号</th>
+                   <th width="250">检测编号</th>
+                   <th width="150" >桩号</th>
+                   <th width="70" >桩长<br/>(m)</th>
+                   <th width="60" >桩径<br/>(mm)</th>
+                   <th width="50" >强度<br/>等级</th>
+                   <th width="50" >检测<br/>结论</th>
+                    <th width="100" >数据<br/>有效性</th>
+                   <th width="100" >复核状态</th>
+                   <th width="50" >上传<br/>方式</th>
+
+                   <th width="50" >GPS<br/>状态</th>
+
+                   <th width="170" >设备编号</th>
+                       <!--<th width="200" rowspan="2">施工里程</th>-->
+                   <th width="200">检测人员</th>
+
+
+                   <th width="250" >测试时间</th>
+                   <th width="100" id='DelaytimeT'><span onclick="showUploadtimeT();" class="label label-success radius">上传<br/>延迟时间</span></th>
+                   <th width="250" id='UploadtimeT' style='display: none;'><span onclick="showDelaytimeT();" class="label label-success radius">上传时间</span></th>
+
+                   <tr/>
+               </thead>
+               <tbody>
+
+                    </tbody>
+                    </table>
+
+
+
+
+            </div>
+
+            <div class="mt-20" id="table-nodata" style="overflow:auto;">
+              </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="10" selected = "selected" >10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+<!--数据复核-->
+<article class="page-container" id="dy-review" style="display:none">
+    <form class="form form-horizontal" id="form-dy-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row cl mar">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript">
+
+
+
+    var pageSize=$("#page-size").val();
+
+    var projectId = sessionStorage.pro_id;
+    var height;
+    var width;
+    var Dwidth=$(document).width(),Dheight=$(document).height();
+
+    var initPage;
+    if(Dwidth>1339){
+     initPage=parseInt((Dheight-280)/38);
+    }else {
+     initPage=parseInt((Dheight-280-32)/38);
+}
+    pageSize=initPage;
+
+    //多选框选中后获得的id
+    function getselectid(){
+        var selectedid = '';
+        $('input[name=selid]:checked').each(function(){
+            selectedid += $(this).val()+",";
+        });
+
+        return selectedid.substring(0, selectedid.lastIndexOf(','));
+    };
+
+
+
+
+    $(function(){
+        var  screenWidth = window.screen.width;
+        if(screenWidth<=1366){
+            height='90%';
+            width='80%';
+        }else{
+            height='80%';
+            width='60%';
+        }
+
+
+        if(sessionStorage.buildtype=="Q"){
+            $("#QView").show();
+            $("#QViewT").show();
+            $("#titleName").html("桥梁基桩 -");
+        }
+        if(sessionStorage.buildtype=="D"){
+            $("#QView").hide();
+            $("#QViewT").hide();
+            $("#titleName").html("地基处理桩 -");
+        }
+
+
+
+
+
+        //初始化操作权限
+        $.ajax({
+
+            url: "/api/v1/DyData/"+projectId+"/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('dyList',power,'operation');
+                    sessionStorage.dyPower= JSON.stringify(power);
+                    var validStr = '<option value="">--请选择--</option>';
+                    $.each(reg.data.isValid,function(n,val){
+                        validStr+='<option value="'+val.code+'">'+val.name+'</option>';
+                    });
+                    $('#isValid').html(validStr);
+                    var StandardStr = '<option value="">--请选择--</option>';
+                    $.each(reg.data.testStandard,function(n,val){
+                        StandardStr+='<option value="'+val.code+'">'+val.name+'</option>';
+                    });
+                    $('#TestStandard').html(StandardStr);
+                    //初始化分页数据
+                    var pageIndex=1;
+                    var uri ='/api/v1/DyData/'+projectId+'/'+pageSize+'/'+pageIndex+'/ListByPage';
+                    getPage(uri);
+                }
+
+            }
+
+        });
+
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+            var machineId = $("#machineId").val();
+//        var pierNo ="";
+//        if(sessionStorage.buildtype=="Q"){
+//            pierNo = $("#pierNo").val();
+//        }
+//        var pileNo = $("#pileNo").val();
+            var result = $("#result").val();
+            var isValid = $("#isValid").val();
+            var flowFlag=$("#flowFlag").val();
+//        var uri ='/api/v1/DyData/'+projectId+'/'+pageSize+'/1/ListByPage?machineId='+machineId+'&isValid='+isValid+'&pierNo='+pierNo+'&result='+result+'&pileNo='+pileNo;
+            var uri ='/api/v1/DyData/'+projectId+'/'+pageSize+'/1/ListByPage?machineId='+machineId+'&isValid='+isValid+'&flowFlag='+flowFlag+'&result='+result;
+            getPage(uri);
+
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+
+
+        $("input[name='allsel']").click(function(){
+            if($(this).is(":checked")){
+                $("#sortable_table tbody tr").addClass('selected');
+            }else{
+                $("#sortable_table tbody tr").removeClass('selected');
+            }
+        });
+
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tbody tr',function(){
+            var check = $(this).find("input[type='checkbox']");
+            if(check){
+                var flag = check[0].checked;
+                if(flag){
+                    check[0].checked = true;
+                    $(this).addClass('selected');
+                }else{
+                    check[0].checked = false;
+                    $(this).removeClass('selected');
+                }
+            }
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tbody tr',function(){
+            var id = $(this).attr('data-id');
+            sessionStorage.dyBaseInfoId = id;
+            if(id==undefined || id==""){
+                layer.alert('请选择一条记录！');
+                return;
+            }
+
+            var newurl='DyDataDetails.html';
+            showModal(newurl);
+        });
+
+
+
+    });
+
+
+        //查看详情
+        $("#operation").on("click","#view", function(){
+
+            var id=getselectid();
+            if(id==""){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            var selarr=id.split(",");
+            if(selarr.length>1){
+                layer.alert('只能选择一条记录！');
+                return false;
+            }
+            sessionStorage.dyBaseInfoId = id;
+
+
+//            var id= $('#sortable_table').find('.selected').attr('data-id');
+//            sessionStorage.DyDataDetails = id;
+//            if(id==undefined || id== ''){
+//                layer.alert('请选择一条记录！');
+//                return false;
+//            }
+//            layer_open('查看低应变数据详情','DyDataDetails.html',width,height);
+            var newurl='DyDataDetails.html';
+//            showDetailsModal(newurl, "查看低应变数据详情");
+            showModal(newurl);
+
+    });
+    //结果上传
+    $("#operation").on("click","#upload", function(){
+
+        var id=getselectid();
+        if(id==""){
+            layer.alert('请选择一条记录！');
+            return false;
+        }
+        var selarr=id.split(",");
+        if(selarr.length>1){
+            layer.alert('只能选择一条记录！');
+            return false;
+        }
+
+    });
+
+
+    //下载
+    $('#operation').on('click','#downLoad',function() {
+
+        var id=getselectid();
+        if(id==""){
+            layer.alert('请选择一条记录！');
+            return false;
+        }
+        var selarr=id.split(",");
+        if(selarr.length>1){
+            layer.alert('只能选择一条记录！');
+            return false;
+        }
+
+//        var id= $('#sortable_table').find('.selected').attr('data-id');
+//        if(id==undefined || id== ''){
+//            layer.alert('请选择一条记录！');
+//            return false;
+//        }
+        var  downloadurl='/api/v1/DyData/'+projectId+'/'+id+'/SSSData';
+        //window.open(downloadurl, "数据下载");
+        downloadFile(downloadurl);
+
+    });
+
+    function downloadFile(url)
+    {
+        try{
+            var elemIF = document.createElement("iframe");
+            elemIF.src = url;
+            elemIF.style.display = "none";
+            document.body.appendChild(elemIF);
+        }catch(e){
+
+        }
+    }
+
+
+
+    //复核
+    $('#operation').on('click','#review',function(){
+
+        var id=getselectid();
+
+        if(id==""){
+            layer.alert('请选择一条记录！');
+            return false;
+        }
+        var selarr=id.split(",");
+
+        if(selarr.length>1){
+            layer.alert('只能选择一条记录！');
+            return false;
+        }
+        //获取实验人员列表
+        $.ajax({
+            url:'/api/v1/XMPerson/'+projectId+'/LiteListByProjId',
+            dataType:"json",
+            async:true,
+            type:'GET',
+            success:function(reg){
+                if(reg.code==0){
+
+                    var list="";
+                    $.each(reg.data,function(k,val){
+                        list+='<div class="check-box">';
+                        list+='<input type="checkbox" id=user"'+val.value+'" name="authorityTag" value="'+val.value+'">';
+                        list+='<label for="checkbox-1">'+val.name+'</label>';
+                        list+='</div>';
+                    });
+
+                    $('#user-list').html(list);
+
+                }
+            }
+        });
+
+        var index=layer.open({
+            type: 1,
+            title:'数据复核',
+            content: $('#dy-review'), //这里content是一个DOM
+            area:['550px','300px'],
+            btn:['确定','取消'],
+            'yes':function(index,layero) {
+
+                var flowFlag = $('input[name=flowFlag]:checked').val();
+                if (validform().form()) {
+                    $.ajax({
+                        url: '/api/v1/DyData/' + projectId + '/' + id + '/Review',    //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        type: "PATCH",
+                        data: {
+                            'flowFlag': flowFlag,
+                            'message': $("#message").val()
+                        },
+                        success: function (reg) {
+                            if (reg.code == 0) {
+                                layer.msg('操作成功!', {icon: 1, time: 2000});
+
+                                if (flowFlag == '2') {
+                                    $('#sortable_table').find('.selected').find('.status').html('<span class="label label-danger radius">退回修订</span>');
+
+                                }
+                                if (flowFlag == '3') {
+                                    $('#sortable_table').find('.selected').find('.status').html('<span class="label label-success radius">已复核</span>');
+
+                                }
+                            } else {
+                                layer.alert(reg.message);
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }
+            }
+
+        });
+    });
+
+    //查询
+    function search(){
+
+        var machineId = $("#machineId").val();
+//        var pierNo ="";
+//        if(sessionStorage.buildtype=="Q"){
+//            pierNo = $("#pierNo").val();
+//        }
+//        var pileNo = $("#pileNo").val();
+        var result = $("#result").val();
+        var isValid = $("#isValid").val();
+        var flowFlag=$("#flowFlag").val();
+//        var uri ='/api/v1/DyData/'+projectId+'/'+pageSize+'/1/ListByPage?machineId='+machineId+'&isValid='+isValid+'&pierNo='+pierNo+'&result='+result+'&pileNo='+pileNo;
+        var uri ='/api/v1/DyData/'+projectId+'/'+pageSize+'/1/ListByPage?machineId='+machineId+'&isValid='+isValid+'&flowFlag='+flowFlag+'&result='+result;
+        getPage(uri);
+
+    }
+
+    //表单验证
+    function validform(){
+        return  $("#form-dy-review").validate({
+            debug:true,
+            rules:{
+                flowFlag: {
+                    required: true
+                },
+                message:{
+                    required:true,
+                    rangelength:[0,100]
+                }
+            }
+        });
+    }
+
+
+    //分页函数
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+
+
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) *pageSize+1;
+
+                    //结束数
+                    var PageEnd =pageIndex*pageSize;
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    if (data.length!=0) {
+
+                        var  SampleSerialNoCount = 0;//单级检测编号记录数
+                        var  CurSerialNo = ""; //当前检测编号
+                        if(sessionStorage.buildtype=="Q") {
+                            var SamplePierNoCount = 0;//单级桥墩号记录数
+                            var CurPierNo = "";//当前桥墩号
+                        }
+
+                        $.each(data,function(n,value) {
+                            //拼接数据
+
+                            tableInfo+='<tr class="text-c" data-id="'+value.baseInfoId+'">';
+
+                            if (CurSerialNo != value.serialNo)
+                            {
+                                if (n > 0) tableInfo = tableInfo.replace("#{0}", SampleSerialNoCount);
+                                CurSerialNo = value.serialNo;
+                                SampleSerialNoCount = 0;
+                            }
+                            if(sessionStorage.buildtype=="Q") {
+                                if (CurPierNo != value.pierNo) {
+                                    if (n > 0) tableInfo = tableInfo.replace("#{1}", SamplePierNoCount);
+                                    CurPierNo = value.pierNo;
+                                    SamplePierNoCount = 0;
+                                }
+                            }
+
+
+
+                            tableInfo+='<td><input type="checkbox"   value="'+value.baseInfoId+'" name="selid"/></td>';
+                            tableInfo += '<td>'+(n+1)+'</td>';
+                            if(sessionStorage.buildtype=="Q"){
+//                                tableInfo += '<td>'+value.pierNo+'</td>';
+                                if (SamplePierNoCount == 0) tableInfo += "<td rowspan=\"#{1}\">" + value.pierNo + "</td>";
+                            }
+                            if (SampleSerialNoCount == 0) tableInfo += "<td rowspan=\"#{0}\">" + value.serialNo + "</td>";
+//                            tableInfo += '<td>'+value.serialNo+'</td>';
+
+
+
+
+
+                            tableInfo += '<td>'+value.pileNo+'</td>';
+                            tableInfo += '<td>'+value.pileLength+'</td>';//桩长
+                            tableInfo += '<td>'+value.pileDiameter+'</td>';//桩径
+                            tableInfo += '<td>'+value.pileTong+'</td>';//强度等级
+
+                            if(value.result=='0'){
+                                tableInfo += '<td class="td-result"><span style="color:blue">未判定</span></td>';
+                            }else  if(value.result=='1'){
+                                tableInfo += '<td class="td-result"><span style="color:green">Ⅰ类</span></td>';
+                            }else if(value.result=='2'){
+                                tableInfo += '<td class="td-result"><span style="color:olivedrab">Ⅱ类</span></td>';
+                            }else if(value.result=='3'){
+                                tableInfo += '<td class="td-result"><span style="color:indigo">Ⅲ类</span></td>';
+                            }else  if(value.result=='4'){
+                                tableInfo += '<td class="td-result"><span style="color:blue">Ⅳ类</span></td>';
+                            }else  if(value.result=='5'){
+                                tableInfo += '<td class="td-result"><span style="color:green">合格</span></td>';
+                            }else  if(value.result=='6'){
+                                tableInfo += '<td class="td-result"><span style="color:red">不合格</span></td>';
+                            }else{
+                                tableInfo += '<td class="td-result"><span style="color:blue">其它</span></td>';
+                            }
+
+                            if(value.isValid=='1') {
+                                tableInfo += '<td class="td-isValid"><span style="color:green">有效</span></td>';
+                            }else  if(value.isValid=='0') {
+                                tableInfo += '<td class="td-isValid"><span style="color:red">无效</span></td>';
+                            }else  {
+                                tableInfo += '<td class="td-isValid"><span style="color:blue">未判定</span></td>';
+                            }
+
+                            if(value.flowFlag==0){
+                                tableInfo+='<td class="status"><span class="label label-default radius">未判定</span></td>';
+                            }else if(value.flowFlag==1){
+                                tableInfo+='<td class="status"><span class="label label-warning radius">待复核</span></td>';
+                            }else  if(value.flowFlag==2){
+                                tableInfo+='<td class="status"><span class="label label-danger radius">退回修订</span></td>';
+                            }else if(value.flowFlag==3){
+                                tableInfo+='<td class="status"><span class="label label-success radius">已复核</span></td>';
+                            }else if(value.flowFlag==9){
+                                tableInfo+='<td class="status"><span class="label label-primary radius">已出报告</span></td>';
+                            }else{
+                                tableInfo+='<td class="status"><span class="label label-warning radius">未知</span></td>';
+                            }
+
+                            tableInfo += '<td>'+value.uploadMode+'</td>';//上传方式
+                            if(value.gpsIsValid=='1'){
+                                tableInfo += '<td class="td-gpsIsValid"><span style="color:green">YES</span></td>';
+                            }else{
+                                tableInfo += '<td class="td-gpsIsValid"><span style="color:red">NO</span></td>';
+                            }
+
+                            tableInfo += '<td>'+value.machineId+'</td>';
+
+
+
+                            tableInfo += '<td>'+value.testName+'</td>';//检测人员
+
+
+
+
+                            tableInfo += '<td>'+value.testTime+'</td>';
+
+                            var diffStr=getDateDiffStr(value.uploadTime,value.testTime);
+                            tableInfo += diffStr;
+                            tableInfo += "<td class='uploadtime' style='width: 150px;display:none'>" + value.uploadTime + "</td>";
+
+                            tableInfo += '</tr>';
+                            SampleSerialNoCount++;
+                            if(sessionStorage.buildtype=="Q") {
+                                SamplePierNoCount++;
+                            }
+
+                        });
+                        tableInfo = tableInfo.replace("#{0}", SampleSerialNoCount);
+                        if(sessionStorage.buildtype=="Q") {
+                            tableInfo = tableInfo.replace("#{1}", SamplePierNoCount);
+                        }
+                        //生成分页条
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if (pervPage == 0) {
+                            tablePage += '<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button previous disabled"  data-href="' + prevPageUri + '" id="Table_previous">上一页</a>';
+                        }
+
+                        if (nextPage == 0) {
+                            tablePage += '<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        } else {
+                            tablePage += '<a class="paginate_button next disabled"  data-href="' + nextPageUri + '"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data tbody').html(tableInfo);
+                        $("#table-nodata").hide();
+                        $("#table-data").show();
+                        $('#dataTables_info').show();
+                    }else{
+                        $('#page').html("");
+                        $("#table-data").hide();
+                        $("#table-nodata").show();
+                        $('#table-nodata').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+
+                    }
+                }else{
+                    layer.alert('加载失败！!');
+                }
+            }
+        });
+    }
+
+
+</script>
+
+</body>
+</html>

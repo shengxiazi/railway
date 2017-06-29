@@ -1,0 +1,229 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link href="../lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <style>
+        #dndArea {
+            min-height: 100px;
+            padding-top: 0;
+        }
+    </style>
+
+    <title>修改设备</title>
+
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <form class="form form-horizontal" id="form-equipment-add">
+        <div  data-options="region:'center',split:true" style="width:100%">
+            <div class="page-container">
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>设备名称：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+                        <span class="select-box">
+                        <select name="equipTypeId" id="equipTypeId" class="select">
+                            <option value="">--请选择--</option>
+                        </select>
+                        </span>
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">设备参数：</label>
+                    <div class="formControls col-xs-4 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="equipParam"  name="equipParam">
+                    </div>
+
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>设备编号：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+                        <input type="text" class="input-text" value="" placeholder=""  id="equipNo" name="equipNo">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">示值范围：</label>
+                    <div class="formControls col-xs-3 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="equipRange"  name="equipRange">
+                    </div>
+
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>设备型号：</label>
+                    <div class="formControls col-xs-4 col-sm-4">
+                        <input type="text" class="input-text" value="" placeholder="" id="equipSpec"  name="equipSpec">
+                    </div>
+                    <label class="form-label col-xs-2 col-sm-2">分辨力：</label>
+                    <div class="formControls col-xs-4 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="equipResolution"  name="equipResolution">
+                    </div>
+                </div>
+                <div class="row cl">
+                        <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否需要检定：</label>
+                        <div class="formControls col-xs-3 col-sm-4 skin-minimal">
+                            <div class="radio-box">
+                                <input type="radio" id="radio2" value="1" name="equipVerifyFlag">
+                                <label for="radio2">需要</label>
+                            </div>
+                            <div class="radio-box">
+                                <input name="equipVerifyFlag" type="radio" id="radio1" value="0">
+                                <label for="radio1">不需要</label>
+                            </div>
+                        </div>
+                    <label class="form-label col-xs-2 col-sm-2">设备厂商：</label>
+                    <div class="formControls col-xs-4 col-sm-3">
+                        <input type="text" class="input-text" value="" placeholder="" id="equipFactName"  name="equipFactName">
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-2">备注说明：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea name="equipRemark"  id="equipRemark" cols="" rows="" class="textarea" style="height:60px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'south'" style="height:40px; padding:5px 10px 0 0;  text-align:center;background-color:#F8F8F8;border-top:solid #eee 1px" >
+            <button class="btn btn-success radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+            <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+     var equipId = sessionStorage.equipId;
+        // 当domReady的时候开始初始化
+        $(function() {
+            //表单验证
+            $("#form-equipment-add").validate({
+                debug:true,
+                rules:{
+                    equipTypeId: {
+                        required: true
+                    },
+                    equipSpec:{
+                        required: true
+                    },
+                    equipNo:{
+                        required: true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    save_submit();
+                }
+            });
+            var equiptype = JSON.parse(sessionStorage.equiptype);
+            //设备类型
+            var str="<option value=''>--请选择--</option>";
+            $.each(equiptype,function(key,val){
+                str += '<option value="'+val.code+'">'+val.name+'</option>'
+            });
+            $("#equipTypeId").html(str);
+
+            //获取数据
+            $.ajax({
+                url: "/api/v1/TestEquip/"+equipId,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function(reg) {
+                    if(reg.code==0){
+                        $.each(reg.data,function(key,value){
+                            if(value!=null){
+                                if(key!='equipVerifyFlag'){
+                                    $('input[name="'+key+'"]').val(value);
+                                }
+
+                                if(key=='equipVerifyFlag'){
+                                    if(value==1){
+                                        $('#radio2').attr('checked',true);
+                                        $('#radio1').attr('checked',false);
+                                    }else{
+                                        $('#radio1').attr('checked',true);
+                                        $('#radio2').attr('checked',false);
+                                    }
+                                }
+                                if(key=='equipTypeId'){
+                                    $('#equipTypeId').val(value);
+                                }
+                                if(key=='equipRemark'){
+                                    $('#equipRemark').val(value);
+                                }
+                            }
+                        });
+                    }else{
+                        layer.msg(reg.message,{icon:6,time:2000});
+                    }
+                }
+            });
+            //提交基本表单
+            function save_submit() {
+                    var data = new Object();
+                    $("#form-equipment-add *[name]").each(function (item) {
+                        if ($(this).attr("name") != 'equipVerifyFlag') {
+                            data[$(this).attr("name")] = $(this).val();
+                        }
+                    });
+                    data["equipRemark"] = $('#equipRemark').val();
+                    data['equipVerifyFlag'] = $('input[name=equipVerifyFlag]:checked').val();
+               
+                    $.ajax({
+                        url: "/api/v1/TestEquip/" + equipId,    //请求的url地址
+                        dataType: "json",
+                        async: false,
+                        type: "PUT",
+                        data: data,
+                        success: function (reg) {
+                            if (reg.code == 0) {
+                                layer.msg(reg.message, {icon: 6, time: 2000}, function () {
+                                    parent.location.href = "/company/equiplist.html"
+                                });
+                            } else {
+                                layer.alert(reg.message);
+                            }
+                        },
+                        error: function () {
+                            layer.alert('提交失败！');
+                        }
+                    });
+                }
+        });
+</script>
+</body>
+</html>

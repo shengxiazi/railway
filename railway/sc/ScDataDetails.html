@@ -1,0 +1,1305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/jqueryUI/jquery-ui-1.8.11.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/gyDetails.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>声测数据详情</title>
+    <style>
+
+        .ui-layout-content table {
+            width: auto;}
+
+        .ui-layout-content td{
+            width: 100px;
+
+        }
+        .Curve
+        {
+            background-color: #FFFFFF;
+            position:absolute;
+            padding:0px;
+            left:5px;
+            top:5px;
+        }
+
+        #pilewaveimgbox{
+
+            margin-top: 10px;
+        }
+        .Waveimg{
+            text-align:center;
+            margin-top: 10px;
+        }
+        .pileyxtimg{
+
+            margin-top: 10px;
+        }
+        #pilewavebox{
+            margin-top: 5px;
+        }
+        th, td {
+
+            font-size: 0.88rem;
+
+        }
+        img {
+            border: 0;
+            vertical-align: top;
+        }
+        .mainA{
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body style="height: 100%">
+<div id="tabs" >
+    <ul class="stabs">
+        <li><a href="#tabs-1">声测数据详情</a></li>
+        <li><a href="#tabs-2">分析数据</a></li>
+        <li><a href="#tabs-3">测点位置</a></li>
+        <li><a href="#tabs-4">操作日志</a></li>
+    </ul>
+
+    <div id="tabs-1" class="ptabs">
+        <div class="ui-layout-center">
+            <table id="baseData" class="table  pielinfotable table-border table-bordered">
+                <tr class="text-c" >
+                    <th ><span>检测编号：</span></th><td colspan="3"><span id="SerialNo"></span></td>
+                    <th><span>仪器编号：</span></th><td><span id="MachineId"></span></td>
+                    <th><span>上岗证号：</span></th><td><span id="ShangGangZheng"></span></td>
+                    <th><span>主机厂家：</span></th><td><span id="CreaterName"></span></td>
+
+                </tr>
+                <tr class="text-c">
+                    <th><span>桩号：</span></th><td><span id="PileNo"></span></td>
+                    <th><span>桩长：</span></th><td><span id="PileLength"></span><span>m</span></td>
+                    <th><span>桩径：</span></th><td><span id="PileDiameter"></span><span>mm</span></td>
+                    <th><span>移动步距：</span></th><td><span id="Step"></span><span>mm</span></td>
+                    <th><span>测试时间：</span></th><td><span id="TestTime"></span>
+                        <input type="hidden" id="BasicInfoId" value="0" />
+
+                    </td>
+                </tr>
+                <tr class="text-c">
+                    <th><span>剖面数：</span></th><td><span id="SectionCount"></span></td>
+                    <th><span>砼强度：</span></th><td><span id="ConcreteStrength"></span></td>
+                    <th><span>A管北偏角：</span></th><td><span id="Angle"></span>°</td>
+                    <th><span>GPS定位：</span></th><td><span id="IsGps"></span></td>
+                    <th><span>上传时间：</span></th><td><span id="CreateTime"></span> </td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div class="ui-layout-content">
+            <div id='infotabs' class='tabcontent hide'>
+                <ul>
+                    <li><a href="#pilecurve">声速波幅曲线</a></li>
+                    <li><a href="#pileblt">波列图</a></li>
+                    <li><a href="#pileyxt">影像图</a></li>
+                    <li><a href="#piletable">数据表</a></li>
+                    <!--<li><a href="#pilemaps">GPS定位</a></li>-->
+                    <!--<li><a href="#pilepics">现场照片</a></li>-->
+                </ul>
+                <div id='pilecurve' class='ui-tabs-panel'></div>
+                <div id='pileblt' class='ui-tabs-panel'></div>
+                <div id='pileyxt' class='ui-tabs-panel'></div>
+                <div id='piletable' class='ui-tabs-panel'></div>
+                <!--<div id='pilemaps' class='ui-tabs-panel'>-->
+                    <!--<div id="baiduMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>-->
+                    <!--<div id="maptips" class='tipsinfo txtleft hide'>正在加载信息中……</div>-->
+                <!--</div>-->
+                <!--<div id='pilepics' class='ui-tabs-panel'>-->
+                    <!--<div id="imglistbox" class="" style="overflow: auto;"></div>-->
+                    <!--<div id="pictips" class='tipsinfo txtleft hide'>正在加载信息中……</div>-->
+                <!--</div>-->
+                <div class="sectionnav"></div>
+            </div>
+            <input type="hidden" id="piletabindex" value="0" />
+            <input type="hidden" id="sectionindex" value="0" />
+        </div>
+    </div>
+    <div id="tabs-2" class="ptabs">
+        <table id="baseData1" class="table pielinfotable  table-border table-bordered">
+
+            <tr class="text-c" >
+                <th><span >数据有效性：</span></th><td><span id="isValid"></span></td>
+                <th><span >检测结论：</span></th><td><span id="pileGrade"></span></td>
+                <th><span >复核状态：</span></th><td><span id="flowFlag"></span></td>
+
+                <th><span>结论说明：</span></th><td colspan="3"><span id="resultTd"></span></td>
+                <td  id="moreTd" rowspan="1"  class="more"> <i class="Hui-iconfont">&#xe6d5;</i></td>
+            </tr>
+            <tr class="text-c" id="moreTR" style="display: none">
+                <th><span>数据分析员：</span></th><td><span id="AnalysisName"></span></td>
+                <th ><span>复核人：</span></th><td><span id="reviewName"></span></td>
+                <th><span>复核意见：</span></th><td><span id="message"></span></td>
+                <th><span>分析时间：</span></th><td ><span id="AnalysisTime"></span></td>
+                <th><span>复核时间：</span></th><td ><span id="reviewTime"></span></td>
+            </tr>
+
+
+
+        </table>
+        <div id ="wavesviewid" class="mainA"  style="position: relative; width:100%; background-color:#FFFFFF;">
+        </div>
+        <div  id="commit"  style="height:40px; padding-top:8px; text-align:center ;background-color:#eee;" >
+
+        </div>
+    </div>
+    <div id="tabs-3" class="ptabs">
+        <div id="fenbuMap" class="baiduMap" style="width: 100%;height:100%; border:0 none;"></div>
+    </div>
+    <div id="tabs-4" class="ptabs">
+        <div class="cl pd-5 bg-1 bk-gray mt-10">
+            <span class="l"></span><span class="r">共有数据：<strong class="data-total"></strong> 条</span>
+        </div>
+        <div class="mt-10">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="100">模块名称</th>
+                    <th width="200">操作内容</th>
+                    <th width="100">操作人</th>
+                    <th width="50">操作时间</th>
+                    <th width="70">操作详情</th>
+                </tr>
+                </thead>
+                <tbody id="logInfo">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!--数据结论-->
+<article class="page-container" id="sc-Result" style="display:none">
+    <form class="form form-horizontal" id="form-sc-Result" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>分析结论：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+
+                <select name="pileGrade" id="pileGrade-set" size="1"   class="select">
+                    <option value="">--请选择--</option>
+                    <option value="1">Ⅰ类</option>
+                    <option value="2">Ⅱ类</option>
+                    <option value="3">Ⅲ类</option>
+                    <option value="4">Ⅳ类</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>完整性说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="result"  id="result"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<!--数据复核-->
+<article class="page-container" id="data-review" style="display:none">
+    <form class="form form-horizontal" id="form-data-review" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据状态：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="no" value="3" name="flowFlag" checked>
+                    <label for="no">复核通过</label>
+                </div>
+                <div class="radio-box">
+                    <input name="flowFlag" type="radio" id="is" value="2" >
+                    <label for="is">退回修订</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>复核意见：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-review"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--数据有效-->
+<article class="page-container" id="data-isValid" style="display:none">
+    <form class="form form-horizontal" id="form-data-isValid" >
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>数据有效性：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="isValid-set1" value="1" name="isValid" checked>
+                    <label for="isValid-set1">有效</label>
+                </div>
+                <div class="radio-box">
+                    <input name="isValid" type="radio" id="isValid-set2" value="0" >
+                    <label for="isValid-set2">无效</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-2 col-sm-3"><span class="c-red">*</span>变更说明：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="message"  id="message-set"  cols="" rows="" class="textarea"></textarea>
+            </div>
+        </div>
+    </form>
+</article>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+
+<script type="text/javascript" src="../lib/layer/3.0.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+
+
+<!--[if lt IE 9]><script type="text/javascript" src="../static/js/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="../static/js/SbData.min.js"></script>
+<script type="text/javascript" src="../static/js/RsCurve.min.js"></script>
+<script type="text/javascript" src="../lib/jcarousellite.js"></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zlikWrFQ3iQ3qguure5BZxna"></script>-->
+<!--<script type="text/javascript" src="../static/js/convertor.js"></script>-->
+<script type="text/javascript"  src="../lib/jqueryUI/jquery-ui-1.8.11.custom.min.js" ></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?ak=zlikWrFQ3iQ3qguure5BZxna&v=2.0&services=false"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/baiduMap.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/comResult.js"></script>
+<script type="text/javascript">
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+
+    var projectId = sessionStorage.pro_id;
+    var id = sessionStorage.scbaseInfoId;
+    var left_offset = ($(window).width() - 600) / 2;//显示在浏览器窗口比较正的位置，看着比较舒服
+    var top_offset = ($(window).height() - 278) / 3;
+    var  flowFlag;
+    var isEdit=false;
+    var commisValid;
+    var moreShow=false;
+    var sbData;
+    var resultpower=JSON.parse( sessionStorage.scPower);
+    if ($.inArray("EDIT", resultpower) != -1) {
+        isEdit=true;
+    }
+    $(".more").on('click',function(){
+        if(moreShow){
+            moreShow=false;
+            $("#moreTR").hide();
+            $("#moreTd").attr("rowspan",1);
+            $(".more").html('<i class="Hui-iconfont">&#xe6d5;</i>');
+        }else {
+            moreShow=true;
+            $("#moreTR").show();
+            $("#moreTd").attr("rowspan",2);
+            $(".more").html('<i class="Hui-iconfont">&#xe6d6;</i>');
+        }
+    });
+    function  setIsValidValue(isValid){
+        debugger;
+        var vhtml=getisValidStr(isValid,flowFlag,isEdit);
+         $("#isValid").html(vhtml);
+
+    }
+    function setIsValid(){
+        var url= '/api/v1/SCData/'+projectId+'/'+id+'/IsValid';
+        //设置数据有效性
+        comSetIsValid(url);
+    }
+    function  setpileGradeValue(pileGrade){
+         var vhtml=getResultStr(pileGrade,flowFlag,isEdit);
+
+        $("#resultTD").html(vhtml);
+
+    }
+    function getReviewInfo(){
+
+        $.ajax({
+            url: '/api/v1/ScData/'+projectId+'/'+id+'/ReviewInfo',
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function (d) {
+
+                if (d.code == 0) {
+
+
+                    $.each(d.data,function(n,value){
+                        $('span#'+n).html(value);
+                        if(n=='flowFlag'){
+                            flowFlag=value;
+                            var tableHtml=getflowFlagStr(flowFlag);
+                            $('span#'+n).html(tableHtml);
+                        }
+                        if(n=='pileGrade'){
+                            var ResultStr=getDyResultStr(value);
+                            $('span#pileGrade').html(ResultStr);
+                        }
+                        if(n=='result'){
+                            $("#result").val(value);
+                            $('span#resultTd').html(value);
+                        }
+
+                    });
+                    setIsValidValue(d.data.isValid);
+//                    setpileGradeValue(d.data.pileGrade)
+
+                }
+            }
+        });
+        getActionStr();
+
+    }
+    function  getActionStr(){
+        var operateActionStr='';
+
+        if(commisValid=='1'){
+            var actionStr='';
+            //数据状态，1待复核，2退回修订，3已复核
+            if(flowFlag==2){
+                actionStr=getResultPowerStr('scResult',resultpower,'commit',false,true,true);
+            }else
+            if(flowFlag==9){
+                actionStr=getResultPowerStr('scResult',resultpower,'commit',false,false,false);
+            }else
+            if(flowFlag==3){
+                actionStr=getResultPowerStr('scResult',resultpower,'commit',false,true,true);
+            }else if(flowFlag==1){
+                actionStr=getResultPowerStr('scResult',resultpower,'commit',true,true,true);
+            }else {
+                actionStr=getResultPowerStr('scResult',resultpower,'commit',false,true,true);
+            }
+            operateActionStr+=actionStr;
+        }
+
+        $("#commit").html(operateActionStr);
+        var curH;
+        var width=$(window).width(),height=$(window).height()-60;
+        if(operateActionStr==""){
+            isShowAction=false;
+            $("#commit").hide();
+            curH=height-40;
+
+        }else {
+            $("#commit").show();
+            isShowAction=true;
+            curH=height-40-45;
+        }
+        $("#wavesviewid").height(curH);
+    }
+
+
+
+    $(function(){
+        var pileData;
+        var pileuishow=false;
+
+        var tabshow=[false,false,false,false];
+        var width=$(document).width()-69,height=$(document).height()-60, pheight=0;
+
+        var pwidth = $(document).width() - 218;
+        function initWinUI(){
+            $(".ptabs").height(height+20);
+            $(".ui-layout-content").height(height-90);
+            pwidth=$(".ui-layout-content").width();
+            pheight=$(".ui-layout-content").height();
+//            $("#wavesviewid").height(height-40-45);
+        }
+
+
+
+        initWinUI();
+//        $("#infotabs .ui-tabs-panel").width(pwidth-108-28);
+        $(window).resize(function(){
+//            initWinUI();
+//            $("#infotabs .ui-tabs-panel").width(pwidth-108-28);
+        });
+
+        //复核
+        $('#commit').on('click','#review',function(){
+            var url='/api/v1/DyData/' + projectId + '/' + id + '/Review';
+            reviewLayer(url);
+        });
+
+
+
+        //表单验证
+        function validform() {
+            return $("#form-sc-Result").validate({
+                debug: true,
+                rules: {
+                    pileGrade: {
+                        required: true
+                    },
+                    result: {
+                        required: true,
+                        rangelength:[0,255]
+                    }
+                }
+            });
+        }
+
+
+        var saveError=false;
+        function  saveScData() {
+            var scJsonStr = sbData.scJson(); //声测桩基本信息+剖面数据
+            var scJson = JSON.parse(scJsonStr);
+            console.log(scJson);
+            var jsonArr = scJson.SectionData;
+            var l;
+//            l = showLoading('保存中...');
+            var successStr;
+            var errorsStr;
+            var successNum=0;
+            var errorNum=0;
+            for (var i = 0; i < jsonArr.length; i++) {
+                var data = {
+                    "sectionId": jsonArr[i].Id,
+                    "sectionData": jsonArr[i].SectionData
+//                    "sectionData": stringToBytes(jsonArr[i].SectionData)
+                };
+
+
+                $.ajax({
+                    url: '/api/v1/ScData/' + projectId + '/' + id + '/SectionData',    //请求的url地址
+                    dataType: "json",
+                    async: false,
+                    type: "PUT",
+                    data: data,
+                    beforeSend: function () {
+                        l = showLoading("剖面" + jsonArr[i].SectionName+"数据保存中...",top_offset, left_offset);
+                    },
+                    success: function (reg) {
+                        hideLoading(l);
+                        if (reg.code == 0) {
+                            successNum++;
+
+                        } else {
+                            errorNum++;
+//                            layer.alert(reg.message, {
+//                                icon: 2,
+//                                title: '错误信息',
+//                                offset: [top_offset, left_offset],
+//                                skin: 'layer-ext-moon'
+//                            });
+                        }
+                    },
+                    error: function (e, jqxhr, settings, exception) {
+                        hideLoading(l);
+                        errorNum++;
+//                        layer.alert('剖面' + jsonArr[i].SectionName + '数据保存失败!', {
+//                            icon: 2,
+//                            title: '错误信息',
+//                            offset: [top_offset, left_offset],
+//                            skin: 'layer-ext-moon'
+//                        });
+                    }
+                });
+
+            }
+//            hideLoading(l);
+            var allnum=errorNum+successNum;
+            if (errorNum > 0) {
+                saveError=true;
+                layer.alert('保存'+errorNum+'/'+allnum+'失败！', {
+                    icon:2,
+                    title:'错误信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+            } else {
+                layer.alert('保存'+successNum+'/'+allnum+'成功！', {
+                    icon:1,
+                    time: 3000,
+                    title:'成功信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                });
+            }
+
+        }
+
+
+
+        $('#commit').on('click','#saveBtn',function(){
+
+                layer.confirm('确认要保存剖面分析数据吗？', {
+                    icon:7,
+                    title:'警告信息',
+                    offset:[top_offset, left_offset],
+                    skin:'layer-ext-moon'
+                },function(index){
+
+                    layer.close(index);
+                    saveScData();
+
+
+                });
+
+
+        });
+
+        $('#commit').on('click','#ResultBtn',function() {
+
+            layer.confirm('确认要保存分析数据，提交结论？', {
+                icon: 7,
+                title: '警告信息',
+                offset: [top_offset, left_offset],
+                skin: 'layer-ext-moon'
+            }, function (index) {
+                layer.close(index);
+                saveScData();
+
+                if(saveError){
+                    layer.alert("分析数据保存出错不能提交结论！", {
+                        icon: 2,
+                        title: '错误信息',
+                        offset: [top_offset, left_offset],
+                        skin: 'layer-ext-moon'
+                    });
+                    return;
+                }
+                //设置
+                var index2 = layer.open({
+                    type: 1,
+                    title: '提交结论',
+                    content: $('#sc-Result'), //这里content是一个DOM
+                    area: ['550px', '300px'],
+                    offset: [top_offset, left_offset],
+                    btn: ['确定', '取消'],
+                    'yes': function (index, layero) {
+
+
+                        if (validform().form()) {
+                            var pileGrade = $('#pileGrade-set').val();
+                            var result = $('#result').val();
+                            var data = {
+                                "pileGrade": pileGrade,//分析结论，1-I类，2-II类， 3-III类， 4-IV类
+                                "result": result,//说明
+
+                            };
+                            $.ajax({
+                                url: '/api/v1/ScData/' + projectId + '/' + id + '/Result',    //请求的url地址
+                                dataType: "json",
+                                async: false,
+                                type: "PUT",
+                                data: data,
+                                success: function (reg) {
+                                    if (reg.code == 0) {
+                                        layer.msg('操作成功!', {icon: 1, time: 2000, offset: [top_offset, left_offset]});
+                                        window.close();
+                                        window.opener.location.reload();//刷新父窗口
+//                                    window.opener.location.reload(true);
+
+                                    } else {
+                                        layer.alert(reg.message, {
+                                            icon: 2,
+                                            title: '错误信息',
+                                            offset: [top_offset, left_offset],
+                                            skin: 'layer-ext-moon'
+                                        });
+                                    }
+                                }, error: function () {
+                                    layer.alert('更新失败！', {
+                                        icon: 2,
+                                        title: '错误信息',
+                                        offset: [top_offset, left_offset],
+                                        skin: 'layer-ext-moon'
+                                    });
+                                }
+                            });
+                            layer.close(index2);
+                        }
+                    }
+                });
+            });
+        });
+
+        $("#tabs").tabs({
+            selected:0,
+            show:function(event,ui){
+                switch(ui.index){
+                    case 0:getPile();break;
+                    case 1:getAnalysisData();break;
+                    case 2:getPileFenBuGps();break;
+                    case 3:getopertionLog();break;
+                }
+            }
+        });
+        function getopertionLog() {
+            if(tabshow[3]){ return; }
+            tabshow[3]=true;
+            //操作日志
+            var url= '/api/v1/ScData/'+projectId+'/'+id+'/OperationLog';
+            opertionLog(url);
+
+        }
+
+        function  getAnalysisData(){
+            if(tabshow[1]){ return; }
+            tabshow[1]=true;
+            getReviewInfo();
+            var Data ={};
+            var url='/api/v1/ScData/'+id+'/BaseData';
+            $.ajax({
+                url: url,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function (d) {
+
+
+                    if (d.code == 0) {
+
+
+                        Data=d.data;
+                        $.ajax({
+                            url: '/api/v1/ScData/'+id+'/SectionData',    //请求的url地址
+                            dataType: "json",
+                            async: false,
+                            type: "GET",
+                            success: function (d) {
+
+
+                                if (d.code == 0) {
+
+
+                                    Data["SectionData"]=d.data;
+                                    sbData= $RSSB.parseToSbData(JSON.stringify(Data));
+
+                                    sbData.drawWaves("wavesviewid");
+                                    var BaseDataJson= sbData.scBaseDataJson();//声测桩基本信息
+                                    var scJson=sbData.scJson(); //声测桩基本信息+剖面数据
+
+
+                                } else {
+                                    layer.alert(d.message, {
+                                        icon:2,
+                                        title:'错误信息',
+                                        offset:[top_offset, left_offset],
+                                        skin:'layer-ext-moon'
+                                    });
+                                    return;
+                                }
+
+                            },error:function(){
+                                layer.alert('获取数据失败！', {
+                                    icon:2,
+                                    title:'错误信息',
+                                    offset:[top_offset, left_offset],
+                                    skin:'layer-ext-moon'
+                                });
+                            }
+                        });
+                    } else {
+                        layer.alert(d.message, {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+                        return;
+                    }
+
+                },error:function(){
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+            });
+        }
+
+        // 获取桩
+        function getPile(){
+            if(tabshow[0]){ return; }
+            tabshow[0]=true;
+            var l;
+            $.ajax({
+                url: '/api/v1/ScData/'+projectId+'/'+id,    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                beforeSend: function () {
+                    l = showLoading("");
+                },
+                success: function (d) {
+                    hideLoading(l);
+                    if (d.code == 0) {
+                        if (!pileuishow) {
+                            initPileInfoUI();
+                            pileuishow = true;
+                        }
+                        pileData= JSON.parse(d.data);
+//                    pileData =eval(d.data); //由JSON字符串转换为JSON对象
+                        getPileInfo();
+                    } else {
+                        layer.alert(d.message, {
+                            icon:2,
+                            title:'错误信息',
+                            offset:[top_offset, left_offset],
+                            skin:'layer-ext-moon'
+                        });
+//                        layer.alert(reg.message);
+                        $(".ui-layout-content").html("暂无上传的数据").addClass("tipsinfo");
+                        return;
+                    }
+
+                },error:function(){
+                    hideLoading(l);
+                    layer.alert('获取数据失败！', {
+                        icon:2,
+                        title:'错误信息',
+                        offset:[top_offset, left_offset],
+                        skin:'layer-ext-moon'
+                    });
+                }
+            });
+        }
+
+        // 初始化单桩详细信息界面
+        function initPileInfoUI(){
+            $("#infotabs").show().tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+
+            $("#infotabs ul.ui-tabs-nav").height(height-90);
+            $( "#infotabs li" ).removeClass("ui-corner-top").addClass("ui-corner-left");
+        }
+        var ScData;
+        // 获取指定桩的详细信息
+        function getPileInfo() {
+            if (null == pileData) {
+                return;
+            }
+            //var piledata;//桩的详细信息
+            $.each(pileData, function (n, v) {
+                switch (n) {
+                    case "BasicInfoId": $("#BasicInfoId").val(v); break;
+                    case "GpsLongitude": break;
+                    case "GpsLatitude": break;
+                    case "GpsIsValid":
+                        v = v == 1 ? "有效定位" : "无效定位";
+                        $("#IsGps").html(v);
+                        break;
+                    default: $("#" + n).html(v); break;
+                }
+            });
+
+
+
+            ScData = $RS.calcData(pileData);
+            $("#infotabs").tabs({
+                selected: 0,
+                heightStyle: "fill",
+                cache: false,
+                show: function (event, ui) {
+                    var args = String(ui.tab).split("#");
+                    var panelid = args[1];
+                    //$("#" + panelid).width(pwidth-88).height(height - 88);
+                    var mindex = ui.index;
+                    $("#piletabindex").val(mindex);
+                    var sindex = parseInt($("#sectionindex").val());
+
+//                    sindex = sindex == pileData.SectionCount ? 0 : sindex;
+
+                    if (mindex < 3) {//(mindex==0){
+                        $("div.sectionnav span:last").show();
+                    }
+                    else if (mindex == 3) {//(mindex>0&&mindex<4){
+                        $("div.sectionnav span:last").hide();
+                        sindex = sindex == pileData.SectionCount ? 0 : sindex;
+                    }
+
+                    getPileTableAndImage(mindex, sindex);
+                }
+            });
+
+            getPileSectionNav();
+
+            $("#infotabs div.ui-tabs-panel").width(pwidth - 148).height(height - 90);
+            $("#piletabindex").val(0);
+            getPileTableAndImage(0, pileData.SectionCount);
+
+            getImgData(pileData.SerialNo, pileData.PileNo);
+            $("#maptips, #pictips").html("正在加载信息中……").show();
+            pilegpsshow = false;
+            pilepicshow = false;
+        }
+
+        // 获取设置单桩的剖面菜单
+        function getPileSectionNav(){
+            var htm="";
+            for(var i=0;i<pileData.SectionCount;i++){
+                htm+="<span>剖面"+pileData.Section[i].SectionName+"</span>";
+            }
+            htm+="<span>全部剖面</span>";
+            $("div.sectionnav").html(htm);
+            $("div.sectionnav span").bind("mouseover",function(){
+                $(this).addClass("active");
+            }).bind("mouseout",function(){
+                $(this).removeClass("active");
+            }).bind("click",function(){
+                var mindex=parseInt($("#piletabindex").val());
+                var sindex=$(this).index();
+                getPileTableAndImage(mindex, sindex);
+            });
+        }
+
+        // 获取单桩的曲线和表格
+        function getPileTableAndImage(mindex,sindex){
+            if(mindex<4){
+                $("div.sectionnav").show();
+                $("div.sectionnav span").removeClass("selected");
+                $("div.sectionnav span:eq("+sindex+")").addClass("selected");
+                $("#sectionindex").val(sindex);
+            }
+            else{
+                $("div.sectionnav").hide();
+            }
+            switch(mindex){
+                case 0:getlocalImage(sindex);break;
+                case 1:getWavetrain(sindex);break;
+                case 2:getWavetrainimages(sindex);break;
+                case 3:getTablenameInfo(sindex);break;
+               // case 4:JyPileAndImageGPS(imgData);break;
+               // case 5:PileImageListShow(imgData); break;
+            }
+        }
+        // 获取单桩的本地曲线
+        function getlocalImage(index){
+            if(index<0){return;}
+            $("#pilecurve").html("");
+            var allshow=index>=pileData.SectionCount?true:false;
+            var iw=300,ih=allshow?pheight-25-60:pheight-8-20;
+            if(!allshow){
+                $("#pilecurve").append("<div style =\" margin-top:10px; float:left;width:"+iw+"px;height:"+ih+"px;\" id=\"pile-chanel-"+index+"\"></div>");
+                //bindScData("pile-chanel-"+index, pileData,index);
+                ScData.drawCurve("pile-chanel-"+index, index);
+                return;
+            }
+            var imgcount=pileData.SectionCount;
+            iw=parseInt((pwidth-155)/imgcount);
+            iw=iw<=210?210:(iw>300?300:iw);
+            $("#pilecurve").html("<div id='pilecurvebox' style='margin-top:40px;width:"+((iw+3)*imgcount)+"px;'></div>");
+            for(var i=0;i<imgcount;i++){
+                $("#pilecurvebox").append("<div style =\"float:left;width:"+iw+"px;height:"+ih+"px;margin-right:2px;\" id=\"pile-chanel-"+i+"\"></div>");
+                //bindScData("pile-chanel-"+i, pileData,i);
+                ScData.drawCurve("pile-chanel-"+i, i);
+            }
+        }
+        // 波列图
+        function getWavetrain(index)
+        {
+            if(index<0){return;}
+            var pileid=parseInt($("#BasicInfoId").val());
+            if(pileid<1){return;}
+            $("#pilecurve").html("");
+            var allshow=index>=pileData.SectionCount?true:false;
+            var url = '';   //获取波列图 url
+            if(!allshow){
+                url = '/api/v1/ScData/'+projectId+'/'+id+'/'+index+'/WaveTrain';
+
+                $("#pileblt").html("<img  class='Waveimg' src='"+url+"'></img>");
+                return;
+            }
+
+            var ih=allshow?pheight-25:pheight-8;
+//            var allh=allshow?pwidth-25:pwidth-8;
+            var allh=$("#pileblt").width()-15;
+
+            var imgcount=pileData.SectionCount;
+
+            $("#pileblt").html("<div id='pilewavebox' style='width:"+allh+";'></div>");
+//            $("#pileblt").html("<div id='pilewavebox' style='width:"+(323*imgcount)+"px;'></div>");
+            var iwidth=parseInt(allh/imgcount)-12;
+            for(i=0;i<imgcount;i++){
+                url = '/api/v1/ScData/'+projectId+'/'+id+'/'+i+'/WaveTrain'; //320
+
+
+                $("#pilewavebox").append("<img   src='"+(url)+"' width="+iwidth+"   style='margin-right:10px ;' ></img>");
+            }
+        }
+
+        // 波列影像
+        function getWavetrainimages(index)
+        {
+            if(index<0){return;}
+            var pileid=parseInt($("#BasicInfoId").val());
+            if(pileid<1){return;}
+            $("#pilecurve").html("");
+            var allshow=index>=pileData.SectionCount?true:false;
+
+
+            var url = ''; //波列影像
+
+
+            if(!allshow){
+                url = '/api/v1/ScData/'+projectId+'/'+id+'/'+index+'/WaveStriograph';
+//                url = '/api/v1/ScData/'+projectId+'/'+pileid+'/'+index+'/WaveStriograph';
+
+                $("#pileyxt").html("<img  class='pileyxtimg' src='"+url+"'></img>");
+                return;
+            }
+//            var ih=allshow?pheight-25-60:pheight-8-20;
+
+            var allh=$("#pileyxt").width()-15;
+
+            var imgcount=pileData.SectionCount;
+//            $("#pileyxt").html("<div id='pilewaveimgbox' style='width:"+(323*imgcount)+"px;'></div>");
+            $("#pileyxt").html("<div id='pilewaveimgbox' style='width:"+allh+";'></div>");
+            var iwidth=parseInt(allh/imgcount)-12;
+            for(i=0;i<imgcount;i++){
+                url = '/api/v1/ScData/'+projectId+'/'+id+'/'+i+'/WaveStriograph';
+//                url = '/api/v1/ScData/'+projectId+'/'+pileid+'/'+i+'/WaveStriograph';
+
+                $("#pilewaveimgbox").append("<img   src='"+(url)+"' width="+iwidth+"   style='margin-right:10px ;' ></img>");
+
+//                $("#pilewaveimgbox").append("<img   src='"+(url)+"' width=395 height=320 style='margin-right:15px;' onload=\"resizeImage(this,395,"+ih+")\"></img>");
+//                $("#pilewaveimgbox").append("<img  class='pileyxtimg' src='"+(url)+"' width=395 height=320 style='margin-right:15px;' onload=\"resizeImage(this,395,"+ih+")\"></img>");
+            }
+        }
+        // 数据表格
+        function getTablenameInfo(index)
+        {
+            $("#piletable").html("");
+            if(index<0){return;}
+            var htm= " <table  align=\"center\" class=\"table table-border table-bordered  radius\" id=\"hzb\" >"+
+            "<thead><tr class=\"text-c\"><th rowspan=\"2\">深度<br/>(m)</th><th rowspan=\"2\">声时<br/>(us)</th>" +
+            "<th rowspan=\"2\">波幅<br/>(db)</th><th rowspan=\"2\">声速<br/>(km/s)</th><th colspan=\"2\">判据<br/>(us^2/cm)</th></tr></thead>" +
+            "<tbody>";
+
+            var pd=pileData.Section[index];
+            for(var i=0;i<pd.Depth.length;i++)
+            {
+                wv=getwv(pd.TubeDistance,pd.PeakTime);
+                bj=GetPSDCi(pd.PeakTime[i],pd.PeakTime[i-1],pd.Depth[i],pd.Depth[i-1]);
+                var  cls = i % 2 == 0 ? "" : "double-row";
+                htm += "<tr class=\"text-c "+cls+" \" onclick=\"selectTr(this)\">";
+                htm+="<td>"+(pd.Depth[i]/1000).toFixed(2)+"</td><td>"+(pd.PeakTime[i]).toFixed(1)+"</td>";
+                htm+="<td>"+pd.PeakValue[i]+"</td><td>"+wv[i].toFixed(3)+"</td><td>"+bj+"</td></tr>";
+            }
+            htm+="</tbody></table>";
+            htm += "<script type=\"text/javascript\">";
+            htm += "$(document).ready(function(){";
+            htm += "$(\"#hzb tbody tr\").mouseover(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="$(\"#hzb tbody tr\").mouseout(function(){$(this).toggleClass(\"HightRow\");});";
+            htm +="});<\/script>";
+
+
+            $("#piletable").html(htm);
+        }
+        // 获取单桩的现场图片的信息
+        function getImgData(gn, pileno) {
+            if (gn.length == 0) {
+                $("#imglistbox").html("").hide();
+                $("#pictips").html("没有检测流水号，无法获取对应的工程信息").show();
+                imgData = null;
+            }
+            $.ajax({
+                //url: 'GetXcImgList',    //请求的url地址
+                dataType: "json",
+                async: false,
+                type: "GET",
+                success: function(d) {
+                    if(d.code!=0){
+                        $("#imglistbox").html("").hide();
+                        $("#pictips").html(d.msg).show();
+                        imgData = null;
+                        return;
+                    }else{
+                        imgData = d.data;
+                        $("#pictips").hide();
+                        $("#imglistbox").show();
+                    }
+                }
+            });
+
+
+
+        }
+
+        // 显示单桩的现场照片及GPS信息
+        function JyPileAndImageGPS(d) {
+            if(pilegpsshow) return;
+            var pArray = new Array();
+            if (pilegps != null) {
+                pArray.push(pilegps);
+            }
+            var zoom = 15;
+            if (d != null && d.length > 0) {
+                var imgurl = "GetUploadImg"; //請求url缺失
+                var imgtxt = "上 传 人:#{1}<br>上传时间:<br>#{2}<br>拍照时间:<br>#{3}<br>照片描述:<br>#{4}";
+                $.each(d, function (i, v) {
+                    if (v.GpsIsValid ) {
+                        u = imgurl.replace("#{0}", v.FileType).replace("#{1}", v.FilePath.replace(/\//g, "|"));
+                        var content = "<img style='float:right;margin:4px' src='" + u + "' width='104' height='138' onload=\"resizeImage(this,104,138)\"/>";
+                        content += imgtxt.replace("#{1}", v.CreateName).replace("#{2}", v.CreateTime).replace("#{3}", v.FileTime).replace("#{4}", v.FileDescription);
+                        pArray.push({ "lng": v.GpsLongitude, "lat": v.GpsLatitude, "title": "照片信息", "content": content, "show": false, "icon": "pink", "mapaddr": false, "width": 280 });
+                    }
+                });
+                zoom = 18;
+            }
+            if (pArray.length > 0) {
+                $("#maptips").hide();
+                $("#baiduMap").show();
+                bdMap("baiduMap", pArray, { Zoom: zoom });
+            }
+            else {
+                $("#baiduMap").html("").hide();
+                $("#maptips").html("上传的数据和现场照片中未包含有效的GPS位置信息").show();
+            }
+            pilegpsshow=true;
+        }
+
+        var imageD;
+        // 列表模式显示单桩的现场照片
+        function PileImageListShow(d) {
+            if(pilepicshow) return;
+            if (d == null || d.length == 0) {
+                return;
+            }
+            var imgurl = "", u = ""; //url缺失
+            var t = "姓名：#{10} <br>所属单位：#{11} <br>身份证：#{12} <br>手机号码：#{13} <br>办公电话：#{14} <br>上岗证：#{15} <br>发证时间：#{16}";
+            var li = "<li   title=\"" + t + "\"   image=\"#{0}\">";
+
+            li += "<div class=\"imgurl\"><img id=\"onlineimage\" width=\"200\" height=\"150\" onload=\"resizeImage(this,200,150)\" src=\"#{1}\"/></div>";
+
+            li += "<div class=\"imgtext\"><div onclick=\"showPersonInfo(#{9})\" >现场检测员:#{2}</div>上传时间:#{3}<br>拍照位置:#{4}<br>拍照时间:#{5}<br>照片描述:#{6}</div>";
+
+            //li+="<div class=\"imgtext\"><div onclick=\"showPersonInfo(#{9})\" >现场检测员:#{2}</div>上传时间:#{3}<br>拍照位置:#{4}<br>拍照时间:#{5}<br>照片描述:#{6}</div>";
+            //li+="<div title=\"无效定位\" class=\"ui-widget-overlay mdDiv\" style=\"display:#{7};\"></div>";
+            li += "</li>";
+            var ul = "<ul id=\"lightGallery\">";
+            $.each(d, function (i, v) {
+                u = imgurl.replace("#{0}", v.FileType).replace("#{1}", v.FilePath.replace(/\//g, "|"));
+                // ul += li.replace("#{0}", u).replace("#{1}", u + "&size=s").replace("#{9}", v.createrInfo.UserId).replace("#{2}", v.CreateName).replace("#{3}", v.CreateTime).replace("#{4}", v.GpsIsValid != 0 ? (v.GpsLongitude + ", " + v.GpsLatitude) : "<em>无效定位</em>").replace("#{5}", v.GpsIsValid != 0 ? v.FileTime : "").replace("#{6}", v.FileDescription).replace("#{7}", v.GpsIsValid != 0 ? "none" : "block").replace("#{6}", v.createrInfo.CardTime).replace("#{10}", v.createrInfo.RealName).replace("#{11}", v.createrInfo.CompanyName).replace("#{12}",v.createrInfo.userNo).replace("#{13}",v.createrInfo.Mobile) .replace("#{14}", v.createrInfo.Phone).replace("#{15}", v.createrInfo.CardNo).replace("#{16}", v.createrInfo.CardTime);
+
+                ul += li.replace("#{0}", u).replace("#{1}", u + "&size=s").replace("#{9}", v.createrInfo.UserId).replace("#{2}", v.CreateName).replace("#{3}", v.CreateTime).replace("#{4}", v.GpsIsValid != 0 ? (v.GpsLongitude + ", " + v.GpsLatitude) : "<em>无效定位</em>").replace("#{5}", v.GpsIsValid != 0 ? v.FileTime : "").replace("#{6}", v.FileDescription).replace("#{10}", v.createrInfo.RealName).replace("#{11}", v.createrInfo.CompanyName).replace("#{12}", v.createrInfo.userNo).replace("#{13}", v.createrInfo.Mobile).replace("#{14}", v.createrInfo.Phone).replace("#{15}", v.createrInfo.CardNo).replace("#{16}", v.createrInfo.CardTime);
+            });
+            ul += "</ul>";
+            $("#pictips").hide();
+            $("#imglistbox").html(ul).show();
+            imageD = d;
+            addImageDialogClick(d);
+
+            $("#imglistbox ul>li").bind("mouseover", function () {
+                $(this).addClass("active");
+            }).bind("mouseout", function () {
+                $(this).removeClass("active");
+            }).poshytip({
+                className: 'tip-twitter',
+                showTimeout: 2,
+                hideTimeout: 5,
+                alignTo: 'target',
+                alignX: 'right',
+                alignY: 'center',
+                offsetX: 0,
+                offsetY: 0,
+                allowTipHover: true,
+                fade: false,
+                slide: false
+            });
+            pilepicshow = true;
+        }
+        //查看图片的按钮事件
+        function addImageDialogClick(d) {
+
+            var index = 0;
+            var len = d.length; //获取焦点图个数
+            //alert(len);
+            if (d.length <= 1) {
+                $("#preBtn").hide();
+                $("#nextBtn").hide();
+            }
+            //上一页按钮
+
+            $("#preBtn").bind("click", function () {
+
+                index -= 1;
+                if (index == -1) { index = len - 1; }
+                //alert(index);
+                showpnImage(index);
+
+
+            });
+            //下一页按钮
+
+            $("#nextBtn").bind("click", function () {
+
+                index += 1;
+                if (index == len) { index = 0; }
+                //alert(index);
+                showpnImage(index);
+
+
+            });
+
+            $("#imglistbox ul>li").bind("click", function () {
+
+                var a = $(this).attr("image");
+                var b = $(this).children("div.imgtext").html();
+                ori = 0;
+                $("#bigpic").attr("src", a).css("margin-top", 5).css("margin-left", 5).rotate(ori);
+                $(".imgDialogText").html(b);
+                $("#imgDialog").dialog("open");
+                secondView = true;
+                var imgArray = [];
+                if (pilegps != null) {
+                    pilegps.show = false;
+                    imgArray.push(pilegps);
+                }
+                var i = $(this).index();
+                index = i;
+                if (d[i].GpsIsValid == 1) {
+                    var content = d[i].FileDescription + "<br>拍照时间：" + (d[i].GpsIsValid != 0 ? d[i].FileTime : d[i].CreateTime);
+                    var imgps = { "lng": d[i].GpsLongitude, "lat": d[i].GpsLatitude, "title": "照片信息", "content": content, "show": false, "icon": "pink", "mapaddr": false };
+                    imgArray.push(imgps);
+                }
+                if (imgArray.length > 0) {
+                    bdMap("imgMap", imgArray, {});
+                }
+                else {
+                    $("#imgMap").html("<div class='tipsinfo'>上传的数据和现场照片中<br>未包含有效的GPS位置信息</div>");
+                }
+
+
+            });
+            function showpnImage(i) {
+                var d = imageD;
+
+                var v = d[i];
+
+                var imgurl = "/Ajax/GetUploadImg.ashx?q=pile&type=#{0}&path=#{1}", u = "";
+                u = imgurl.replace("#{0}", v.FileType).replace("#{1}", v.FilePath.replace(/\//g, "|"));
+                var a = u;
+
+                var loc = v.GpsIsValid != 0 ? (v.GpsLongitude + ", " + v.GpsLatitude) : "<em>无效定位</em>";
+                var tim = v.GpsIsValid != 0 ? v.FileTime : "";
+                var imgText = "<div onclick=\"showPersonInfo(" + v.createrInfo.UserId + ")\" >现场检测员:" + v.CreateName + "</div>上传时间:" + v.CreateTime + "<br>拍照位置:" + loc + "<br>拍照时间:" + tim + "<br>照片描述:" + v.FileDescription + "</div>";
+
+                ori = 0;
+                $("#bigpic").attr("src", a).css("margin-top", 5).css("margin-left", 5).rotate(ori);
+                $(".imgDialogText").html(imgText);
+
+
+                var imgArray = [];
+                if (pilegps != null) {
+                    pilegps.show = false;
+                    imgArray.push(pilegps);
+                }
+                if (d[i].GpsIsValid == 1) {
+                    var content = d[i].FileDescription + "<br>拍照时间：" + (d[i].GpsIsValid != 0 ? d[i].FileTime : d[i].CreateTime);
+                    var imgps = { "lng": d[i].GpsLongitude, "lat": d[i].GpsLatitude, "title": "照片信息", "content": content, "show": false, "icon": "pink", "mapaddr": false };
+                    imgArray.push(imgps);
+                }
+                if (imgArray.length > 0) {
+                    bdMap("imgMap", imgArray, {});
+                }
+                else {
+                    $("#imgMap").html("<div class='tipsinfo'>上传的数据和现场照片中<br>未包含有效的GPS位置信息</div>");
+                }
+
+            }
+
+
+        }
+
+        // 获取工程桩的分布图
+        function getPileFenBuGps() {
+            if(tabshow[2]){ return; }
+            tabshow[2]=true;
+            debugger;
+            if (null == pileData || pileData.length == 0) {
+                $("#fenbuMap").html("暂无数据上传").addClass("tipsinfo");
+                return;
+            }
+            var v = pileData;
+            if (v.GpsIsValid) {
+                var content = "桩长：" + v.PileLength + "m<br>桩径：" + v.PileDiameter + "mm<br>主机编号：" + v.MachineId + "<br>开始时间：" + v.TestTime;
+                var title = "桩号：" + v.PileNo;
+                baiduMap( "fenbuMap",v.GpsLongitude,v.GpsLatitude, content, title);
+            }
+            else {
+                $("#fenbuMap").html("上传的数据中未包含有效的GPS位置信息").addClass("tipsinfo");
+            }
+        }
+
+
+
+
+        // 求声速
+        function getwv(TubeDistance,PeakTime)
+        {
+            var wv = new Array(PeakTime.length);
+            for (var j = 0; j < wv.length; j++) {
+                wv[j] = TubeDistance /PeakTime[j];
+            }
+            return wv;
+        }
+        // us^2/m判据
+        function GetPSDCi(t,tc,h,hc)
+        {
+            var Ci;
+            if ((hc - h == 0)||(tc-t==0)||tc==undefined||hc==undefined)
+            {
+                Ci = 0;
+            }
+            else
+            {
+                Ci = (((t - tc) * (t - tc)) /(h - hc))*10;
+                Ci = Math.abs(Ci);
+            }
+            return Math.round(Ci);
+        }
+
+
+    });
+
+    function resizeImage(img, w, h) {
+        img.removeAttribute("width");
+        img.removeAttribute("height");
+        var pic = $(img);
+        var xw = pic.width(), yh = pic.height();
+        if (xw > w || yh > h) {
+            var scale = Math.min(w / xw, h / yh);
+            pic.width(xw * scale);
+            pic.height(yh * scale);
+        }
+    }
+</script>
+
+</body>
+</html>

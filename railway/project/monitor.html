@@ -1,0 +1,652 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE-2.0beta1/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <title>数据监控</title>
+    <style>
+
+        body {
+          overflow-y: hidden;
+        }
+        .select-box, .select-box.size-M {
+            padding: 4px 5px;
+            background-color: #fff;
+        }
+        .panel-body {
+            padding: 8px;
+        }
+        #allmap{width:100%;  height:600px;}
+        #details td{padding:4px;}
+        #details th{padding:4px;}
+        /* 浮层 */
+        .wrap {
+          width: 100%;
+          height: 100%;
+        }
+        #left-panel {
+          width: 35%;
+          background-color: #fff;
+        }
+        li {
+          list-style: none;
+          overflow: hidden;
+        }
+        .clearfix:before, .clearfix:after {
+            display: table;
+            content: " ";
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        /* 开关 */
+        .switch-on {
+            left: 38%;
+        }
+        .switch {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            position: absolute;
+            top: 72px;
+            height: 50px;
+            width: 22px;
+            background: #fff;
+        }
+        .switch > .tips {
+            left: 30px;
+            top: 15px;
+            position: absolute;
+            width: 75px;
+            background: #000;
+            opacity: 0.6;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 2px;
+            text-align: center;
+        }
+        .switch-on:after {
+            font-size: 0;
+            height: 0;
+            display: inline-block;
+            line-height: 0;
+            margin: 0 5px;
+            width: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-right: 4px solid #757575;
+            left: 5px;
+        }
+        .switch:after {
+            content: "";
+            position: absolute;
+            top: 20px;
+        }
+        .switch-off:after {
+            font-size: 0;
+            height: 0;
+            display: inline-block;
+            line-height: 0;
+            margin: 0 5px;
+            width: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 4px solid #757575;
+            left: 4px;
+        }
+        #left-panel ul li:hover {
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        #left-panel div.sho:hover {
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+      /* 滚动条 */
+       #left-panel::-webkit-scrollbar{
+            width: 10px !important;
+            height: 10px !important;
+      }
+      #left-panel::-webkit-scrollbar-button {
+            height: 0;
+            width: 0;
+      }
+       #left-panel::-webkit-scrollbar-track{
+           background-color: #fff;
+      }
+       #left-panel::-webkit-scrollbar-thumb{
+          background-color: rgb(204, 204, 204);
+          border-radius:5px;
+      }
+       #left-panel::-webkit-scrollbar-thumb:hover {
+           background-color: rgb(204, 204, 204);
+      }
+      #left-panel::-webkit-scrollbar-thumb:active {
+          background-color: rgb(204, 204, 204);
+      }
+      /* 分页 */
+      .hid {
+        display: none;
+      }
+      .sho {
+        display: block;
+      }
+      a:hover{
+        text-decoration:none;
+      }
+
+      #left-panel .cb {
+          width: 100%;
+          height: auto;
+          border: 2px solid #5eb95e;
+      }
+      /* 字体图标 */
+      #left-panel .cb i {
+          font-size: 24px;
+          position: absolute;
+          top: 0px;
+          right: -3px;
+      }
+      #left-panel .cb i:hover {
+        cursor: default;
+        color: #D74423;
+      }
+      #left-panel .cb .closes {
+          position: absolute;
+          right: 16px;
+          top: 36px;
+          width: 37px;
+          height: 22px;
+          background: url('../static/mapImage/closes.jpg') no-repeat 0px 0px;
+      }
+
+      .hi {
+        height: 0px !important;
+      }
+      /* 信息窗口 */
+      .table-bordered th {
+        text-align: right !important;
+        background: #F4AF85;
+      }
+      .table-bordered td {
+        text-align: left !important;
+        background: #DDEBF6;
+      }
+      /* 响应式布局 */
+
+      /* 1366分辨率 */
+     /*  @media only screen and (max-device-width:1366px){
+         #left-panel ul li:nth-child(n+2) {
+              display: none;
+         }
+      } */
+
+    </style>
+</head>
+<body>
+<div id="monitor">
+    <div class="panel panel-default">
+        <div class="panel-header">
+            <div class="text-c">
+                所属项目：
+            <span class="select-box inline">
+                <select name="xmId" id="xmId"  class="select">
+
+                </select>
+        </span>
+                &nbsp;&nbsp;
+                测试方法：
+               <span class="select-box inline">
+                    <select name="testMode" id="testMode"  class="select">
+
+                </select>
+                </span>
+                &nbsp;&nbsp;
+                时间段：
+               <span class="select-box inline">
+                <select name="hour" id="hour"  class="select">
+                    <option value="0">正在测试中</option>
+                    <option value="12">12小时</option>
+                    <option value="12">24小时</option>
+                    <option value="12">48小时</option>
+                    <option value="12">72小时</option>
+                </select>
+        </span>
+                <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>查询</button>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <div id="allmap">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zlikWrFQ3iQ3qguure5BZxna"></script>
+<script type="text/javascript" src="../static/js/convertor.js"></script>
+<script type="text/javascript">
+
+   $(function(){
+      //iframe 页面通信
+      //点击菜单栏显示侧边栏
+      $('#firstMenu li', window.parent.document).off('click');
+      $('#firstMenu li', window.parent.document).on('click', function (e) {
+          // 显示侧边栏
+          $('body', window.parent.document).removeClass('big-page');
+          $('.dislpayArrow a', window.parent.document).removeClass('open');
+      });
+
+      // 隐藏侧边栏
+      $('body', window.parent.document).addClass('big-page');
+      $('.dislpayArrow a', window.parent.document).addClass('open');
+
+       //初始化操作权限
+       $.ajax({
+           url:"/api/v1/Monitor/Initialize",    //请求的url地址
+           dataType: "json",
+           async: true,
+           type: "GET",
+           success: function(reg) {
+               if(reg.code==0){
+                   var html = '';
+                   var power = reg['data']['action'];
+                   opertion('monitor',power,'operation');
+                   sessionStorage.xmlist =  JSON.stringify(reg.data.xmlist);
+                   var xmStr = "";
+                   $.each(reg.data.xmlist,function(key1,val1){
+                       xmStr += '<option value="'+val1.value+'">'+val1.name+'</option>'
+                   });
+                   $("#xmId").html(xmStr);
+
+                    var testStr = "<option value=''>--请选择--</option>";
+                   $.each(reg.data.testmode,function(key1,val1){
+                       testStr += '<option value="'+val1.code+'">'+val1.name+'</option>'
+                   });
+                  $("#testMode").html(testStr);
+                  //默认选中
+                  $("#testMode").find("option[value='DY']").attr("selected",true);
+
+                   //加载数据
+                   var pageIndex=1;
+                   var xmId=$("#xmId option:eq(0)").val();
+                   if(xmId!=undefined){
+                       var uri='/api/v1/Monitor/'+xmId+'/Testing?hour=1500000';
+                   }else{
+                       layer.msg('项目不存在！');
+                   }
+                   getPage(uri);
+               }
+           }
+       });
+   });
+   var opt={"MapType":true,"Navigation":false,"Scale":false,"ScrollWheel":true,"DistanceTool":false,"ViewPort":true,"Zoom":4};
+   //GPS点数据
+   var pointArray = [];
+   //标记点图标
+   var iconArr = [0,1,2,3,4,5,6,7,8,9];
+
+   //加载数据
+   function getPage(uri) {
+       $.ajax({
+           url: uri,
+           dataType: "json",
+           async:true,
+           type: "GET",
+           beforeSend:function(){
+              index = layer.load(1);
+           },
+           success: function (reg) {
+               layer.close(index);
+               if(reg.code==0){
+                   $.each(reg.data,function(key,value){
+                       if(key=='DYTestData'){
+                           Qdetails(value,'DY');
+                       }
+                       if(key=='GYTestData'){
+                          Qdetails(value,'GY');
+                       }
+                       if(key=='SCTestData'){
+                           Qdetails(value,'SC');
+                       }
+                       if(key=='KSTestData'){
+                           Tdetails(value,'KS');
+                       }
+                       if(key=='EDTestData'){
+                          Tdetails(value,'ED');
+                       }
+                       if(key=='YSTestData'){
+                           Tdetails(value,'YS');
+                       }
+                       if(key=='JZTestData'){
+                           JZdetails(value,'JZ');
+                       }
+                   });
+                   if(pointArray.length==0){
+                       $('#allmap').html('<div class="c-red text-c" style="font-size:20px">暂无点的信息!</div>');
+                       $('#left-panel ul li').remove();
+                       $('.switch').css('display', 'none');
+                   }else{
+                       bdMap("allmap", pointArray, opt,  isSearch);
+                   }
+               }else{
+                   layer.alert('加载数据异常！');
+               }
+           },
+           error:function(){
+               layer.alert('请求出错啦！');
+           }
+       });
+   }
+   //桥梁数据
+   function Qdetails(value,type){
+       if(value!=null && value!=""){
+           $.each(value,function(n,val){
+               if(val.GpsIsValide == 1 && val.GpsLongitude>0 && val.GpsLatitude>0){
+                   var item = {};
+                   item.lng=val.GpsLongitude;
+                   item.lat=val.GpsLatitude;
+                   item.title ='<strong>测点详情</strong>';
+                   item.show = true;
+                   item.icon = iconArr;
+                   item.mapaddr = true;
+                   item.width = 400;
+                   var content="";
+                   content += '<table class="table table-border table-bordered details">';
+                   content+='<tr><th width="80px">工程名称：&nbsp;</th><td class="text-c">'+val.projectName+'</td></tr>';
+                   content +='<tr><th>检测编号：&nbsp;</th><td class="text-c">'+ val.serialNo+'</td></tr>';
+                   content +='<tr><th>报检单编号：&nbsp;</th><td class="text-c">'+ val.planCode+'</td></tr>';
+                   content+='<tr><th>墩台号：&nbsp;</th><td class="text-c">'+val.pierNo+'</td></tr>';
+                   content+='<tr><th>桩&nbsp;&nbsp;&nbsp;号：&nbsp;</th><td class="text-c">'+val.pileNo+'</td></tr>';
+                   content +='<th>测试方法：</th>';
+                   if(type=='DY'){
+                       content +='<td class="text-c">低应变</td>';
+                   }else if(type=='GY'){
+                       content +='<td class="text-c">高应变</td>';
+                   }else if(type=='SC'){
+                       content +='<td class="text-c">声测</td>';
+                   }
+                   else{
+                       content +='<td class="text-c"></td>';
+                   }
+                   content+='</tr>';
+                   content+='<tr>';
+                   content+='<th>测试状态：</th>';
+                   if(val.isTesting==1){
+                       content+='<td class="text-c">测试中</td>';
+                   }else{
+                       content+='<td class="text-c">暂停或已完成</td>';
+                   }
+                   content+='</tr>';
+                   content+='<tr>';
+                   content+='<tr>';
+                   content +='<th>承载力结论：</th>';
+                   if(val.czlResult==1){
+                       content +='<td class="text-c">&nbsp;合格</td>';
+                   }else if(val.testWay==2){
+                       content +='<td class="text-c">&nbsp;不合格</td>';
+                   }else{
+                       content +='<td class="text-c">&nbsp;未判定</td>';
+                   }
+                   content+='</tr>';
+                   content+='<tr>';
+                   content+='<th>实验结论：</th>';
+                   if(val.result==0){
+                       content +='<td style="color:red" class="text-c">&nbsp;未判定</td>';
+                   }else if(val.result==1){
+                       content+='<td style="color:green" class="text-c">1I类桩</td>';
+                   }else if(val.result==2){
+                       content+='<td style="color:red">2II类桩</td>';
+                   }else if(val.result==3){
+                       content+='<td style="color:red">3III类桩</td>';
+                   }else if(val.result==4){
+                       content+='<td style="color:red">4IV类桩</td>';
+                   }
+                   content +='<tr><th>测试时间：&nbsp;</th><td class="text-c">'+ val.testTime+'</td></tr>';
+                   content+='</tr>';
+                   content+='</table>';
+                   item.content = content;
+                   item.projectName = val.projectName;
+                   item.serialNo = val.serialNo;
+                   item.type = type;
+                   pointArray.push(item);
+               }
+           });
+       }
+   }
+
+   //填料质量压实数据
+   function Tdetails(value,type){
+       if(value!=null && value!="") {
+           $.each(value, function (n, val) {
+               if (val.GpsIsValide == 1 && val.GpsLongitude>0 && val.GpsLatitude>0) {
+                   var item = {};
+                   item.lng=val.GpsLongitude;
+                   item.lat=val.GpsLatitude;
+                   item.title ='<strong>测点详情</strong>';
+                   item.show = true;
+                   item.icon = iconArr;
+                   item.mapaddr = true;
+                   item.width = 400;
+                   var content="";
+                   content += '<table class="table table-border table-bordered details">';
+                   content += '<tr><th width="80px">工程名称：&nbsp;</th><td>' + val.projectName + '</td></tr>';
+                   content += '<tr><th>检测编号：&nbsp;</th><td>' + val.serialNo + '</td></tr>';
+                   content += '<tr><th>报检单编号：&nbsp;</th><td>' + val.planCode + '</td></tr>';
+                   content += '<tr><th>测点里程方位:</th><td>' + val.mileage + '</td></tr>';
+                   content+='<tr>';
+                   content +='<th>测试方法：</th>';
+                   if(type=='KS'){
+                       content +='<td>地基系数k30</td>';
+                   }else if(type=='YS'){
+                       content +='<td>压实系数</td>';
+                   }else if(type=='ED'){
+                       content +='<td>动态变形模量EVd</td>';
+                   }else{
+                       content +='<td></td>';
+                   }
+                   content+='</tr>';
+                   content += '<tr>';
+                   content += '<th>检测方式：</th>';
+                   if (val.testWay == 1) {
+                       content += '<td>&nbsp;初测</td>';
+                   } else if (val.testWay == 2) {
+                       content += '<td>&nbsp;复测</td>';
+                   } else if (val.testWay == 3) {
+                       content += '<td>&nbsp;加测</td>';
+                   } else {
+                       content += '<td>&nbsp;其他</td>';
+                   }
+                   content += '</tr>';
+                   content += '<tr>';
+                   content += '<th>测试状态：</th>';
+                   if (val.isTesting == 1) {
+                       content += '<td>测试中</td>';
+                   } else {
+                       content += '<td>暂停或已完成</td>';
+                   }
+                   content += '</tr>';
+                   content += '<tr>';
+                   content += '<th>实验结论：</th>';
+                   if (val.result == 0) {
+                       content += '<td style="color:red">&nbsp;未判定</td>';
+                   } else if (val.result == 1) {
+                       content += '<td style="color:green">合格</td>';
+                   } else if (val.result == 2) {
+                       content += '<td style="color:red">不合格</td>';
+                   } else if (val.result == 3) {
+                       content += '<td style="color:red">试验失败(未加到5级)</td>';
+                   } else if (val.result == 4) {
+                       content += '<td style="color:red">试验失败(不均匀沉降)</td>';
+                   }
+                   content += '</tr>';
+                   content += '</table>';
+                   item.content = content;
+                   item.projectName = val.projectName;
+                   item.serialNo = val.serialNo;
+                   item.type = type;
+                   pointArray.push(item);
+               }
+           });
+       }
+   }
+   //静载数据
+   function JZdetails(value,type){
+       if(value!=null && value!="") {
+           $.each(value, function (n, val) {
+               if (val.GpsIsValide == 1 && val.GpsLongitude>0 && val.GpsLatitude>0 ) {
+                   var item = {};
+                   item.lng=val.GpsLongitude;
+                   item.lat=val.GpsLatitude;
+                   item.title ='<strong>测点详情</strong>';
+                   item.show = true;
+                   item.icon = iconArr;
+                   item.mapaddr = true;
+                   item.width = 400;
+                    var content = "";
+                    content += '<table class="table table-border table-bordered details">';
+                   content += '<tr><th width="80px">工程名称：&nbsp;</th><td>' + val.projectName + '</td></tr>';
+                   content += '<tr><th>检测编号：&nbsp;</th><td>' + val.serialNo + '</td></tr>';
+                   content += '<tr><th>报检单编号：&nbsp;</th><td>' + val.planCode + '</td></tr>';
+                   content += '<tr><th>墩台号：&nbsp;</th><td>' + val.pierNo + '</td></tr>';
+                   content += '<tr><th>桩&nbsp;&nbsp;&nbsp;号：&nbsp;</th><td>' + val.pileNo + '</td></tr>';
+                   content+='<tr>';
+                   content +='<th>测试方法：</th>';
+                   if(type=='JZ'){
+                       content +='<td>静载</td>';
+                   }
+                   content+='</tr>';
+                   content += '<tr>';
+                   content += '<th>测试状态：</th>';
+                   if (val.isTesting == 1) {
+                       content += '<td>测试中</td>';
+                   } else {
+                       content += '<td>暂停或已完成</td>';
+                   }
+                   content += '</tr>';
+                   content += '<tr><th>已测记录数：&nbsp;</th><td>' + val.recordCount + '</td></tr>';
+                   content += '<tr><th>检测方法：&nbsp;</th><td>' + val.testType + '</td></tr>';
+                   content += '<tr><th>最大加载值（kN）：;</th><td>' + val.planCode + '</td></tr>';
+                   content += '<tr>';
+                   content += '<th>实验结论：</th>';
+                   if (val.result == 0) {
+                       content += '<td style="color:red">&nbsp;未判定</td>';
+                   } else if (val.result == 1) {
+                       content += '<td style="color:green">合格</td>';
+                   } else if (val.result == 2) {
+                       content += '<td style="color:red">不合格</td>';
+                   }
+                   content += '<tr><th>开始时间：&nbsp;</th><td>' + val.startTime + '</td></tr>';
+                   content += '</tr>';
+                   content += '</table>';
+                   item.content = content;
+                   item.projectName = val.projectName;
+                   item.serialNo = val.serialNo;
+                   item.type = type;
+                   pointArray.push(item);
+               }
+           });
+       }
+   }
+
+
+  //查询点
+  var isSearch = false;
+  var isChange = true;
+  function search(){
+      pointArray = [];
+      var testMode = ($('#testMode').val()) ? 'testMode='+$('#testMode').val() : '';
+      var xmId=$("#xmId").val();
+      var uri='/api/v1/Monitor/'+xmId+'/Testing?'+testMode+'&hour=1500000';
+      if (isChange) {
+          isSearch = true;
+          getPage(uri);
+      }
+  }
+
+
+  //查询结果
+  var list = '<div class="wrap">' +
+                  '<div  id="left-panel" style="position:absolute;border-radius:4px;' +
+                  'border:2px solid #dadada;top:58px;left:28px;overflow-y:auto;display:none;">' +
+                      '<ul class="con" style="display:none;"></ul>' +
+                  '</div>' +
+                  '<div class="switch switch-on" style="display:none;">' +
+                      '<div class="tips" style="display: none;">收起侧边面板</div>' +
+                   '</div>' +
+              '</div>';
+  $('.panel-body').append(list);
+
+  //下拉框改变
+  $('#testMode').on('change', function () {
+          isChange = true;
+          $('#left-panel').css('display', 'none');
+          $('#left-panel ul').css('display', 'none');
+          $('#left-panel ul li').remove();
+          $('#left-panel').height('0px');
+          $('.switch').css('display', 'none');
+  });
+
+   //获取浏览器窗口高度
+   autodivheight();
+   function autodivheight(){ //函数：获取尺寸
+       var winHeight=0;
+       if (window.innerHeight)
+           winHeight = window.innerHeight;
+       else if ((document.body) && (document.body.clientHeight))
+           winHeight = document.body.clientHeight;
+       //通过深入Document内部对body进行检测，获取浏览器窗口高度
+       if (document.documentElement && document.documentElement.clientHeight)
+           winHeight = document.documentElement.clientHeight;
+       //DIV高度为浏览器窗口的高度
+       //document.getElementById("test").style.height= winHeight +"px";
+       //DIV高度为浏览器窗口高度的一半
+       document.getElementById('allmap').style.height= winHeight/1.11+"px";
+   }
+   window.onresize=autodivheight; //浏览器窗口发生变化时同时变化DIV高度
+
+  //监听浮层
+  $('.switch').on({
+      mousemove: function (e) {
+          document.querySelector('.tips').style.display = "block";
+          e.preventDefault();
+      },
+      mouseout: function (e) {
+          // e.stopPropagation();   //阻止事件冒泡
+          document.querySelector('.tips').style.display = "none";
+          // return false;     //阻止回调执行
+          e.preventDefault();  //阻止默认行为
+      },
+      click: function (e) {
+          if(this.className == "switch switch-off") {
+
+              document.querySelector('#left-panel').style.display = 'block';
+              document.querySelector('.tips').innerHTML = '收起侧边面板';
+              this.className = "switch switch-on";
+          } else {
+              document.querySelector('#left-panel').style.display = 'none';
+              document.querySelector('.tips').innerHTML = '展开侧边面板';
+              this.className = "switch switch-off";
+          }
+          e.preventDefault();
+      }
+  });
+</script>
+</body>
+</html>

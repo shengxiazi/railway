@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>单位文档</title>
+
+    <style>
+
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .odd {text-align:center}
+        .even{text-align:center}
+
+        .cl{
+            position:relative;
+        }
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div id="com-doc" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>检测单位管理<span class="c-gray en">&gt;</span>单位文档<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="text-c">
+            所属单位：
+            <span class="select-box inline">
+                <select name="comId" id="comId"  class="select">
+
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            文档类型：
+            <span class="select-box inline">
+                <select name="docTypeId" id="docTypeId"  class="select">
+
+                </select>
+		    </span>
+            &nbsp;&nbsp;
+            <input type="text" name="docName" id="docName" placeholder="文档名称" style="width:250px" class="input-text">
+            <button  id="search" onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden">
+            <span class="l" id="operation">
+
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="5" selected = "selected" >5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+<!--查看附件-->
+<div style="display:none ; text-align:center" id="picture-show">
+    <img id="doc-img" src=" "  width="600px" height="400px"/>
+</div>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var pageSize=$("#page-size").val();
+    $(function(){
+        var height= $('#iframe_box',window.parent.document).height()-40;
+        var width= $('#iframe_box',window.parent.document).width()-300;
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/ComDoc/Initialize",    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                var power = reg['data']['action'];
+                opertion('com-doc',power,'operation');
+                //初始化文档类型
+                var str="<option value=''>--请选择--</option>";
+                $.each(reg.data.doctype,function(key,val){
+                    str += '<option value="'+val.code+'">'+val.name+'</option>'
+                });
+                $("#docTypeId").html(str);
+            }
+        });
+
+        //检测单位
+        var str="";
+        $.ajax({
+            url: "/api/v1/Initialize/TestCompany/Setting",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var  testCompany =reg.data.TestCompany;
+                    $.each(testCompany,function(key,val){
+                        str += '<option value="'+val.code+'">'+val.name+'</option>';
+                    });
+                    $("#testCompany").html(str);
+                }else{
+                    layer.msg(reg.message,{icon:5,time:2000});
+                }
+            }
+        });
+
+        //获取第一个的option值
+        var comId = $("#testCompany option:first").val();
+        //分页
+        var pageIndex=1;
+        var uri='/api/v1/ComDoc/'+pageSize+'/'+pageIndex+'/ListByPage?comId='+comId;
+        getPage(uri);
+
+        $('#page-size').bind('change',function(){
+            comId = $("#testCompany").val();
+            pageSize=this.value;
+            var uri='/api/v1/ComDoc/'+pageSize+'/'+pageIndex+'/ListByPage?comId='+comId;
+            alert(uri);
+            getPage(uri);
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+
+        //附件上传
+        $("#operation").on("click","#add", function() {
+            layer_show('附件上传','doc-upload.html',width,height);
+        });
+
+
+        //附件下载
+        $("#operation").on("click","#view", function() {
+
+            var id= $(".checkchild:checked").val();
+
+            if($(".checkchild:checked").length==0){
+                layer.alert('请选择一条数据！');
+                return;
+            }
+            if($(".checkchild:checked").length>1){
+                layer.alert('一次只能选择一条数据！');
+                return ;
+            }
+            var docHash =$(".checkchild:checked").attr('data-hash');
+
+            var doc_name=  $(".checkchild:checked").parents("tr").find('.docName').text();
+
+            var url="/api/v1/ComDoc/"+id+"/"+docHash;
+            //获取文件点后缀
+            var point = doc_name.lastIndexOf(".");
+            var type = doc_name.substr(point);
+            if(type==".jpg"||type==".PNG"||type==".JPG"||type==".jpeg"){
+                $("#doc-img").attr("src",url);
+                layer.open({
+                    title:'浏览',
+                    type: 1,
+                    area:[width+'px',height+'px'],
+                    content:$('#picture-show') //注意，如果str是object，那么需要字符拼接。
+                });
+            }else{
+                window.location.href=url;
+            }
+        });
+
+        //删除
+        $("#operation").on("click","#del", function(){
+
+            var id= $(".checkchild:checked").val();
+            if($(".checkchild:checked").length==0){
+                layer.alert('请选择一条数据！');
+                return;
+            }
+            if($(".checkchild:checked").length>1){
+                layer.alert('一次只能选择一条数据！');
+                return ;
+            }
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url: "/api/v1/ComDoc/"+id,    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    type: "DELETE",
+                    success: function(reg) {
+                        if(reg.code==0){
+                            $(".checkchild:checked").parents("tr").remove();
+                            layer.msg('已删除!',{icon:1,time:2000});
+                        }else{
+                            layer.msg(reg.message,{icon:1,time:2000});
+                        }
+                    }
+                });
+            });
+
+        });
+
+
+    });
+
+    //分页函数
+    function getPage(uri){
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+= '<table class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="22" rowspan="2"><input type="checkbox" name="" value=""></th>';
+        tableInfo+='<th width="40">检测单位</th>';
+        tableInfo+='<th width="50">文件类型</th>';
+        tableInfo+='<th width="150">文件名</th>';
+        tableInfo+='<th width="150">上传时间</th>';
+        tableInfo+='<th width="90">文件说明</th>';
+        tableInfo+='</tr>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    //上一页
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) * parseInt(pageSize)+1;
+
+                    //结束数
+
+                    var PageEnd =pageIndex* parseInt(pageSize);
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+                    if (data.length!=0) {
+                        $.each(data,function(n,value) {
+                            //拼接数据
+                            tableInfo += '<tr class="text-c">';
+                            tableInfo += '<td><input type="checkbox" data-hash="'+value.hash+'" class="checkchild" value="'+value.docId+'"/></td>';
+                            tableInfo += '<td>'+value.comName+'</td>';
+                            tableInfo += '<td>'+value.docTypeName+'</td>';
+                            tableInfo += '<td class="docName">'+value.docName+'</td>';
+                            tableInfo += '<td>'+value.createTime+'</td>';
+                            tableInfo += '<td>'+value.docRemark+'</td>';
+                            tableInfo += '</tr>';
+                        });
+                        tableInfo += '</tbody></table>';
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if (pervPage == 0) {
+                            tablePage += '<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button previous disabled"  data-href="' + prevPageUri + '" id="Table_previous">上一页</a>';
+                        }
+
+                        if (nextPage == 0) {
+                            tablePage += '<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        } else {
+                            tablePage += '<a class="paginate_button next disabled"  data-href="' + nextPageUri + '"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+    //查询
+    function search(){
+        var comId = $("#testCompany").val();
+        var docTypeId = $("#docTypeId").val();
+        var docName=$("#docName").val();
+        var uri;
+        if(docTypeId==""||docTypeId==null||docTypeId=='undefined'){
+            uri = '/api/v1/ComDoc/'+pageSize+'/1/ListByPage?comId='+comId+'&docName='+docName;
+        }else{
+            uri = '/api/v1/ComDoc/'+pageSize+'/1/ListByPage?comId='+comId+'&docTypeId='+docTypeId+'&docName='+docName;
+        }
+        getPage(uri);
+
+    }
+
+
+</script>
+</body>
+</html>

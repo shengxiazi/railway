@@ -1,0 +1,744 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/table.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link href="../lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/diyupload.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+
+    <![endif]-->
+    <title> 编辑地基处理桩报检单</title>
+    <style>
+        .table th {
+            width: 120px;
+            line-height: 20px;
+            background-color: #F8F8F8;
+            text-align: right;
+        }
+
+        .panel-body {
+            border: none;
+            background-color: #fff;
+            /*background-color: #fbfbfb;*/
+        }
+
+        .textarea {
+            border: none;
+        }
+        .table th .txtCenter{
+            text-align:center;
+        }
+        .select {
+            border: solid 0px #ddd;
+        }
+        .input-nonel{
+            border:none;
+            width:80%;
+            height:100%;
+            margin-left :10px;
+            text-align:left;
+            font-size:14px;
+        }
+        .table .tr-input td{
+            height: 33px;
+        }
+
+        .ui-select1  .ui-select2{
+            text-align: center;
+            /* 加border只是为了看到边框*/
+            border:solid 1px;
+        }
+        .ui-select1 select {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 33px;
+            opacity: 0;
+        }
+        .ui-select2 select  {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 33px;
+            opacity: 0;
+        }
+        .table td{
+            background-color: #fff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <article class="page-container" >
+                    <form class="form form-horizontal" id="form-dplan-edit">
+                        <table class="table table-border table-bordered radius">
+                            <tr class="text-c">
+                                <td colspan="6">
+                                    <h4>编辑地基处理桩报检单</h4></td>
+                                <!--工程ID-->
+                                <input type="hidden" name="projectId" id="projectId" />
+
+                                <input type="hidden" name="projectCode" id="projectCode" />
+
+                                <!--工程编码-->
+
+                                <input type="hidden" name="projectName" id="projectName" />
+                                <!--工程名称-->
+
+                            </tr>
+                            <tr>
+                                <th><span class="c-red">*</span>试验方法：</th>
+                                <td>
+
+                                    <select class="select" name="testMode" id="testMode" style="width:100%">
+
+                                    </select>
+                                </td>
+                                <th><span class="c-red">*</span>桩型：</th>
+                                <td >
+
+                                    <select class="select" name="pileType" id="pileType" style="width:100%">
+                                        <option value="">--请选择--</option>
+                                        <option value="CFG桩">CFG桩</option>
+                                        <option value="水泥搅拌桩">水泥搅拌桩</option>
+                                        <option value="高压旋喷桩">高压旋喷桩</option>
+                                        <option value="混凝土桩">混凝土桩</option>
+
+                                        <option value="灰土挤密桩">灰土挤密桩</option>
+                                        <option value="水泥挤密桩">水泥挤密桩</option>
+                                        <option value="其它桩">其它桩</option>
+                                    </select>
+                                </td>
+                                <th><span class="c-red">*</span>布置形式：</th>
+                                <td >
+
+                                    <select class="select" name="pileLayout" id="pileLayout" style="width:100%">
+                                        <option value="">--请选择--</option>
+                                        <option value="三角形">三角形</option>
+                                        <option value="矩  形">矩  形</option>
+                                        <option value="正方形">正方形</option>
+                                        <option value="梅花形">梅花形</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th colspan="1"><span class="c-red">*</span>桩间距(mm)：</th>
+                                <td>
+
+                                    <input type="text" class="input-nonel" name="pileSpacing" />
+                                </td>
+                                <th colspan="1"><span class="c-red">*</span>里程(m)：</th>
+                                <td colspan="1" width="180px"><input type="text" class="input-nonel" name="mileageNum" id="mileageNum"/></td>
+
+                                <th><span class="c-red">*</span>报检日期：</th>
+                                <td >
+                                    <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:150px" type="text" class="input-none Wdate" name="createDate" id="createDate" >
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th><span class="c-red">*</span>测验方式：</th>
+                                <td>
+                                    <select class="select" name="testWay" id="testWay" style="width:100%">
+
+                                    </select>
+
+                                </td>
+                                <th><span class="c-red">*</span>报检单号：</th>
+                                <td><input type="text" name="planCode" class="input-nonel" /></td>
+                                <th colspan="1">备注：</th>
+                                <td colspan="1">
+
+                                    <input type="text" class="input-nonel" name="planRemark" />
+                                </td>
+
+
+                            </tr>
+                            <tr style="height:46px ">
+
+                                <th>地质概况：</th>
+                                <td class="text-c">
+                                    <div id="geologyDocDiv" style="display: none;">
+                                        <div class="uploader-list-container">
+
+                                            <div  style="margin: 3px auto; display: block;" class="uploader-list">
+                                                <ul class="filelist">
+                                                    <li  class="state-complete">
+                                                        <img class="pdf_diy_bg" height="41" width="30">
+                                                        <span class="info">地.pdf</span>
+
+                                                        <div class="file-panel" style="height: 0px;">
+                                                            <span title="删除" class="cancel">删除</span>
+                                                            <span title="查看" class="view">查看</span>
+
+                                                        </div>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="uploader-list-container" id="uploader">
+
+                                        <div id="picker1" >文档上传</div>
+                                        <!--<input  id="picker1" class="btn btn-success-outline size-MINI radius" type="button" value="文档上传">-->
+                                        <div id="thelist1" style="margin: 3px auto;display: none;" class="uploader-list"></div>
+                                        <div class="btns">
+                                            <!--<div>文档上传</div>-->
+
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="geologyDoc" id="geologyDoc" />
+
+
+                                </td>
+                                <th>工程概况：</th>
+                                <td class="text-c">
+                                    <div id="projectDocDiv" style="display: none;">
+                                        <div class="uploader-list-container">
+
+                                            <div  style="margin: 3px auto; display: block;" class="uploader-list">
+                                                <ul class="filelist">
+                                                    <li  class="state-complete">
+                                                        <img class="pdf_diy_bg" height="41" width="30">
+                                                        <span class="info">工.pdf</span>
+
+                                                        <div class="file-panel" style="height: 0px;">
+                                                            <span title="删除" class="cancel">删除</span>
+                                                            <span title="查看" class="view">查看</span>
+                                                        </div>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="uploader-list-container" id="uploader2">
+                                        <div id="picker2" >文档上传</div>
+                                        <!--<input id="picker2" class="btn btn-success-outline size-MINI radius" type="button" value="文档上传">-->
+                                        <div id="thelist2" style="margin: 3px auto;display: none;" class="uploader-list"></div>
+
+                                    </div>
+                                    <input type="hidden" name="projectDoc" id="projectDoc" />
+
+                                </td>
+                                <th>桩 位 图：</th>
+                                <td class="text-c">
+                                    <div id="pileDocDiv" style="display: none;">
+                                        <div class="uploader-list-container">
+
+                                            <div  style="margin: 3px auto; display: block;" class="uploader-list">
+                                                <ul class="filelist">
+                                                    <li  class="state-complete">
+                                                        <img class="jpg_diy_bg" height="41" width="30">
+                                                        <span class="info">桩.ipg</span>
+
+                                                        <div class="file-panel" style="height: 0px;">
+
+                                                            <span title="删除" class="cancel">删除</span>
+                                                            <span title="查看" class="view">查看</span>
+                                                        </div>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="uploader-list-container" id="uploader3">
+                                        <div id="picker3"  >图片上传</div>
+                                        <!--<input id="picker3" class="btn btn-success-outline size-MINI radius" type="button" value="文档上传">-->
+                                        <div id="thelist3" style="margin: 3px auto;display: none;" class="uploader-list"></div>
+
+                                    </div>
+                                    <input type="hidden" name="pileDoc" id="pileDoc" />
+
+
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <div style="margin-top:10px">
+
+                            <table class="table table-border table-bordered radius" width="100%" id="tabledit">
+
+                                <thead>
+                                <tr style="height: 30px; background-color: #f3f3f3;">
+
+                                    <th style="text-align: center" width="25">序号</th>
+                                    <th style="text-align: center" width="100">桩号 </th>
+                                    <th style="text-align: center" width="100">设计桩顶<br/>标高(m) </th>
+                                    <th style="text-align: center" width="100">设计桩底<br/>标高(m) </th>
+
+                                    <th style="text-align: center" width="80">设计桩长<br/>(m)</th>
+                                    <th style="text-align: center" width="80">设计桩径<br/>(mm)</th>
+
+                                    <th style="text-align: center" width="50">砼强度<br/>等级</th>
+                                    <th id="czlth"  style="text-align: center" width="80">承载力<br/>设计值(kN)</th>
+                                    <th style="text-align: center" width="150">灌注日期</th>
+                                    <th style="text-align: center" width="100">操作</td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                <tr class="text-c tr-input" >
+                                    <td >
+                                        <input type="text" class="input-none" readonly="true" name="rclistindex" id="rclistindex" style="text-align: center;" />
+                                    </td>
+                                    <td >
+                                        <!--桩号-->
+                                        <input type="text" class="input-none" id="pileNo" name="pileNo" />
+                                    </td>
+                                    <td >
+                                        <!--设计桩顶<br/>标高(m)-->
+                                        <input type="text" class="input-none" id="pileTop" name="pileTop" />
+                                    </td>
+                                    <td >
+                                        <!--设计桩底<br/>标高(m)-->
+                                        <input type="text" class="input-none" id="pileBottom" name="pileBottom" />
+                                    </td>
+
+                                    <td >
+                                        <!--设计桩长<br/>(m)-->
+                                        <input type="text" class="input-none" id="pileLength" name="pileLength" />
+
+                                    </td>
+                                    <td >
+                                        <!--设计桩径<br/>(mm)-->
+                                        <input type="text" class="input-none" id="pileDiameter" name="pileDiameter" />
+
+                                    </td>
+                                    <td width="100px">
+                                        <!--砼强度<br/>等级-->
+                                        <div class="ui-select2">
+                                            <span>--请选择--</span>
+                                            <select name="pileTong" id="pileTong" class="select s_center">
+                                                <option value="">--请选择--</option>
+                                                <option value="C15">C15</option>
+                                                <option value="C20">C20</option>
+                                                <option value="C25">C25</option>
+                                                <option value="C30">C30</option>
+                                                <option value="C35">C35</option>
+                                                <option value="C40">C40</option>
+                                                <option value="C45">C45</option>
+                                                <option value="C60">C60</option>
+                                                <option value="C80">C80</option>
+                                                <option value="C80">C90</option>
+                                            </select>
+                                        </div>
+
+                                    </td>
+
+                                    <td id="czltf">
+                                        <!--承载力<br/>设计值(kN)-->
+                                        <input type="text" class="input-none"  id="czl" name="czl" />
+                                    </td>
+                                    <td >
+                                        <!--灌注日期-->
+                                        <input onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:150px" type="text" class="input-none Wdate" name="gzDate" id="gzDate" >
+
+                                    </td>
+
+                                    <td width="100">
+                                        <input class="btn btn-success-outline size-MINI radius" type="button" onclick="addrcitem();"  value="添加">
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+
+                            </table>
+                            <select multiple="multiple" name="rclist" id="rclist" style="width: 765px; display: none;" size="18"></select>
+                        </div>
+
+                    </form>
+        </article>
+    </div>
+    <div data-options="region:'south'" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px">
+        <input type="button" class="btn btn-primary size-S radius" id="saveBtn" onClick="save_submit();" value="&nbsp;保存&nbsp;">&nbsp;&nbsp;
+        <input type="button" onClick="layer_close();"  id="cancelBtn"  class="btn btn-success size-S radius" value="&nbsp;取消&nbsp;">
+        <!--<button class="btn btn-primary size-S radius" id="saveBtn" type="submit"  onClick="save_submit();"><i class="Hui-iconfont">&#xe632;</i> 保存</button>-->
+        <!--<button onClick="layer_close();" class="btn btn-success size-S radius" value="add">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>-->
+    </div>
+</div>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/QPlanAdd.js"></script>
+<script type="text/javascript" src="../lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/comUpload.js"></script>
+<script>
+    var projectId = sessionStorage.pro_id;
+    var xm_id = sessionStorage.type;
+    var id = sessionStorage.dplanId;
+    var data = new Object();
+    var submited = false;
+    var projectCode = sessionStorage.projectCode;
+    var projectName = sessionStorage.projectName;
+    $("#projectId").val(projectId);
+    $("#projectCode").val(projectCode);
+    $("#projectName").val(projectName);
+    $("#czlth").hide();
+    $("#czltf").hide();
+
+    var testquota = JSON.parse(sessionStorage.Dtestquota);
+    var testModeStr = "<option value=''>--请选择--</option>";
+    $.each(testquota,function(key,val){
+        testModeStr += '<option value="'+val.TestModeCode+'">'+val.TestModeName+'</option>'
+    });
+    $("#testMode").html(testModeStr);
+
+    var testWay = JSON.parse(sessionStorage.DtestWay);
+    var testWayStr = "<option value=''>--请选择--</option>";
+    $.each(testWay,function(key,val){
+        testWayStr += '<option value="'+val.code+'">'+val.name+'</option>'
+    });
+    $("#testWay").html(testWayStr);
+    //二级联动
+    $('#testMode').bind('change',function(){
+        var testMode = this.value;
+
+        if(testMode=='DY'||testMode=='SC'||testMode=='ZX'||testMode==''){
+            $("#czlth").hide();
+            $("#czltf").hide();
+        }else
+        {
+            $("#czlth").show();
+            $("#czltf").show();
+        }
+
+        showrclist();
+    });
+
+    //表单验证
+    function validform() {
+        return $("#form-dplan-edit").validate({
+            debug: true,
+            rules: {
+                testMode: {
+                    required: true
+                },
+                testWay: {
+                    required: true
+                },
+                mileage: {
+                    required: true,
+                    range: [0, 999999]
+                },
+                pileType: {
+                    required: true
+                },
+                pileLayout: {
+                    required: true,
+                    rangelength:[0,20]
+                },
+                pileSpacing: {
+                    required: true,
+                    number:true,
+                    rangelength:[0,20]
+                },
+                planRemark:{
+                    rangelength:[0,255]
+                },planCode:{
+                    rangelength:[0,48]
+                }
+            }
+        });
+    }
+
+    $(function() {
+        init();
+        setFunc('geologyDocDiv','picker1','thelist1','geologyDoc');
+        setFunc('projectDocDiv','picker2','thelist2','projectDoc');
+        setFunc('pileDocDiv','picker3','thelist3','pileDoc');
+        function  setFunc(id,picker,thelist,code) {
+
+
+            var $li = $("#" + id).find('li'), $btns = $li.find('div.file-panel');
+            $li.on('mouseenter', function () {
+                $btns.stop().animate({height: 30});
+            });
+
+            $li.on('mouseleave', function () {
+                $btns.stop().animate({height: 0});
+            });
+
+            $btns.on('click', 'span', function () {
+                var index = $(this).index(),
+                        deg;
+                switch (index) {
+                    case 0:
+                        $("#" + picker).show();
+                        $("#" + id).hide();
+                        $("#" + thelist).hide();
+                        //$("#" + code).val('');
+                        return;
+                    case 1:
+                        viewFile(code);
+                        return;
+
+
+                }
+            });
+        }
+
+        function  viewFile(code){
+            var fileCode=$("#"+code).val();
+            //用code取文档和图片 ajax处理 待完成
+            var url='/api/v1/res/'+fileCode+'?'+Math.random();
+
+            layer_open('文件预览',url,'90%','98%');
+        }
+
+
+        //获取数据
+        $.ajax({
+            url: '/api/v1/DPlan/'+projectId+'/'+id,    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg){
+                if(reg.code==0){
+
+                    for (var Key in reg.data){
+                        var value=reg.data[Key];
+                        if(value==null|| value=="null"){
+
+                            value="";
+                        }
+                        if(Key=='geologyDoc'){
+                            console.log(value);
+                            if(value!=null&& value!=""){
+                                $("#" + 'picker1').hide();
+                                $("#geologyDocDiv").show();
+                                $("#" + 'thelist1').hide();
+
+                            }else {
+                                $("#" + 'picker1').show();
+                                $("#geologyDocDiv").hide();
+                                $("#" + 'thelist1').hide();
+                            }
+                        }
+                        if(Key=='projectDoc'){
+                            if(value!=null&& value!=""){
+                                $("#" + 'picker2').hide();
+                                $("#projectDocDiv").show();
+                                $("#" + 'thelist2').hide();
+
+                            }else {
+                                $("#" + 'picker2').show();
+                                $("#projectDocDiv").hide();
+                                $("#" + 'thelist2').hide();
+                            }
+                        }
+                        if(Key=='pileDoc'){
+                            if(value!=null&& value!=""){
+                                $("#" + 'picker3').hide();
+                                $("#pileDocDiv").show();
+                                $("#" + 'thelist3').hide();
+
+                            }else {
+                                $("#" + 'picker3').show();
+                                $("#pileDocDiv").hide();
+                                $("#" + 'thelist3').hide();
+                            }
+                        }
+                        $('input[name="'+Key+'"]').val(value);
+                        $('#'+Key).val(value);
+                    }
+                    var t, v;
+                    $.each(reg.data.testPile,function(key,val){
+                        t = val.pileNo + "|" + val.pileTopHeight + "|" + val.pileBottomHeight  + "|" + val.pileLength + "|" + val.pileDiameter + "|" + val.pileTong + "|" + val.pileLoad + "|" + val.constructionDate;
+                        v = t;
+                        var option = new Option(t, v);
+
+                        var sell = document.getElementById("rclist");
+                        sell.options.add(option);
+
+                    });
+                    var testMode = reg.data.testModeCode;
+                    $("#testMode").val(testMode);
+                    if(testMode=='DY'||testMode=='SC'||testMode=='ZX'||testMode==''){
+                        $("#czlth").hide();
+                        $("#czltf").hide();
+                    }else
+                    {
+                        $("#czlth").show();
+                        $("#czltf").show();
+                    }
+                    showrclist();
+
+
+                }
+                else{
+
+                    layer.alert(reg.message);
+
+                }
+
+
+            },error:function(){
+                layer.alert('请求出错');
+            }
+        });
+        $(".ui-select1 select").change(function(){
+            var getselectVal=$(".ui-select1 option:selected").text();
+            $(".ui-select1 span").text(getselectVal);
+
+        });
+        $(".ui-select2 select").change(function(){
+            var getselectVal=$(".ui-select2 option:selected").text();
+            $(".ui-select2 span").text(getselectVal);
+
+        });
+
+
+
+
+    });
+    var dataNAN = true;
+    function getData() {
+
+        var pileType="";
+        $("#form-dplan-edit *[name]").each(function(item) {
+            data[$(this).attr("name")] = $(this).val();
+            if($(this).attr("name") == 'mileageNum') {
+                data['mileage'] = parseFloat($(this).val()) * 1000;
+            }
+            if($(this).attr("name") == 'pileType') {
+                pileType =$(this).val();
+            }
+        });
+        data['testPile'] = [];
+
+        var l = $("#rclist").get(0).options.length;
+
+        if (l > 0) {
+            for (var j = 0; j < l; j++) {
+                var arr = $("#rclist").get(0).options[j].text.split("|");
+                //var arr = document.getElementById("rclist").options[j].text.split("|");
+                var testMode=$("#testMode").val();
+
+                if(testMode=='DY'||testMode=='SC'||testMode=='ZX'||testMode==''){
+
+                }else
+                {
+                    if (arr[6] == "0") {
+                        layer.alert('承载力设计值不能为0！');
+                        dataNAN=false;
+                    }
+                }
+                var list =
+                {
+                    pileNo:arr[0] ,
+                    pileTopHeight:arr[1],
+                    pileBottomHeight:arr[2],
+                    pileLength:arr[3],
+                    pileDiameter:arr[4],
+                    pileTong:arr[5],
+                    pileLoad:arr[6],
+                    constructDate:arr[7],
+                    pileType:pileType
+
+                }
+                data['testPile'].push(list);
+            }
+
+        } else {
+            layer.alert('请添加报检详情！');
+            dataNAN=false;
+        }
+
+
+        return data;
+    }
+
+    function create_new() {
+        $('#form-dplan-edit')[0].reset();
+    }
+
+    function save_submit() {
+        dataNAN = true;
+
+        data = getData();
+        if(dataNAN){
+            if(validform().form()) {
+                if(checkSubmit()) {
+                    $("#saveBtn").attr({"disabled":"disabled"});
+                    $.ajax({
+                        url: '/api/v1/DPlan/' + projectId + '/' + id, //请求的url地址
+                        dataType: "json",
+                        async: true,
+                        data: data,
+                        type: "PUT",
+                        success: function(reg) {
+
+                            if(reg.code == 0) {
+                                layer.msg(reg.message, {
+                                    icon: 1,
+                                    time: 2000
+                                }, function() {
+                                    parent.location.href = "/plan/dplan.html";
+
+                                });
+
+                            } else {
+                                submited = false;
+                                $("#saveBtn").removeAttr("disabled");//将按钮可用
+                                layer.alert(reg.message);
+                            }
+                        },
+                        error: function() {
+                            submited = false;
+                            $("#saveBtn").removeAttr("disabled");//将按钮可用
+                            layer.alert('保存失败！');
+                        }
+                    });
+                }
+            }
+        }
+
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../lib/html5.js"></script>
+    <script type="text/javascript" src="../lib/respond.min.js"></script>
+    <script type="text/javascript" src="../lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>k30测试</title>
+    <style>
+
+        #operation .btn{margin-left:4px;}
+        .table-sort .text-center{text-align:center}
+        .page-container .search-input{
+
+            width:100%;
+        }
+        .search-item label{font-size:12px;}
+
+        .search-item{
+            float:left;
+            height:31px;
+            margin-left:10px;
+
+        }
+        .search-item .input-text{
+            width:60%;
+            height:22px;
+        }
+        .table{font-size:12px;}
+
+        .table th,td {
+            white-space: nowrap;
+        }
+
+        #dataTables_info {
+            clear: both;
+            float: left;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+<div id="k30-list" style="display:none">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 路基填筑检测数据<span class="c-gray en">&gt;</span>地基系数<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="search-input text-c">
+            <div class="text-c search-item">
+                <label >层数：</label>
+                <select  size="1"  id="layers" name="layers">
+
+                </select>
+            </div>
+            <div class="text-c search-item">
+                <label >检测设备：</label>
+                <input type="text" value="" id="machineId" name="machineId" class="input-text" style="width:80px"/>
+            </div>
+            <div class="text-c search-item">
+                <label>里程范围(m)：</label>
+                <input type="text" value="" class="input-text" id="startMileage" name="startMileage" style="width:50px"/>--
+                <input type="text" value="" class="input-text" id="endMileage" name="endMileage" style="width:50px"/>
+            </div>
+            <div class="text-c search-item">
+                <label >数据是否有效：</label>
+                <select  size="1"  id="isValid" name="isValid">
+
+                </select>
+            </div>
+            <div class="text-c search-item">
+                <label >实验结论：</label>
+                <select  size="1"  id="result" name="result">
+
+                </select>
+            </div>
+
+                <button onclick="search()" class="btn btn-success radius" style="font-size:12px;" name="searchBtn"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+
+            <div style="clear:both;"></div>
+        </div>
+
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="overflow:hidden;position:relative;">
+            <span class="l" id="operation">
+            </span>
+        </div>
+        <div class="dataTables_wrapper">
+            <div class="mt-20" id="table-data" style="overflow:auto">
+
+
+            </div>
+            <div id="dataTables_info" role="status" aria-live="polite">
+                <div class="num-select" style="display:inline-block">
+                    <label>显示
+                        <select id="page-size" name="page-size">
+                            <option value="5" selected = "selected" >5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select> 条
+                    </label>
+                </div>
+            </div>
+            <div class="dataTables_paginate" id="page"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+
+    var pageSize=$("#page-size").val();
+    var projectId = sessionStorage.pro_id;
+    var result;
+    var isValid;
+    $(function(){
+
+        var height= $('#iframe_box',window.parent.document).height()-40;
+        var width= $('#iframe_box',window.parent.document).width()-300;
+
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        //初始化操作权限
+        $.ajax({
+            url: "/api/v1/KSData/Initialize",    //请求的url地址
+            dataType: "json",
+            async: false,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var html = '';
+                    var power = reg['data']['action'];
+                    opertion('k30-list',power,'operation');
+                    var restr = '<option value="">--请选择--</option>';
+                    $.each(reg.data.result,function(n,val){
+                        restr+='<option value="'+val.code+'">'+val.name+'</option>';
+                    });
+                    $('#result').html(restr);
+
+                    var validStr = '<option value="">--请选择--</option>';
+                    $.each(reg.data.isValid,function(n,val){
+                        validStr+='<option value="'+val.code+'">'+val.name+'</option>';
+                    });
+                    $('#isValid').html(validStr);
+
+                    //初始化层级
+                    $.ajax({
+                        url: '/api/v1/KSData/'+projectId+'/Layers',    //请求的url地址
+                        dataType: "json",
+                        async: false,
+                        type: "GET",
+                        success: function(reg) {
+                            if(reg.code==0){
+                                var layerStr = '';
+                                $(reg.data).each(function(index,val){
+                                    layerStr+='<option value="'+val.value+'">'+val.name+'</option>'
+                                });
+                                $('#layers').html(layerStr);
+                            }else{
+                                layer.msg(reg.message,{icon:5,time:2000});
+                            }
+
+                        }
+                    });
+
+                    //初始化分页数据
+                    var pageIndex=1;
+                    var layers=$("#layers option:eq(0)").val();
+                    var uri ='/api/v1/KSData/'+projectId+'/'+pageSize+'/'+pageIndex+'/ListByPage?layer='+layers;
+                    getPage(uri);
+
+                }
+
+            }
+        });
+
+
+
+
+        $('#page-size').bind('change',function(){
+            pageSize=this.value;
+            var layers = $("#layers").val();
+            var machineId = ($('#machineId').val()) ? '&machineId='+$('#machineId').val() : '';
+            var startMileage = ($('#startMileage').val()) ? '&startMileage='+$('#startMileage').val() : '';
+            var endMileage = ($('#endMileage').val()) ? '&endMileage='+$('#endMileage').val() : '';
+            var isValid = ($('#isValid').val()) ? '&isValid='+$('#isValid').val() : '';
+            var result = ($('#result').val()) ? '&result='+$('#result').val() : '';
+            var uri='/api/v1/KSData/'+projectId+'/'+pageSize+'/1/ListByPage?layer='+layers+machineId+startMileage+endMileage+isValid+result;
+            getPage(uri);
+        });
+
+        //上一页
+        $("#page").on("click","#Table_previous", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+        });
+
+        //下一页
+        $("#page").on("click","#Table_next", function() {
+            var uri = $(this).attr('data-href');
+            getPage(uri);
+
+        });
+
+        //单击表格行
+        $('#table-data').on('click','#sortable_table tr',function(){
+
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+        });
+
+        //双击表格查看详情
+        $('#table-data').on('dblclick','#sortable_table tr',function(){
+            var id = $(this).attr('data-id');
+            sessionStorage.BasicInfoId = id;
+            showModal('testk30-details.html');
+        });
+
+        //添加
+        $('#operation').on('click','#add',function(){
+            layer_show('添加','k31-add.html',width,height);
+        });
+
+
+        //编辑
+        $('#operation').on('click','#edit',function(){
+
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            layer_show('编辑','k30-edit.html',width,height);
+            sessionStorage.BasicInfoId = id;
+        });
+
+
+
+
+
+
+        //查看详情
+        $("#operation").on("click","#view", function(){
+            var id= $('#sortable_table').find('.selected').attr('data-id');
+            sessionStorage.BasicInfoId = id;
+            if(id==undefined || id== ''){
+                layer.alert('请选择一条记录！');
+                return false;
+            }
+            showModal('testk30-details.html');
+        });
+    });
+
+
+    //查询
+    function search(){
+        var layers = $("#layers").val();
+        var machineId = $('#machineId').val();
+        var startMileage = ($('#startMileage').val()) ? '&startMileage='+$('#startMileage').val() : '';
+        var endMileage = ($('#endMileage').val()) ? '&endMileage='+$('#endMileage').val() : '';
+        var isValid = ($('#isValid').val()) ? '&isValid='+$('#isValid').val() : '';
+        var result = ($('#result').val()) ? '&result='+$('#result').val() : '';
+        var uri='/api/v1/KSData/'+projectId+'/'+pageSize+'/1/ListByPage?layer='+layers+machineId+startMileage+endMileage+isValid+result;
+        getPage(uri)
+    }
+
+    //桥梁分页函数
+    function getPage(uri){
+
+        //获取数据
+        var url=uri;
+        var tableInfo='';
+        tableInfo+= '<table id="sortable_table" class="table table-border table-bordered table-hover table-bg table-sort">';
+        tableInfo+='<thead>';
+        tableInfo+='<tr class="text-c">';
+        tableInfo+='<th width="150" rowspan="2">测试流水号</th>';
+        tableInfo+='<th width="100" rowspan="2">检测主机编号</th>';
+        tableInfo+='<th width="400" rowspan="2">检测方法</th>';
+        tableInfo+='<th width="100" rowspan="2">检测方式</th>';
+        tableInfo+='<th width="100" rowspan="2">测点里程</th>';
+        tableInfo+='<th width="100" rowspan="2">方位</th>';
+        tableInfo+='<th width="400" rowspan="2">位置</th>';
+        tableInfo+='<th width="400" rowspan="2">填料类型</th>';
+        tableInfo+='<th width="400" rowspan="2">设计K值</th>';
+        tableInfo+='<th width="400" rowspan="2">实测K值</th>';
+        tableInfo+='<th width="400" rowspan="2">检测结论</th>';
+        tableInfo+='<th width="400" rowspan="2">GPS定位</th>';
+        tableInfo+='<th width="400" rowspan="2">检测员</th>';
+        tableInfo+='<th width="400" rowspan="2">数据有效性</th>';
+        tableInfo+='<th width="400" rowspan="2">实验开始时间</th>';
+        tableInfo+='<tr/>';
+        tableInfo+='</thead>';
+        tableInfo+='<tbody>';
+
+
+        $.ajax({
+            url:url,    //请求的url地址
+            dataType: "json",
+            async: true,
+            type: "GET",
+            success: function(reg) {
+                if(reg.code==0){
+                    var total =reg.total;
+                    var prevPageUri = reg.prevPageUri;
+                    var nextPageUri = reg.nextPageUri;
+
+                    //前一页的页码
+                    var pervPage=reg.pervPage;
+
+                    //当前页码
+                    var pageIndex = reg.pageIndex;
+                    //起始数
+                    var Pagestart = (pageIndex-1) *pageSize+1;
+
+                    //结束数
+                    var PageEnd =pageIndex*pageSize;
+                    if(PageEnd>total){
+                        PageEnd=total;
+                    }
+                    //下一页的页码
+                    var nextPage=reg.nextPage;
+
+                    var data = reg.data;
+
+                    $('.data-total').text(total);
+
+                    if (data.length!=0) {
+                        $.each(data,function(n,value) {
+                            //拼接数据
+                            tableInfo+='<tr class="text-c" data-id="'+value.BasicInfoId+'">';
+                            tableInfo += '<td>'+value.SerialNo+'</td>';
+                            tableInfo += '<td>'+value.MachineId+'</td>';
+                            tableInfo += '<td>'+value.TestType+'</td>';
+                            tableInfo += '<td>'+value.TestWay+'</td>';
+                            tableInfo += '<td>'+value.PointMileage+'</td>';
+                            tableInfo += '<td>'+value.Direction+'</td>';
+                            tableInfo += '<td>'+value.Position+'</td>';
+                            tableInfo += '<td>'+value.FillingStyle+'</td>';
+                            tableInfo += '<td>'+value.KdjDesign+'</td>';
+                            tableInfo += '<td>'+value.KdjReal+'</td>';
+                            tableInfo += '<td>'+value.Result+'</td>';
+                            tableInfo += '<td>'+value.GpsIsValid+'</td>';
+                            tableInfo += '<td>'+value.ShangGangZheng+'</td>';
+                            tableInfo += '<td>'+value.IsValid+'</td>';
+                            tableInfo += '<td>'+value.StartTime+'</td>';
+                            tableInfo += '</tr>';
+                        });
+                        tableInfo += '</tbody></table>';
+                        //生成分页条
+                        //生成分页条
+                        $("#dataTables_info span").remove();
+                        $('#dataTables_info').append('<span>&nbsp;&nbsp;数据&nbsp;'+Pagestart+' 到 '+PageEnd+' 条，共 '+total+'条</span>');
+                        var tablePage = "";
+                        if (pervPage == 0) {
+                            tablePage += '<a class="paginate_button previous disabled" id="Table_previous">上一页</a>';
+                        } else {
+                            tablePage += '<a class="paginate_button previous disabled"  data-href="' + prevPageUri + '" id="Table_previous">上一页</a>';
+                        }
+
+                        if (nextPage == 0) {
+                            tablePage += '<a class="paginate_button next disabled" id="Table_next">下一页</a>';
+
+                        } else {
+                            tablePage += '<a class="paginate_button next disabled"  data-href="' + nextPageUri + '"  id="Table_next">下一页</a>';
+                        }
+                        $('#page').html(tablePage);
+                        $('#table-data').html(tableInfo);
+                        $('#dataTables_info').show();
+                    }else{
+                        $('#table-data').html('<div><span class="c-red"><strong>暂无记录！</strong></span></div>');
+                        $('#dataTables_info').hide();
+                    }
+                }else{
+                    layer.msg('加载失败！!',{icon:5,time:2000});
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

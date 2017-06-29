@@ -1,0 +1,467 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../lib/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/table.css" />
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>测定填料压实质量试验报告</title>
+    <style>
+        .table-border{border-top:1px solid #9c9c9c}
+        .table-border th,.table-border td{border-bottom:1px solid #9c9c9c}
+        /*带外边框*/
+        .table-bordered{border:1px solid #9c9c9c;border-collapse:separate;*border-collapse:collapse;border-left:0}
+        .table-bordered th,.table-bordered td{border-left:1px solid #9c9c9c}
+        .table-border.table-bordered{border-bottom:0}
+        .content {
+            width: 95%;
+            border-bottom: 1px solid #9c9c9c;
+            position: absolute;
+            bottom: 6px;
+        }
+        #oneTable th{width:70px;text-align:right;height:30px;}
+
+        #oneTable td{position:relative}
+        .form .row{margin-top:0}
+        h4{
+            margin:10px 0 20px 0;
+        }
+        .table td{
+            font-size:14px;
+        }
+        .panel-body{
+            background-color:#f1f1f1;
+        }
+        .input-none{
+            border:1px solid #ddd;
+            width:100%;
+            height:100%;
+            text-align:center;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',split:true" style="width:100%">
+        <form class="form form-horizontal" id="tresult-add">
+    <div class="container" style="padding-bottom:20px">
+        <div class="row cl">
+            <div class="col-sm-12">
+               <h4 id="xmName">测定填料压实质量试验报告</h4>
+                <table id="oneTable">
+                    <tr>
+                        <th>施工单位：</th>
+                        <td width="45%"><div class="content" id="sgXmComName"></div></td>
+                        <th>报告编号：</th>
+                        <td><input type="text" class="input-none" name="resultCode" id="resultCode" /></td>
+                    </tr>
+                    <tr>
+                        <th>工程名称：</th>
+                        <td><div class="content" id="projectName"></div></td>
+                        <th><span class="c-red">*</span>报检编号：</th>
+                        <td><input type="text" class="input-none" name="serialNo" id="serialNo"/></td>
+                    </tr>
+                    <tr>
+                        <th>施工里程：</th>
+                        <td><div class="content" id="planMileage"></div></td>
+                        <input type="hidden" class="input-none" name="mileageFlag"/>
+                        <th>记录编号：</th>
+                        <td><div class="content" id="testcode"></div></td>
+                    </tr>
+                    <tr>
+                        <th>压实方式：</th>
+                        <td><div class="content" id="compactionMode"></div></td>
+                        <th><span class="c-red">*</span>报告日期：</th>
+                        <td>
+                            <input  style="width:80%"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" type="text" class="input-none Wdate" name="StartTime" placeholder="">
+                            <input type="hidden" class="input-none" name="design" disabled/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row cl" style="margin-top:10px">
+            <div class="col-sm-12">
+                <table id="secondTable" class="table table-border table-bordered">
+                    <tr class="text-c">
+                        <th>填料名称</th>
+                        <th>填料最大粒径(mm)</th>
+                        <th>填层厚度(cm)</th>
+                        <th>填土层数</th>
+                        <th>填层标高(m)</th>
+                        <th>检测人员1</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th id="fillingStyle"></th>
+                        <th id="fillingDiameter"></th>
+                        <th id="fillingThickness"></th>
+                        <th id="layer"></th>
+                        <th id="testHeight"></th>
+                        <th>
+                            <select  size="1"  id="testId" name="testId" class="select-box">
+                        </select>
+                        </th>
+                    </tr>
+                    <tr class="text-c">
+                        <th>颗粒密度ρ<sub>sm</sub>(g/cm<sup>3</sup>)</th>
+                        <th>最大干密度ρ<sub>dmax</sub>(g/cm<sup>3</sup>)</th>
+                        <th>最优含水率ω<sub>opt</sub>(%)</th>
+                        <th>砂的最大干密度ρ<sub>dmax</sub>(g/cm<sup>3</sup>)</th>
+                        <th>砂的最小干密度ρ<sub>dmin</sub>(g/cm<sup>3</sup>)</th>
+                        <th>检测人员2</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th id="particleDensity"></th>
+                        <th id="dryDensity"></th>
+                        <th id="maxWaterContent"></th>
+                        <th id="sMaxDryDensity"></th>
+                        <th id="sMinDryDensity"></th>
+                        <th><select  size="1"  id="testId2" name="testId" class="select-box">
+                        </select></th>
+                    </tr>
+                </table>
+                <table class="table table-border table-bordered" style="border-top:0">
+                    <tr class="text-c">
+                        <th colspan="3">压实指标</th>
+                        <th colspan="2">压实系数K</th>
+                        <th colspan="2">孔隙率n（%）</th>
+                        <th colspan="2">相对密度Dr</th>
+                        <th colspan="2">动态变形模量Evd<br>（MPa）</th>
+                        <th colspan="2">地基系数K30<br>（MPa/m）</th>
+                        <th colspan="2">变形模量Ev2（MPa）</th>
+                    </tr>
+                    <tr class="text-c">
+                        <td colspan="3">记录编号</td>
+                        <td colspan="2" id="ysTestCode"></td>
+                        <td colspan="2" id="kxTestCode"></td>
+                        <td colspan="2" id="xmTestCode"></td>
+                        <td colspan="2" id="edTestCode"></td>
+                        <td colspan="2" id="ksTestCode"></td>
+                        <td colspan="2" id="evTestCode"></td>
+                    </tr>
+                    <tr class="text-c" id="testData">
+                        <th width="30">测点编号</th>
+                        <th width="180">测点位置</th>
+                        <th>含水率(%)</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                        <th>规定值</th>
+                        <th>实测值</th>
+                    </tr>
+                </table>
+                <table class="table table-border table-bordered" style="border-top:0">
+                    <tr >
+                        <td colspan="7" style=" vertical-align:middle;padding:5px" >
+                            <span class="c-red">*</span>
+                            <label style="width:23%">检测评定依据：</label>
+                            <input name="testStandard" id="testStandard" type="text" class="input-none" style="height:40px "/>
+                        </td>
+                        <td colspan="8" style=" vertical-align:middle;padding:5px">
+                            <span class="c-red">*</span>
+                            <label style="width:20%">检测结论:</label>
+                            <input name="testResult" id="testResult" type="text" class="input-none" style="height:40px "/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <input type="hidden" name="projectId" id="projectId"/>
+        <input type="hidden" name="planId" id="planId"/>
+    </div>
+</form>
+    </div>
+    <div data-options="region:'south'" style="height:40px; padding-top:5px; text-align:center ;background-color:#F8F8F8;border-top:solid #eee 1px" >
+        <button class="btn btn-primary radius" type="button" onClick="save_submit()"><i class="Hui-iconfont">&#xe632;</i>保存</button>
+        <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+    </div>
+</div>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.min.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script>
+    var projectId = sessionStorage.pro_id;
+    var submited = false;
+
+    $(function(){
+        //获取实验人员列表
+        $.ajax({
+            url:'/api/v1/XMPerson/'+projectId+'/LiteListByProjId',
+            dataType:"json",
+            async:false,
+            type:'GET',
+            success:function(reg){
+                if(reg.code==0){
+                    var testStr = "<option value=''>--请选择--</option>";
+                    $.each(reg.data,function(k,v){
+                        testStr+='<option value="'+ v.value+'">'+ v.name+'</option>';
+                    });
+                    $('#testId').html(testStr);
+                    $('#testId2').html(testStr);
+                }else{
+                    layer.msg(reg.message, {icon: 6, time: 2000});
+                }
+            },
+            error:function(){
+                layer.msg('请求出错！');
+            }
+        });
+
+        //根据检测编号获取检测报告
+        $('#serialNo').bind('change',function(){
+            var planCode = $.trim(this.value);
+            $("#serialNo").val(planCode);
+            $.ajax({
+                url:'/api/v1/TResult/'+projectId+'/'+planCode+'/ResultByPlanCode',
+                dataType :"json",
+                async:false,
+                type: "GET",
+                success:function(reg){
+                    if(reg.code==0){
+                                var len = reg.data.resultData.length;
+                                var str='';
+                                if(len==0){
+                                    str +='<tr class="text-c">';
+                                    str+='<td>1</td>';
+                                    str+='<td id="mileage"></td>';
+                                    str+='<td id="waterContent"></td>';
+                                    str+='<td id="ysDesign"></td>';
+                                    str+='<td id="ysReal"></td>';
+                                    str+='<td id="kxDesign"></td>';
+                                    str+='<td id="kxReal"></td>';
+                                    str+='<td id="xmDesign"></td>';
+                                    str+='<td id="xmReal"></td>';
+                                    str+='<td id="edDesign"></td>';
+                                    str+='<td id="edReal"></td>';
+                                    str+='<td id="ksDesign"></td>';
+                                    str+='<td id="ksReal"></td>';
+                                    str+='<td id="evDesign"></td>';
+                                    str+='<td id="evReal"></td>';
+                                    str+='</tr>';
+                                    $("#testData tr:gt(0)").remove();
+                                    $('#testData').after(str);
+                                }else{
+                                    $.each(reg.data.resultData,function(n1,v1){
+                                        if(n1==0){
+                                                str+='<tr class="text-c">';
+                                                str+='<td>'+n1+'</td>';
+                                            if(v1.mileage==null){
+                                                str+='<td id="mileage"></td>';
+                                            }else{
+                                                str+='<td id="mileage">'+v1.mileage+'</td>';
+                                            }
+                                            if(v1.waterContent==null){
+                                                str+='<td id="waterContent"></td>';
+                                            }else{
+                                                str+='<td id="waterContent">'+v1.waterContent+'</td>';
+                                            }
+                                                str+='<td rowspan="'+len+'" id="ysDesign"></td>';
+                                            if(v1.ysReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.ysReal+'</td>';
+                                            }
+                                                str+=' <th rowspan="'+len+'" id="kxDesign" style="color:darkgreen"></th>';
+                                            if(v1.kxReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.kxReal+'</td>';
+                                            }
+                                                str+='<td rowspan="'+len+'" id="xmDesign" style="color:darkgreen"></td>';
+                                            if(v1.xmReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.xmReal+'</td>';
+                                            }
+                                                str+='<td rowspan="'+len+'" id="edDesign" style="color:darkgreen"></td>';
+                                            if(v1.edReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.edReal+'</td>';
+                                            }
+                                                str+='<td rowspan="'+len+'" id="ksDesign" style="color:darkgreen"></td>';
+                                            if(v1.ksReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.ksReal+'</td>';
+                                            }
+                                                str+='<td rowspan="'+len+'" id="evDesign" style="color:darkgreen"></td>';
+                                            if(v1.evReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.evReal+'</td>';
+                                            }
+                                                str+='</tr>';
+                                        }else{
+                                            str+='<tr class="text-c">';
+                                            str+='<td>'+n1+'</td>';
+                                            if(v1.mileage==null){
+                                                str+='<td id="mileage"></td>';
+                                            }else{
+                                                str+='<td id="mileage">'+v1.mileage+'</td>';
+                                            }
+                                            if(v1.waterContent==null){
+                                                str+='<td id="waterContent"></td>';
+                                            }else{
+                                                str+='<td id="waterContent">'+v1.waterContent+'</td>';
+                                            }
+
+                                            if(v1.ysReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.ysReal+'</td>';
+                                            }
+                                            if(v1.kxReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.kxReal+'</td>';
+                                            }
+                                            if(v1.xmReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.xmReal+'</td>';
+                                            }
+                                            if(v1.edReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.edReal+'</td>';
+                                            }
+                                            if(v1.ksReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.ksReal+'</td>';
+                                            }
+                                            if(v1.evReal==null){
+                                                str+='<td></td>';
+                                            }else{
+                                                str+='<td>'+v1.evReal+'</td>';
+                                            }
+                                            str+='</tr>';
+                                        }
+
+                                    });
+                                  $("#testData tr:gt(0)").remove();
+                                    $('#testData').after(str);
+                                }
+                        $.each(reg.data,function(n,value){
+                            if(value!=null){
+                                if((n!='testId')&&(n!='testId2')){
+                                    $('#'+n).text(value);
+                                }
+                                if(n=='projectId'){
+                                    $('input[name="projectId"]').val(value);
+                                }
+                                if(n=='planId'){
+                                    $('input[name="planId"]').val(value);
+                                }
+                            }
+                        });
+
+                        var myDate = new Date();
+                        $('input[name="StartTime"]').val(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate());
+                    }else{
+                        layer.msg(reg.message,{icon: 6, time: 2000});
+                    }
+                },
+                error:function(){
+                    layer.msg('报检编号不存在!');
+                }
+            });
+        });
+    });
+
+    //表单验证
+    function validform(){
+        return  $("#tresult-add").validate({
+            debug:true,
+            rules:{
+                serialNo:{
+                    required:true
+                },
+                testStandard:{
+                    required:true
+                },
+                testResult:{
+                    required:true
+                },
+                testId:{
+                    required:true
+                }
+            }
+        });
+    }
+    //提交表单
+ function save_submit(){
+        if(validform().form()) {
+            if (checkSubmit()) {
+                var data = new Object();
+                data['projectId'] = $('#projectId').val();
+                if ($('#resultCode').val() == "") {
+                    data['resultCode'] = $('#serialNo').val();
+                } else {
+                    data['resultCode'] = $('#resultCode').val();
+                }
+                data['serialNo'] = $('#serialNo').val();
+                data['planId'] = $('#planId').val();
+                data['testStandard'] = $('#testStandard').val();
+                data['testResult'] = $('#testResult').val();
+                data['testId'] = $('#testId').val();
+                data['testId2'] = $('#testId2').val();
+                $.ajax({
+                    url: '/api/v1/TResult',    //请求的url地址
+                    dataType: "json",
+                    async: true,
+                    data: data,
+                    type: "POST",
+                    success: function (reg) {
+                        submited = false;
+                        if (reg.code == 0) {
+                            layer.msg(reg.message, {icon: 1, time: 2000},function(){
+                                parent.location.href = "/result/tresult.html";
+                            });
+                        } else {
+                            layer.alert(reg.message);
+                        }
+                    },
+                    error: function (reg) {
+                        submited = false;
+                        layer.alert('保存失败！');
+                    }
+                });
+            }
+        }
+ }
+
+
+</script>
+</body>
+</html>
